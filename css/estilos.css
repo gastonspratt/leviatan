@@ -427,3 +427,42 @@ nav{
 }
 
 }
+
+.resultados{
+    max-width:1200px;
+    margin:50px auto;
+    padding:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:25px;
+}
+
+.tarjeta{
+    background:#181818;
+    border:1px solid #333;
+    border-radius:12px;
+    padding:20px;
+    transition:.25s;
+}
+
+.tarjeta:hover{
+    border-color:#c31414;
+    transform:translateY(-4px);
+}
+
+.tarjeta h3{
+    color:white;
+    margin-bottom:8px;
+}
+
+.tarjeta p{
+    margin:5px 0;
+    color:#bbb;
+}
+
+.precio{
+    color:#d31a1a;
+    font-size:24px;
+    font-weight:bold;
+    margin-top:15px;
+}
