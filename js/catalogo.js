@@ -8,9 +8,9 @@ Papa.parse(URL_SHEET, {
     header: true,
     skipEmptyLines: true,
 
-    complete: function (resultado) {
+    complete: function(resultado){
         catalogo = resultado.data;
-        console.log("Cantidad de discos:", catalogo.length);
+        console.log("Catálogo cargado:", catalogo.length);
     }
 });
 
@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const buscador = document.getElementById("buscador");
     const resultados = document.getElementById("resultados");
-    const textoManifiesto = document.getElementById("texto-manifiesto");
+
+    resultados.style.display = "none";
 
     buscador.addEventListener("input", () => {
 
@@ -26,36 +27,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (texto === "") {
 
-            textoManifiesto.style.display = "block";
-            resultados.style.display = "none";
             resultados.innerHTML = "";
+            resultados.style.display = "none";
             return;
+
         }
 
-        textoManifiesto.style.display = "none";
-        resultados.style.display = "grid";
-
         const encontrados = catalogo.filter(disco =>
+
             (disco.Artista || "").toLowerCase().includes(texto) ||
             (disco.Album || "").toLowerCase().includes(texto)
+
         );
 
         resultados.innerHTML = "";
 
         if (encontrados.length === 0) {
+
+            resultados.style.display = "block";
             resultados.innerHTML = "<p>No se encontraron resultados.</p>";
             return;
+
         }
+
+        resultados.style.display = "grid";
 
         encontrados.forEach(disco => {
 
             resultados.innerHTML += `
                 <div class="tarjeta">
                     <h3>${disco.Artista}</h3>
+
                     <p><strong>${disco.Album}</strong></p>
+
                     <p>Sello: ${disco.Sello}</p>
+
                     <p>Origen: ${disco.Origen}</p>
+
                     <p>Estado: ${disco.Estado}</p>
+
                     <div class="precio">$${disco.Precio}</div>
                 </div>
             `;
