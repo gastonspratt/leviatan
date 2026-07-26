@@ -17,8 +17,7 @@ Papa.parse(URL_SHEET, {
 
     console.log("Cantidad de discos:", catalogo.length);
 
-    console.log(Object.keys(catalogo[0]));
-
+    console.table(Object.keys(catalogo[0]));
 }
 
 });
