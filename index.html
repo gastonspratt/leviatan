@@ -2,13 +2,14 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Leviatán Music | CDs de Rock y Metal</title>
+    <title>Leviatán Music | CDs originales de Rock y Metal</title>
 
     <meta name="description"
-        content="Leviatán Music. CDs originales de Heavy Metal, Power Metal, Gothic, Doom, Thrash, Progressive y Hard Rock.">
+        content="Leviatán Music. Catálogo de CDs originales de Heavy Metal, Hard Rock, Progressive, Power, Doom, Gothic y mucho más.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,25 +20,32 @@
     <link rel="stylesheet" href="css/estilos.css">
 
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.5.4/papaparse.min.js"></script>
+
 </head>
 
 <body>
 
-    <header>
+<header>
 
-        <div class="logo">
-            <h1>LEVIATÁN</h1>
-            <span>MUSIC</span>
-        </div>
+    <div class="logo">
 
-        <nav>
-            <a href="#">Inicio</a>
-            <a href="#">Catálogo</a>
-            <a href="#">Novedades</a>
-            <a href="#">Contacto</a>
-        </nav>
+        <h1>LEVIATÁN</h1>
+        <span>MUSIC</span>
 
-    </header>
+    </div>
+
+    <nav>
+
+        <a href="#">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#manifiesto">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+
+    </nav>
+
+</header>
+
+    <main>
 
     <section class="hero">
 
@@ -53,10 +61,8 @@
             </h2>
 
             <p class="descripcion">
-                Leviatán reúne una colección de cientos de CDs originales de Heavy,
-                Power, Gothic, Doom, Thrash, Progressive y Hard Rock.
-
-                Cada disco merece seguir sonando.
+                Descubrí cientos de CDs originales de Heavy Metal, Hard Rock,
+                Progressive, Power, Doom, Gothic y mucho más.
             </p>
 
             <div class="buscador">
@@ -66,13 +72,15 @@
                     type="text"
                     placeholder="Buscar artista o álbum...">
 
-                <button type="button">
-                    Buscar
-                </button>
+            </div>
 
-           <div id="resultados" class="resultados" style="display:none;"></div>
+            <section id="catalogo">
 
-<div class="estadisticas">
+                <div id="resultados" class="resultados"></div>
+
+            </section>
+
+            <div class="estadisticas">
 
                 <div>
                     <strong>520+</strong>
@@ -95,28 +103,19 @@
 
     </section>
 
-    <!-- RESULTADOS DEL BUSCADOR -->
-
-   <!-- MANIFIESTO -->
-
-<section class="manifiesto">
-
-    <div id="texto-manifiesto">
+    <section id="manifiesto" class="manifiesto">
 
         <h2>Leviatán no es para cualquiera.</h2>
 
         <p>
             Es para quienes todavía disfrutan abrir un estuche,
-            leer un libreto y escuchar un álbum completo.
-
-            Para quienes saben que un CD es mucho más que un formato.
+            leer el libreto y escuchar un álbum completo.
         </p>
 
         <p>
-            Nuestro catálogo reúne títulos clásicos,
-            importados, ediciones difíciles de conseguir
-            y joyas del metal que siguen esperando
-            un nuevo hogar.
+            Nuestro catálogo reúne títulos clásicos, importados,
+            ediciones difíciles de conseguir y joyas del rock y el metal
+            esperando un nuevo hogar.
         </p>
 
         <blockquote>
@@ -129,9 +128,7 @@
 
         </blockquote>
 
-    </div>
-
-</section>
+    </section>
 
     <section class="destacados">
 
@@ -139,32 +136,32 @@
 
         <p>
             Muy pronto vas a poder explorar el catálogo completo,
-            buscar por artista, álbum o género y consultar la disponibilidad
-            de cada CD en tiempo real.
+            filtrar por sello, origen, estado y muchos criterios más.
         </p>
 
     </section>
 
-    <footer>
+</main>
 
-        <h3>LEVIATÁN MUSIC</h3>
+    <footer id="contacto">
 
-        <p>
-            Administración en General Cabrera, Córdoba.
-        </p>
+    <h3>LEVIATÁN MUSIC</h3>
 
-        <p>
-            Stock y envíos desde Buenos Aires.
-        </p>
+    <p>
+        Administración en General Cabrera, Córdoba.
+    </p>
 
-        <p>
-            Rock • Heavy • Gothic • Doom • Power • Progressive • Thrash
-        </p>
+    <p>
+        Stock y envíos desde Buenos Aires.
+    </p>
 
-    </footer>
+    <p>
+        Rock • Heavy • Doom • Gothic • Progressive • Power • Thrash
+    </p>
 
-    <script src="js/catalogo.js"></script>
+</footer>
+
+<script src="js/catalogo.js"></script>
 
 </body>
-
 </html>
