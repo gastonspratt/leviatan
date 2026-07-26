@@ -21,3 +21,27 @@ Papa.parse(URL_SHEET, {
 }
 
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const buscador = document.getElementById("buscador");
+
+    buscador.addEventListener("input", () => {
+
+        const texto = buscador.value.toLowerCase();
+
+        const resultados = catalogo.filter(disco => {
+
+            return (
+                (disco.Artista || "").toLowerCase().includes(texto) ||
+                (disco.Album || "").toLowerCase().includes(texto)
+            );
+
+        });
+
+        console.clear();
+        console.table(resultados);
+
+    });
+
+});
