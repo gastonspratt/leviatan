@@ -4,19 +4,14 @@ const URL_SHEET =
 let catalogo = [];
 
 Papa.parse(URL_SHEET, {
-
     download: true,
     header: true,
     skipEmptyLines: true,
 
-    complete: function(resultado){
-
+    complete: function (resultado) {
         catalogo = resultado.data;
-
         console.log("Cantidad de discos:", catalogo.length);
-
     }
-
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,14 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const texto = buscador.value.toLowerCase();
 
-        const resultados = catalogo.filter(disco => {
-
-            return (
-                (disco.Artista || "").toLowerCase().includes(texto) ||
-                (disco.Album || "").toLowerCase().includes(texto)
-            );
-
-        });
+        const resultados = catalogo.filter(disco =>
+            (disco.Artista || "").toLowerCase().includes(texto) ||
+            (disco.Album || "").toLowerCase().includes(texto)
+        );
 
         contenedor.innerHTML = "";
 
@@ -45,21 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="tarjeta">
                     <h3>${disco.Artista}</h3>
                     <p><strong>${disco.Album}</strong></p>
-                    <p>${disco.Sello}</p>
-                    <p>${disco.Origen}</p>
-                    <p>${disco.Estado}</p>
+                    <p>Sello: ${disco.Sello}</p>
+                    <p>Origen: ${disco.Origen}</p>
+                    <p>Estado: ${disco.Estado}</p>
                     <div class="precio">$${disco.Precio}</div>
                 </div>
             `;
-
         });
-
-    });
-
-});        });
-
-        console.clear();
-        console.table(resultados);
 
     });
 
