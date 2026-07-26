@@ -146,7 +146,8 @@ HERO
 
 .hero-overlay{
 
-    max-width:900px;
+    max-width:1200px;
+    width:100%;
 
 }
 
@@ -429,9 +430,9 @@ nav{
 }
 
 .resultados{
-    max-width:1200px;
-    margin:50px auto;
-    padding:20px;
+    width:100%;
+    margin:20px 0 40px;
+    padding:0;
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
     gap:25px;
