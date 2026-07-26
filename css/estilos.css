@@ -1,1 +1,426 @@
 
+/* ===========================
+   LEVIATÁN MUSIC
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    --negro:#111111;
+    --gris:#1c1c1c;
+    --gris-claro:#2b2b2b;
+
+    --rojo:#b71c1c;
+    --rojo-hover:#d32f2f;
+
+    --texto:#f2f2f2;
+    --texto-secundario:#bbbbbb;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    background:var(--negro);
+    color:var(--texto);
+
+    font-family:Inter,sans-serif;
+
+    line-height:1.7;
+
+}
+
+a{
+
+    text-decoration:none;
+    color:inherit;
+
+}
+
+/* ===========================
+HEADER
+=========================== */
+
+header{
+
+    position:sticky;
+
+    top:0;
+
+    background:#0d0d0d;
+
+    border-bottom:1px solid #222;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 8%;
+
+    z-index:1000;
+
+}
+
+.logo h1{
+
+    font-family:Oswald,sans-serif;
+
+    font-size:3rem;
+
+    letter-spacing:4px;
+
+}
+
+.logo span{
+
+    color:var(--rojo);
+
+    letter-spacing:8px;
+
+}
+
+nav{
+
+    display:flex;
+
+    gap:35px;
+
+}
+
+nav a{
+
+    color:#ddd;
+
+    transition:.25s;
+
+}
+
+nav a:hover{
+
+    color:var(--rojo);
+
+}
+
+/* ===========================
+HERO
+=========================== */
+
+.hero{
+
+    min-height:85vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:60px 20px;
+
+    background:
+    linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.82)),
+    url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1800&q=80");
+
+    background-size:cover;
+
+    background-position:center;
+
+}
+
+.hero-overlay{
+
+    max-width:900px;
+
+}
+
+.subtitulo{
+
+    color:var(--rojo);
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    margin-bottom:20px;
+
+}
+
+.hero h2{
+
+    font-family:Oswald,sans-serif;
+
+    font-size:4rem;
+
+    line-height:1.1;
+
+    margin-bottom:30px;
+
+}
+
+.descripcion{
+
+    font-size:1.2rem;
+
+    color:var(--texto-secundario);
+
+    margin-bottom:45px;
+
+}
+
+/* ===========================
+BUSCADOR
+=========================== */
+
+.buscador{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+    margin-bottom:50px;
+
+}
+
+.buscador input{
+
+    width:450px;
+
+    max-width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:1rem;
+
+}
+
+.buscador button{
+
+    background:var(--rojo);
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:16px 28px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.25s;
+
+}
+
+.buscador button:hover{
+
+    background:var(--rojo-hover);
+
+}
+
+/* ===========================
+ESTADÍSTICAS
+=========================== */
+
+.estadisticas{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:60px;
+
+}
+
+.estadisticas div{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.estadisticas strong{
+
+    font-size:2rem;
+
+    color:white;
+
+}
+
+.estadisticas span{
+
+    color:var(--texto-secundario);
+
+}
+
+/* ===========================
+SECCIONES
+=========================== */
+
+section{
+
+    padding:90px 8%;
+
+}
+
+.manifiesto{
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+.manifiesto h2{
+
+    font-family:Oswald,sans-serif;
+
+    font-size:3rem;
+
+    margin-bottom:25px;
+
+}
+
+.manifiesto p{
+
+    margin-bottom:20px;
+
+    color:#d2d2d2;
+
+}
+
+blockquote{
+
+    margin-top:45px;
+
+    border-left:5px solid var(--rojo);
+
+    padding-left:25px;
+
+    font-size:1.3rem;
+
+    font-style:italic;
+
+}
+
+.destacados{
+
+    text-align:center;
+
+}
+
+.destacados h2{
+
+    font-family:Oswald,sans-serif;
+
+    font-size:3rem;
+
+    margin-bottom:20px;
+
+}
+
+/* ===========================
+FOOTER
+=========================== */
+
+footer{
+
+    background:#090909;
+
+    border-top:1px solid #222;
+
+    padding:50px;
+
+    text-align:center;
+
+}
+
+footer h3{
+
+    font-family:Oswald,sans-serif;
+
+    margin-bottom:20px;
+
+    letter-spacing:3px;
+
+}
+
+footer p{
+
+    color:#999;
+
+    margin-bottom:10px;
+
+}
+
+/* ===========================
+RESPONSIVE
+=========================== */
+
+@media(max-width:900px){
+
+header{
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+nav{
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+}
+
+.hero h2{
+
+    font-size:2.8rem;
+
+}
+
+.buscador{
+
+    flex-direction:column;
+
+}
+
+.buscador input{
+
+    width:100%;
+
+}
+
+.estadisticas{
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+}
