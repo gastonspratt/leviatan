@@ -17,6 +17,7 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="css/estilos.css">
+
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.5.4/papaparse.min.js"></script>
 </head>
 
@@ -30,16 +31,13 @@
         </div>
 
         <nav>
-
             <a href="#">Inicio</a>
             <a href="#">Catálogo</a>
             <a href="#">Novedades</a>
             <a href="#">Contacto</a>
-
         </nav>
 
     </header>
-
 
     <section class="hero">
 
@@ -55,12 +53,10 @@
             </h2>
 
             <p class="descripcion">
-
                 Leviatán reúne una colección de cientos de CDs originales de Heavy,
                 Power, Gothic, Doom, Thrash, Progressive y Hard Rock.
 
                 Cada disco merece seguir sonando.
-
             </p>
 
             <div class="buscador">
@@ -70,7 +66,7 @@
                     type="text"
                     placeholder="Buscar artista o álbum...">
 
-                <button>
+                <button type="button">
                     Buscar
                 </button>
 
@@ -99,27 +95,28 @@
 
     </section>
 
+    <!-- RESULTADOS DEL BUSCADOR -->
+
+    <section id="resultados" class="resultados"></section>
+
+    <!-- MANIFIESTO -->
 
     <section class="manifiesto">
 
         <h2>Leviatán no es para cualquiera.</h2>
 
         <p>
-
             Es para quienes todavía disfrutan abrir un estuche,
             leer un libreto y escuchar un álbum completo.
 
             Para quienes saben que un CD es mucho más que un formato.
-
         </p>
 
         <p>
-
             Nuestro catálogo reúne títulos clásicos,
             importados, ediciones difíciles de conseguir
             y joyas del metal que siguen esperando
             un nuevo hogar.
-
         </p>
 
         <blockquote>
@@ -134,21 +131,17 @@
 
     </section>
 
-
     <section class="destacados">
 
         <h2>Próximamente</h2>
 
         <p>
-
             Muy pronto vas a poder explorar el catálogo completo,
             buscar por artista, álbum o género y consultar la disponibilidad
             de cada CD en tiempo real.
-
         </p>
 
     </section>
-
 
     <footer>
 
@@ -168,7 +161,8 @@
 
     </footer>
 
-<script src="js/catalogo.js"></script>
+    <script src="js/catalogo.js"></script>
+
 </body>
 
 </html>
