@@ -17,35 +17,39 @@ Papa.parse(URL_SHEET, {
 document.addEventListener("DOMContentLoaded", () => {
 
     const buscador = document.getElementById("buscador");
-    const contenedor = document.getElementById("resultados");
-    const manifiesto = document.getElementById("manifiesto");
+    const resultados = document.getElementById("resultados");
+    const textoManifiesto = document.getElementById("texto-manifiesto");
 
     buscador.addEventListener("input", () => {
 
-        const texto = buscador.value.toLowerCase();
-        if(texto.trim() === ""){
+        const texto = buscador.value.trim().toLowerCase();
 
-    manifiesto.style.display = "block";
-    contenedor.style.display = "none";
-    contenedor.innerHTML = "";
+        if (texto === "") {
 
-    return;
+            textoManifiesto.style.display = "block";
+            resultados.style.display = "none";
+            resultados.innerHTML = "";
+            return;
+        }
 
-}
+        textoManifiesto.style.display = "none";
+        resultados.style.display = "grid";
 
-manifiesto.style.display = "none";
-contenedor.style.display = "grid";
-
-        const resultados = catalogo.filter(disco =>
+        const encontrados = catalogo.filter(disco =>
             (disco.Artista || "").toLowerCase().includes(texto) ||
             (disco.Album || "").toLowerCase().includes(texto)
         );
 
-        contenedor.innerHTML = "";
+        resultados.innerHTML = "";
 
-        resultados.forEach(disco => {
+        if (encontrados.length === 0) {
+            resultados.innerHTML = "<p>No se encontraron resultados.</p>";
+            return;
+        }
 
-            contenedor.innerHTML += `
+        encontrados.forEach(disco => {
+
+            resultados.innerHTML += `
                 <div class="tarjeta">
                     <h3>${disco.Artista}</h3>
                     <p><strong>${disco.Album}</strong></p>
@@ -55,6 +59,7 @@ contenedor.style.display = "grid";
                     <div class="precio">$${disco.Precio}</div>
                 </div>
             `;
+
         });
 
     });
