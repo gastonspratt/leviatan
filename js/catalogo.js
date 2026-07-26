@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     buscador.addEventListener("input", () => {
 
         const texto = buscador.value.trim().toLowerCase();
-
+const heroContenido = document.getElementById("hero-contenido");
         if (texto === "") {
 
             resultados.innerHTML = "";
