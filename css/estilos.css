@@ -57,17 +57,17 @@ header{
 
     top:0;
 
-    background:#0d0d0d;
-
-    border-bottom:1px solid #222;
-
     display:flex;
-
-    justify-content:space-between;
 
     align-items:center;
 
-    padding:18px 8%;
+    justify-content:space-between;
+
+    padding:20px 8%;
+
+    background:#0d0d0d;
+
+    border-bottom:1px solid #222;
 
     z-index:1000;
 
@@ -110,6 +110,34 @@ nav a{
 nav a:hover{
 
     color:var(--rojo);
+
+}
+
+.buscador-header{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    margin:0 40px;
+
+}
+
+.buscador-header input{
+
+    width:100%;
+
+    max-width:520px;
+
+    padding:14px 18px;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:1rem;
 
 }
 
@@ -190,31 +218,19 @@ BUSCADOR
 =========================== */
 
 .buscador{
-
     display:flex;
-
     justify-content:center;
-
     gap:12px;
-
     margin-bottom:50px;
-
 }
 
 .buscador input{
-
     width:450px;
-
     max-width:100%;
-
     padding:16px;
-
     border:none;
-
     border-radius:8px;
-
     font-size:1rem;
-
 }
 
 .buscador button{
