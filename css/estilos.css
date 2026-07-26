@@ -123,13 +123,13 @@ HERO
 
     display:flex;
 
-    align-items:center;
+    align-items:flex-start;
 
     justify-content:center;
 
     text-align:center;
 
-    padding:60px 20px;
+    padding:60px 20px 100px;
 
     background:
         linear-gradient(
@@ -146,7 +146,9 @@ HERO
 
 .hero-overlay{
 
-    max-width:900px;
+    width:100%;
+    max-width:1200px;
+    margin:auto;
 
 }
 
@@ -253,6 +255,8 @@ ESTADÍSTICAS
     justify-content:center;
 
     gap:60px;
+
+    margin-top:60px;
 
 }
 
@@ -429,11 +433,12 @@ nav{
 }
 
 .resultados{
+    width:100%;
     max-width:1200px;
     margin:50px auto;
-    padding:20px;
+    padding:20px 0;
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:25px;
 }
 
