@@ -11,14 +11,14 @@ Papa.parse(URL_SHEET, {
 
     complete: function(resultado){
 
-        console.clear();
+    window.catalogo = resultado.data;
 
-        console.log("Catálogo cargado");
+    console.table(catalogo);
 
-        console.table(resultado.data);
+    console.log("Cantidad de discos:", catalogo.length);
 
-        console.log("Cantidad de discos:", resultado.data.length);
+    console.log(Object.keys(catalogo[0]));
 
-    }
+}
 
 });
