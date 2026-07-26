@@ -18,10 +18,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const buscador = document.getElementById("buscador");
     const contenedor = document.getElementById("resultados");
+    const manifiesto = document.getElementById("manifiesto");
 
     buscador.addEventListener("input", () => {
 
         const texto = buscador.value.toLowerCase();
+        if(texto.trim() === ""){
+
+    manifiesto.style.display = "block";
+    contenedor.style.display = "none";
+    contenedor.innerHTML = "";
+
+    return;
+
+}
+
+manifiesto.style.display = "none";
+contenedor.style.display = "grid";
 
         const resultados = catalogo.filter(disco =>
             (disco.Artista || "").toLowerCase().includes(texto) ||
