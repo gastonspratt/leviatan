@@ -161,8 +161,8 @@ HERO
 
 .hero{
 
-    min-height:70vh;
-
+min-height:38vh;
+   
     display:flex;
 
     justify-content:center;
@@ -171,7 +171,7 @@ HERO
 
     text-align:center;
 
-    padding:70px 8%;
+padding:45px 8%;
 
     background:
 
@@ -225,8 +225,8 @@ HERO
 
     font-family:Oswald,sans-serif;
 
-    font-size:4.8rem;
-
+font-size:3.6rem;
+   
     line-height:1.05;
 
     text-transform:uppercase;
