@@ -113,45 +113,43 @@ nav a:hover{
 
     color:var(--rojo);
 
-}
+.buscador-hero{
 
-.buscador-header{
-
-    flex:1;
+    margin:45px auto 10px;
 
     display:flex;
 
     justify-content:center;
 
-    margin:0 40px;
-
 }
 
-.buscador-header input{
+.buscador-hero input{
 
     width:100%;
 
-    max-width:520px;
+    max-width:700px;
 
-    padding:15px 18px;
+    padding:18px 22px;
 
     border:none;
 
-    border-radius:8px;
+    border-radius:10px;
 
-    font-size:1rem;
+    font-size:1.1rem;
 
     background:white;
 
-    transition:.25s;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
 
 }
 
-.buscador-header input:focus{
+.buscador-hero input:focus{
 
     outline:none;
 
-    box-shadow:0 0 0 3px rgba(183,28,28,.35);
+    box-shadow:
+        0 0 0 3px rgba(153,27,27,.35),
+        0 10px 30px rgba(0,0,0,.35);
 
 }
 
@@ -315,7 +313,9 @@ CATÁLOGO
 
 #catalogo{
 
-    padding-top:40px;
+    margin-top:-25px;
+
+    padding-top:0;
 
     padding-bottom:90px;
 
