@@ -75,9 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             <article class="card">
 
-                <img
-                    src="img/sin-portada.jpg"
-                    alt="${item.Album}">
+            <img
+src="img/${item.Imagen || 'sin-portada.jpg'}"
+alt="${item.Album}"
+onerror="this.src='img/sin-portada.jpg'">
 
                 <div class="card-body">
 
