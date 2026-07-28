@@ -147,69 +147,25 @@ HERO
 
 .hero{
 
-    min-height:85vh;
+    min-height:80vh;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     text-align:center;
 
-    padding:60px 20px;
+    padding:80px 20px;
 
     background:
         linear-gradient(
-            rgba(0,0,0,.72),
-            rgba(0,0,0,.88)
+            rgba(0,0,0,.55),
+            rgba(0,0,0,.82)
         ),
-        url("../img/hero.jpg");
+        url("../img/fondo.png");
 
     background-size:cover;
-    background-position:center;
+    background-position:center center;
     background-repeat:no-repeat;
-
-}
-
-.hero-overlay{
-
-    max-width:1200px;
-    width:100%;
-
-}
-
-.subtitulo{
-
-    color:var(--rojo);
-
-    letter-spacing:3px;
-
-    text-transform:uppercase;
-
-    margin-bottom:20px;
-
-}
-
-.hero h2{
-
-    font-family:Oswald,sans-serif;
-
-    font-size:4rem;
-
-    line-height:1.1;
-
-    margin-bottom:30px;
-
-}
-
-.descripcion{
-
-    font-size:1.2rem;
-
-    color:var(--texto-secundario);
-
-    margin-bottom:45px;
 
 }
 
