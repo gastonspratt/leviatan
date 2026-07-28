@@ -57,22 +57,11 @@ header{
 
     top:0;
 
-    display:flex;
+    backdrop-filter:blur(12px);
 
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:20px 8%;
-
-    background:#0d0d0d;
-
-    border-bottom:1px solid #222;
-
-    z-index:1000;
+    background:rgba(10,10,10,.88);
 
 }
-
 .logo h1{
 
     font-family:Oswald,sans-serif;
@@ -145,27 +134,17 @@ nav a:hover{
 HERO
 =========================== */
 
-.hero{
+.hero h2{
 
-    min-height:80vh;
+    font-family:Oswald,sans-serif;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
+    font-size:4.8rem;
 
-    padding:80px 20px;
+    line-height:1.05;
 
-    background:
-        linear-gradient(
-            rgba(0,0,0,.55),
-            rgba(0,0,0,.82)
-        ),
-        url("../img/fondo.png");
+    text-transform:uppercase;
 
-    background-size:cover;
-    background-position:center center;
-    background-repeat:no-repeat;
+    text-shadow:0 4px 20px rgba(0,0,0,.7);
 
 }
 
@@ -173,45 +152,19 @@ HERO
 BUSCADOR
 =========================== */
 
-.buscador{
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    margin-bottom:50px;
-}
+.buscador-header input{
 
-.buscador input{
-    width:450px;
-    max-width:100%;
-    padding:16px;
-    border:none;
-    border-radius:8px;
-    font-size:1rem;
-}
-
-.buscador button{
-
-    background:var(--rojo);
-
-    color:white;
-
-    border:none;
-
-    border-radius:8px;
-
-    padding:16px 28px;
-
-    cursor:pointer;
-
-    font-weight:bold;
+    background:#f7f7f7;
 
     transition:.25s;
 
 }
 
-.buscador button:hover{
+.buscador-header input:focus{
 
-    background:var(--rojo-hover);
+    outline:none;
+
+    box-shadow:0 0 0 3px rgba(183,28,28,.35);
 
 }
 
@@ -322,13 +275,17 @@ FOOTER
 =========================== */
 
 .footer{
-    background:#0a0a0a;
-    border-top:1px solid #2b2b2b;
-    padding:60px 20px;
-    color:#e5e5e5;
-    text-align:center;
-}
 
+    border-top:1px solid #292929;
+
+    background:
+    linear-gradient(
+        to bottom,
+        #141414,
+        #090909
+    );
+
+}
 .footer h2{
     color:#b11217;
     font-size:2rem;
@@ -428,16 +385,25 @@ nav{
 }
 
 .tarjeta{
-    background:#181818;
-    border:1px solid #333;
-    border-radius:12px;
-    padding:20px;
+
+    background:rgba(25,25,25,.82);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:14px;
+
     transition:.25s;
+
 }
 
 .tarjeta:hover{
-    border-color:#c31414;
-    transform:translateY(-4px);
+
+    transform:translateY(-6px);
+
+    border-color:#b71c1c;
+
+    box-shadow:0 18px 40px rgba(0,0,0,.45);
+
 }
 
 .tarjeta h3{
@@ -455,18 +421,49 @@ nav{
     font-size:24px;
     font-weight:bold;
     margin-top:15px;
-}
-
+   
 .frase{
 
-    font-size:1.4rem;
+    margin:25px 0;
 
-    color:#e0e0e0;
+    font-size:1.35rem;
+
+    color:#d8d8d8;
 
     font-style:italic;
 
-    margin-bottom:30px;
-
     letter-spacing:.5px;
+
+}
+
+.btn-principal{
+
+    display:inline-block;
+
+    margin-top:15px;
+
+    padding:16px 34px;
+
+    border:1px solid #b71c1c;
+
+    background:rgba(183,28,28,.9);
+
+    color:white;
+
+    border-radius:6px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.btn-principal:hover{
+
+    background:#d32f2f;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(183,28,28,.35);
 
 }
