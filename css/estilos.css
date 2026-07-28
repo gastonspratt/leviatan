@@ -456,3 +456,17 @@ nav{
     font-weight:bold;
     margin-top:15px;
 }
+
+.frase{
+
+    font-size:1.4rem;
+
+    color:#e0e0e0;
+
+    font-style:italic;
+
+    margin-bottom:30px;
+
+    letter-spacing:.5px;
+
+}
