@@ -1,6 +1,34 @@
-/* ==========================================
+/* ==========================================================
    LEVIATÁN COLECCIONABLES
-========================================== */
+   ESTILOS.CSS
+   PARTE 1/4
+   ========================================================== */
+
+
+/* ---------- VARIABLES ---------- */
+
+:root{
+
+    --fondo:#0b0b0b;
+    --panel:#151515;
+    --panel2:#1d1d1d;
+
+    --texto:#f5f5f5;
+    --gris:#b7b7b7;
+
+    --rojo:#8e1b1b;
+    --rojoHover:#b32727;
+
+    --borde:#2b2b2b;
+
+    --sombra:0 12px 35px rgba(0,0,0,.45);
+
+    --ancho:1200px;
+
+}
+
+
+/* ---------- RESET ---------- */
 
 *{
     margin:0;
@@ -8,180 +36,164 @@
     box-sizing:border-box;
 }
 
-:root{
-
-    --negro:#0f0f10;
-    --gris:#171717;
-    --gris2:#222;
-
-    --rojo:#991b1b;
-    --rojo-hover:#b71c1c;
-
-    --texto:#f5f5f5;
-    --texto2:#c8c8c8;
-
-}
 
 html{
+
     scroll-behavior:smooth;
+
 }
+
 
 body{
 
-    background:var(--negro);
+    background:var(--fondo);
 
     color:var(--texto);
 
-    font-family:Inter,sans-serif;
+    font-family:"Inter",sans-serif;
 
-    line-height:1.7;
+    line-height:1.6;
 
 }
+
+
+/* ---------- LINKS ---------- */
 
 a{
+
     color:inherit;
+
     text-decoration:none;
+
 }
 
-/* ==========================================
-HEADER
-========================================== */
+
+/* ---------- IMÁGENES ---------- */
+
+img{
+
+    display:block;
+
+    max-width:100%;
+
+}
+
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+
 
 header{
 
-    position:sticky;
+    position:fixed;
 
     top:0;
+    left:0;
 
-    z-index:1000;
+    width:100%;
+
+    height:78px;
+
+    padding:0 40px;
 
     display:flex;
 
-    align-items:center;
-
     justify-content:space-between;
 
-    padding:20px 8%;
+    align-items:center;
 
-    background:rgba(8,8,8,.92);
+    background:rgba(10,10,10,.85);
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(10px);
 
     border-bottom:1px solid rgba(255,255,255,.06);
 
+    z-index:999;
+
 }
+
+
+/* ---------- LOGO ---------- */
+
+.logo{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
 
 .logo h1{
 
-    font-family:Oswald,sans-serif;
+    font-family:"Oswald",sans-serif;
 
-    font-size:3rem;
+    font-size:2rem;
 
-    letter-spacing:4px;
+    font-weight:700;
 
-    color:white;
+    letter-spacing:3px;
+
+    line-height:1;
 
 }
+
 
 .logo span{
 
-    color:var(--rojo);
+    font-size:.72rem;
 
-    letter-spacing:8px;
+    color:#c9c9c9;
 
-    font-size:.95rem;
+    letter-spacing:4px;
 
 }
+
+
+/* ---------- MENÚ ---------- */
 
 nav{
 
     display:flex;
 
-    gap:35px;
+    gap:28px;
 
 }
 
+
 nav a{
 
-    color:#ddd;
+    color:#dddddd;
+
+    font-size:.95rem;
 
     transition:.25s;
 
 }
 
+
 nav a:hover{
 
-    color:var(--rojo);
-
-.buscador-hero{
-
-    margin:45px auto 10px;
-
-    display:flex;
-
-    justify-content:center;
+    color:white;
 
 }
 
-.buscador-hero input{
 
-    width:100%;
+/* ==========================================================
+   HERO
+   ========================================================== */
 
-    max-width:700px;
-
-    padding:18px 22px;
-
-    border:none;
-
-    border-radius:10px;
-
-    font-size:1.1rem;
-
-    background:white;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
-
-}
-
-.buscador-hero input:focus{
-
-    outline:none;
-
-    box-shadow:
-        0 0 0 3px rgba(153,27,27,.35),
-        0 10px 30px rgba(0,0,0,.35);
-
-}
-
-/* ==========================================
-HERO
-========================================== */
 
 .hero{
 
-min-height:38vh;
-   
-    display:flex;
+    margin-top:78px;
 
-    justify-content:center;
+    height:440px;
 
-    align-items:center;
+    position:relative;
 
-    text-align:center;
-
-padding:45px 8%;
-
-    background:
-
-        linear-gradient(
-
-            rgba(0,0,0,.55),
-
-            rgba(0,0,0,.82)
-
-        ),
-
-        url("../img/fondo.png");
+    background-image:url("../img/fondo.png");
 
     background-size:cover;
 
@@ -191,245 +203,454 @@ padding:45px 8%;
 
 }
 
+
+/* ---------- CAPA OSCURA ---------- */
+
 .hero-overlay{
 
     width:100%;
+    height:100%;
 
-    max-width:1100px;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+
+    linear-gradient(
+        rgba(0,0,0,.68),
+        rgba(0,0,0,.72)
+    );
 
 }
+
+
+/* ---------- CONTENIDO ---------- */
 
 #hero-contenido{
 
-    max-width:900px;
+    width:min(900px,92%);
 
-    margin:auto;
+    text-align:center;
 
 }
 
+
 .subtitulo{
 
-    color:var(--rojo);
+    color:#d5d5d5;
 
     text-transform:uppercase;
 
     letter-spacing:4px;
 
-    margin-bottom:25px;
+    font-size:.82rem;
+
+    margin-bottom:18px;
 
 }
+
 
 .hero h2{
 
-    font-family:Oswald,sans-serif;
+    font-family:"Oswald",sans-serif;
 
-font-size:3.6rem;
-   
+    font-size:3.5rem;
+
     line-height:1.05;
 
-    text-transform:uppercase;
-
-    text-shadow:0 5px 18px rgba(0,0,0,.6);
+    margin-bottom:18px;
 
 }
+
 
 .frase{
 
-    margin:30px 0;
+    font-size:1.2rem;
 
-    font-size:1.35rem;
+    color:#e5e5e5;
 
-    color:#dddddd;
-
-    font-style:italic;
+    margin-bottom:18px;
 
 }
+
 
 .descripcion{
 
     max-width:760px;
 
-    margin:auto;
+    margin:0 auto;
 
-    color:var(--texto2);
+    color:#c7c7c7;
 
-    font-size:1.15rem;
-
-}
-
-/* ==========================================
-SECCIONES
-========================================== */
-
-section{
-
-    padding:80px 8%;
+    font-size:1rem;
 
 }
 
-.manifiesto{
 
-    max-width:900px;
+/* ---------- BUSCADOR ---------- */
 
-    margin:auto;
+.buscador-hero{
 
-}
+    margin-top:38px;
 
-.manifiesto h2{
+    display:flex;
 
-    font-family:Oswald,sans-serif;
-
-    font-size:3rem;
-
-    margin-bottom:30px;
+    justify-content:center;
 
 }
 
-.manifiesto p{
 
-    color:#d0d0d0;
+#buscador{
 
-    margin-bottom:20px;
+    width:min(720px,100%);
+
+    padding:16px 22px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:999px;
+
+    font-size:1rem;
+
+    background:white;
+
+    color:#222;
+
+    box-shadow:var(--sombra);
+
+    transition:.25s;
 
 }
 
-blockquote{
 
-    margin-top:45px;
+#buscador:focus{
 
-    border-left:5px solid var(--rojo);
-
-    padding-left:25px;
-
-    font-size:1.3rem;
-
-    font-style:italic;
+    transform:scale(1.02);
 
 }
 
-/* ==========================================
-CATÁLOGO
-========================================== */
+/* ==========================================================
+   CATÁLOGO
+   PARTE 2/4
+   ========================================================== */
+
+
+/* ---------- CONTENEDOR ---------- */
 
 #catalogo{
 
-    margin-top:-25px;
+    position:relative;
 
-    padding-top:0;
+    margin-top:-70px;
 
-    padding-bottom:90px;
-
-    background:linear-gradient(
-        to bottom,
-        rgba(10,10,10,.15),
-        #111
-    );
+    padding:0 0 80px;
 
 }
 
+
+/* Fondo que continúa visualmente el hero */
+
+#catalogo::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.25),
+            rgba(11,11,11,.95) 240px,
+            var(--fondo) 500px
+        );
+
+    pointer-events:none;
+
+    z-index:0;
+
+}
+
+
+/* ---------- RESULTADOS ---------- */
+
 .resultados{
 
-    width:100%;
+    position:relative;
+
+    z-index:2;
+
+    width:min(var(--ancho),92%);
+
+    margin:auto;
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    grid-template-columns:
+        repeat(auto-fill,minmax(250px,1fr));
 
     gap:28px;
 
 }
 
-/* ==========================================
-TARJETAS
-========================================== */
 
-.tarjeta{
+/* ==========================================================
+   TARJETAS
+   ========================================================== */
 
-    background:rgba(20,20,20,.92);
 
-    border:1px solid rgba(255,255,255,.08);
+.card{
 
-    border-radius:14px;
+    background:rgba(20,20,20,.95);
+
+    border:1px solid var(--borde);
+
+    border-radius:18px;
 
     overflow:hidden;
 
-    transition:.25s;
+    transition:
+        transform .25s,
+        box-shadow .25s,
+        border-color .25s;
 
-    box-shadow:0 10px 25px rgba(0,0,0,.18);
-
-}
-
-.tarjeta:hover{
-
-    transform:translateY(-6px);
-
-    border-color:#991b1b;
-
-    box-shadow:0 18px 45px rgba(0,0,0,.45);
+    box-shadow:var(--sombra);
 
 }
 
-.tarjeta img{
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#4a4a4a;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.55);
+
+}
+
+
+/* ---------- IMAGEN ---------- */
+
+.card img{
 
     width:100%;
 
-    display:block;
+    aspect-ratio:1/1;
+
+    object-fit:cover;
+
+    background:#202020;
 
 }
 
-.tarjeta .contenido{
 
-    padding:20px;
+/* ---------- CUERPO ---------- */
+
+.card-body{
+
+    padding:18px;
 
 }
 
-.tarjeta h3{
 
-    color:white;
+/* ---------- TÍTULO ---------- */
 
-    font-size:1.15rem;
+.card h3{
+
+    font-size:1.08rem;
 
     margin-bottom:10px;
 
-    line-height:1.3;
+    line-height:1.35;
 
 }
 
-.tarjeta p{
 
-    color:#bdbdbd;
+/* ---------- DATOS ---------- */
 
-    margin:5px 0;
+.card p{
+
+    color:var(--gris);
+
+    font-size:.92rem;
+
+    margin-bottom:6px;
 
 }
+
+
+/* ---------- PRECIO ---------- */
 
 .precio{
 
     margin-top:18px;
 
-    color:#d73030;
+    font-size:1.35rem;
 
-    font-size:1.5rem;
+    font-weight:700;
 
-    font-weight:bold;
+    color:white;
 
 }
 
-/* ==========================================
-FOOTER
-========================================== */
+
+/* ---------- BOTÓN ---------- */
+
+.card button{
+
+    width:100%;
+
+    margin-top:18px;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:var(--rojo);
+
+    color:white;
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+
+.card button:hover{
+
+    background:var(--rojoHover);
+
+}
+
+
+/* ==========================================================
+   MENSAJES
+   ========================================================== */
+
+
+.sin-resultados{
+
+    width:100%;
+
+    padding:70px 30px;
+
+    text-align:center;
+
+    color:#d0d0d0;
+
+    font-size:1.15rem;
+
+}
+
+/* ==========================================================
+   MANIFIESTO
+   PARTE 3/4
+   ========================================================== */
+
+.manifiesto{
+
+    width:min(900px,92%);
+
+    margin:90px auto;
+
+    text-align:center;
+
+}
+
+.manifiesto h2{
+
+    font-family:"Oswald",sans-serif;
+
+    font-size:2.5rem;
+
+    margin-bottom:28px;
+
+}
+
+.manifiesto p{
+
+    color:var(--gris);
+
+    font-size:1.08rem;
+
+    margin-bottom:22px;
+
+    line-height:1.9;
+
+}
+
+.manifiesto blockquote{
+
+    margin-top:45px;
+
+    padding:35px;
+
+    border-left:4px solid var(--rojo);
+
+    background:var(--panel);
+
+    border-radius:14px;
+
+    font-size:1.25rem;
+
+    font-style:italic;
+
+    color:#ececec;
+
+}
+
+.manifiesto blockquote strong{
+
+    display:block;
+
+    margin-top:16px;
+
+    font-family:"Oswald",sans-serif;
+
+    font-size:1.6rem;
+
+    letter-spacing:1px;
+
+    color:white;
+
+}
+
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
 
 .footer{
 
-    background:linear-gradient(
-        to bottom,
-        #151515,
-        #090909
-    );
+    margin-top:90px;
 
-    border-top:1px solid rgba(255,255,255,.08);
+    background:#080808;
 
-    padding:70px 8%;
+    border-top:1px solid var(--borde);
+
+    padding:70px 20px 40px;
+
+}
+
+.footer-content{
+
+    width:min(var(--ancho),92%);
+
+    margin:auto;
 
     text-align:center;
 
@@ -437,56 +658,75 @@ FOOTER
 
 .footer h2{
 
-    color:white;
-
-    font-family:Oswald,sans-serif;
-
-    font-size:2.2rem;
+    font-family:"Oswald",sans-serif;
 
     letter-spacing:2px;
+
+    font-size:2rem;
 
     margin-bottom:10px;
 
 }
 
-.footer .slogan{
+.slogan{
 
-    color:#bdbdbd;
+    color:#d0d0d0;
+
+    margin-bottom:40px;
+
+    font-size:1rem;
+
+}
+
+.footer-links{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:40px;
+
+    flex-wrap:wrap;
 
     margin-bottom:35px;
 
-    font-style:italic;
+}
+
+.footer-links p{
+
+    color:var(--gris);
 
 }
 
-.footer-links,
-.footer-locations{
-
-    margin-bottom:30px;
-
-}
-
-.footer p{
-
-    margin:8px 0;
-
-}
-
-.footer a{
+.footer-links a{
 
     transition:.25s;
 
 }
 
-.footer a:hover{
+.footer-links a:hover{
 
-    color:var(--rojo);
+    color:white;
+
+}
+
+.footer-locations{
+
+    margin-bottom:35px;
+
+}
+
+.footer-locations p{
+
+    color:#bdbdbd;
+
+    margin:8px 0;
 
 }
 
 .copyright{
 
-    margin-top:40px;
+    margin-top:30px;
 
     color:#777;
 
@@ -494,112 +734,323 @@ FOOTER
 
 }
 
-/* ==========================================
-RESPONSIVE
-========================================== */
 
-@media(max-width:1000px){
+/* ==========================================================
+   ANIMACIONES
+   ========================================================== */
 
-header{
+@keyframes aparecer{
 
-    flex-direction:column;
+    from{
 
-    gap:25px;
+        opacity:0;
 
-}
+        transform:translateY(18px);
 
-.logo{
+    }
 
-    text-align:center;
+    to{
 
-}
+        opacity:1;
 
-.buscador-header{
+        transform:translateY(0);
 
-    width:100%;
-
-    margin:0;
+    }
 
 }
 
-nav{
+.card{
 
-    justify-content:center;
-
-    flex-wrap:wrap;
-
-    gap:20px;
+    animation:aparecer .45s ease;
 
 }
 
-.hero{
 
-    min-height:60vh;
+/* ==========================================================
+   SEPARADORES
+   ========================================================== */
 
-}
+section{
 
-.hero h2{
-
-    font-size:3.2rem;
-
-}
-
-.frase{
-
-    font-size:1.15rem;
+    position:relative;
 
 }
 
-.resultados{
+section h2{
 
-    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
-
-}
+    text-wrap:balance;
 
 }
 
-@media(max-width:700px){
+::selection{
 
-.hero{
+    background:var(--rojo);
 
-    padding:60px 25px;
-
-}
-
-.hero h2{
-
-    font-size:2.4rem;
+    color:white;
 
 }
 
-.subtitulo{
+/* ==========================================================
+   RESPONSIVE
+   PARTE 4/4
+   ========================================================== */
 
-    font-size:.9rem;
+@media (max-width: 992px){
+
+    header{
+
+        padding:0 24px;
+
+    }
+
+    nav{
+
+        gap:18px;
+
+    }
+
+    .hero{
+
+        height:400px;
+
+    }
+
+    .hero h2{
+
+        font-size:2.8rem;
+
+    }
+
+    .descripcion{
+
+        font-size:.95rem;
+
+    }
+
+    .resultados{
+
+        grid-template-columns:
+            repeat(auto-fill,minmax(220px,1fr));
+
+        gap:22px;
+
+    }
+
+    .footer-links{
+
+        gap:24px;
+
+    }
 
 }
 
-.descripcion{
+@media (max-width: 768px){
 
-    font-size:1rem;
+    header{
+
+        height:auto;
+
+        padding:18px 20px;
+
+        flex-direction:column;
+
+        gap:16px;
+
+    }
+
+    .hero{
+
+        margin-top:120px;
+
+        height:380px;
+
+    }
+
+    .hero h2{
+
+        font-size:2.2rem;
+
+    }
+
+    .subtitulo{
+
+        letter-spacing:2px;
+
+        font-size:.75rem;
+
+    }
+
+    .frase{
+
+        font-size:1.05rem;
+
+    }
+
+    .descripcion{
+
+        font-size:.95rem;
+
+    }
+
+    #buscador{
+
+        font-size:.95rem;
+
+        padding:14px 18px;
+
+    }
+
+    #catalogo{
+
+        margin-top:-45px;
+
+    }
+
+    .resultados{
+
+        grid-template-columns:
+            repeat(auto-fill,minmax(200px,1fr));
+
+        gap:20px;
+
+    }
+
+    .manifiesto{
+
+        margin:70px auto;
+
+    }
+
+    .manifiesto h2{
+
+        font-size:2rem;
+
+    }
+
+    .manifiesto blockquote{
+
+        padding:24px;
+
+        font-size:1.1rem;
+
+    }
+
+    .footer{
+
+        padding:55px 20px 35px;
+
+    }
 
 }
 
-.resultados{
+@media (max-width: 520px){
 
-    grid-template-columns:1fr;
+    nav{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:14px;
+
+    }
+
+    .hero{
+
+        height:350px;
+
+    }
+
+    .hero h2{
+
+        font-size:1.8rem;
+
+    }
+
+    .frase{
+
+        font-size:1rem;
+
+    }
+
+    .descripcion{
+
+        font-size:.9rem;
+
+    }
+
+    .resultados{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .card{
+
+        max-width:380px;
+
+        margin:auto;
+
+    }
+
+    .footer-links{
+
+        flex-direction:column;
+
+        gap:14px;
+
+    }
 
 }
 
-.manifiesto h2{
+/* ==========================================================
+   TRANSICIONES GLOBALES
+   ========================================================== */
 
-    font-size:2.2rem;
+button,
+input,
+a,
+.card{
+
+    transition:
+        background-color .25s,
+        color .25s,
+        border-color .25s,
+        box-shadow .25s,
+        transform .25s;
 
 }
 
-.footer h2{
+/* ==========================================================
+   BARRA DE SCROLL
+   ========================================================== */
 
-    font-size:1.8rem;
+::-webkit-scrollbar{
+
+    width:10px;
 
 }
 
+::-webkit-scrollbar-track{
+
+    background:#101010;
+
 }
+
+::-webkit-scrollbar-thumb{
+
+    background:#3a3a3a;
+
+    border-radius:999px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#555;
+
+}
+
+/* ==========================================================
+   FIN
+   ========================================================== */
