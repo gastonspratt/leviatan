@@ -8,10 +8,13 @@ Papa.parse(URL_SHEET, {
     header: true,
     skipEmptyLines: true,
 
-    complete: function(resultado){
+    complete: function(resultado) {
+
         catalogo = resultado.data;
         console.log("Catálogo cargado:", catalogo.length);
+
     }
+
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -21,10 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     resultados.style.display = "none";
 
-    buscador.addEventListener("input", () => {
+    buscador.addEventListener("input", buscar);
+
+    function buscar() {
 
         const texto = buscador.value.trim().toLowerCase();
-const heroContenido = document.getElementById("hero-contenido");
+
         if (texto === "") {
 
             resultados.innerHTML = "";
@@ -33,45 +38,71 @@ const heroContenido = document.getElementById("hero-contenido");
 
         }
 
-        const encontrados = catalogo.filter(disco =>
+        const encontrados = catalogo.filter(item => {
 
-            (disco.Artista || "").toLowerCase().includes(texto) ||
-            (disco.Album || "").toLowerCase().includes(texto)
+            return (
+                (item.Artista || "").toLowerCase().includes(texto) ||
+                (item.Album || "").toLowerCase().includes(texto)
+            );
 
-        );
+        });
+
+        mostrarResultados(encontrados);
+
+    }
+
+    function mostrarResultados(lista) {
 
         resultados.innerHTML = "";
 
-        if (encontrados.length === 0) {
+        if (lista.length === 0) {
 
             resultados.style.display = "block";
-            resultados.innerHTML = "<p>No se encontraron resultados.</p>";
+            resultados.innerHTML =
+                `<div class="sin-resultados">
+                    No se encontraron resultados.
+                </div>`;
+
             return;
 
         }
 
         resultados.style.display = "grid";
 
-        encontrados.forEach(disco => {
+        lista.forEach(item => {
 
             resultados.innerHTML += `
-                <div class="tarjeta">
-                    <h3>${disco.Artista}</h3>
 
-                    <p><strong>${disco.Album}</strong></p>
+            <article class="card">
 
-                    <p>Sello: ${disco.Sello}</p>
+                <img
+                    src="img/sin-portada.jpg"
+                    alt="${item.Album}">
 
-                    <p>Origen: ${disco.Origen}</p>
+                <div class="card-body">
 
-                    <p>Estado: ${disco.Estado}</p>
+                    <h3>${item.Artista}</h3>
 
-                    <div class="precio">$${disco.Precio}</div>
+                    <p><strong>${item.Album}</strong></p>
+
+                    <p>${item.Sello}</p>
+
+                    <p>${item.Origen}</p>
+
+                    <p>${item.Estado}</p>
+
+                    <div class="precio">
+                        $${item.Precio}
+                    </div>
+
                 </div>
+
+            </article>
+
             `;
 
         });
 
-    });
+    }
 
 });
