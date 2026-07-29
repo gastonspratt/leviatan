@@ -3,14 +3,15 @@ const URL_SHEET =
 
 let catalogo = [];
 
-function normalizar(texto) {
-    return (texto || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "");
-}
+function obtenerDestacados(cantidad = 12) {
 
+    const copia = [...catalogo];
+
+    copia.sort(() => Math.random() - 0.5);
+
+    return copia.slice(0, cantidad);
+
+}
 const texto = normalizar(buscador.value);
 
 const encontrados = catalogo.filter(item =>
