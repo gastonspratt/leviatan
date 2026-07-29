@@ -3,67 +3,34 @@ const URL_SHEET =
 
 let catalogo = [];
 
-function obtenerDestacados(cantidad = 12) {
-
-    const copia = [...catalogo];
-
-    copia.sort(() => Math.random() - 0.5);
-
-    return copia.slice(0, cantidad);
-
-}
-const texto = normalizar(buscador.value);
-
-const encontrados = catalogo.filter(item =>
-    normalizar(item.Artista).includes(texto) ||
-    normalizar(item.Album).includes(texto)
-);
-
-Papa.parse(URL_SHEET, {
-    download: true,
-    header: true,
-    skipEmptyLines: true,
-
-  complete: function(resultado) {
-
-    catalogo = resultado.data;
-
-    console.log("Catálogo cargado:", catalogo.length);
-
-    mostrarResultados(catalogo.slice(0, 12));
-
-}
-
-});
-
 document.addEventListener("DOMContentLoaded", () => {
 
     const buscador = document.getElementById("buscador");
     const resultados = document.getElementById("resultados");
 
-    buscador.addEventListener("input", buscar);
+    function normalizar(texto) {
 
-    function buscar() {
+        return (texto || "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]/g, "");
 
-        const texto = buscador.value.trim().toLowerCase();
+    }
 
-        if (texto === "") {
+    function obtenerDestacados(cantidad = 12) {
 
-         mostrarResultados(catalogo.slice(0, 12));
-return;
+        const copia = [...catalogo];
+
+        for (let i = copia.length - 1; i > 0; i--) {
+
+            const j = Math.floor(Math.random() * (i + 1));
+
+            [copia[i], copia[j]] = [copia[j], copia[i]];
 
         }
 
-        const encontrados = catalogo.filter(item => {
-
-            return (
-                (item.Artista || "").toLowerCase().includes(texto) ||
-                (item.Album || "").toLowerCase().includes(texto)
-            );
-
-        });
-
-        mostrarResultados(encontrados);
+        return copia.slice(0, cantidad);
 
     }
 
@@ -73,11 +40,13 @@ return;
 
         if (lista.length === 0) {
 
-            resultados.style.display = "block";
-            resultados.innerHTML =
-                `<div class="sin-resultados">
+            resultados.innerHTML = `
+                <div class="sin-resultados">
                     No se encontraron resultados.
-                </div>`;
+                </div>
+            `;
+
+            resultados.style.display = "block";
 
             return;
 
@@ -91,10 +60,10 @@ return;
 
             <article class="card">
 
-            <img
-src="img/${item.Imagen || 'sin-portada.png'}"
-alt="${item.Album}"
-onerror="this.src='img/sin-portada.png'">
+                <img
+                    src="img/${item.Imagen || "sin-portada.png"}"
+                    alt="${item.Album}"
+                    onerror="this.src='img/sin-portada.png'">
 
                 <div class="card-body">
 
@@ -102,14 +71,14 @@ onerror="this.src='img/sin-portada.png'">
 
                     <p><strong>${item.Album}</strong></p>
 
-                    <p>${item.Sello}</p>
+                    <p>${item.Sello || ""}</p>
 
-                    <p>${item.Origen}</p>
+                    <p>${item.Origen || ""}</p>
 
-                    <p>${item.Estado}</p>
+                    <p>${item.Estado || ""}</p>
 
                     <div class="precio">
-                        $${item.Precio}
+                        $${item.Precio || ""}
                     </div>
 
                 </div>
@@ -121,5 +90,46 @@ onerror="this.src='img/sin-portada.png'">
         });
 
     }
+
+    Papa.parse(URL_SHEET, {
+
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+
+        complete: function(resultado) {
+
+            catalogo = resultado.data;
+
+            console.log("Catálogo cargado:", catalogo.length);
+
+            mostrarResultados(obtenerDestacados());
+
+        }
+
+    });
+
+    buscador.addEventListener("input", () => {
+
+        const texto = normalizar(buscador.value);
+
+        if (texto === "") {
+
+            mostrarResultados(obtenerDestacados());
+
+            return;
+
+        }
+
+        const encontrados = catalogo.filter(item =>
+
+            normalizar(item.Artista).includes(texto) ||
+            normalizar(item.Album).includes(texto)
+
+        );
+
+        mostrarResultados(encontrados);
+
+    });
 
 });
