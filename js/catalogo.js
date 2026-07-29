@@ -40,8 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const buscador = document.getElementById("buscador");
     const resultados = document.getElementById("resultados");
 
-    resultados.style.display = "none";
-
     buscador.addEventListener("input", buscar);
 
     function buscar() {
@@ -51,8 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (texto === "") {
 
             resultados.innerHTML = "";
-            resultados.style.display = "none";
-            return;
+resultados.style.display = "none";
+return;
 
         }
 
