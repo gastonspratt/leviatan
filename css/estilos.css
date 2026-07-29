@@ -1051,6 +1051,26 @@ a,
 
 }
 
+.hero{
+    position: relative;
+    z-index: 10;
+}
+
+#hero-contenido{
+    position: relative;
+    z-index: 20;
+}
+
+.buscador-hero{
+    position: relative;
+    z-index: 30;
+}
+
+#buscador{
+    position: relative;
+    z-index: 40;
+}
+
 /* ==========================================================
    FIN
    ========================================================== */
