@@ -346,7 +346,9 @@ nav a:hover{
 
     position:relative;
 
-    margin-top:-30px;
+    margin-top: 25px;
+   
+    padding-bottom: 80px;
 
     padding:0 0 80px;
 
