@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <img
 src="img/${item.Imagen || 'sin-portada.png'}"
 alt="${item.Album}"
-onerror="this.src='img/sin-portada.jpg'">
+onerror="this.src='img/sin-portada.png'">
 
                 <div class="card-body">
 
