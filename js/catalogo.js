@@ -23,12 +23,15 @@ Papa.parse(URL_SHEET, {
     header: true,
     skipEmptyLines: true,
 
-    complete: function(resultado) {
+  complete: function(resultado) {
 
-        catalogo = resultado.data;
-        console.log("Catálogo cargado:", catalogo.length);
+    catalogo = resultado.data;
 
-    }
+    console.log("Catálogo cargado:", catalogo.length);
+
+    mostrarResultados(catalogo.slice(0, 12));
+
+}
 
 });
 
