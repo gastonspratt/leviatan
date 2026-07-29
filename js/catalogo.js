@@ -3,6 +3,21 @@ const URL_SHEET =
 
 let catalogo = [];
 
+function normalizar(texto) {
+    return (texto || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "");
+}
+
+const texto = normalizar(buscador.value);
+
+const encontrados = catalogo.filter(item =>
+    normalizar(item.Artista).includes(texto) ||
+    normalizar(item.Album).includes(texto)
+);
+
 Papa.parse(URL_SHEET, {
     download: true,
     header: true,
