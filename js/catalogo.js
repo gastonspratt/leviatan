@@ -48,8 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (texto === "") {
 
-            resultados.innerHTML = "";
-resultados.style.display = "none";
+         mostrarResultados(catalogo.slice(0, 12));
 return;
 
         }
