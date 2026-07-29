@@ -189,7 +189,7 @@ nav a:hover{
 
     margin-top:78px;
 
-    height:440px;
+    height:330px;
 
     position:relative;
 
@@ -305,7 +305,7 @@ nav a:hover{
 
 #buscador{
 
-    width:min(720px,100%);
+    width:600px;
 
     padding:16px 22px;
 
@@ -346,7 +346,7 @@ nav a:hover{
 
     position:relative;
 
-    margin-top:-70px;
+    margin-top:-30px;
 
     padding:0 0 80px;
 
