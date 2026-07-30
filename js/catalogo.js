@@ -56,6 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         lista.forEach(item => {
 
+            const precio = Number(item.Precio).toLocaleString("es-AR", {
+    style: "currency",
+    currency: "ARS"
+});
+
             resultados.innerHTML += `
 
             <article class="card">
@@ -78,8 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p>${item.Estado || ""}</p>
 
                     <div class="precio">
-                        $${item.Precio || ""}
-                    </div>
+    ${precio}
+</div>
 
                 </div>
 
