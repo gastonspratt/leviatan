@@ -99,8 +99,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         complete: function(resultado) {
 
-            catalogo = resultado.data;
-
+       catalogo = resultado.data.filter(item =>
+    (item.Artista || "").trim() &&
+    (item.Album || "").trim()
+);
             console.log("Catálogo cargado:", catalogo.length);
 
             mostrarResultados(obtenerDestacados());
