@@ -82,8 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <p>${item.Estado || ""}</p>
 
-                    <div class="precio">
-    ${precio}
+                   <div class="precio">
+    ${item.Precio || ""}
 </div>
 
                 </div>
