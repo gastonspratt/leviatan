@@ -249,4 +249,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (url) {
                 document
-                    .querySelectorAll(`
+                    .querySelectorAll(`img[data-key="${CSS.escape(clave)}"]`)
+                    .forEach(img => { img.src = url; });
+            }
+
+            // Pausa para no pasarnos del límite de pedidos por minuto de Discogs
+            await new Promise(r => setTimeout(r, 1100));
+
+        }
+
+    }
+
+    Papa.parse(URL_SHEET, {
+
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+
+        complete: function(resultado) {
+
+       catalogo = resultado.data.filter(item =>
+    (item.Artista || "").trim() &&
+    (item.Album || "").trim()
+);
+            console.log("Catálogo cargado:", catalogo.length);
+
+            mostrarResultados(obtenerDestacados());
+
+        }
+
+    });
+
+    buscador.addEventListener("input", () => {
+
+        const texto = normalizar(buscador.value);
+
+        if (texto === "") {
+
+            mostrarResultados(obtenerDestacados());
+
+            return;
+
+        }
+
+        const encontrados = catalogo.filter(item =>
+
+            normalizar(item.Artista).includes(texto) ||
+            normalizar(item.Album).includes(texto)
+
+        );
+
+        mostrarResultados(encontrados);
+
+    });
+
+});
