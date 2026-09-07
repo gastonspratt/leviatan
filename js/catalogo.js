@@ -4,6 +4,9 @@ const URL_SHEET =
 // ⚠️ Reemplazá esta URL por la que te dio Cloudflare al publicar el Worker
 const URL_PROXY_DISCOGS = "https://leviatan-portadas.f-g-spratt.workers.dev";
 
+// Número de WhatsApp del negocio (formato internacional, sin + ni espacios)
+const WHATSAPP_NUMERO = "5493584283858";
+
 let catalogo = [];
 
 // ---- Caché de portadas (persiste entre visitas del usuario) ----
@@ -16,6 +19,27 @@ function guardarCachePortadas() {
 
 function claveItem(artista, album) {
     return ((artista || "") + "___" + (album || "")).toLowerCase().trim();
+}
+
+// Considera "sin imagen" tanto una celda vacía como un placeholder tipo "sin-portada.jpg"
+function tieneImagenValida(valor) {
+    const v = (valor || "").trim().toLowerCase();
+    if (!v) return false;
+    if (v.includes("sin-portada") || v.includes("sin_portada") || v === "sinportada") return false;
+    return true;
+}
+
+function armarLinkWhatsApp(item) {
+
+    const partes = [
+        `${item.Artista} - ${item.Album}`,
+        item.Precio ? `Precio: ${item.Precio}` : null
+    ].filter(Boolean);
+
+    const mensaje = `Hola! Te consulto por este disco:\n${partes.join("\n")}`;
+
+    return `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensaje)}`;
+
 }
 
 // Limpia texto de ruido que arruina las búsquedas (paréntesis, "bootleg", "reedición", etc.)
@@ -172,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <img
                     data-key="${clave}"
-                    src="img/${item.Imagen || "sin-portada.png"}"
+                    src="img/${tieneImagenValida(item.Imagen) ? item.Imagen : "sin-portada.png"}"
                     alt="${item.Album}"
                     onerror="this.src='img/sin-portada.png'">
 
@@ -192,14 +216,22 @@ document.addEventListener("DOMContentLoaded", () => {
     ${item.Precio || ""}
 </div>
 
+                    <a
+                        class="btn-whatsapp"
+                        href="${armarLinkWhatsApp(item)}"
+                        target="_blank"
+                        rel="noopener">
+                        Consultar por WhatsApp
+                    </a>
+
                 </div>
 
             </article>
 
             `;
 
-            // Si la planilla no trae Imagen, la buscamos automáticamente
-            if (!(item.Imagen || "").trim()) {
+            // Si la planilla no trae Imagen válida, la buscamos automáticamente
+            if (!tieneImagenValida(item.Imagen)) {
                 colaPendiente.push({ item, clave });
             }
 
@@ -217,58 +249,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (url) {
                 document
-                    .querySelectorAll(`img[data-key="${CSS.escape(clave)}"]`)
-                    .forEach(img => { img.src = url; });
-            }
-
-            // Pausa para no pasarnos del límite de pedidos por minuto de Discogs
-            await new Promise(r => setTimeout(r, 1100));
-
-        }
-
-    }
-
-    Papa.parse(URL_SHEET, {
-
-        download: true,
-        header: true,
-        skipEmptyLines: true,
-
-        complete: function(resultado) {
-
-       catalogo = resultado.data.filter(item =>
-    (item.Artista || "").trim() &&
-    (item.Album || "").trim()
-);
-            console.log("Catálogo cargado:", catalogo.length);
-
-            mostrarResultados(obtenerDestacados());
-
-        }
-
-    });
-
-    buscador.addEventListener("input", () => {
-
-        const texto = normalizar(buscador.value);
-
-        if (texto === "") {
-
-            mostrarResultados(obtenerDestacados());
-
-            return;
-
-        }
-
-        const encontrados = catalogo.filter(item =>
-
-            normalizar(item.Artista).includes(texto) ||
-            normalizar(item.Album).includes(texto)
-
-        );
-
-        mostrarResultados(encontrados);
-
-    });
-
-});
+                    .querySelectorAll(`
