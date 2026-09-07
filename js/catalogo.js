@@ -3,10 +3,62 @@ const URL_SHEET =
 
 let catalogo = [];
 
+// ---- Caché de portadas (persiste entre visitas del usuario) ----
+const CACHE_KEY = "leviatan_portadas_cache";
+let cachePortadas = JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
+
+function guardarCachePortadas() {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(cachePortadas));
+}
+
+function claveItem(artista, album) {
+    return ((artista || "") + "___" + (album || "")).toLowerCase().trim();
+}
+
+async function buscarPortadaItunes(artista, album) {
+
+    const clave = claveItem(artista, album);
+
+    // Si ya la buscamos antes (aunque no haya encontrado nada), no repetir
+    if (clave in cachePortadas) return cachePortadas[clave];
+
+    try {
+
+        const termino = encodeURIComponent(`${artista} ${album}`);
+
+        const resp = await fetch(
+            `https://itunes.apple.com/search?term=${termino}&entity=album&limit=1`
+        );
+
+        const data = await resp.json();
+
+        if (data.results && data.results.length > 0) {
+            // iTunes devuelve 100x100 por defecto, pedimos una versión más grande
+            const url = data.results[0].artworkUrl100.replace("100x100bb", "600x600bb");
+            cachePortadas[clave] = url;
+        } else {
+            cachePortadas[clave] = null;
+        }
+
+    } catch (e) {
+
+        console.warn("No se pudo buscar portada:", artista, album, e);
+        cachePortadas[clave] = null;
+
+    }
+
+    guardarCachePortadas();
+
+    return cachePortadas[clave];
+
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const buscador = document.getElementById("buscador");
     const resultados = document.getElementById("resultados");
+
+    let colaPendiente = [];
 
     function normalizar(texto) {
 
@@ -37,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function mostrarResultados(lista) {
 
         resultados.innerHTML = "";
+        colaPendiente = [];
 
         if (lista.length === 0) {
 
@@ -57,15 +110,18 @@ document.addEventListener("DOMContentLoaded", () => {
         lista.forEach(item => {
 
             const precio = Number(item.Precio).toLocaleString("es-AR", {
-    style: "currency",
-    currency: "ARS"
-});
+                style: "currency",
+                currency: "ARS"
+            });
+
+            const clave = claveItem(item.Artista, item.Album);
 
             resultados.innerHTML += `
 
             <article class="card">
 
                 <img
+                    data-key="${clave}"
                     src="img/${item.Imagen || "sin-portada.png"}"
                     alt="${item.Album}"
                     onerror="this.src='img/sin-portada.png'">
@@ -92,7 +148,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
             `;
 
+            // Si la planilla no trae Imagen, la buscamos en iTunes
+            if (!(item.Imagen || "").trim()) {
+                colaPendiente.push({ item, clave });
+            }
+
         });
+
+        procesarColaPortadas();
+
+    }
+
+    async function procesarColaPortadas() {
+
+        for (const { item, clave } of colaPendiente) {
+
+            const url = await buscarPortadaItunes(item.Artista, item.Album);
+
+            if (url) {
+                document
+                    .querySelectorAll(`img[data-key="${CSS.escape(clave)}"]`)
+                    .forEach(img => { img.src = url; });
+            }
+
+            // pequeña pausa entre pedidos para no saturar la API pública
+            await new Promise(r => setTimeout(r, 150));
+
+        }
 
     }
 
