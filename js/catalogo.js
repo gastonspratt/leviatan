@@ -1,10 +1,13 @@
 const URL_SHEET =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=0&single=true&output=csv";
 
+// ⚠️ Reemplazá esta URL por la que te dio Cloudflare al publicar el Worker
+const URL_PROXY_DISCOGS = "https://leviatan-portadas.f-g-spratt.workers.dev";
+
 let catalogo = [];
 
 // ---- Caché de portadas (persiste entre visitas del usuario) ----
-const CACHE_KEY = "leviatan_portadas_cache";
+const CACHE_KEY = "leviatan_portadas_cache_v2";
 let cachePortadas = JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
 
 function guardarCachePortadas() {
@@ -15,16 +18,49 @@ function claveItem(artista, album) {
     return ((artista || "") + "___" + (album || "")).toLowerCase().trim();
 }
 
-async function buscarPortadaItunes(artista, album) {
+// Limpia texto de ruido que arruina las búsquedas (paréntesis, "bootleg", "reedición", etc.)
+function limpiarParaBusqueda(texto) {
 
-    const clave = claveItem(artista, album);
+    return (texto || "")
+        .replace(/\(.*?\)/g, "")
+        .replace(/\[.*?\]/g, "")
+        .replace(/\b(reedicion|reedición|bootleg|vinilo|vinyl|lp|cd|remaster(izado)?|edicion|edición|import|importado)\b/gi, "")
+        .replace(/\s+/g, " ")
+        .trim();
 
-    // Si ya la buscamos antes (aunque no haya encontrado nada), no repetir
-    if (clave in cachePortadas) return cachePortadas[clave];
+}
+
+async function buscarPortadaDiscogs(artista, album) {
 
     try {
 
-        const termino = encodeURIComponent(`${artista} ${album}`);
+        const a = encodeURIComponent(limpiarParaBusqueda(artista));
+        const b = encodeURIComponent(limpiarParaBusqueda(album));
+
+        const resp = await fetch(`${URL_PROXY_DISCOGS}?artist=${a}&album=${b}`);
+
+        if (!resp.ok) return null;
+
+        const data = await resp.json();
+
+        return data.cover || null;
+
+    } catch (e) {
+
+        console.warn("Discogs falló:", artista, album, e);
+        return null;
+
+    }
+
+}
+
+async function buscarPortadaItunes(artista, album) {
+
+    try {
+
+        const termino = encodeURIComponent(
+            `${limpiarParaBusqueda(artista)} ${limpiarParaBusqueda(album)}`
+        );
 
         const resp = await fetch(
             `https://itunes.apple.com/search?term=${termino}&entity=album&limit=1`
@@ -33,23 +69,37 @@ async function buscarPortadaItunes(artista, album) {
         const data = await resp.json();
 
         if (data.results && data.results.length > 0) {
-            // iTunes devuelve 100x100 por defecto, pedimos una versión más grande
-            const url = data.results[0].artworkUrl100.replace("100x100bb", "600x600bb");
-            cachePortadas[clave] = url;
-        } else {
-            cachePortadas[clave] = null;
+            return data.results[0].artworkUrl100.replace("100x100bb", "600x600bb");
         }
+
+        return null;
 
     } catch (e) {
 
-        console.warn("No se pudo buscar portada:", artista, album, e);
-        cachePortadas[clave] = null;
+        console.warn("iTunes falló:", artista, album, e);
+        return null;
 
     }
 
+}
+
+// Discogs primero (mejor cobertura de nicho), iTunes como respaldo
+async function buscarPortada(artista, album) {
+
+    const clave = claveItem(artista, album);
+
+    if (clave in cachePortadas) return cachePortadas[clave];
+
+    let url = await buscarPortadaDiscogs(artista, album);
+
+    if (!url) {
+        url = await buscarPortadaItunes(artista, album);
+    }
+
+    cachePortadas[clave] = url;
     guardarCachePortadas();
 
-    return cachePortadas[clave];
+    return url;
 
 }
 
@@ -148,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             `;
 
-            // Si la planilla no trae Imagen, la buscamos en iTunes
+            // Si la planilla no trae Imagen, la buscamos automáticamente
             if (!(item.Imagen || "").trim()) {
                 colaPendiente.push({ item, clave });
             }
@@ -163,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         for (const { item, clave } of colaPendiente) {
 
-            const url = await buscarPortadaItunes(item.Artista, item.Album);
+            const url = await buscarPortada(item.Artista, item.Album);
 
             if (url) {
                 document
@@ -171,8 +221,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     .forEach(img => { img.src = url; });
             }
 
-            // pequeña pausa entre pedidos para no saturar la API pública
-            await new Promise(r => setTimeout(r, 150));
+            // Pausa para no pasarnos del límite de pedidos por minuto de Discogs
+            await new Promise(r => setTimeout(r, 1100));
 
         }
 
