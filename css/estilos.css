@@ -1075,5 +1075,48 @@ a,
 }
 
 /* ==========================================================
+   BOTÓN WHATSAPP (tarjetas del catálogo)
+   ========================================================== */
+
+.btn-whatsapp{
+
+    display:block;
+
+    width:100%;
+
+    margin-top:16px;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    background:#25D366;
+
+    color:#0b0b0b;
+
+    font-size:.95rem;
+
+    font-weight:700;
+
+    transition:.25s;
+
+}
+
+.btn-whatsapp:hover{
+
+    background:#1ebc59;
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ==========================================================
    FIN
    ========================================================== */
