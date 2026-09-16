@@ -1,653 +1,386 @@
-                            error:
-                                function(error) {
-                                    console.error(
-                                        `No se pudo cargar ${tipo}:`,
-                                        error
-                                    );
+export default {
+  async fetch(request, env) {
 
-                                    resolve([]);
-                                }
-                        }
-                    );
-                }
-            );
+    // ============================
+    // CORS
+    // ============================
+
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type"
         }
-
-        function escapeHtml(valor) {
-            return (valor || "")
-                .toString()
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        function escapeAttribute(valor) {
-            return escapeHtml(valor)
-                .replace(/`/g, "&#096;");
-        }
-
-        Promise.all([
-            cargarCSV(
-                URL_SHEET,
-                "CD"
-            ),
-
-            cargarCSV(
-                URL_SHEET_COMICS,
-                "COMIC"
-            )
-
-        ])
-            .then(
-                (
-                    [cds, comics]
-                ) => {
-
-                    const catalogoCDs =
-                        cds.filter(
-                            item =>
-                                (
-                                    item.Artista ||
-                                    ""
-                                ).trim() &&
-                                (
-                                    item.Album ||
-                                    ""
-                                ).trim()
-                        );
-
-                    const catalogoComics =
-                        comics.filter(
-                            item =>
-                                (
-                                    item["Título"] ||
-                                    ""
-                                ).trim()
-                        );
-
-                    catalogo = [
-                        ...catalogoCDs,
-                        ...catalogoComics
-                    ];
-
-                    console.log(
-                        "CDs cargados:",
-                        catalogoCDs.length
-                    );
-
-                    console.log(
-                        "Cómics cargados:",
-                        catalogoComics.length
-                    );
-
-                    console.log(
-                        "Catálogo total:",
-                        catalogo.length
-                    );
-
-                    mostrarResultados(
-                        obtenerDestacados()
-                    );
-                }
-            );
-
-        buscador.addEventListener(
-            "input",
-            () => {
-
-                const texto =
-                    normalizar(
-                        buscador.value
-                    );
-
-                if (texto === "") {
-                    mostrarResultados(
-                        obtenerDestacados()
-                    );
-
-                    return;
-                }
-
-                const encontrados =
-                    catalogo.filter(
-                        item => {
-
-                            let camposBusqueda;
-
-                            if (
-                                item.Tipo ===
-                                "COMIC"
-                            ) {
-
-                                camposBusqueda = [
-                                    item["Título"],
-                                    item.Serie,
-                                    item["Número"],
-                                    item.Editorial,
-                                    item.Origen,
-                                    item["Código universal"],
-                                    item["Año de lanzamiento"]
-                                ];
-
-                            } else {
-
-                                camposBusqueda = [
-                                    item.Artista,
-                                    item.Album,
-                                    item.Sello,
-                                    item.Origen,
-                                    item["Año de lanzamiento"]
-                                ];
-                            }
-
-                            return camposBusqueda.some(
-                                campo =>
-                                    normalizar(
-                                        campo
-                                    ).includes(
-                                        texto
-                                    )
-                            );
-                        }
-                    );
-
-                mostrarResultados(
-                    encontrados
-                );
-            }
-        );
-    }
-);
-
-async function buscarPortada(artista, album) {
-    const clave =
-        claveItem(artista, album);
-
-    if (clave in cachePortadas) {
-        return cachePortadas[clave];
+      });
     }
 
-    let url =
-        await buscarPortadaDiscogs(
-            artista,
-            album
-        );
+    const url = new URL(request.url);
 
-    if (!url) {
-        url =
-            await buscarPortadaItunes(
-                artista,
-                album
-            );
+    // ============================
+    // RUTA: PORTADAS DE CÓMICS
+    // ============================
+
+    if (url.pathname === "/comic") {
+      const isbn = limpiarISBN(
+        url.searchParams.get("isbn") || ""
+      );
+
+      if (!isbn) {
+        return jsonResponse({
+          cover: null,
+          error: "Falta el parámetro isbn"
+        });
+      }
+
+      try {
+        const resultado =
+          await buscarComicWhakoom(isbn);
+
+        return jsonResponse(resultado);
+
+      } catch (error) {
+        return jsonResponse({
+          cover: null,
+          error: String(error),
+          isbn
+        });
+      }
     }
 
-    cachePortadas[clave] = url;
-    guardarCachePortadas();
+    // ============================
+    // RUTA PRINCIPAL: DISCOGS
+    // ============================
 
-    return url;
-}
+    const artist =
+      url.searchParams.get("artist") || "";
 
-async function buscarPortadaComicWhakoom(isbn) {
-    const codigo = limpiarISBN(isbn);
+    const album =
+      url.searchParams.get("album") || "";
 
-    if (!codigo) return null;
-
-    if (codigo in cachePortadasComics) {
-        return cachePortadasComics[codigo];
+    if (!artist && !album) {
+      return jsonResponse({
+        cover: null,
+        error: "Faltan parámetros artist/album"
+      });
     }
+
+    const discogsUrl =
+      `https://api.discogs.com/database/search` +
+      `?artist=${encodeURIComponent(artist)}` +
+      `&release_title=${encodeURIComponent(album)}` +
+      `&type=release` +
+      `&token=${env.DISCOGS_TOKEN}`;
 
     try {
-        const resp = await fetch(
-            `${URL_PROXY_COMICS}?isbn=${encodeURIComponent(codigo)}`
-        );
-
-        if (!resp.ok) {
-            console.warn(
-                "Whakoom proxy respondió:",
-                resp.status,
-                codigo
-            );
-            return null;
+      const resp = await fetch(
+        discogsUrl,
+        {
+          headers: {
+            "User-Agent":
+              "TiendaLeviatanApp/1.0 +https://tiendaleviatan.com"
+          }
         }
+      );
 
-        const data = await resp.json();
-        const url = data.cover || null;
+      if (!resp.ok) {
+        return jsonResponse({
+          cover: null,
+          error:
+            `Discogs respondió ${resp.status}`
+        });
+      }
 
-        cachePortadasComics[codigo] = url;
-        guardarCachePortadasComics();
+      const data =
+        await resp.json();
 
-        return url;
-    } catch (e) {
-        console.warn(
-            "Whakoom falló:",
-            codigo,
-            e
-        );
-        return null;
+      let cover = null;
+
+      if (
+        data.results &&
+        data.results.length > 0
+      ) {
+        cover =
+          data.results[0].cover_image ||
+          data.results[0].thumb ||
+          null;
+      }
+
+      return jsonResponse({
+        cover
+      });
+
+    } catch (err) {
+      return jsonResponse({
+        cover: null,
+        error: String(err)
+      });
     }
+  }
+};
+
+function limpiarISBN(valor) {
+  return (valor || "")
+    .toString()
+    .replace(/[^0-9Xx]/g, "")
+    .trim();
 }
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-        const buscador =
-            document.getElementById(
-                "buscador"
-            );
+async function buscarComicWhakoom(isbn) {
 
-        const resultados =
-            document.getElementById(
-                "resultados"
-            );
+  const codigo = limpiarISBN(isbn);
 
-        let colaPendiente = [];
+  if (!codigo) {
+    return {
+      cover: null,
+      error: "ISBN inválido"
+    };
+  }
 
-        function normalizar(texto) {
-            return (texto || "")
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(
-                    /[\u0300-\u036f]/g,
-                    ""
-                )
-                .replace(
-                    /[^a-z0-9]/g,
-                    ""
-                );
+  try {
+
+    // ==========================================
+    // 1. BUSCAR EL CÓMIC POR ISBN EN WHAKOOM
+    // ==========================================
+
+    const searchUrl =
+      `https://www.whakoom.com/search?s=${encodeURIComponent(codigo)}`;
+
+    const searchResp =
+      await fetch(searchUrl, {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36",
+          "Accept":
+            "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
         }
+      });
 
-        function obtenerDestacados(
-            cantidad = 12
-        ) {
-            const copia =
-                [...catalogo];
-
-            for (
-                let i = copia.length - 1;
-                i > 0;
-                i--
-            ) {
-                const j =
-                    Math.floor(
-                        Math.random() *
-                        (i + 1)
-                    );
-
-                [
-                    copia[i],
-                    copia[j]
-                ] = [
-                    copia[j],
-                    copia[i]
-                ];
-            }
-
-            return copia.slice(
-                0,
-                cantidad
-            );
-        }
-
-        function mostrarResultados(lista) {
-            resultados.innerHTML = "";
-            colaPendiente = [];
-
-            if (lista.length === 0) {
-                resultados.innerHTML = `
-                    <div class="sin-resultados">
-                        No se encontraron resultados.
-                    </div>
-                `;
-
-                resultados.style.display =
-                    "block";
-
-                return;
-            }
-
-            resultados.style.display =
-                "grid";
-
-            lista.forEach(item => {
-                const esComic =
-                    item.Tipo === "COMIC";
-
-                const titulo =
-                    esComic
-                        ? (
-                            item["Título"] || ""
-                        )
-                        : (
-                            item.Album || ""
-                        );
-
-                const subtitulo =
-                    esComic
-                        ? [
-                            item.Serie,
-                            item["Número"]
-                                ? `Nº ${item["Número"]}`
-                                : ""
-                        ]
-                            .filter(Boolean)
-                            .join(" · ")
-                        : (
-                            item.Artista || ""
-                        );
-
-                const editorialOSello =
-                    esComic
-                        ? (
-                            item.Editorial || ""
-                        )
-                        : (
-                            item.Sello || ""
-                        );    
-
-                                          const anio =
-                    item["Año de lanzamiento"] ||
-                    "";
-
-                const clave =
-                    esComic
-                        ? claveComic(item)
-                        : claveItem(
-                            item.Artista,
-                            item.Album
-                        );
-
-                const imagen =
-                    obtenerRutaImagen(
-                        item.Imagen
-                    );
-
-                resultados.innerHTML += `
-                <article class="card">
-                    <img
-                        data-key="${escapeAttribute(clave)}"
-                        src="${escapeAttribute(imagen)}"
-                        alt="${escapeHtml(titulo)}"
-                        onerror="this.src='img/sin-portada.png'"
-                    >
-                    <div class="card-body">
-                        <h3>${escapeHtml(subtitulo)}</h3>
-                        <p><strong>${escapeHtml(titulo)}</strong></p>
-                        <p>${escapeHtml(editorialOSello)}</p>
-                        <p>${escapeHtml(item.Origen || "")}</p>
-                        ${
-                            anio
-                                ? `<p>${escapeHtml(anio)}</p>`
-                                : ""
-                        }
-                        <p>${escapeHtml(item.Estado || "")}</p>
-                        <div class="precio">
-                            ${escapeHtml(item.Precio || "")}
-                        </div>
-                        <a
-                            class="btn-whatsapp"
-                            href="${escapeAttribute(armarLinkWhatsApp(item))}"
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            Consultar por WhatsApp
-                        </a>
-                    </div>
-                </article>
-                `;
-
-                if (!tieneImagenValida(item.Imagen)) {
-                    colaPendiente.push({
-                        item,
-                        clave
-                    });
-                }
-            });
-
-            procesarColaPortadas();
-        }
-
-        async function procesarColaPortadas() {
-            for (
-                const {
-                    item,
-                    clave
-                }
-                of colaPendiente
-            ) {
-                let url = null;
-
-                if (item.Tipo === "COMIC") {
-                    const isbn =
-                        limpiarISBN(
-                            item["Código universal"]
-                        );
-
-                    if (isbn) {
-                        url =
-                            await buscarPortadaComicWhakoom(
-                                isbn
-                            );
-                    }
-                } else {
-                    url =
-                        await buscarPortada(
-                            item.Artista,
-                            item.Album
-                        );
-                }
-
-                if (url) {
-                    document
-                        .querySelectorAll(
-                            `img[data-key="${CSS.escape(clave)}"]`
-                        )
-                        .forEach(img => {
-                            img.src = url;
-                        });
-                }
-
-                await new Promise(
-                    resolve =>
-                        setTimeout(
-                            resolve,
-                            item.Tipo === "COMIC"
-                                ? 700
-                                : 1100
-                        )
-                );
-            }
-        }
-
-        function cargarCSV(
-            url,
-            tipo
-        ) {
-            return new Promise(
-                resolve => {
-                    Papa.parse(
-                        url,
-                        {
-                            download: true,
-                            header: true,
-                            skipEmptyLines: true,
-
-                            complete:
-                                function(resultado) {
-                                    const datos =
-                                        resultado.data
-                                            .map(
-                                                item => ({
-                                                    ...item,
-                                                    Tipo: tipo
-                                                })
-                                            );
-
-                                    resolve(
-                                        datos
-                                    );
-                                },
-
-                                                        error:
-                                function(error) {
-                                    console.error(
-                                        `No se pudo cargar ${tipo}:`,
-                                        error
-                                    );
-
-                                    resolve([]);
-                                }
-                        }
-                    );
-                }
-            );
-        }
-
-        function escapeHtml(valor) {
-            return (valor || "")
-                .toString()
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        function escapeAttribute(valor) {
-            return escapeHtml(valor)
-                .replace(/`/g, "&#096;");
-        }
-
-        Promise.all([
-            cargarCSV(
-                URL_SHEET,
-                "CD"
-            ),
-
-            cargarCSV(
-                URL_SHEET_COMICS,
-                "COMIC"
-            )
-
-        ])
-            .then(
-                (
-                    [cds, comics]
-                ) => {
-
-                    const catalogoCDs =
-                        cds.filter(
-                            item =>
-                                (
-                                    item.Artista ||
-                                    ""
-                                ).trim() &&
-                                (
-                                    item.Album ||
-                                    ""
-                                ).trim()
-                        );
-
-                    const catalogoComics =
-                        comics.filter(
-                            item =>
-                                (
-                                    item["Título"] ||
-                                    ""
-                                ).trim()
-                        );
-
-                    catalogo = [
-                        ...catalogoCDs,
-                        ...catalogoComics
-                    ];
-
-                    console.log(
-                        "CDs cargados:",
-                        catalogoCDs.length
-                    );
-
-                    console.log(
-                        "Cómics cargados:",
-                        catalogoComics.length
-                    );
-
-                    console.log(
-                        "Catálogo total:",
-                        catalogo.length
-                    );
-
-                    mostrarResultados(
-                        obtenerDestacados()
-                    );
-                }
-            );
-
-        buscador.addEventListener(
-            "input",
-            () => {
-
-                const texto =
-                    normalizar(
-                        buscador.value
-                    );
-
-                if (texto === "") {
-                    mostrarResultados(
-                        obtenerDestacados()
-                    );
-
-                    return;
-                }
-
-                const encontrados =
-                    catalogo.filter(
-                        item => {
-
-                            let camposBusqueda;
-
-                            if (
-                                item.Tipo ===
-                                "COMIC"
-                            ) {
-
-                                camposBusqueda = [
-                                    item["Título"],
-                                    item.Serie,
-                                    item["Número"],
-                                    item.Editorial,
-                                    item.Origen,
-                                    item["Código universal"],
-                                    item["Año de lanzamiento"]
-                                ];
-
-                            } else {
-
-                                camposBusqueda = [
-                                    item.Artista,
-                                    item.Album,
-                                    item.Sello,
-                                    item.Origen,
-                                    item["Año de lanzamiento"]
-                                ];
-                            }
-
-                            return camposBusqueda.some(
-                                campo =>
-                                    normalizar(
-                                        campo
-                                    ).includes(
-                                        texto
-                                    )
-                            );
-                        }
-                    );
-
-                mostrarResultados(
-                    encontrados
-                );
-            }
-        );
+    if (!searchResp.ok) {
+      return {
+        cover: null,
+        error:
+          `Whakoom búsqueda respondió ${searchResp.status}`,
+        isbn: codigo
+      };
     }
-);
+
+    const html =
+      await searchResp.text();
+
+    // ==========================================
+    // 2. EXTRAER EL ID DEL CÓMIC
+    // ==========================================
+
+    const patrones = [
+      /href=["']\/comic\/([^"'\/]+)(?:\/[^"']*)?["']/i,
+      /href=["']https?:\/\/www\.whakoom\.com\/comic\/([^"'\/]+)(?:\/[^"']*)?["']/i
+    ];
+
+    let comicId = null;
+
+    for (const patron of patrones) {
+      const encontrado =
+        html.match(patron);
+
+      if (encontrado && encontrado[1]) {
+        comicId =
+          encontrado[1];
+
+        break;
+      }
+    }
+
+    if (!comicId) {
+      return {
+        cover: null,
+        error:
+          "No se encontró un cómic asociado al ISBN en Whakoom",
+        isbn: codigo
+      };
+    }
+
+    // ==========================================
+    // 3. OBTENER DETALLE MEDIANTE QUICKVIEW
+    // ==========================================
+
+    const quickViewResp =
+      await fetch(
+        "https://www.whakoom.com/pwkws.asmx/QuickView",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+            "Accept":
+              "application/json, text/plain, */*",
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36"
+          },
+          body: JSON.stringify({
+            cid: `comic${comicId}`
+          })
+        }
+      );
+
+    if (!quickViewResp.ok) {
+      return {
+        cover: null,
+        error:
+          `QuickView respondió ${quickViewResp.status}`,
+        isbn: codigo,
+        comicId
+      };
+    }
+
+    const quickViewData =
+      await quickViewResp.text();
+
+    // ==========================================
+    // 4. OBTENER HTML DEVUELTO POR QUICKVIEW
+    // ==========================================
+
+    let quickViewHtml =
+      quickViewData;
+
+    try {
+      const json =
+        JSON.parse(quickViewData);
+
+      if (typeof json === "string") {
+        quickViewHtml = json;
+      } else if (
+        json &&
+        typeof json.d === "string"
+      ) {
+        quickViewHtml = json.d;
+      }
+    } catch (e) {
+      // La respuesta puede venir como HTML directo.
+    }
+
+    // ==========================================
+    // 5. EXTRAER URL DE LA PORTADA
+    // ==========================================
+
+    const portadaPatrones = [
+
+      /<a[^>]+class=["'][^"']*fancybox[^"']*["'][^>]+href=["']([^"']+)["']/i,
+
+      /<a[^>]+href=["']([^"']+)["'][^>]+class=["'][^"']*fancybox[^"']*["']/i,
+
+      /<img[^>]+src=["']([^"']+)["']/i
+    ];
+
+    let cover = null;
+
+    for (
+      const patron
+      of portadaPatrones
+    ) {
+
+      const encontrado =
+        quickViewHtml.match(patron);
+
+      if (
+        encontrado &&
+        encontrado[1]
+      ) {
+        cover =
+          encontrado[1];
+
+        break;
+      }
+    }
+
+    if (!cover) {
+      return {
+        cover: null,
+        error:
+          "Whakoom encontró el cómic, pero no se pudo extraer la portada",
+        isbn: codigo,
+        comicId
+      };
+    }
+
+    // ==========================================
+    // 6. CONVERTIR URL RELATIVA EN ABSOLUTA
+    // ==========================================
+
+    if (
+      cover.startsWith("/")
+    ) {
+      cover =
+        `https://www.whakoom.com${cover}`;
+    }
+
+    return {
+      cover,
+      source: "whakoom",
+      isbn: codigo,
+      comicId
+    };
+
+  } catch (error) {
+
+    return {
+      cover: null,
+      error: String(error),
+      isbn: codigo
+    };
+  }
+}
+
+function convertirUrlPortada(cover) {
+
+  if (!cover) {
+    return null;
+  }
+
+  let url = cover.trim();
+
+  // URL absoluta
+  if (
+    url.startsWith("http://") ||
+    url.startsWith("https://")
+  ) {
+    return url;
+  }
+
+  // URL protocol-relative
+  if (url.startsWith("//")) {
+    return `https:${url}`;
+  }
+
+  // URL relativa a Whakoom
+  if (url.startsWith("/")) {
+    return `https://www.whakoom.com${url}`;
+  }
+
+  // Algunas respuestas pueden devolver
+  // una ruta relativa sin "/" inicial.
+  return `https://www.whakoom.com/${url}`;
+}
+
+function jsonResponse(obj) {
+
+  return new Response(
+    JSON.stringify(obj),
+    {
+      status: 200,
+      headers: {
+        "Content-Type":
+          "application/json; charset=UTF-8",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods":
+          "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers":
+          "Content-Type"
+      }
+    }
+  );
+}
+
+// ==========================================
+// FIN DEL WORKER LEVIATÁN
+// ==========================================
