@@ -99,15 +99,15 @@ function obtenerRutaImagen(valor) {
 
 function armarLinkWhatsApp(item) {
 
-    let titulo;
+    let Título;
     let mensaje;
 
     if (item.Tipo === "COMIC") {
 
-        titulo = [
-            item.Titulo,
+        Título = [
+            item.Título,
             item.Serie ? `(${item.Serie})` : "",
-            item.Numero ? `Nº ${item.Numero}` : ""
+            item.Número ? `Nº ${item.Número}` : ""
         ]
             .filter(Boolean)
             .join(" ");
@@ -126,7 +126,7 @@ function armarLinkWhatsApp(item) {
 
         mensaje =
             `Hola! Te consulto por este disco:\n` +
-            `${titulo}` +
+            `${Título}` +
             (item.Precio
                 ? `\nPrecio: ${item.Precio}`
                 : "");
