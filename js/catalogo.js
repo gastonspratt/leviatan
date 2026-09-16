@@ -1,11 +1,11 @@
 const URL_SHEET =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=0&single=true&output=csv";
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=0&single=true&output=csv";
 
 const URL_SHEET_COMICS =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=2096118978&single=true&output=csv";
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=2096118978&single=true&output=csv";
 
 const URL_PROXY_DISCOGS =
-"https://leviatan-portadas.f-g-spratt.workers.dev";
+    "https://leviatan-portadas.f-g-spratt.workers.dev";
 
 const WHATSAPP_NUMERO = "5493584283858";
 
@@ -295,26 +295,6 @@ document.addEventListener(
             resultados.style.display =
                 "grid";
 
-                function mostrarResultados(lista) {
-            resultados.innerHTML = "";
-            colaPendiente = [];
-
-            if (lista.length === 0) {
-                resultados.innerHTML = `
-                    <div class="sin-resultados">
-                        No se encontraron resultados.
-                    </div>
-                `;
-
-                resultados.style.display =
-                    "block";
-
-                return;
-            }
-
-            resultados.style.display =
-                "grid";
-
             lista.forEach(item => {
                 const esComic =
                     item.Tipo === "COMIC";
@@ -455,7 +435,7 @@ document.addEventListener(
             }
         }
 
-                function cargarCSV(
+        function cargarCSV(
             url,
             tipo
         ) {
@@ -564,7 +544,7 @@ document.addEventListener(
             }
         );
 
-                buscador.addEventListener(
+        buscador.addEventListener(
             "input",
             () => {
 
@@ -632,7 +612,6 @@ document.addEventListener(
                     encontrados
                 );
             }
-           );
-    
-        }
+        );
+    }
 );
