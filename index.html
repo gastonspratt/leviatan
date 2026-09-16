@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leviatán - Discos y Cómics</title>
-    
-    <!-- CSS EXISTENTE (mantener tu estilo actual) -->
     <link rel="stylesheet" href="css/estilos.css">
     
-    <!-- CSS DEL REPRODUCTOR FLOTANTE -->
+    <!-- CSS REPRODUCTOR -->
     <style>
     .reproductor-flotante {
       position: fixed;
@@ -16,7 +14,6 @@
       bottom: 24px;
       z-index: 9999;
     }
-
     #boton-musica {
       width: 58px;
       height: 58px;
@@ -29,86 +26,68 @@
       box-shadow: 0 0 15px rgba(120, 0, 0, 0.45);
       transition: all 0.2s ease;
     }
-
     #boton-musica:hover {
       background: #160000;
       color: #ff2020;
       transform: scale(1.08);
     }
-
     #boton-musica.reproduciendo {
       border-color: #c00000;
       color: #ff3030;
       box-shadow: 0 0 22px rgba(180, 0, 0, 0.7);
     }
-
     @media (max-width: 600px) {
-      .reproductor-flotante {
-        right: 16px;
-        bottom: 16px;
-      }
-
-      #boton-musica {
-        width: 52px;
-        height: 52px;
-        font-size: 23px;
-      }
+      .reproductor-flotante { right: 16px; bottom: 16px; }
+      #boton-musica { width: 52px; height: 52px; font-size: 23px; }
     }
     </style>
 </head>
 <body>
-    <!-- TU CONTENIDO EXISTENTE -->
     <header>
         <h1>Leviatán</h1>
         <p>Discos y Cómics</p>
     </header>
 
     <main>
-        <input type="text" id="buscador" placeholder="Buscar...">
+        <input type="text" id="buscador" placeholder="Buscar artista, álbum, cómic...">
         <div id="resultados"></div>
     </main>
 
-    <!-- REPRODUCTOR FLOTANTE -->
+    <!-- REPRODUCTOR -->
     <div class="reproductor-flotante">
-      <button id="boton-musica" aria-label="Reproducir música" title="Reproducir música">
-        ♫
-      </button>
-
-      <audio id="audio-leviatan" preload="metadata">
-        <source src="audio/Weight_of_the_Deep.mp3" type="audio/mpeg">
-      </audio>
+        <button id="boton-musica" aria-label="Reproducir música" title="Reproducir música">♫</button>
+        <audio id="audio-leviatan" preload="metadata">
+            <source src="audio/Weight_of_the_Deep.mp3" type="audio/mpeg">
+        </audio>
     </div>
 
-    <!-- SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script src="catalogo.js"></script>
     
-    <!-- SCRIPT DEL REPRODUCTOR -->
+    <!-- SCRIPT REPRODUCTOR -->
     <script>
     const botonMusica = document.getElementById("boton-musica");
     const audioLeviatan = document.getElementById("audio-leviatan");
-
     botonMusica.addEventListener("click", () => {
-      if (audioLeviatan.paused) {
-        audioLeviatan.play();
-        botonMusica.textContent = "❚❚";
-        botonMusica.classList.add("reproduciendo");
-        botonMusica.setAttribute("aria-label", "Pausar música");
-        botonMusica.setAttribute("title", "Pausar música");
-      } else {
-        audioLeviatan.pause();
+        if (audioLeviatan.paused) {
+            audioLeviatan.play();
+            botonMusica.textContent = "❚❚";
+            botonMusica.classList.add("reproduciendo");
+            botonMusica.setAttribute("aria-label", "Pausar música");
+            botonMusica.setAttribute("title", "Pausar música");
+        } else {
+            audioLeviatan.pause();
+            botonMusica.textContent = "♫";
+            botonMusica.classList.remove("reproduciendo");
+            botonMusica.setAttribute("aria-label", "Reproducir música");
+            botonMusica.setAttribute("title", "Reproducir música");
+        }
+    });
+    audioLeviatan.addEventListener("ended", () => {
         botonMusica.textContent = "♫";
         botonMusica.classList.remove("reproduciendo");
         botonMusica.setAttribute("aria-label", "Reproducir música");
         botonMusica.setAttribute("title", "Reproducir música");
-      }
-    });
-
-    audioLeviatan.addEventListener("ended", () => {
-      botonMusica.textContent = "♫";
-      botonMusica.classList.remove("reproduciendo");
-      botonMusica.setAttribute("aria-label", "Reproducir música");
-      botonMusica.setAttribute("title", "Reproducir música");
     });
     </script>
 </body>
