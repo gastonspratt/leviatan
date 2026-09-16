@@ -4,18 +4,12 @@ const URL_SHEET =
 const URL_SHEET_COMICS =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=2096118978&single=true&output=csv";
 
-// ⚠️ URL del Worker de Cloudflare
 const URL_PROXY_DISCOGS =
 "https://leviatan-portadas.f-g-spratt.workers.dev";
 
-// Número de WhatsApp del negocio
 const WHATSAPP_NUMERO = "5493584283858";
 
 let catalogo = [];
-
-// ---------------------------------------------------------
-// CACHÉ DE PORTADAS
-// ---------------------------------------------------------
 
 const CACHE_KEY = "leviatan_portadas_cache_v2";
 
@@ -23,16 +17,13 @@ let cachePortadas =
     JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
 
 function guardarCachePortadas() {
-
     localStorage.setItem(
         CACHE_KEY,
         JSON.stringify(cachePortadas)
     );
-
 }
 
 function claveItem(artista, album) {
-
     return (
         (artista || "") +
         "___" +
@@ -40,15 +31,9 @@ function claveItem(artista, album) {
     )
         .toLowerCase()
         .trim();
-
 }
 
-// ---------------------------------------------------------
-// IMÁGENES
-// ---------------------------------------------------------
-
 function tieneImagenValida(valor) {
-
     const v = (valor || "")
         .trim()
         .toLowerCase();
@@ -64,18 +49,15 @@ function tieneImagenValida(valor) {
     }
 
     return true;
-
 }
 
 function obtenerRutaImagen(valor) {
-
     if (!tieneImagenValida(valor)) {
         return "img/sin-portada.png";
     }
 
     const imagen = valor.trim();
 
-    // Si ya es una URL completa
     if (
         imagen.startsWith("http://") ||
         imagen.startsWith("https://")
@@ -83,31 +65,22 @@ function obtenerRutaImagen(valor) {
         return imagen;
     }
 
-    // Si ya comienza con img/
     if (imagen.startsWith("img/")) {
         return imagen;
     }
 
-    // Si es solamente el nombre del archivo
     return `img/${imagen}`;
-
 }
 
-// ---------------------------------------------------------
-// WHATSAPP
-// ---------------------------------------------------------
-
 function armarLinkWhatsApp(item) {
-
     let titulo;
     let mensaje;
 
     if (item.Tipo === "COMIC") {
-
         titulo = [
-            item.titulo,
+            item["Título"],
             item.Serie ? `(${item.Serie})` : "",
-            item.Número ? `Nº ${item.Número}` : ""
+            item["Número"] ? `Nº ${item["Número"]}` : ""
         ]
             .filter(Boolean)
             .join(" ");
@@ -118,9 +91,7 @@ function armarLinkWhatsApp(item) {
             (item.Precio
                 ? `\nPrecio: ${item.Precio}`
                 : "");
-
     } else {
-
         titulo =
             `${item.Artista} - ${item.Album}`;
 
@@ -130,22 +101,15 @@ function armarLinkWhatsApp(item) {
             (item.Precio
                 ? `\nPrecio: ${item.Precio}`
                 : "");
-
     }
 
     return (
         `https://wa.me/${WHATSAPP_NUMERO}` +
         `?text=${encodeURIComponent(mensaje)}`
     );
-
 }
 
-// ---------------------------------------------------------
-// LIMPIEZA PARA BÚSQUEDA DE PORTADAS
-// ---------------------------------------------------------
-
 function limpiarParaBusqueda(texto) {
-
     return (texto || "")
         .replace(/\(.*?\)/g, "")
         .replace(/\[.*?\]/g, "")
@@ -155,17 +119,10 @@ function limpiarParaBusqueda(texto) {
         )
         .replace(/\s+/g, " ")
         .trim();
-
 }
 
-// ---------------------------------------------------------
-// DISCOGS
-// ---------------------------------------------------------
-
 async function buscarPortadaDiscogs(artista, album) {
-
     try {
-
         const a = encodeURIComponent(
             limpiarParaBusqueda(artista)
         );
@@ -181,32 +138,20 @@ async function buscarPortadaDiscogs(artista, album) {
         if (!resp.ok) return null;
 
         const data = await resp.json();
-
         return data.cover || null;
-
     } catch (e) {
-
         console.warn(
             "Discogs falló:",
             artista,
             album,
             e
         );
-
         return null;
-
     }
-
 }
 
-// ---------------------------------------------------------
-// ITUNES
-// ---------------------------------------------------------
-
 async function buscarPortadaItunes(artista, album) {
-
     try {
-
         const termino = encodeURIComponent(
             `${limpiarParaBusqueda(artista)} ${limpiarParaBusqueda(album)}`
         );
@@ -221,46 +166,32 @@ async function buscarPortadaItunes(artista, album) {
             data.results &&
             data.results.length > 0
         ) {
-
             return data.results[0]
                 .artworkUrl100
                 .replace(
                     "100x100bb",
                     "600x600bb"
                 );
-
         }
 
         return null;
-
     } catch (e) {
-
         console.warn(
             "iTunes falló:",
             artista,
             album,
             e
         );
-
         return null;
-
     }
-
 }
 
-// ---------------------------------------------------------
-// BUSCAR PORTADA
-// ---------------------------------------------------------
-
 async function buscarPortada(artista, album) {
-
     const clave =
         claveItem(artista, album);
 
     if (clave in cachePortadas) {
-
         return cachePortadas[clave];
-
     }
 
     let url =
@@ -270,31 +201,22 @@ async function buscarPortada(artista, album) {
         );
 
     if (!url) {
-
         url =
             await buscarPortadaItunes(
                 artista,
                 album
             );
-
     }
 
     cachePortadas[clave] = url;
-
     guardarCachePortadas();
 
     return url;
-
 }
-
-// ---------------------------------------------------------
-// INICIO
-// ---------------------------------------------------------
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
-
         const buscador =
             document.getElementById(
                 "buscador"
@@ -307,12 +229,7 @@ document.addEventListener(
 
         let colaPendiente = [];
 
-        // -------------------------------------------------
-        // NORMALIZAR
-        // -------------------------------------------------
-
         function normalizar(texto) {
-
             return (texto || "")
                 .toLowerCase()
                 .normalize("NFD")
@@ -324,17 +241,11 @@ document.addEventListener(
                     /[^a-z0-9]/g,
                     ""
                 );
-
         }
-
-        // -------------------------------------------------
-        // DESTACADOS
-        // -------------------------------------------------
 
         function obtenerDestacados(
             cantidad = 12
         ) {
-
             const copia =
                 [...catalogo];
 
@@ -343,7 +254,6 @@ document.addEventListener(
                 i > 0;
                 i--
             ) {
-
                 const j =
                     Math.floor(
                         Math.random() *
@@ -357,28 +267,19 @@ document.addEventListener(
                     copia[j],
                     copia[i]
                 ];
-
             }
 
             return copia.slice(
                 0,
                 cantidad
             );
-
         }
 
-        // -------------------------------------------------
-        // MOSTRAR RESULTADOS
-        // -------------------------------------------------
-
         function mostrarResultados(lista) {
-
             resultados.innerHTML = "";
-
             colaPendiente = [];
 
             if (lista.length === 0) {
-
                 resultados.innerHTML = `
                     <div class="sin-resultados">
                         No se encontraron resultados.
@@ -389,21 +290,39 @@ document.addEventListener(
                     "block";
 
                 return;
+            }
 
+            resultados.style.display =
+                "grid";
+
+                function mostrarResultados(lista) {
+            resultados.innerHTML = "";
+            colaPendiente = [];
+
+            if (lista.length === 0) {
+                resultados.innerHTML = `
+                    <div class="sin-resultados">
+                        No se encontraron resultados.
+                    </div>
+                `;
+
+                resultados.style.display =
+                    "block";
+
+                return;
             }
 
             resultados.style.display =
                 "grid";
 
             lista.forEach(item => {
-
                 const esComic =
                     item.Tipo === "COMIC";
 
                 const titulo =
                     esComic
                         ? (
-                            item.Titulo || ""
+                            item["Título"] || ""
                         )
                         : (
                             item.Album || ""
@@ -413,8 +332,8 @@ document.addEventListener(
                     esComic
                         ? [
                             item.Serie,
-                            item.Numero
-                                ? `Nº ${item.Numero}`
+                            item["Número"]
+                                ? `Nº ${item["Número"]}`
                                 : ""
                         ]
                             .filter(Boolean)
@@ -453,50 +372,27 @@ document.addEventListener(
                     );
 
                 resultados.innerHTML += `
-
                 <article class="card">
-
                     <img
                         data-key="${clave}"
                         src="${imagen}"
                         alt="${titulo}"
                         onerror="this.src='img/sin-portada.png'"
                     >
-
                     <div class="card-body">
-
-                        <h3>
-                            ${subtitulo}
-                        </h3>
-
-                        <p>
-                            <strong>
-                                ${titulo}
-                            </strong>
-                        </p>
-
-                        <p>
-                            ${editorialOSello}
-                        </p>
-
-                        <p>
-                            ${item.Origen || ""}
-                        </p>
-
+                        <h3>${subtitulo}</h3>
+                        <p><strong>${titulo}</strong></p>
+                        <p>${editorialOSello}</p>
+                        <p>${item.Origen || ""}</p>
                         ${
                             anio
                                 ? `<p>${anio}</p>`
                                 : ""
                         }
-
-                        <p>
-                            ${item.Estado || ""}
-                        </p>
-
+                        <p>${item.Estado || ""}</p>
                         <div class="precio">
                             ${item.Precio || ""}
                         </div>
-
                         <a
                             class="btn-whatsapp"
                             href="${armarLinkWhatsApp(item)}"
@@ -505,18 +401,9 @@ document.addEventListener(
                         >
                             Consultar por WhatsApp
                         </a>
-
                     </div>
-
                 </article>
-
                 `;
-
-                // Solo buscamos automáticamente
-                // portadas de CDs.
-                //
-                // Los cómics utilizan la imagen
-                // que figure en la columna Imagen.
 
                 if (
                     !esComic &&
@@ -524,26 +411,17 @@ document.addEventListener(
                         item.Imagen
                     )
                 ) {
-
                     colaPendiente.push({
                         item,
                         clave
                     });
-
                 }
-
             });
 
             procesarColaPortadas();
-
         }
 
-        // -------------------------------------------------
-        // PROCESAR PORTADAS DE CDs
-        // -------------------------------------------------
-
         async function procesarColaPortadas() {
-
             for (
                 const {
                     item,
@@ -551,7 +429,6 @@ document.addEventListener(
                 }
                 of colaPendiente
             ) {
-
                 const url =
                     await buscarPortada(
                         item.Artista,
@@ -559,21 +436,14 @@ document.addEventListener(
                     );
 
                 if (url) {
-
                     document
                         .querySelectorAll(
                             `img[data-key="${CSS.escape(clave)}"]`
                         )
                         .forEach(img => {
-
                             img.src = url;
-
                         });
-
                 }
-
-                // Espera para respetar
-                // el límite de Discogs.
 
                 await new Promise(
                     resolve =>
@@ -582,36 +452,24 @@ document.addEventListener(
                             1100
                         )
                 );
-
             }
-
         }
 
-        // -------------------------------------------------
-        // CARGAR CSV
-        // -------------------------------------------------
-
-        function cargarCSV(
+                function cargarCSV(
             url,
             tipo
         ) {
-
             return new Promise(
                 resolve => {
-
                     Papa.parse(
                         url,
                         {
-
                             download: true,
-
                             header: true,
-
                             skipEmptyLines: true,
 
                             complete:
                                 function(resultado) {
-
                                     const datos =
                                         resultado.data
                                             .map(
@@ -624,35 +482,24 @@ document.addEventListener(
                                     resolve(
                                         datos
                                     );
-
                                 },
 
                             error:
                                 function(error) {
-
                                     console.error(
                                         `No se pudo cargar ${tipo}:`,
                                         error
                                     );
 
                                     resolve([]);
-
                                 }
-
                         }
                     );
-
                 }
             );
-
         }
 
-        // -------------------------------------------------
-        // CARGAR CDs + CÓMICS
-        // -------------------------------------------------
-
         Promise.all([
-
             cargarCSV(
                 URL_SHEET,
                 "CD"
@@ -686,7 +533,7 @@ document.addEventListener(
                     comics.filter(
                         item =>
                             (
-                                item.Titulo ||
+                                item["Título"] ||
                                 ""
                             ).trim()
                     );
@@ -714,15 +561,10 @@ document.addEventListener(
                 mostrarResultados(
                     obtenerDestacados()
                 );
-
             }
         );
 
-        // -------------------------------------------------
-        // BUSCADOR
-        // -------------------------------------------------
-
-        buscador.addEventListener(
+                buscador.addEventListener(
             "input",
             () => {
 
@@ -738,7 +580,6 @@ document.addEventListener(
                     );
 
                     return;
-
                 }
 
                 const encontrados =
@@ -753,41 +594,27 @@ document.addEventListener(
                             ) {
 
                                 camposBusqueda = [
-
-                                    item.Titulo,
-
+                                    item["Título"],
                                     item.Serie,
-
-                                    item.Numero,
-
+                                    item["Número"],
                                     item.Editorial,
-
                                     item.Origen,
-
                                     item[
                                         "Año de lanzamiento"
                                     ]
-
                                 ];
 
                             } else {
 
                                 camposBusqueda = [
-
                                     item.Artista,
-
                                     item.Album,
-
                                     item.Sello,
-
                                     item.Origen,
-
                                     item[
                                         "Año de lanzamiento"
                                     ]
-
                                 ];
-
                             }
 
                             return camposBusqueda.some(
@@ -798,16 +625,13 @@ document.addEventListener(
                                         texto
                                     )
                             );
-
                         }
                     );
 
                 mostrarResultados(
                     encontrados
                 );
-
             }
-
         );
 
     }
