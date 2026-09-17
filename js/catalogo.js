@@ -1,9 +1,6 @@
 const URL_SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=0&single=true&output=csv";
-
 const URL_SHEET_COMICS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=2096118978&single=true&output=csv";
-
 const URL_PROXY_DISCOGS = "https://leviatan-portadas.f-g-spratt.workers.dev";
-
 const WHATSAPP_NUMERO = "5493584283858";
 
 let catalogo = [];
@@ -57,7 +54,7 @@ function limpiarISBN(valor) {
     return String(valor || "").replace(/[^0-9Xx]/g, "").trim();
 }
 
-// Buscar portada de disco en Discogs
+// Buscar portada de disco en Discogs (vía Worker)
 async function buscarPortadaDiscogs(artista, album) {
     try {
         const a = encodeURIComponent(limpiarParaBusqueda(artista));
@@ -88,7 +85,7 @@ async function buscarPortadaItunes(artista, album) {
     }
 }
 
-// Buscar portada de cómic en Whakoom por ISBN
+// Buscar portada de cómic en Whakoom (vía Worker)
 async function buscarPortadaComic(isbn, titulo) {
     const isbnLimpio = limpiarISBN(isbn);
     if (!isbnLimpio && !titulo) return null;
@@ -97,63 +94,31 @@ async function buscarPortadaComic(isbn, titulo) {
     if (clave in cachePortadas) return cachePortadas[clave];
     
     try {
-        // Intentar con ISBN primero, si no tiene usar título
-        const busqueda = isbnLimpio || titulo;
-        const resp = await fetch(`https://www.whakoom.com/search?s=${encodeURIComponent(busqueda)}`);
+        // Llamar al Worker en lugar de Whakoom directo
+        const resp = await fetch(`${URL_PROXY_DISCOGS}/comic?isbn=${encodeURIComponent(isbnLimpio || titulo)}`);
         
-        if (!resp.ok) return null;
-        
-        const html = await resp.text();
-        
-        // Buscar el ID del cómic en los resultados
-        const comicMatch = html.match(/href=["']\/comic\/([^"'\/]+)(?:\/[^"']*)?["']/i);
-        if (!comicMatch) return null;
-        
-        const comicId = comicMatch[1];
-        
-        // Llamar a QuickView para obtener los datos
-        const quickViewResp = await fetch("https://www.whakoom.com/pwkws.asmx/QuickView", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "User-Agent": "Mozilla/5.0 (compatible; TiendaLeviatan/1.0)"
-            },
-            body: JSON.stringify({ cid: `comic${comicId}` })
-        });
-        
-        if (!quickViewResp.ok) return null;
-        
-        const data = await quickViewResp.json();
-        const rawHtml = data?.d?.Html || "";
-        
-        if (!rawHtml) return null;
-        
-        // Extraer la URL de la portada
-        const coverMatch = rawHtml.match(/<div[^>]*class=["'][^"']*\bb-info\b[^"']*["'][\s\S]*?<p[^>]*class=["'][^"']*\bcomic-cover\b[^"']*["'][\s\S]*?<a[^>]*class=["'][^"']*\bfancybox\b[^"']*["'][^>]*href=["']([^"']+)["']/i);
-        
-        if (!coverMatch) return null;
-        
-        let cover = coverMatch[1];
-        
-        // Normalizar URL
-        if (cover.startsWith("//")) {
-            cover = "https:" + cover;
-        } else if (cover.startsWith("/")) {
-            cover = "https://www.whakoom.com" + cover;
+        if (!resp.ok) {
+            console.warn("Worker respondió error:", resp.status);
+            return null;
         }
         
-        cachePortadas[clave] = cover;
-        guardarCachePortadas();
+        const data = await resp.json();
         
-        return cover;
+        if (data.cover) {
+            cachePortadas[clave] = data.cover;
+            guardarCachePortadas();
+            return data.cover;
+        }
+        
+        return null;
         
     } catch (e) {
-        console.warn("Whakoom falló:", isbn, titulo, e);
+        console.warn("Whakoom/Worker falló:", isbn, titulo, e);
         return null;
     }
 }
 
-// Buscar portada genérica (disco o cómic)
+// Buscar portada genérica
 async function buscarPortada(item) {
     if (item.Tipo === "COMIC") {
         return await buscarPortadaComic(item.ISBN, item["Título"]);
@@ -209,7 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const editorialOSello = esComic ? (item.Editorial || "") : (item.Sello || "");
             const anio = item["Año de lanzamiento"] || "";
             
-            // Clave única para la imagen
             const clave = esComic 
                 ? claveComic(item.ISBN, item["Título"])
                 : claveItem(item.Artista, item.Album);
@@ -232,7 +196,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 </article>
             `;
 
-            // Agregar a la cola si no tiene imagen válida
             if (!tieneImagenValida(item.Imagen)) {
                 colaPendiente.push({ item, clave });
             }
