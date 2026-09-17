@@ -18,6 +18,10 @@ function claveItem(artista, album) {
     return ((artista || "") + "___" + (album || "")).toLowerCase().trim();
 }
 
+function claveComic(isbn, titulo) {
+    return ("comic_" + (isbn || "") + "_" + (titulo || "")).toLowerCase().trim();
+}
+
 function tieneImagenValida(valor) {
     const v = (valor || "").trim().toLowerCase();
     if (!v) return false;
@@ -49,6 +53,11 @@ function limpiarParaBusqueda(texto) {
     return (texto || "").replace(/\(.*?\)/g, "").replace(/\[.*?\]/g, "").replace(/\b(reedicion|reedición|bootleg|vinilo|vinyl|lp|cd|remaster(izado)?|edicion|edición|import|importado)\b/gi, "").replace(/\s+/g, " ").trim();
 }
 
+function limpiarISBN(valor) {
+    return String(valor || "").replace(/[^0-9Xx]/g, "").trim();
+}
+
+// Buscar portada de disco en Discogs
 async function buscarPortadaDiscogs(artista, album) {
     try {
         const a = encodeURIComponent(limpiarParaBusqueda(artista));
@@ -63,6 +72,7 @@ async function buscarPortadaDiscogs(artista, album) {
     }
 }
 
+// Buscar portada de disco en iTunes
 async function buscarPortadaItunes(artista, album) {
     try {
         const termino = encodeURIComponent(`${limpiarParaBusqueda(artista)} ${limpiarParaBusqueda(album)}`);
@@ -78,14 +88,88 @@ async function buscarPortadaItunes(artista, album) {
     }
 }
 
-async function buscarPortada(artista, album) {
-    const clave = claveItem(artista, album);
+// Buscar portada de cómic en Whakoom por ISBN
+async function buscarPortadaComic(isbn, titulo) {
+    const isbnLimpio = limpiarISBN(isbn);
+    if (!isbnLimpio && !titulo) return null;
+    
+    const clave = claveComic(isbnLimpio, titulo);
     if (clave in cachePortadas) return cachePortadas[clave];
-    let url = await buscarPortadaDiscogs(artista, album);
-    if (!url) url = await buscarPortadaItunes(artista, album);
-    cachePortadas[clave] = url;
-    guardarCachePortadas();
-    return url;
+    
+    try {
+        // Intentar con ISBN primero, si no tiene usar título
+        const busqueda = isbnLimpio || titulo;
+        const resp = await fetch(`https://www.whakoom.com/search?s=${encodeURIComponent(busqueda)}`);
+        
+        if (!resp.ok) return null;
+        
+        const html = await resp.text();
+        
+        // Buscar el ID del cómic en los resultados
+        const comicMatch = html.match(/href=["']\/comic\/([^"'\/]+)(?:\/[^"']*)?["']/i);
+        if (!comicMatch) return null;
+        
+        const comicId = comicMatch[1];
+        
+        // Llamar a QuickView para obtener los datos
+        const quickViewResp = await fetch("https://www.whakoom.com/pwkws.asmx/QuickView", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "User-Agent": "Mozilla/5.0 (compatible; TiendaLeviatan/1.0)"
+            },
+            body: JSON.stringify({ cid: `comic${comicId}` })
+        });
+        
+        if (!quickViewResp.ok) return null;
+        
+        const data = await quickViewResp.json();
+        const rawHtml = data?.d?.Html || "";
+        
+        if (!rawHtml) return null;
+        
+        // Extraer la URL de la portada
+        const coverMatch = rawHtml.match(/<div[^>]*class=["'][^"']*\bb-info\b[^"']*["'][\s\S]*?<p[^>]*class=["'][^"']*\bcomic-cover\b[^"']*["'][\s\S]*?<a[^>]*class=["'][^"']*\bfancybox\b[^"']*["'][^>]*href=["']([^"']+)["']/i);
+        
+        if (!coverMatch) return null;
+        
+        let cover = coverMatch[1];
+        
+        // Normalizar URL
+        if (cover.startsWith("//")) {
+            cover = "https:" + cover;
+        } else if (cover.startsWith("/")) {
+            cover = "https://www.whakoom.com" + cover;
+        }
+        
+        cachePortadas[clave] = cover;
+        guardarCachePortadas();
+        
+        return cover;
+        
+    } catch (e) {
+        console.warn("Whakoom falló:", isbn, titulo, e);
+        return null;
+    }
+}
+
+// Buscar portada genérica (disco o cómic)
+async function buscarPortada(item) {
+    if (item.Tipo === "COMIC") {
+        return await buscarPortadaComic(item.ISBN, item["Título"]);
+    } else {
+        const clave = claveItem(item.Artista, item.Album);
+        if (clave in cachePortadas) return cachePortadas[clave];
+        
+        let url = await buscarPortadaDiscogs(item.Artista, item.Album);
+        if (!url) url = await buscarPortadaItunes(item.Artista, item.Album);
+        
+        if (url) {
+            cachePortadas[clave] = url;
+            guardarCachePortadas();
+        }
+        return url;
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -109,19 +193,27 @@ document.addEventListener("DOMContentLoaded", () => {
     function mostrarResultados(lista) {
         resultados.innerHTML = "";
         colaPendiente = [];
+        
         if (lista.length === 0) {
             resultados.innerHTML = `<div class="sin-resultados">No se encontraron resultados.</div>`;
             resultados.style.display = "block";
             return;
         }
+        
         resultados.style.display = "grid";
+        
         lista.forEach(item => {
             const esComic = item.Tipo === "COMIC";
             const titulo = esComic ? (item["Título"] || "") : (item.Album || "");
             const subtitulo = esComic ? [item.Serie, item["Número"] ? `Nº ${item["Número"]}` : ""].filter(Boolean).join(" · ") : (item.Artista || "");
             const editorialOSello = esComic ? (item.Editorial || "") : (item.Sello || "");
             const anio = item["Año de lanzamiento"] || "";
-            const clave = esComic ? claveItem(item.Serie, titulo) : claveItem(item.Artista, item.Album);
+            
+            // Clave única para la imagen
+            const clave = esComic 
+                ? claveComic(item.ISBN, item["Título"])
+                : claveItem(item.Artista, item.Album);
+                
             const imagen = obtenerRutaImagen(item.Imagen);
 
             resultados.innerHTML += `
@@ -140,21 +232,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 </article>
             `;
 
-            if (!esComic && !tieneImagenValida(item.Imagen)) {
+            // Agregar a la cola si no tiene imagen válida
+            if (!tieneImagenValida(item.Imagen)) {
                 colaPendiente.push({ item, clave });
             }
         });
+        
         procesarColaPortadas();
     }
 
     async function procesarColaPortadas() {
         for (const { item, clave } of colaPendiente) {
-            const url = await buscarPortada(item.Artista, item.Album);
+            const url = await buscarPortada(item);
+            
             if (url) {
                 document.querySelectorAll(`img[data-key="${CSS.escape(clave)}"]`).forEach(img => {
                     img.src = url;
                 });
             }
+            
             await new Promise(resolve => setTimeout(resolve, 1100));
         }
     }
@@ -184,27 +280,34 @@ document.addEventListener("DOMContentLoaded", () => {
         const catalogoCDs = cds.filter(item => (item.Artista || "").trim() && (item.Album || "").trim());
         const catalogoComics = comics.filter(item => (item["Título"] || "").trim());
         catalogo = [...catalogoCDs, ...catalogoComics];
+        
         console.log("CDs cargados:", catalogoCDs.length);
         console.log("Cómics cargados:", catalogoComics.length);
         console.log("Catálogo total:", catalogo.length);
+        
         mostrarResultados(obtenerDestacados());
     });
 
     buscador.addEventListener("input", () => {
         const texto = normalizar(buscador.value);
+        
         if (texto === "") {
             mostrarResultados(obtenerDestacados());
             return;
         }
+        
         const encontrados = catalogo.filter(item => {
             let camposBusqueda;
+            
             if (item.Tipo === "COMIC") {
-                camposBusqueda = [item["Título"], item.Serie, item["Número"], item.Editorial, item.Origen, item["Año de lanzamiento"]];
+                camposBusqueda = [item["Título"], item.Serie, item["Número"], item.Editorial, item.Origen, item["Año de lanzamiento"], item.ISBN];
             } else {
                 camposBusqueda = [item.Artista, item.Album, item.Sello, item.Origen, item["Año de lanzamiento"]];
             }
+            
             return camposBusqueda.some(campo => normalizar(campo).includes(texto));
         });
+        
         mostrarResultados(encontrados);
     });
 });
