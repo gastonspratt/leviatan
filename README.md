@@ -1,6 +1,3 @@
-### README.md actualizado
-
-````markdown
 # Leviatán Coleccionables
 
 Sitio web de **Tienda Leviatán**, un proyecto dedicado a coleccionistas y apasionados por la música, los cómics, los libros y las figuras de colección.
