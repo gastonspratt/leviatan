@@ -3,7 +3,6 @@ const URL_SHEET_COMICS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPx
 const URL_PROXY = "https://leviatan-portadas.f-g-spratt.workers.dev";
 const WHATSAPP_NUMERO = "5493584283858";
 
-// Leer configuración del panel admin
 const BONIFICACION = {
   get porcentaje() { return window.configAdmin?.descuento || 10; },
   get activa() { return true; },
@@ -105,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const clave = esComic ? claveComic(item.Serie, item["Título"]) : claveItem(item.Artista, item.Album);
       const imagen = obtenerRutaImagen(item.Imagen);
 
-      // Precio inicial (de planilla)
       const precioPlanilla = item.Precio || "";
       let precioHTML = `<div class="precio">${precioPlanilla}</div>`;
 
@@ -127,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </article>
       `;
 
+      // Agregar a cola si no tiene imagen
       if (!tieneImagenValida(item.Imagen)) {
         colaPendiente.push({ item, clave });
       }
@@ -148,7 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
       let precioLista, precioBonificado, fuente;
 
       if (BONIFICACION.fuente === "ovnipress") {
-        // Buscar en OvniPress
         const url = `${URL_PROXY}/precio?nombre=${encodeURIComponent(nombre)}&bonificacion=${BONIFICACION.porcentaje}`;
         const resp = await fetch(url);
         const data = await resp.json();
@@ -160,7 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // Si no encontró en OvniPress o usa planilla, usar precio de planilla
       if (!precioLista && item.Precio) {
         const num = parseFloat(String(item.Precio).replace(/[^0-9]/g, ""));
         if (!isNaN(num)) {
@@ -195,9 +192,19 @@ document.addEventListener("DOMContentLoaded", () => {
   async function procesarColaPortadas() {
     for (const { item, clave } of colaPendiente) {
       try {
-        const url = `${URL_PROXY}/comic?nombre=${encodeURIComponent(item.Serie + " " + item["Título"])}`;
-        const resp = await fetch(url);
-        const data = await resp.json();
+        let url, data;
+
+        if (item.Tipo === "COMIC") {
+          // Buscar portada de cómic en OvniPress
+          url = `${URL_PROXY}/comic?nombre=${encodeURIComponent(item.Serie + " " + item["Título"])}`;
+          const resp = await fetch(url);
+          data = await resp.json();
+        } else {
+          // Buscar portada de disco en Discogs
+          url = `${URL_PROXY}?artist=${encodeURIComponent(item.Artista)}&album=${encodeURIComponent(item.Album)}`;
+          const resp = await fetch(url);
+          data = await resp.json();
+        }
         
         if (data.cover) {
           document.querySelectorAll(`img[data-key="${CSS.escape(clave)}"]`).forEach(img => {
