@@ -125,12 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
         </article>
       `;
 
-      // Agregar a cola si no tiene imagen
       if (!tieneImagenValida(item.Imagen)) {
         colaPendiente.push({ item, clave });
       }
 
-      // Buscar precio actualizado para cómics
       if (esComic) {
         buscarPrecioActualizado(item, clave);
       }
@@ -147,122 +145,4 @@ document.addEventListener("DOMContentLoaded", () => {
       let precioLista, precioBonificado, fuente;
 
       if (BONIFICACION.fuente === "ovnipress") {
-        const url = `${URL_PROXY}/precio?nombre=${encodeURIComponent(nombre)}&bonificacion=${BONIFICACION.porcentaje}`;
-        const resp = await fetch(url);
-        const data = await resp.json();
-        
-        if (data.precioLista) {
-          precioLista = data.precioLista;
-          precioBonificado = data.precioBonificado;
-          fuente = "OvniPress";
-        }
-      }
-
-      if (!precioLista && item.Precio) {
-        const num = parseFloat(String(item.Precio).replace(/[^0-9]/g, ""));
-        if (!isNaN(num)) {
-          precioLista = num;
-          precioBonificado = BONIFICACION.activa ? Math.round(num * (1 - BONIFICACION.porcentaje / 100)) : num;
-          fuente = "Planilla";
-        }
-      }
-
-      if (precioLista && precioBonificado && BONIFICACION.mostrarTachado) {
-        const container = document.getElementById(`precio-${clave}`);
-        const btn = document.querySelector(`article[data-clave="${CSS.escape(clave)}"] .btn-whatsapp`);
-        
-        if (container) {
-          container.innerHTML = `
-            <span class="precio-tachado">${formatearPrecio(precioLista)}</span>
-            <span class="precio-bonificado">${formatearPrecio(precioBonificado)}</span>
-            <span class="${fuente === 'OvniPress' ? 'ovnipress-tag' : 'tag-descuento'}">${fuente}</span>
-          `;
-        }
-        
-        if (btn) {
-          btn.href = armarLinkWhatsApp(item, precioBonificado);
-        }
-      }
-
-    } catch (e) {
-      console.warn("Error buscando precio:", e);
-    }
-  }
-
-  async function procesarColaPortadas() {
-    for (const { item, clave } of colaPendiente) {
-      try {
-        let url, data;
-
-        if (item.Tipo === "COMIC") {
-          // Buscar portada de cómic en OvniPress
-          url = `${URL_PROXY}/comic?nombre=${encodeURIComponent(item.Serie + " " + item["Título"])}`;
-          const resp = await fetch(url);
-          data = await resp.json();
-        } else {
-          // Buscar portada de disco en Discogs
-          url = `${URL_PROXY}?artist=${encodeURIComponent(item.Artista)}&album=${encodeURIComponent(item.Album)}`;
-          const resp = await fetch(url);
-          data = await resp.json();
-        }
-        
-        if (data.cover) {
-          document.querySelectorAll(`img[data-key="${CSS.escape(clave)}"]`).forEach(img => {
-            img.src = data.cover;
-          });
-          cachePortadas[clave] = data.cover;
-          guardarCachePortadas();
-        }
-      } catch (e) {
-        console.warn("Error cargando portada:", e);
-      }
-      await new Promise(resolve => setTimeout(resolve, 1100));
-    }
-  }
-
-  function cargarCSV(url, tipo) {
-    return new Promise(resolve => {
-      Papa.parse(url, {
-        download: true,
-        header: true,
-        skipEmptyLines: true,
-        complete: (resultado) => {
-          resolve(resultado.data.map(item => ({ ...item, Tipo: tipo })));
-        },
-        error: (error) => {
-          console.error(`Error cargando ${tipo}:`, error);
-          resolve([]);
-        }
-      });
-    });
-  }
-
-  Promise.all([
-    cargarCSV(URL_SHEET, "CD"),
-    cargarCSV(URL_SHEET_COMICS, "COMIC")
-  ]).then(([cds, comics]) => {
-    const catalogoCDs = cds.filter(i => (i.Artista || "").trim() && (i.Album || "").trim());
-    const catalogoComics = comics.filter(i => (i["Título"] || "").trim());
-    catalogo = [...catalogoCDs, ...catalogoComics];
-    
-    console.log(`CDs: ${catalogoCDs.length}, Cómics: ${catalogoComics.length}, Total: ${catalogo.length}`);
-    mostrarResultados(obtenerDestacados());
-  });
-
-  buscador.addEventListener("input", () => {
-    const texto = limpiarTextoBusqueda(buscador.value);
-    if (texto === "") {
-      mostrarResultados(obtenerDestacados());
-      return;
-    }
-    
-    const encontrados = catalogo.filter(item => {
-      const campos = item.Tipo === "COMIC" 
-        ? [item["Título"], item.Serie, item["Número"], item.Editorial, item.Origen, item.ISBN]
-        : [item.Artista, item.Album, item.Sello, item.Origen];
-      return campos.some(c => limpiarTextoBusqueda(c).includes(texto));
-    });
-    
-    mostrarResultados(encontrados);
-  });
-});
+        const url = `${URL_PROXY}/precio?nombre=${encodeURIComponent(nombre)}&
