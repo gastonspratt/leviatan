@@ -6,7 +6,7 @@ const WHATSAPP_NUMERO = "5493584283858";
 // Configuración de bonificaciones
 const BONIFICACION = {
   activa: true,
-  porcentaje: 10, // 10% de descuento
+  porcentaje: 25, // 10% de descuento
   mostrarTachado: true
 };
 
