@@ -3,11 +3,12 @@ const URL_SHEET_COMICS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPx
 const URL_PROXY = "https://leviatan-portadas.f-g-spratt.workers.dev";
 const WHATSAPP_NUMERO = "5493584283858";
 
-// Configuración de bonificaciones
+// Leer configuración del panel admin
 const BONIFICACION = {
-  activa: true,
-  porcentaje: 25, // 10% de descuento
-  mostrarTachado: true
+  get porcentaje() { return window.configAdmin?.descuento || 10; },
+  get activa() { return true; },
+  get mostrarTachado() { return window.configAdmin?.mostrarTachado !== false; },
+  get fuente() { return window.configAdmin?.fuente || "ovnipress"; }
 };
 
 let catalogo = [];
@@ -42,7 +43,7 @@ function obtenerRutaImagen(valor) {
 }
 
 function calcularBonificacion(precio) {
-  if (!precio || !BONIFICACION.activa) return null;
+  if (!precio) return null;
   const numero = parseFloat(String(precio).replace(/[^0-9]/g, ""));
   if (isNaN(numero)) return null;
   return Math.round(numero * (1 - BONIFICACION.porcentaje / 100));
@@ -104,24 +105,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const clave = esComic ? claveComic(item.Serie, item["Título"]) : claveItem(item.Artista, item.Album);
       const imagen = obtenerRutaImagen(item.Imagen);
 
-      // Precio con bonificación
-      const precioOriginal = item.Precio || "";
-      const precioBonificado = esComic && BONIFICACION.activa ? calcularBonificacion(precioOriginal) : null;
-      
-      let precioHTML = "";
-      if (esComic && precioBonificado && BONIFICACION.mostrarTachado) {
-        precioHTML = `
-          <div class="precio-container">
-            <span class="precio-tachado">${precioOriginal}</span>
-            <span class="precio-bonificado">${formatearPrecio(precioBonificado)}</span>
-            <span class="bonificacion-tag">-${BONIFICACION.porcentaje}%</span>
-          </div>
-        `;
-      } else {
-        precioHTML = `<div class="precio">${precioOriginal}</div>`;
-      }
-
-      const precioFinal = precioBonificado || precioOriginal;
+      // Precio inicial (de planilla)
+      const precioPlanilla = item.Precio || "";
+      let precioHTML = `<div class="precio">${precioPlanilla}</div>`;
 
       resultados.innerHTML += `
         <article class="card" data-clave="${clave}">
@@ -133,30 +119,83 @@ document.addEventListener("DOMContentLoaded", () => {
             <p>${item.Origen || ""}</p>
             ${anio ? `<p>${anio}</p>` : ""}
             <p>${item.Estado || ""}</p>
-            ${precioHTML}
-            <a class="btn-whatsapp" href="${armarLinkWhatsApp(item, precioFinal)}" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+            <div class="precio-container" id="precio-${clave}">
+              ${precioHTML}
+            </div>
+            <a class="btn-whatsapp" href="${armarLinkWhatsApp(item, null)}" target="_blank" rel="noopener">Consultar por WhatsApp</a>
           </div>
         </article>
       `;
 
-      // Agregar a cola si no tiene imagen
       if (!tieneImagenValida(item.Imagen)) {
         colaPendiente.push({ item, clave });
       }
 
-      // Buscar precio en OvniPress para cómics
+      // Buscar precio actualizado para cómics
       if (esComic) {
-        buscarPrecioOvniPress(item, clave);
+        buscarPrecioActualizado(item, clave);
       }
     });
 
     procesarColaPortadas();
   }
 
+  async function buscarPrecioActualizado(item, clave) {
+    try {
+      const nombre = `${item.Serie || ""} ${item["Título"] || ""}`.trim();
+      if (!nombre) return;
+
+      let precioLista, precioBonificado, fuente;
+
+      if (BONIFICACION.fuente === "ovnipress") {
+        // Buscar en OvniPress
+        const url = `${URL_PROXY}/precio?nombre=${encodeURIComponent(nombre)}&bonificacion=${BONIFICACION.porcentaje}`;
+        const resp = await fetch(url);
+        const data = await resp.json();
+        
+        if (data.precioLista) {
+          precioLista = data.precioLista;
+          precioBonificado = data.precioBonificado;
+          fuente = "OvniPress";
+        }
+      }
+
+      // Si no encontró en OvniPress o usa planilla, usar precio de planilla
+      if (!precioLista && item.Precio) {
+        const num = parseFloat(String(item.Precio).replace(/[^0-9]/g, ""));
+        if (!isNaN(num)) {
+          precioLista = num;
+          precioBonificado = BONIFICACION.activa ? Math.round(num * (1 - BONIFICACION.porcentaje / 100)) : num;
+          fuente = "Planilla";
+        }
+      }
+
+      if (precioLista && precioBonificado && BONIFICACION.mostrarTachado) {
+        const container = document.getElementById(`precio-${clave}`);
+        const btn = document.querySelector(`article[data-clave="${CSS.escape(clave)}"] .btn-whatsapp`);
+        
+        if (container) {
+          container.innerHTML = `
+            <span class="precio-tachado">${formatearPrecio(precioLista)}</span>
+            <span class="precio-bonificado">${formatearPrecio(precioBonificado)}</span>
+            <span class="${fuente === 'OvniPress' ? 'ovnipress-tag' : 'tag-descuento'}">${fuente}</span>
+          `;
+        }
+        
+        if (btn) {
+          btn.href = armarLinkWhatsApp(item, precioBonificado);
+        }
+      }
+
+    } catch (e) {
+      console.warn("Error buscando precio:", e);
+    }
+  }
+
   async function procesarColaPortadas() {
     for (const { item, clave } of colaPendiente) {
       try {
-        const url = `${URL_PROXY}/comic?serie=${encodeURIComponent(item.Serie || "")}&titulo=${encodeURIComponent(item["Título"] || "")}&isbn=${encodeURIComponent(item.ISBN || "")}`;
+        const url = `${URL_PROXY}/comic?nombre=${encodeURIComponent(item.Serie + " " + item["Título"])}`;
         const resp = await fetch(url);
         const data = await resp.json();
         
@@ -171,40 +210,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("Error cargando portada:", e);
       }
       await new Promise(resolve => setTimeout(resolve, 1100));
-    }
-  }
-
-  async function buscarPrecioOvniPress(item, clave) {
-    try {
-      const nombre = `${item.Serie || ""} ${item["Título"] || ""}`.trim();
-      if (!nombre) return;
-
-      const url = `${URL_PROXY}/precio?nombre=${encodeURIComponent(nombre)}&isbn=${encodeURIComponent(item.ISBN || "")}&bonificacion=${BONIFICACION.porcentaje}`;
-      const resp = await fetch(url);
-      const data = await resp.json();
-
-      if (data.precioLista) {
-        const card = document.querySelector(`article[data-clave="${CSS.escape(clave)}"]`);
-        if (card) {
-          const precioContainer = card.querySelector(".precio-container, .precio");
-          if (precioContainer && BONIFICACION.activa) {
-            const precioBonificado = data.precioBonificado || Math.round(data.precioLista * (1 - BONIFICACION.porcentaje / 100));
-            precioContainer.innerHTML = `
-              <span class="precio-tachado">${formatearPrecio(data.precioLista)}</span>
-              <span class="precio-bonificado">${formatearPrecio(precioBonificado)}</span>
-              <span class="ovnipress-tag">OvniPress</span>
-            `;
-            
-            // Actualizar link de WhatsApp con precio bonificado
-            const btn = card.querySelector(".btn-whatsapp");
-            if (btn) {
-              btn.href = armarLinkWhatsApp(item, precioBonificado);
-            }
-          }
-        }
-      }
-    } catch (e) {
-      console.warn("OvniPress error:", e);
     }
   }
 
