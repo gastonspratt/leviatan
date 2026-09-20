@@ -1,15 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeviatÃ¡n | MÃºsica, CÃ³mics y Libros</title>
-<meta name="description" content="LeviatÃ¡n Coleccionables. CDs originales, cÃ³mics, novelas grÃ¡ficas y libros cuidadosamente seleccionados para coleccionistas.">
+<title>Leviatán Coleccionables | Música, Cómics, Libros y Figuras</title>
+<meta name="description" content="Leviatán Coleccionables: música, cómics, libros y figuras para coleccionistas. Catálogo, novedades, agenda y contacto en Argentina.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tiendaleviatan.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Leviatán Coleccionables">
+<meta property="og:title" content="Leviatán Coleccionables | Música, Cómics, Libros y Figuras">
+<meta property="og:description" content="Leviatán Coleccionables: música, cómics, libros y figuras para coleccionistas. Catálogo, novedades, agenda y contacto en Argentina.">
+<meta property="og:url" content="https://tiendaleviatan.com/">
+<meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/internas.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <style>
@@ -140,7 +149,7 @@
 <body>
 <header>
 <div class="logo">
-<h1>LEVIATÃN</h1>
+<h1>LEVIATÁN</h1>
 <span>COLECCIONABLES</span>
 </div>
 <nav>
@@ -233,47 +242,50 @@ Tres hermanos continuamos una historia familiar ligada a la música, el coleccio
 
 <footer id="contacto" class="footer">
 <div class="footer-content">
-<h2>LEVIATÃN COLECCIONABLES</h2>
-<p class="slogan">MÃºsica â€¢ CÃ³mics â€¢ Libros para coleccionistas.</p>
+<h2>LEVIAT&Aacute;N COLECCIONABLES</h2>
+<p class="slogan">M&uacute;sica • C&oacute;mics • Libros para coleccionistas.</p>
+
 <div class="footer-links">
-<p>ðŸŒ <a href="https://tiendaleviatan.com">tiendaleviatan.com</a></p>
-<p>ðŸ“· <a href="https://instagram.com/tiendaleviatan" target="_blank">@tiendaleviatan</a></p>
-<p>âœ‰ï¸ <a href="mailto:tiendaleviatan@proton.me">tiendaleviatan@proton.me</a></p>
-<p>ðŸ›’ <a href="https://listado.mercadolibre.com.ar/_CustId_151374402" target="_blank">Tienda en MercadoLibre</a></p>
+<p>tiendaleviatan.com</p>
+<p>@tiendaleviatan</p>
+<p>tiendaleviatan@proton.me</p>
+<p>Tienda en MercadoLibre</p>
 </div>
+
 <div class="footer-locations">
-<p>ðŸ“ General Cabrera, CÃ³rdoba</p>
-<p>ðŸ“ Caballito, Ciudad AutÃ³noma de Buenos Aires</p>
-<p>ðŸšš EnvÃ­os a todo el paÃ­s.</p>
+<p>General Cabrera, C&oacute;rdoba</p>
+<p>Caballito, Ciudad Aut&oacute;noma de Buenos Aires</p>
+<p>Env&iacute;os a todo el pa&iacute;s.</p>
 </div>
-<p class="copyright">&copy; 2026 Tienda LeviatÃ¡n</p>
+
+<p class="copyright">&copy; 2026 Tienda Leviat&aacute;n</p>
 </div>
 </footer>
 
-<!-- REPRODUCTOR DE MÃšSICA -->
+<!-- REPRODUCTOR DE MÚSICA -->
 <div class="reproductor-flotante">
-<button id="boton-musica" aria-label="Reproducir mÃºsica" title="Reproducir mÃºsica">â™«</button>
+<button id="boton-musica" aria-label="Reproducir música" title="Reproducir música">♫</button>
 <audio id="audio-leviatan" preload="metadata">
 <source src="audio/Weight_of_the_Deep.mp3" type="audio/mpeg">
 </audio>
 </div>
 
-<!-- BOTÃ“N ADMIN (aparece con Ctrl+Shift+A) -->
-<button id="btn-admin">âš™ï¸ Admin</button>
+<!-- BOTÓN ADMIN (aparece con Ctrl+Shift+A) -->
+<button id="btn-admin">⚙️ Admin</button>
 
-<!-- PANEL DE ADMINISTRACIÃ“N -->
+<!-- PANEL DE ADMINISTRACIÓN -->
 <div id="panel-admin">
-<h3>âš™ï¸ Panel de Admin</h3>
+<h3>⚙️ Panel de Admin</h3>
   
 <div>
-<label>ContraseÃ±a:</label>
-<input type="password" id="admin-pass" placeholder="Ingresar contraseÃ±a">
+<label>Contraseña:</label>
+<input type="password" id="admin-pass" placeholder="Ingresar contraseña">
 </div>
   
 <div id="admin-contenido">
 <div>
-<label>Descuento (%):</label>
-<input type="number" id="descuento-input" value="10" min="0" max="50">
+<label>Descuento para cómics (%):</label>
+<input type="number" id="descuento-input" value="0" min="0" max="100" step="1">
 </div>
     
 <div>
@@ -283,19 +295,11 @@ Mostrar precio tachado
 </label>
 </div>
     
-<div>
-<label>Fuente de precios:</label>
-<select id="fuente-precio">
-<option value="ovnipress">OvniPress (automÃ¡tico)</option>
-<option value="planilla">Planilla (manual)</option>
-</select>
-</div>
-    
-<button id="guardar-config">ðŸ’¾ Guardar y Aplicar</button>
+<button id="guardar-config">💾 Guardar y Aplicar</button>
 <div id="mensaje-guardado"></div>
     
 <div id="config-actual">
-<strong>ConfiguraciÃ³n actual:</strong><br>
+<strong>Configuración actual:</strong><br>
 Cargando...
 </div>
 </div>
@@ -317,9 +321,8 @@ function cargarConfig() {
   const guardado = localStorage.getItem(CONFIG_ADMIN.storageKey);
   if (guardado) return JSON.parse(guardado);
   return {
-    descuento: 10,
-    mostrarTachado: true,
-    fuente: "ovnipress"
+    porcentaje: 0,
+    mostrarTachado: true
   };
 }
 
@@ -329,7 +332,7 @@ function guardarConfig(config) {
 
 window.configAdmin = cargarConfig();
 
-// Mostrar botÃ³n con Ctrl+Shift+A
+// Mostrar botón con Ctrl+Shift+A
 document.addEventListener("keydown", (e) => {
   if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
     e.preventDefault();
@@ -354,54 +357,52 @@ document.getElementById("admin-pass").addEventListener("input", (e) => {
 });
 
 function actualizarVistaConfig() {
-  document.getElementById("descuento-input").value = window.configAdmin.descuento;
-  document.getElementById("mostrar-tachado").checked = window.configAdmin.mostrarTachado;
-  document.getElementById("fuente-precio").value = window.configAdmin.fuente;
+  document.getElementById("descuento-input").value = Number(window.configAdmin.porcentaje) || 0;
+  document.getElementById("mostrar-tachado").checked = window.configAdmin.mostrarTachado !== false;
   
   document.getElementById("config-actual").innerHTML = `
-    <strong>ConfiguraciÃ³n actual:</strong><br>
-    Descuento: ${window.configAdmin.descuento}%<br>
-    Precio tachado: ${window.configAdmin.mostrarTachado ? "SÃ­" : "No"}<br>
-    Fuente: ${window.configAdmin.fuente === "ovnipress" ? "OvniPress" : "Planilla"}
+    <strong>Configuración actual:</strong><br>
+    Descuento para cómics: ${Number(window.configAdmin.porcentaje) || 0}%<br>
+    Precio tachado: ${window.configAdmin.mostrarTachado !== false ? "Sí" : "No"}
   `;
 }
 
 document.getElementById("guardar-config").addEventListener("click", () => {
+  const porcentaje = Number(document.getElementById("descuento-input").value);
+
   window.configAdmin = {
-    descuento: parseInt(document.getElementById("descuento-input").value) || 10,
-    mostrarTachado: document.getElementById("mostrar-tachado").checked,
-    fuente: document.getElementById("fuente-precio").value
+    porcentaje: Number.isFinite(porcentaje) ? Math.min(100, Math.max(0, porcentaje)) : 0,
+    mostrarTachado: document.getElementById("mostrar-tachado").checked
   };
   
   guardarConfig(window.configAdmin);
   actualizarVistaConfig();
   
-  document.getElementById("mensaje-guardado").innerHTML = '<div class="mensaje-exito">âœ“ Guardado. Recargando pÃ¡gina...</div>';
+  document.getElementById("mensaje-guardado").innerHTML = '<div class="mensaje-exito">✓ Guardado. Recargando página...</div>';
   
   setTimeout(() => location.reload(), 1000);
 });
 
-// Reproductor de mÃºsica
+// Reproductor de música
 const botonMusica = document.getElementById("boton-musica");
 const audioLeviatan = document.getElementById("audio-leviatan");
 
 botonMusica.addEventListener("click", () => {
   if (audioLeviatan.paused) {
     audioLeviatan.play();
-    botonMusica.textContent = "âšâš";
+    botonMusica.textContent = "❚❚";
     botonMusica.classList.add("reproduciendo");
   } else {
     audioLeviatan.pause();
-    botonMusica.textContent = "â™«";
+    botonMusica.textContent = "♫";
     botonMusica.classList.remove("reproduciendo");
   }
 });
 
 audioLeviatan.addEventListener("ended", () => {
-  botonMusica.textContent = "â™«";
+  botonMusica.textContent = "♫";
   botonMusica.classList.remove("reproduciendo");
 });
 </script>
 </body>
 </html>
-

@@ -1,0 +1,101 @@
+/* Estilos de las páginas internas de Leviatán */
+
+.seccion-extra {
+    padding: 90px 7%;
+    background: #0b0b0b;
+    color: #f5f5f5;
+    min-height: 45vh;
+}
+
+.seccion-extra h2 {
+    margin: 0 0 20px;
+    font-family: "Oswald", sans-serif;
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.seccion-intro {
+    max-width: 850px;
+    margin: 0 0 40px;
+    color: #b7b7b7;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.etiqueta-seccion {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #c00000;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.noticias-grid,
+.agenda-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.noticia-card,
+.agenda-vacia {
+    display: block;
+    padding: 30px;
+    background: #151515;
+    border: 1px solid #2b2b2b;
+    border-radius: 10px;
+    color: #f5f5f5;
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,.3);
+}
+
+.noticia-card {
+    transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.noticia-card:hover {
+    transform: translateY(-4px);
+    border-color: #8e1b1b;
+    background: #1a1a1a;
+}
+
+.noticia-card h3,
+.agenda-vacia h3 {
+    margin: 0 0 14px;
+    font-family: "Oswald", sans-serif;
+    font-size: 1.35rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.noticia-card p,
+.agenda-vacia p {
+    margin: 0;
+    color: #b7b7b7;
+    line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+    .noticias-grid,
+    .agenda-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .seccion-extra {
+        padding: 65px 5%;
+    }
+
+    .seccion-extra h2 {
+        font-size: 2.2rem;
+    }
+
+    .noticias-grid,
+    .agenda-grid {
+        grid-template-columns: 1fr;
+    }
+}
