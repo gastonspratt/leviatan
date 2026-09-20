@@ -1,4 +1,4 @@
-﻿const URL_SHEET =
+const URL_SHEET =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=0&single=true&output=csv";
 
 const URL_SHEET_COMICS =
@@ -44,9 +44,9 @@ function slugOVNI(texto) {
 }
 
 function urlsProductoOVNI(item) {
-    const titulo = item["Título"] || "";
+    const titulo = item["T�tulo"] || "";
     const serie = item.Serie || "";
-    const numero = item["Número"] || "";
+    const numero = item["N�mero"] || "";
 
     const nombres = [
         titulo,
@@ -221,7 +221,7 @@ async function buscarPrecioOVNI(item) {
         } catch (e) {
             console.warn(
                 "Error buscando precio OVNI:",
-                item["Título"],
+                item["T�tulo"],
                 e
             );
         }
@@ -278,7 +278,7 @@ async function cargarPreciosOVNI(lista) {
 
 const WHATSAPP_NUMERO = "5493584283858";
 
-// âš ï¸ REEMPLAZAR por la URL real del Worker de administraciÃ³n una vez desplegado
+// ⚠️ REEMPLAZAR por la URL real del Worker de administración una vez desplegado
 const WORKER_ADMIN = "https://leviatan-admin.TU-SUBDOMINIO.workers.dev";
 
 let catalogo = [];
@@ -318,7 +318,7 @@ function claveItem(artista, album) {
 }
 
 function claveComic(item) {
-    const isbn = limpiarISBN(item["CÃ³digo universal"]);
+    const isbn = limpiarISBN(item["Código universal"]);
 
     if (isbn) {
         return `isbn_${isbn}`;
@@ -326,11 +326,11 @@ function claveComic(item) {
 
     return (
         "comic_" +
-        (item["TÃ­tulo"] || "") +
+        (item["Título"] || "") +
         "___" +
         (item.Serie || "") +
         "___" +
-        (item["NÃºmero"] || "")
+        (item["Número"] || "")
     )
         .toLowerCase()
         .trim();
@@ -383,7 +383,7 @@ function limpiarISBN(valor) {
 }
 
 // ==========================================================
-// BONIFICACIONES (compartidas vÃ­a Worker + KV, no localStorage)
+// BONIFICACIONES (compartidas vía Worker + KV, no localStorage)
 // ==========================================================
 
 function normalizarTexto(texto) {
@@ -401,7 +401,7 @@ function claveBonifMusica(item) {
 
 function claveBonifComic(item) {
     return "comics:" + normalizarTexto(
-        `${item["TÃ­tulo"]}-${item.Serie}-${item["NÃºmero"]}`
+        `${item["Título"]}-${item.Serie}-${item["Número"]}`
     );
 }
 
@@ -472,7 +472,7 @@ function mostrarBannerPromo() {
     }
 
     banner.innerHTML =
-        `${promo.titulo ? promo.titulo + " â€” " : ""}${promo.descripcion || ""}${promo.envioGratis ? " Â· EnvÃ­o gratis" : ""}`;
+        `${promo.titulo ? promo.titulo + " — " : ""}${promo.descripcion || ""}${promo.envioGratis ? " · Envío gratis" : ""}`;
 }
 
 function parsearPrecio(valor) {
@@ -550,9 +550,9 @@ function armarLinkWhatsApp(item) {
 
     if (item.Tipo === "COMIC") {
         titulo = [
-            item["TÃ­tulo"],
+            item["Título"],
             item.Serie ? `(${item.Serie})` : "",
-            item["NÃºmero"] ? `NÂº ${item["NÃºmero"]}` : ""
+            item["Número"] ? `Nº ${item["Número"]}` : ""
         ]
             .filter(Boolean)
             .join(" ");
@@ -560,7 +560,7 @@ function armarLinkWhatsApp(item) {
         titulo = `${item.Artista} - ${item.Album}`;
     }
 
-    const tipoTexto = item.Tipo === "COMIC" ? "cÃ³mic" : "disco";
+    const tipoTexto = item.Tipo === "COMIC" ? "cómic" : "disco";
     const precio = obtenerPrecioFinal(item);
 
     let mensaje = `Hola! Te consulto por este ${tipoTexto}:\n${titulo}`;
@@ -580,7 +580,7 @@ function limpiarParaBusqueda(texto) {
         .replace(/\(.*?\)/g, "")
         .replace(/\[.*?\]/g, "")
         .replace(
-            /\b(reedicion|reediciÃ³n|bootleg|vinilo|vinyl|lp|cd|remaster(izado)?|edicion|ediciÃ³n|import|importado)\b/gi,
+            /\b(reedicion|reedición|bootleg|vinilo|vinyl|lp|cd|remaster(izado)?|edicion|edición|import|importado)\b/gi,
             ""
         )
         .replace(/\s+/g, " ")
@@ -601,7 +601,7 @@ async function buscarPortadaDiscogs(artista, album) {
         const data = await resp.json();
         return data.cover || null;
     } catch (e) {
-        console.warn("Discogs fallÃ³:", artista, album, e);
+        console.warn("Discogs falló:", artista, album, e);
         return null;
     }
 }
@@ -632,7 +632,7 @@ async function buscarPortadaItunes(artista, album) {
 
         return null;
     } catch (e) {
-        console.warn("iTunes fallÃ³:", artista, album, e);
+        console.warn("iTunes falló:", artista, album, e);
         return null;
     }
 }
@@ -671,7 +671,7 @@ async function buscarPortadaComicWhakoom(isbn) {
         );
 
         if (!resp.ok) {
-            console.warn("Whakoom proxy respondiÃ³:", resp.status, codigo);
+            console.warn("Whakoom proxy respondió:", resp.status, codigo);
             return null;
         }
 
@@ -683,7 +683,7 @@ async function buscarPortadaComicWhakoom(isbn) {
 
         return url;
     } catch (e) {
-        console.warn("Whakoom fallÃ³:", codigo, e);
+        console.warn("Whakoom falló:", codigo, e);
         return null;
     }
 }
@@ -694,7 +694,7 @@ function obtenerTipoPagina() {
     if (ruta.includes("comics")) return "COMIC";
     if (ruta.includes("musica")) return "CD";
 
-    return null; // null = pÃ¡gina combinada (ej. index.html), muestra todo
+    return null; // null = página combinada (ej. index.html), muestra todo
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -744,23 +744,23 @@ document.addEventListener("DOMContentLoaded", () => {
             const esComic = item.Tipo === "COMIC";
 
             const titulo = esComic
-                ? (item["TÃ­tulo"] || "")
+                ? (item["Título"] || "")
                 : (item.Album || "");
 
             const subtitulo = esComic
                 ? [
                     item.Serie,
-                    item["NÃºmero"] ? `NÂº ${item["NÃºmero"]}` : ""
+                    item["Número"] ? `Nº ${item["Número"]}` : ""
                 ]
                     .filter(Boolean)
-                    .join(" Â· ")
+                    .join(" · ")
                 : (item.Artista || "");
 
             const editorialOSello = esComic
                 ? (item.Editorial || "")
                 : (item.Sello || "");
 
-            const anio = item["AÃ±o de lanzamiento"] || "";
+            const anio = item["Año de lanzamiento"] || "";
 
             const clave = esComic
                 ? claveComic(item)
@@ -809,7 +809,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let url = null;
 
             if (item.Tipo === "COMIC") {
-                const isbn = limpiarISBN(item["CÃ³digo universal"]);
+                const isbn = limpiarISBN(item["Código universal"]);
 
                 if (isbn) {
                     url = await buscarPortadaComicWhakoom(isbn);
@@ -880,7 +880,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         const catalogoComics = comics.filter(
-            item => (item["TÃ­tulo"] || "").trim()
+            item => (item["Título"] || "").trim()
         );
 
         catalogo = [...catalogoCDs, ...catalogoComics];
@@ -894,8 +894,8 @@ document.addEventListener("DOMContentLoaded", () => {
         bonificaciones = bonif;
 
         console.log("CDs cargados:", catalogoCDs.length);
-        console.log("CÃ³mics cargados:", catalogoComics.length);
-        console.log("CatÃ¡logo mostrado en esta pÃ¡gina:", catalogo.length);
+        console.log("Cómics cargados:", catalogoComics.length);
+        console.log("Catálogo mostrado en esta página:", catalogo.length);
 
         mostrarResultados(obtenerDestacados());
         mostrarBannerPromo();
@@ -915,13 +915,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (item.Tipo === "COMIC") {
                 camposBusqueda = [
-                    item["TÃ­tulo"],
+                    item["Título"],
                     item.Serie,
-                    item["NÃºmero"],
+                    item["Número"],
                     item.Editorial,
                     item.Origen,
-                    item["CÃ³digo universal"],
-                    item["AÃ±o de lanzamiento"]
+                    item["Código universal"],
+                    item["Año de lanzamiento"]
                 ];
             } else {
                 camposBusqueda = [
@@ -929,7 +929,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     item.Album,
                     item.Sello,
                     item.Origen,
-                    item["AÃ±o de lanzamiento"]
+                    item["Año de lanzamiento"]
                 ];
             }
 
