@@ -44,9 +44,9 @@ function slugOVNI(texto) {
 }
 
 function urlsProductoOVNI(item) {
-    const titulo = item["TÃ­tulo"] || "";
+    const titulo = item["Tï¿½tulo"] || "";
     const serie = item.Serie || "";
-    const numero = item["NÃºmero"] || "";
+    const numero = item["Nï¿½mero"] || "";
 
     const nombres = [
         titulo,
@@ -221,7 +221,7 @@ async function buscarPrecioOVNI(item) {
         } catch (e) {
             console.warn(
                 "Error buscando precio OVNI:",
-                item["TÃ­tulo"],
+                item["Tï¿½tulo"],
                 e
             );
         }
@@ -783,9 +783,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p>${escapeHtml(item.Origen || "")}</p>
                     ${anio ? `<p>${escapeHtml(anio)}</p>` : ""}
                     <p>${escapeHtml(item.Estado || "")}</p>
-                    ${renderizarPrecio(item)}`r`n                    ${esComic && esComicOVNI(item) && parsearPrecio(item.Precio) === null ? `<span class="precio-ovni" data-precio-ovni-key="${escapeAttribute(clave)}">Consultando precio...</span>` : ""}`r`n                    
+                    ${renderizarPrecio(item)}
                     <a
-                        class="btn-whatsapp"`r`n                        data-whatsapp-key="${escapeAttribute(clave)}"
+                        class="btn-whatsapp"
+                        data-whatsapp-key="${escapeAttribute(claveComic(item))}"
                         href="${escapeAttribute(armarLinkWhatsApp(item))}"
                         target="_blank"
                         rel="noopener"
