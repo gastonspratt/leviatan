@@ -1,15 +1,22 @@
-const URL_COMICS_OVNI =
+const URL_SITEMAP_OVNI =
+    "https://r.jina.ai/https://www.ovnipress.net/sitemap.xml";
+
+const URL_READER_OVNI =
+    "https://r.jina.ai/";
+
+const URL_COMICS_SHEET_OVNI =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=2096118978&single=true&output=csv";
 
-const URL_OVNI_BUSQUEDA = "https://s.jina.ai/?q=";
-const CACHE_OVNI = "leviatan_ovni_precios_v2";
-const CACHE_TTL = 1000 * 60 * 60 * 12;
+const CACHE_OVNI = "leviatan_ovni_precios_v3";
+const CACHE_TTL_OVNI = 1000 * 60 * 60 * 12;
 
-let comicsOVNI = [];
+let productosOVNI = [];
+let urlsOVNI = [];
 let cacheOVNI = JSON.parse(
     localStorage.getItem(CACHE_OVNI) || "{}"
 );
 let consultasOVNI = new Set();
+let timerOVNI = null;
 
 function normalizarOVNI(texto) {
     return (texto || "")
@@ -17,17 +24,47 @@ function normalizarOVNI(texto) {
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .toLowerCase()
-        .replace(/[^a-z0-9]/g, "");
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim();
 }
 
-function parsearPrecioOVNI(texto) {
-    const encontrados = String(texto || "").match(
-        /\$\s*[0-9]{1,3}(?:\.[0-9]{3})+(?:,[0-9]{1,2})?/g
+function tokensOVNI(texto) {
+    return normalizarOVNI(texto)
+        .split(/\s+/)
+        .filter(token =>
+            token.length >= 3 &&
+            ![
+                "los",
+                "las",
+                "del",
+                "una",
+                "uno",
+                "con",
+                "para",
+                "the",
+                "and",
+                "vol",
+                "nro"
+            ].includes(token)
+        );
+}
+
+function claveOVNI(item) {
+    return [
+        item["Título"] || "",
+        item.Serie || "",
+        item["Número"] || ""
+    ].join("|");
+}
+
+function precioOVNI(texto) {
+    const coincidencias = String(texto || "").match(
+        /##\s*\$[0-9]{1,3}(?:\.[0-9]{3})+(?:,[0-9]{1,2})?/g
     ) || [];
 
-    for (const encontrado of encontrados) {
+    for (const valor of coincidencias) {
         const numero = Number(
-            encontrado
+            valor
                 .replace(/[^0-9,.-]/g, "")
                 .replace(/\./g, "")
                 .replace(",", ".")
@@ -41,7 +78,7 @@ function parsearPrecioOVNI(texto) {
     return null;
 }
 
-function formatearPrecioOVNI(numero) {
+function formatoPrecioOVNI(numero) {
     return new Intl.NumberFormat("es-AR", {
         style: "currency",
         currency: "ARS",
@@ -49,67 +86,107 @@ function formatearPrecioOVNI(numero) {
     }).format(numero);
 }
 
-function obtenerClaveOVNI(item) {
-    return [
-        item["Título"] || "",
-        item.Serie || "",
-        item["Número"] || ""
-    ].join("|");
-}
-
-function buscarComicVisible(titulo, subtitulo) {
-    const t = normalizarOVNI(titulo);
-    const s = normalizarOVNI(subtitulo);
-
-    const candidatos = comicsOVNI.filter(item =>
-        normalizarOVNI(item["Título"]) === t
+function puntuacionProducto(item, url) {
+    const texto = normalizarOVNI(
+        `${item["Título"] || ""} ${item.Serie || ""} ${item["Número"] || ""}`
     );
 
-    if (candidatos.length === 1) {
-        return candidatos[0];
+    const slug = normalizarOVNI(
+        url
+            .replace("https://www.ovnipress.net/productos/", "")
+            .replace("/", "")
+            .replace(/-/g, " ")
+    );
+
+    const buscados = tokensOVNI(texto);
+
+    let puntos = 0;
+
+    for (const token of buscados) {
+        if (slug.includes(token)) {
+            puntos++;
+        }
     }
 
-    const porNumero = candidatos.find(item => {
-        const numero = normalizarOVNI(item["Número"]);
-        const serie = normalizarOVNI(item.Serie);
+    const titulo = normalizarOVNI(item["Título"] || "");
 
-        return (
-            (!numero || s.includes(numero)) &&
-            (!serie || s.includes(serie))
+    if (
+        titulo &&
+        slug.includes(
+            titulo.replace(/\s+/g, " ")
+        )
+    ) {
+        puntos += 5;
+    }
+
+    return puntos;
+}
+
+function encontrarProductoOVNI(item) {
+    let mejor = null;
+    let mejorPuntaje = 0;
+
+    for (const url of urlsOVNI) {
+        const puntos = puntuacionProducto(item, url);
+
+        if (puntos > mejorPuntaje) {
+            mejorPuntaje = puntos;
+            mejor = url;
+        }
+    }
+
+    return mejorPuntaje >= 2 ? mejor : null;
+}
+
+async function cargarSitemapOVNI() {
+    try {
+        const respuesta = await fetch(URL_SITEMAP_OVNI);
+
+        if (!respuesta.ok) {
+            return;
+        }
+
+        const texto = await respuesta.text();
+
+        urlsOVNI = [
+            ...new Set(
+                texto.match(
+                    /https:\/\/www\.ovnipress\.net\/productos\/[^<\s]+/g
+                ) || []
+            )
+        ];
+
+        urlsOVNI = urlsOVNI.map(url =>
+            url.replace(/["')]+$/g, "")
         );
-    });
-
-    return porNumero || candidatos[0] || null;
+    } catch (error) {
+        console.warn(
+            "No se pudo leer el sitemap de OVNI:",
+            error
+        );
+    }
 }
 
 async function buscarPrecioOVNI(item) {
-    const clave = obtenerClaveOVNI(item);
+    const clave = claveOVNI(item);
     const guardado = cacheOVNI[clave];
 
     if (
         guardado &&
-        Date.now() - guardado.timestamp < CACHE_TTL
+        Date.now() - guardado.timestamp < CACHE_TTL_OVNI
     ) {
         return guardado.precio;
     }
 
-    const isbn =
-        item.ISBN ||
-        item["Código universal"] ||
-        "";
+    const url = encontrarProductoOVNI(item);
 
-    const titulo = item["Título"] || "";
-    const serie = item.Serie || "";
-    const numero = item["Número"] || "";
-
-    const consulta = isbn
-        ? `site:ovnipress.net/productos "${isbn}"`
-        : `site:ovnipress.net/productos "${titulo}" "${serie}" "${numero}"`;
+    if (!url) {
+        return null;
+    }
 
     try {
         const respuesta = await fetch(
-            URL_OVNI_BUSQUEDA +
-            encodeURIComponent(consulta)
+            URL_READER_OVNI + url
         );
 
         if (!respuesta.ok) {
@@ -117,7 +194,7 @@ async function buscarPrecioOVNI(item) {
         }
 
         const texto = await respuesta.text();
-        const precio = parsearPrecioOVNI(texto);
+        const precio = precioOVNI(texto);
 
         if (precio !== null) {
             cacheOVNI[clave] = {
@@ -134,8 +211,8 @@ async function buscarPrecioOVNI(item) {
         }
     } catch (error) {
         console.warn(
-            "Precio OVNI no disponible:",
-            titulo,
+            "Error consultando OVNI:",
+            item["Título"],
             error
         );
     }
@@ -143,51 +220,91 @@ async function buscarPrecioOVNI(item) {
     return null;
 }
 
-async function actualizarPreciosVisibles() {
-    const resultados = document.getElementById("resultados");
+async function actualizarPreciosOVNI() {
+    const resultados =
+        document.getElementById("resultados");
 
-    if (!resultados || comicsOVNI.length === 0) {
+    if (
+        !resultados ||
+        !productosOVNI.length ||
+        !urlsOVNI.length
+    ) {
         return;
     }
 
-    const tarjetas = resultados.querySelectorAll(".card");
+    const tarjetas =
+        [...resultados.querySelectorAll(".card")];
+
+    const trabajos = [];
 
     for (const tarjeta of tarjetas) {
-        const tituloEl = tarjeta.querySelector(
-            ".card-body p strong"
-        );
+        const tituloEl =
+            tarjeta.querySelector(
+                ".card-body p strong"
+            );
 
-        const subtituloEl = tarjeta.querySelector(
-            ".card-body h3"
-        );
+        const subtituloEl =
+            tarjeta.querySelector(
+                ".card-body h3"
+            );
 
-        const precioEl = tarjeta.querySelector(
-            ".card-body .precio"
-        );
+        const precioEl =
+            tarjeta.querySelector(
+                ".card-body .precio"
+            );
 
-        if (!tituloEl || !precioEl) {
+        if (
+            !tituloEl ||
+            !precioEl ||
+            precioEl.textContent.trim()
+        ) {
             continue;
         }
 
-        if (precioEl.textContent.trim()) {
-            continue;
-        }
+        const titulo =
+            tituloEl.textContent.trim();
 
-        const titulo = tituloEl.textContent.trim();
-        const subtitulo = subtituloEl
-            ? subtituloEl.textContent.trim()
-            : "";
+        const subtitulo =
+            subtituloEl
+                ? subtituloEl.textContent.trim()
+                : "";
 
-        const item = buscarComicVisible(
-            titulo,
-            subtitulo
-        );
+        const item = productosOVNI.find(producto => {
+            const mismoTitulo =
+                normalizarOVNI(
+                    producto["Título"]
+                ) === normalizarOVNI(titulo);
+
+            if (!mismoTitulo) {
+                return false;
+            }
+
+            const serie =
+                normalizarOVNI(
+                    producto.Serie
+                );
+
+            const sub =
+                normalizarOVNI(
+                    subtitulo
+                );
+
+            return (
+                !serie ||
+                sub.includes(serie) ||
+                normalizarOVNI(
+                    producto["Número"]
+                ) ===
+                    normalizarOVNI(subtitulo)
+                    .replace(/[^0-9]/g, "")
+            );
+        });
 
         if (!item) {
             continue;
         }
 
-        const clave = obtenerClaveOVNI(item);
+        const clave = claveOVNI(item);
 
         if (consultasOVNI.has(clave)) {
             continue;
@@ -195,69 +312,103 @@ async function actualizarPreciosVisibles() {
 
         consultasOVNI.add(clave);
 
-        const precio = await buscarPrecioOVNI(item);
+        trabajos.push({
+            tarjeta,
+            precioEl,
+            item
+        });
 
-        if (precio !== null) {
-            precioEl.textContent =
-                formatearPrecioOVNI(precio);
+        if (trabajos.length >= 3) {
+            break;
         }
+    }
 
-        await new Promise(resolve =>
-            setTimeout(resolve, 500)
+    const resultadosPrecios =
+        await Promise.all(
+            trabajos.map(async trabajo => ({
+                ...trabajo,
+                precio: await buscarPrecioOVNI(
+                    trabajo.item
+                )
+            }))
+        );
+
+    for (const trabajo of resultadosPrecios) {
+        if (trabajo.precio !== null) {
+            trabajo.precioEl.textContent =
+                formatoPrecioOVNI(
+                    trabajo.precio
+                );
+        }
+    }
+
+    if (trabajos.length > 0) {
+        setTimeout(
+            actualizarPreciosOVNI,
+            1000
         );
     }
 }
 
-async function iniciarPreciosOVNI() {
-    Papa.parse(URL_COMICS_OVNI, {
-        download: true,
-        header: true,
-        skipEmptyLines: true,
+function vigilarCatalogoOVNI() {
+    const resultados =
+        document.getElementById("resultados");
 
-        complete: async function(resultado) {
-            comicsOVNI = resultado.data.filter(item =>
-                /ovni\s*press/i.test(
-                    item.Editorial || ""
-                ) &&
-                !(item.Precio || "").trim() &&
-                (item["Título"] || "").trim()
+    if (!resultados) {
+        return;
+    }
+
+    const observer =
+        new MutationObserver(() => {
+            clearTimeout(timerOVNI);
+
+            timerOVNI = setTimeout(
+                actualizarPreciosOVNI,
+                500
             );
+        });
 
-            await actualizarPreciosVisibles();
-
-            const resultados =
-                document.getElementById("resultados");
-
-            if (resultados) {
-                let temporizador = null;
-
-                const observer =
-                    new MutationObserver(() => {
-                        clearTimeout(temporizador);
-
-                        temporizador = setTimeout(
-                            actualizarPreciosVisibles,
-                            300
-                        );
-                    });
-
-                observer.observe(resultados, {
-                    childList: true,
-                    subtree: true
-                });
-            }
-        },
-
-        error: function(error) {
-            console.warn(
-                "No se pudo cargar el catálogo OVNI:",
-                error
-            );
-        }
+    observer.observe(resultados, {
+        childList: true,
+        subtree: true
     });
+}
+
+function iniciarOVNI() {
+    const resultados =
+        document.getElementById("resultados");
+
+    if (!resultados) {
+        return;
+    }
+
+    vigilarCatalogoOVNI();
+
+    Papa.parse(
+        URL_COMICS_SHEET_OVNI,
+        {
+            download: true,
+            header: true,
+            skipEmptyLines: true,
+
+            complete: async function(resultado) {
+                productosOVNI =
+                    resultado.data.filter(item =>
+                        /ovni\s*press/i.test(
+                            item.Editorial || ""
+                        ) &&
+                        !(item.Precio || "").trim() &&
+                        (item["Título"] || "").trim()
+                    );
+
+                await cargarSitemapOVNI();
+                actualizarPreciosOVNI();
+            }
+        }
+    );
 }
 
 document.addEventListener(
     "DOMContentLoaded",
-    iniciarPreciosOVNI
+    iniciarOVNI
 );
