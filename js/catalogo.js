@@ -15,7 +15,7 @@ const WHATSAPP_NUMERO = "5493584283858";
 let catalogo = [];
 
 const CACHE_KEY = "leviatan_portadas_cache_v2";
-const CACHE_COMICS_KEY = "leviatan_comic_portadas_cache_v1";
+const CACHE_COMICS_KEY = "leviatan_comic_ovni_cache_v2";
 
 let cachePortadas =
     JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
@@ -359,43 +359,53 @@ async function buscarPortada(artista, album) {
     return url;
 }
 
-async function buscarPortadaComicWhakoom(isbn) {
-    const codigo = limpiarISBN(isbn);
+const CACHE_COMIC_NEGATIVO_MS = 6 * 60 * 60 * 1000;
 
-    if (!codigo) return null;
+// Pide al Worker la portada y el precio de OVNI Press para un cómic
+async function buscarDatosComic(item) {
+    const clave = claveComic(item);
+    const guardado = cachePortadasComics[clave];
 
-    if (codigo in cachePortadasComics) {
-        return cachePortadasComics[codigo];
+    if (guardado) {
+        const vigente =
+            guardado.cover ||
+            guardado.precio ||
+            Date.now() - (guardado.t || 0) < CACHE_COMIC_NEGATIVO_MS;
+
+        if (vigente) return { ...guardado, deCache: true };
     }
 
+    const params = new URLSearchParams();
+    const isbn = limpiarISBN(item["Código universal"]);
+
+    if (isbn) params.set("isbn", isbn);
+    if (item.Franquicia) params.set("franquicia", item.Franquicia);
+    if (item.SerieOriginal) params.set("serie", item.SerieOriginal);
+    if (item["Número"]) params.set("numero", item["Número"]);
+
     try {
-        const resp = await fetch(
-            `${URL_PROXY_COMICS}?isbn=${encodeURIComponent(codigo)}`
-        );
+        const resp = await fetch(`${URL_PROXY_COMICS}?${params}`);
 
         if (!resp.ok) {
-            console.warn(
-                "Whakoom proxy respondió:",
-                resp.status,
-                codigo
-            );
-            return null;
+            console.warn("Proxy de cómics respondió:", resp.status, clave);
+            return { cover: null, precio: null };
         }
 
         const data = await resp.json();
-        const url = data.cover || null;
 
-        cachePortadasComics[codigo] = url;
+        const resultado = {
+            cover: data.cover || null,
+            precio: Number(data.precio) > 0 ? Number(data.precio) : null,
+            t: Date.now()
+        };
+
+        cachePortadasComics[clave] = resultado;
         guardarCachePortadasComics();
 
-        return url;
+        return resultado;
     } catch (e) {
-        console.warn(
-            "Whakoom falló:",
-            codigo,
-            e
-        );
-        return null;
+        console.warn("Proxy de cómics falló:", clave, e);
+        return { cover: null, precio: null };
     }
 }
 
@@ -488,7 +498,7 @@ document.addEventListener(
                     obtenerRutaImagen(item.Imagen);
 
                 resultados.innerHTML += `
-                <article class="card">
+                <article class="card" data-card="${escapeAttribute(clave)}">
                     <img
                         data-key="${escapeAttribute(clave)}"
                         src="${escapeAttribute(imagen)}"
@@ -506,7 +516,7 @@ document.addEventListener(
                                 : ""
                         }
                         <p>${escapeHtml(item.Estado || "")}</p>
-                        ${renderizarPrecio(item)}
+                        <div class="precio-slot">${renderizarPrecio(item)}</div>
                         <a
                             class="btn-whatsapp"
                             href="${escapeAttribute(armarLinkWhatsApp(item))}"
@@ -519,7 +529,11 @@ document.addEventListener(
                 </article>
                 `;
 
-                if (!tieneImagenValida(item.Imagen)) {
+                const necesitaPortada = !tieneImagenValida(item.Imagen);
+                const necesitaPrecio =
+                    esComic && parsearPrecio(item.Precio) === null;
+
+                if (necesitaPortada || necesitaPrecio) {
                     colaPendiente.push({
                         item,
                         clave
@@ -533,14 +547,29 @@ document.addEventListener(
         async function procesarColaPortadas() {
             for (const { item, clave } of colaPendiente) {
                 let url = null;
+                let deCache = false;
 
                 if (item.Tipo === "COMIC") {
-                    const isbn =
-                        limpiarISBN(item["Código universal"]);
+                    const datos = await buscarDatosComic(item);
+                    deCache = Boolean(datos.deCache);
 
-                    if (isbn) {
-                        url =
-                            await buscarPortadaComicWhakoom(isbn);
+                    if (datos.cover && !tieneImagenValida(item.Imagen)) {
+                        url = datos.cover;
+                    }
+
+                    // Precio de OVNI Press cuando el Sheet no tiene uno
+                    if (datos.precio && parsearPrecio(item.Precio) === null) {
+                        item.Precio = String(datos.precio);
+
+                        document
+                            .querySelectorAll(`[data-card="${CSS.escape(clave)}"]`)
+                            .forEach(card => {
+                                const slot = card.querySelector(".precio-slot");
+                                const wsp = card.querySelector(".btn-whatsapp");
+
+                                if (slot) slot.innerHTML = renderizarPrecio(item);
+                                if (wsp) wsp.href = armarLinkWhatsApp(item);
+                            });
                     }
                 } else {
                     url =
@@ -560,15 +589,17 @@ document.addEventListener(
                         });
                 }
 
-                await new Promise(
-                    resolve =>
-                        setTimeout(
-                            resolve,
-                            item.Tipo === "COMIC"
-                                ? 700
-                                : 1100
-                        )
-                );
+                if (!deCache) {
+                    await new Promise(
+                        resolve =>
+                            setTimeout(
+                                resolve,
+                                item.Tipo === "COMIC"
+                                    ? 700
+                                    : 1100
+                            )
+                    );
+                }
             }
         }
 
@@ -583,6 +614,7 @@ document.addEventListener(
                 ...item,
                 "Título": serie || franquicia,
                 Serie: serie ? franquicia : "",
+                SerieOriginal: serie,
                 "Código universal": item.ISBN || "",
                 // La portada puede estar en "Imagen", en "Referencia" o en las
                 // columnas sin título del final del Sheet: se toma la primera URL
