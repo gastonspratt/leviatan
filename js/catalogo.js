@@ -113,6 +113,21 @@ function limpiarISBN(valor) {
 }
 
 
+function escapeHtml(valor) {
+    return (valor || "")
+        .toString()
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function escapeAttribute(valor) {
+    return escapeHtml(valor)
+        .replace(/`/g, "&#096;");
+}
+
 function obtenerConfigAdmin() {
     try {
         return JSON.parse(
@@ -609,21 +624,6 @@ document.addEventListener(
                     );
                 }
             );
-        }
-
-        function escapeHtml(valor) {
-            return (valor || "")
-                .toString()
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        function escapeAttribute(valor) {
-            return escapeHtml(valor)
-                .replace(/`/g, "&#096;");
         }
 
         Promise.all([
