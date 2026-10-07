@@ -560,78 +560,197 @@ rgba(0,0,0,.82)
 }
 
 /* ==========================================================
-   MANIFIESTO
-   PARTE 3/4
+   HISTORIA / NOSOTROS
    ========================================================== */
 
 .manifiesto{
 
-    width:min(900px,92%);
+    width:min(1050px,92%);
 
-    margin:90px auto;
+    margin:0 auto;
 
-    text-align:center;
+    padding:95px 0 110px;
+
+    text-align:left;
 
 }
+
+/* ---------- TÍTULO ---------- */
 
 .manifiesto h2{
 
     font-family:"Oswald",sans-serif;
 
-    font-size:2.5rem;
+    font-size:clamp(3rem,6vw,5rem);
 
-    margin-bottom:28px;
+    line-height:1;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    margin-bottom:18px;
+
+    text-align:center;
 
 }
 
+.manifiesto h2::after{
+
+    content:"";
+
+    display:block;
+
+    width:65px;
+
+    height:3px;
+
+    margin:25px auto 70px;
+
+    background:var(--rojo);
+
+}
+
+/* ---------- TEXTO ---------- */
+
 .manifiesto p{
+
+    max-width:780px;
+
+    margin:0 auto 28px;
 
     color:var(--gris);
 
-    font-size:1.08rem;
-
-    margin-bottom:22px;
+    font-size:1.05rem;
 
     line-height:1.9;
 
 }
 
-.manifiesto blockquote{
+/* ---------- PRIMER PÁRRAFO ---------- */
 
-    margin-top:45px;
+.manifiesto p:first-of-type{
 
-    padding:35px;
+    max-width:850px;
 
-    border-left:4px solid var(--rojo);
+    margin-bottom:65px;
 
-    background:var(--panel);
-
-    border-radius:14px;
+    color:#e5e5e5;
 
     font-size:1.25rem;
 
-    font-style:italic;
+    line-height:1.8;
 
-    color:#ececec;
+    text-align:center;
 
 }
 
-.manifiesto blockquote strong{
+.manifiesto p:first-of-type strong{
 
-    display:block;
+    color:#fff;
 
-    margin-top:16px;
+}
+
+/* ---------- PÁRRAFOS CENTRALES ---------- */
+
+.manifiesto p:nth-of-type(2),
+.manifiesto p:nth-of-type(3),
+.manifiesto p:nth-of-type(4),
+.manifiesto p:nth-of-type(5){
+
+    position:relative;
+
+    padding-left:32px;
+
+    border-left:2px solid #292929;
+
+}
+
+/* ---------- CAMBIO DE ETAPA ---------- */
+
+.manifiesto p:nth-of-type(6){
+
+    max-width:780px;
+
+    margin-top:70px;
+
+    margin-bottom:30px;
+
+    padding:22px 28px;
+
+    background:var(--panel);
+
+    border-left:4px solid var(--rojo);
+
+    color:#fff;
 
     font-family:"Oswald",sans-serif;
 
-    font-size:1.6rem;
+    font-size:2rem;
+
+    line-height:1.25;
+
+    text-transform:uppercase;
 
     letter-spacing:1px;
 
-    color:white;
+}
+
+/* ---------- PRESENTE ---------- */
+
+.manifiesto p:nth-of-type(7){
+
+    max-width:850px;
+
+    color:#d5d5d5;
+
+    font-size:1.12rem;
 
 }
 
+.manifiesto p:nth-of-type(7) strong{
+
+    color:#fff;
+
+}
+
+.manifiesto p:nth-of-type(8){
+
+    max-width:850px;
+
+    margin-top:45px;
+
+    padding:30px;
+
+    background:linear-gradient(
+        135deg,
+        #151515,
+        #101010
+    );
+
+    border:1px solid var(--borde);
+
+    border-radius:10px;
+
+    box-shadow:var(--sombra);
+
+    color:#d0d0d0;
+
+}
+
+.manifiesto p:nth-of-type(8) strong{
+
+    display:block;
+
+    color:#fff;
+
+    font-family:"Oswald",sans-serif;
+
+    font-size:1.15rem;
+
+    letter-spacing:.5px;
+
+}
 
 /* ==========================================================
    FOOTER
@@ -1422,6 +1541,102 @@ a,
     .agenda-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* ==========================================================
+   RESPONSIVE — HISTORIA / NOSOTROS
+   ========================================================== */
+
+@media (max-width: 768px){
+
+    .manifiesto{
+        width:min(92%,650px);
+        padding:70px 0 80px;
+    }
+
+    .manifiesto h2{
+        font-size:2.6rem;
+    }
+
+    .manifiesto h2::after{
+        margin-bottom:50px;
+    }
+
+    .manifiesto p{
+        font-size:1rem;
+        line-height:1.8;
+    }
+
+    .manifiesto p:first-of-type{
+        font-size:1.1rem;
+        margin-bottom:45px;
+    }
+
+    .manifiesto p:nth-of-type(2),
+    .manifiesto p:nth-of-type(3),
+    .manifiesto p:nth-of-type(4),
+    .manifiesto p:nth-of-type(5){
+        padding-left:20px;
+    }
+
+    .manifiesto p:nth-of-type(6){
+        margin-top:50px;
+        font-size:1.6rem;
+        padding:20px 22px;
+    }
+
+    .manifiesto p:nth-of-type(7){
+        font-size:1.04rem;
+    }
+
+    .manifiesto p:nth-of-type(8){
+        padding:24px;
+    }
+
+}
+
+@media (max-width: 520px){
+
+    .manifiesto{
+        width:90%;
+        padding:55px 0 65px;
+    }
+
+    .manifiesto h2{
+        font-size:2.15rem;
+        letter-spacing:1px;
+    }
+
+    .manifiesto h2::after{
+        width:50px;
+        height:2px;
+        margin-top:20px;
+        margin-bottom:40px;
+    }
+
+    .manifiesto p:first-of-type{
+        font-size:1.02rem;
+        line-height:1.75;
+    }
+
+    .manifiesto p:nth-of-type(2),
+    .manifiesto p:nth-of-type(3),
+    .manifiesto p:nth-of-type(4),
+    .manifiesto p:nth-of-type(5){
+        padding-left:16px;
+        border-left-width:1px;
+    }
+
+    .manifiesto p:nth-of-type(6){
+        font-size:1.35rem;
+        padding:18px 18px;
+    }
+
+    .manifiesto p:nth-of-type(8){
+        padding:20px;
+        border-radius:8px;
+    }
+
 }
 
 /* ==========================================================
