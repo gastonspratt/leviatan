@@ -583,7 +583,12 @@ document.addEventListener(
                 ...item,
                 "Título": serie || franquicia,
                 Serie: serie ? franquicia : "",
-                "Código universal": item.ISBN || ""
+                "Código universal": item.ISBN || "",
+                // La portada puede estar en "Imagen", en "Referencia" o en las
+                // columnas sin título del final del Sheet: se toma la primera URL
+                Imagen: [item.Imagen, ...Object.values(item)]
+                    .map(v => (v || "").toString().trim())
+                    .find(v => /^https?:\/\//i.test(v)) || item.Imagen || ""
             };
         }
 
