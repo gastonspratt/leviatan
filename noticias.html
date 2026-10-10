@@ -1,481 +1,185 @@
-/* ==========================================================
-   LEVIATÁN COLECCIONABLES
-   NOTICIAS.CSS
-   ========================================================== */
-
-.pagina-noticias {
-    background: var(--fondo, #0b0b0b);
-}
-
-
-/* ==========================================================
-   HERO
-   ========================================================== */
-
-.noticias-hero {
-    margin-top: 82px;
-    padding: 96px 20px 84px;
-    text-align: center;
-    background:
-        linear-gradient(rgba(0, 0, 0, .70), rgba(11, 11, 11, .97)),
-        url("../img/fondo.png") center / cover no-repeat;
-    border-bottom: 1px solid var(--borde, #2b2b2b);
-}
-
-.noticias-hero-inner {
-    width: min(780px, 100%);
-    margin: 0 auto;
-}
-
-.noticias-overline {
-    display: block;
-    margin-bottom: 18px;
-    color: #cfcfcf;
-    font-size: .78rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-}
-
-.noticias-hero h1 {
-    font-family: "Oswald", sans-serif;
-    font-size: clamp(3rem, 9vw, 5.6rem);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-}
-
-.noticias-rule {
-    width: 72px;
-    height: 3px;
-    margin: 28px auto;
-    background: var(--rojo, #8e1b1b);
-}
-
-.noticias-hero p {
-    max-width: 620px;
-    margin: 0 auto;
-    color: #cfcfcf;
-    font-size: 1.1rem;
-}
-
-
-/* ==========================================================
-   CONTENEDOR
-   ========================================================== */
-
-.noticias-contenedor {
-    width: min(1100px, 92%);
-    margin: 72px auto 40px;
-    display: grid;
-    gap: 40px;
-}
-
-.noticias-cabecera {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--borde, #2b2b2b);
-}
-
-.noticias-seccion-label {
-    display: block;
-    margin-bottom: 8px;
-    color: #c24a4a;
-    font-size: .74rem;
-    letter-spacing: 5px;
-}
-
-.noticias-cabecera h2 {
-    font-family: "Oswald", sans-serif;
-    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
-    line-height: 1.15;
-}
-
-.noticias-cabecera-marca {
-    color: #777;
-    font-size: .8rem;
-    letter-spacing: 4px;
-    white-space: nowrap;
-}
-
-
-/* ==========================================================
-   ETIQUETAS Y TEXTOS COMUNES
-   ========================================================== */
-
-.noticia-tag {
-    display: inline-block;
-    padding: 5px 13px;
-    border: 1px solid var(--rojo, #8e1b1b);
-    border-radius: 999px;
-    background: rgba(142, 27, 27, .18);
-    color: #f0a0a0;
-    font-size: .72rem;
-    letter-spacing: 3px;
-}
-
-.noticias-contenedor time {
-    color: #8a8a8a;
-    font-size: .8rem;
-    letter-spacing: 3px;
-}
-
-.noticia-kicker {
-    display: block;
-    color: #c24a4a;
-    font-size: .76rem;
-    letter-spacing: 4px;
-}
-
-.noticia-numero,
-.noticia-numero-mini {
-    font-family: "Oswald", sans-serif;
-    font-weight: 700;
-    line-height: 1;
-    color: transparent;
-    -webkit-text-stroke: 1px #3d3d3d;
-}
-
-
-/* ==========================================================
-   NOTICIA DESTACADA
-   ========================================================== */
-
-.noticia-destacada {
-    padding: 36px;
-    background: var(--panel, #151515);
-    border: 1px solid var(--borde, #2b2b2b);
-    border-top: 3px solid var(--rojo, #8e1b1b);
-    border-radius: 18px;
-    box-shadow: var(--sombra, 0 12px 35px rgba(0, 0, 0, .45));
-}
-
-.noticia-destacada-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 30px;
-}
-
-.noticia-destacada-grid {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    gap: 44px;
-    align-items: stretch;
-}
-
-
-/* ---------- Lado: número, fecha y lugar ---------- */
-
-.noticia-destacada-lado {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 22px;
-    padding: 56px 22px 28px;
-    text-align: center;
-    background: var(--panel2, #1d1d1d);
-    border: 1px solid var(--borde, #2b2b2b);
-    border-radius: 14px;
-}
-
-.noticia-destacada-lado .noticia-numero {
-    position: absolute;
-    top: 8px;
-    left: 18px;
-    font-size: 3.4rem;
-}
-
-.noticia-fecha-grande {
-    font-family: "Oswald", sans-serif;
-    font-size: clamp(3.6rem, 7vw, 5rem);
-    font-weight: 700;
-    line-height: .95;
-    letter-spacing: 3px;
-    color: #fff;
-}
-
-.noticia-lugar {
-    width: 100%;
-    padding-top: 18px;
-    border-top: 1px solid var(--borde, #2b2b2b);
-    color: #b7b7b7;
-    font-size: .76rem;
-    letter-spacing: 3px;
-}
-
-
-/* ---------- Contenido ---------- */
-
-.noticia-destacada-contenido {
-    align-self: center;
-}
-
-.noticia-destacada-contenido h2 {
-    margin: 12px 0 20px;
-    font-family: "Oswald", sans-serif;
-    font-size: clamp(1.7rem, 3.2vw, 2.5rem);
-    line-height: 1.15;
-}
-
-.noticia-bajada {
-    margin-bottom: 18px;
-    color: #e8e8e8;
-    font-size: 1.15rem;
-    line-height: 1.7;
-}
-
-.noticia-bajada strong {
-    color: #fff;
-}
-
-.noticia-destacada-contenido p {
-    max-width: 64ch;
-    margin-bottom: 16px;
-    color: #b7b7b7;
-    line-height: 1.85;
-}
-
-.noticia-destacada-contenido .noticia-bajada {
-    color: #e8e8e8;
-}
-
-
-/* ---------- Estado ---------- */
-
-.noticia-estado {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-    padding: 9px 18px;
-    background: #101010;
-    border: 1px solid var(--borde, #2b2b2b);
-    border-radius: 999px;
-    color: #dddddd;
-    font-size: .85rem;
-    letter-spacing: 1px;
-}
-
-.estado-punto {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #e0a030;
-    box-shadow: 0 0 0 0 rgba(224, 160, 48, .6);
-    animation: estadoPulso 2s infinite;
-}
-
-@keyframes estadoPulso {
-    70%  { box-shadow: 0 0 0 10px rgba(224, 160, 48, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(224, 160, 48, 0); }
-}
-
-
-/* ==========================================================
-   NOTICIA CARD GRANDE
-   ========================================================== */
-
-.noticia-card-grande {
-    padding: 36px;
-    background: var(--panel, #151515);
-    border: 1px solid var(--borde, #2b2b2b);
-    border-radius: 18px;
-    box-shadow: var(--sombra, 0 12px 35px rgba(0, 0, 0, .45));
-    transition: border-color .25s, transform .25s;
-}
-
-.noticia-card-grande:hover {
-    border-color: #4a4a4a;
-    transform: translateY(-4px);
-}
-
-.noticia-card-cabecera {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 26px;
-}
-
-.noticia-card-cabecera > div {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-}
-
-.noticia-numero-mini {
-    font-size: 3rem;
-}
-
-.noticia-card-contenido h2 {
-    margin: 12px 0 20px;
-    font-family: "Oswald", sans-serif;
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    line-height: 1.15;
-}
-
-.noticia-card-contenido > p {
-    max-width: 80ch;
-    margin-bottom: 16px;
-    color: #b7b7b7;
-    line-height: 1.85;
-}
-
-.noticia-card-contenido strong {
-    color: #fff;
-}
-
-
-/* ---------- Subbloques ---------- */
-
-.noticia-subbloques {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin: 30px 0;
-}
-
-.noticia-subbloques > div {
-    padding: 22px;
-    background: var(--panel2, #1d1d1d);
-    border: 1px solid var(--borde, #2b2b2b);
-    border-left: 3px solid var(--rojo, #8e1b1b);
-    border-radius: 12px;
-}
-
-.noticia-subbloques h3 {
-    margin-bottom: 10px;
-    font-family: "Oswald", sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: 1px;
-}
-
-.noticia-subbloques p {
-    color: #b7b7b7;
-    font-size: .93rem;
-    line-height: 1.7;
-}
-
-.noticia-cierre {
-    margin: 8px 0 16px;
-    font-family: "Oswald", sans-serif;
-    font-size: 1.7rem;
-    letter-spacing: 1px;
-    color: #fff !important;
-}
-
-
-/* ==========================================================
-   RESPONSIVE
-   ========================================================== */
-
-@media (max-width: 992px) {
-
-    .noticia-destacada-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .noticia-destacada-lado {
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 24px;
-        padding: 28px 24px 28px 90px;
-        text-align: left;
-    }
-
-    .noticia-destacada-lado .noticia-numero {
-        top: 50%;
-        left: 18px;
-        transform: translateY(-50%);
-    }
-
-    .noticia-lugar {
-        width: auto;
-        max-width: 200px;
-        padding: 0 0 0 24px;
-        border-top: none;
-        border-left: 1px solid var(--borde, #2b2b2b);
-    }
-
-    .noticia-subbloques {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-
-    .noticias-hero {
-        margin-top: 122px;
-        padding: 70px 20px 60px;
-    }
-
-    .noticias-contenedor {
-        margin-top: 50px;
-    }
-
-    .noticias-cabecera {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .noticia-destacada,
-    .noticia-card-grande {
-        padding: 24px;
-    }
-}
-
-@media (max-width: 520px) {
-
-    .noticias-hero {
-        margin-top: 126px;
-    }
-
-    .noticia-destacada-lado {
-        flex-direction: column;
-        text-align: center;
-        padding: 56px 20px 24px;
-    }
-
-    .noticia-destacada-lado .noticia-numero {
-        top: 8px;
-        left: 18px;
-        transform: none;
-    }
-
-    .noticia-lugar {
-        width: 100%;
-        max-width: none;
-        padding: 18px 0 0;
-        border-left: none;
-        border-top: 1px solid var(--borde, #2b2b2b);
-    }
-
-    .noticia-bajada {
-        font-size: 1.05rem;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-    .estado-punto {
-        animation: none;
-    }
-
-    .noticia-card-grande,
-    .noticia-card-grande:hover {
-        transition: none;
-        transform: none;
-    }
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Leviatán | Noticias y Novedades</title>
+<meta name="description" content="Noticias y novedades de Tienda Leviatán y del mundo del coleccionismo.">
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://tiendaleviatan.com/noticias.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Leviatán Coleccionables">
+<meta property="og:title" content="Leviatán | Noticias y Novedades">
+<meta property="og:description" content="Noticias y novedades de Tienda Leviatán y del mundo del coleccionismo.">
+<meta property="og:url" content="https://tiendaleviatan.com/noticias.html">
+<meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
+
+<link rel="icon" href="img/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/internas.css">
+<link rel="stylesheet" href="css/noticias.css">
+</head>
+
+<body>
+
+<header>
+    <a class="logo" href="index.html">
+        <img src="img/logo-leviatan.png" alt="Leviatán Coleccionables">
+    </a>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="musica.html">Música</a>
+        <a href="comics.html">Cómics</a>
+        <a href="libros.html">Libros</a>
+        <a href="figuras.html">Figuras</a>
+        <a href="noticias.html">Noticias</a>
+        <a href="agenda.html">Agenda</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+</header>
+
+<main class="pagina-noticias">
+
+    <section class="noticias-hero">
+        <div class="noticias-hero-inner">
+            <span class="noticias-overline">LEVIATÁN / NOVEDADES</span>
+            <h1>Noticias</h1>
+            <div class="noticias-rule"></div>
+            <p>Las novedades de la tienda, nuestros proyectos y todo lo que estamos construyendo alrededor del coleccionismo.</p>
+        </div>
+    </section>
+
+    <section class="noticias-contenedor">
+
+        <div class="noticias-cabecera">
+            <div>
+                <span class="noticias-seccion-label">ACTUALIDAD</span>
+                <h2>Lo que está pasando en Leviatán</h2>
+            </div>
+            <span class="noticias-cabecera-marca">ARCHIVO / 2026</span>
+        </div>
+
+        <!-- NOTICIA MÁS RECIENTE -->
+        <article class="noticia-destacada">
+            <div class="noticia-destacada-meta">
+                <span class="noticia-tag">EN GESTIÓN</span>
+                <time datetime="2026-10-07">07 OCT 2026</time>
+            </div>
+
+            <div class="noticia-destacada-grid">
+                <div class="noticia-destacada-lado">
+                    <span class="noticia-numero">01</span>
+                    <span class="noticia-fecha-grande">16<br>OCT</span>
+                    <span class="noticia-lugar">FERIA DEL LIBRO · IJLC</span>
+                </div>
+
+                <div class="noticia-destacada-contenido">
+                    <span class="noticia-kicker">PRÓXIMO EVENTO</span>
+                    <h2>Leviatán trabaja para participar en la Feria del Libro del IJLC</h2>
+
+                    <p class="noticia-bajada">
+                        Estamos gestionando nuestra participación en la Feria del Libro del IJLC,
+                        prevista para el <strong>16 de octubre de 2026</strong>.
+                    </p>
+
+                    <p>
+                        Para nosotros, formar parte de una feria de estas características significa
+                        seguir llevando el proyecto Leviatán más allá del catálogo online y acercarlo
+                        directamente a lectores, coleccionistas y curiosos.
+                    </p>
+
+                    <p>
+                        En estos días estamos trabajando para definir nuestra participación y preparar
+                        una selección que represente el espíritu de la tienda: libros, cómics, música,
+                        figuras y objetos para quienes disfrutan descubrir y coleccionar.
+                    </p>
+
+                    <div class="noticia-estado">
+                        <span class="estado-punto"></span>
+                        <span>Participación en gestión</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- HISTORIA ANTERIOR -->
+        <article class="noticia-card-grande">
+            <div class="noticia-card-cabecera">
+                <div>
+                    <span class="noticia-tag">ACTUALIZACIÓN</span>
+                    <time datetime="2026-09-01">SEPTIEMBRE 2026</time>
+                </div>
+                <span class="noticia-numero-mini">02</span>
+            </div>
+
+            <div class="noticia-card-contenido">
+                <span class="noticia-kicker">LA WEB DE LEVIATÁN CRECE</span>
+                <h2>Nueva etapa para Tienda Leviatán</h2>
+
+                <p>
+                    La web de Tienda Leviatán sigue creciendo. En esta nueva actualización
+                    incorporamos varias novedades pensadas para hacer más completa la experiencia
+                    de quienes nos visitan y, sobre todo, para seguir construyendo este espacio
+                    alrededor de la música, los cómics y el coleccionismo.
+                </p>
+
+                <div class="noticia-subbloques">
+                    <div>
+                        <h3>Ahora también tenemos cómics</h3>
+                        <p>
+                            El catálogo se amplía con una nueva sección dedicada a cómics y novelas
+                            gráficas, con títulos, editoriales, números, estado y disponibilidad.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3>Una banda sonora para acompañar la visita</h3>
+                        <p>
+                            Incorporamos un reproductor de música flotante que permite escuchar
+                            nuestra propia banda sonora mientras recorrés la página.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3>Nuevas secciones</h3>
+                        <p>
+                            La web empieza a convertirse en algo más que un catálogo. Próximamente
+                            vas a encontrar noticias, una agenda internacional de recitales de rock
+                            y metal y nuevos contenidos relacionados con nuestra pasión por la
+                            música y el coleccionismo.
+                        </p>
+                    </div>
+                </div>
+
+                <p class="noticia-cierre">
+                    Y esto recién empieza.
+                </p>
+
+                <p>
+                    Estamos trabajando para que <strong>Tienda Leviatán</strong> sea cada vez más
+                    que una tienda: un lugar para descubrir música, cómics, historias y objetos
+                    que merecen formar parte de una colección.
+                </p>
+            </div>
+        </article>
+
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="footer-content">
+        <h2>LEVIATÁN COLECCIONABLES</h2>
+        <p class="slogan">Música • Cómics • Libros para coleccionistas.</p>
+    </div>
+</footer>
+
+</body>
+</html>
