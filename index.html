@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="css/estilos.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
+<style>
 /* Panel Admin */
 #btn-admin {
   display: none;
@@ -126,6 +127,96 @@
   margin-top: 10px;
   text-align: center;
 }
+
+/* Anuncio: Feria del Libro */
+.feria-anuncio {
+  width: min(var(--ancho, 1200px), 92%);
+  margin: 60px auto 20px;
+  display: grid;
+  grid-template-columns: minmax(240px, 380px) 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 32px;
+  background: var(--panel, #151515);
+  border: 1px solid var(--borde, #2b2b2b);
+  border-radius: 18px;
+  box-shadow: var(--sombra, 0 12px 35px rgba(0,0,0,.45));
+}
+
+.feria-afiche {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--borde, #2b2b2b);
+  transition: transform .25s, box-shadow .25s;
+}
+
+.feria-afiche:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.55);
+}
+
+.feria-afiche img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.feria-texto {
+  text-align: left;
+}
+
+.feria-etiqueta {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--rojo, #8e1b1b);
+  color: #fff;
+  font-size: .78rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.feria-texto h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  line-height: 1.05;
+  margin-bottom: 22px;
+}
+
+.feria-datos {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+}
+
+.feria-datos li {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.feria-texto p {
+  color: var(--gris, #b7b7b7);
+  margin-bottom: 26px;
+  max-width: 520px;
+}
+
+@media (max-width: 768px) {
+  .feria-anuncio {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 22px;
+    margin-top: 40px;
+  }
+
+  .feria-afiche {
+    max-width: 380px;
+    margin: 0 auto;
+  }
+}
 </style>
 </head>
 
@@ -162,6 +253,27 @@
 Coleccionables seleccionados para quienes viven la música, el cómic y la cultura.
 </p>
 </div>
+</div>
+</section>
+
+<!-- ANUNCIO: FERIA DEL LIBRO -->
+<section class="feria-anuncio" id="feria-del-libro" aria-label="Feria del Libro">
+<a class="feria-afiche" href="img/feria-del-libro.jpg" target="_blank" rel="noopener">
+<img src="img/feria-del-libro.jpg" alt="Afiche de Leviatán Coleccionables en la Feria del Libro, 16 de octubre de 2026, de 10:30 a 19:30 hs" width="1122" height="1402" loading="lazy">
+</a>
+
+<div class="feria-texto">
+<span class="feria-etiqueta">Te esperamos</span>
+<h2>Feria del Libro</h2>
+
+<ul class="feria-datos">
+<li>📅 16 de octubre de 2026</li>
+<li>🕥 10:30 a 19:30 hs</li>
+</ul>
+
+<p>Vamos a estar con música, cómics y libros para coleccionistas.</p>
+
+<a class="btn-whatsapp" href="comics.html">Ver cómics disponibles</a>
 </div>
 </section>
 
@@ -364,6 +476,14 @@ document.getElementById("guardar-config").addEventListener("click", () => {
   
   setTimeout(() => location.reload(), 1000);
 });
+
+// Oculta el anuncio de la Feria del Libro cuando termina (16/10/2026, 19:30 hs, Argentina)
+(function () {
+  const anuncio = document.getElementById("feria-del-libro");
+  if (anuncio && Date.now() > new Date("2026-10-16T19:30:00-03:00").getTime()) {
+    anuncio.style.display = "none";
+  }
+})();
 
 // Reproductor de música
 const botonMusica = document.getElementById("boton-musica");
