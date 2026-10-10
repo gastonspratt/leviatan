@@ -3,224 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leviatán Coleccionables | Música, Cómics, Libros y Figuras</title>
-<meta name="description" content="Leviatán Coleccionables: música, cómics, libros y figuras para coleccionistas. Catálogo, novedades, agenda y contacto en Argentina.">
+<title>Leviatán | Música y CDs para Coleccionistas</title>
+<meta name="description" content="Catálogo de CDs y música para coleccionistas de Tienda Leviatán.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://tiendaleviatan.com/">
+<link rel="canonical" href="https://tiendaleviatan.com/musica.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Leviatán Coleccionables">
-<meta property="og:title" content="Leviatán Coleccionables | Música, Cómics, Libros y Figuras">
-<meta property="og:description" content="Leviatán Coleccionables: música, cómics, libros y figuras para coleccionistas. Catálogo, novedades, agenda y contacto en Argentina.">
-<meta property="og:url" content="https://tiendaleviatan.com/">
+<meta property="og:title" content="Leviatán | Música y CDs para Coleccionistas">
+<meta property="og:description" content="Catálogo de CDs y música para coleccionistas de Tienda Leviatán.">
+<meta property="og:url" content="https://tiendaleviatan.com/musica.html">
 <meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/internas.css">
+<link rel="icon" href="img/favicon.ico">
 <link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/internas.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-
-<style>
-/* Panel Admin */
-#btn-admin {
-  display: none;
-  position: fixed;
-  left: 20px;
-  bottom: 20px;
-  z-index: 9999;
-  background: #333;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-#btn-admin:hover { background: #555; }
-
-#panel-admin {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #1a1a1a;
-  border: 2px solid #c00000;
-  padding: 30px;
-  border-radius: 10px;
-  z-index: 10000;
-  min-width: 320px;
-  box-shadow: 0 0 30px rgba(192, 0, 0, 0.5);
-}
-
-#panel-admin h3 {
-  color: #c00000;
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-family: 'Oswald', sans-serif;
-}
-
-#panel-admin label {
-  color: #ccc;
-  display: block;
-  margin-bottom: 5px;
-  font-size: 14px;
-}
-
-#panel-admin input[type="password"],
-#panel-admin input[type="number"],
-#panel-admin select {
-  width: 100%;
-  padding: 10px;
-  background: #333;
-  border: 1px solid #555;
-  color: #fff;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  font-size: 14px;
-}
-
-#panel-admin input[type="checkbox"] {
-  margin-right: 8px;
-}
-
-#panel-admin button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-#guardar-config {
-  background: #c00000;
-  color: #fff;
-}
-
-#guardar-config:hover {
-  background: #ff0000;
-}
-
-#cerrar-admin {
-  background: #444;
-  color: #fff;
-}
-
-#config-actual {
-  color: #888;
-  font-size: 12px;
-  margin: 15px 0;
-  padding: 10px;
-  background: #222;
-  border-radius: 4px;
-  border: 1px solid #333;
-}
-
-#admin-contenido { display: none; }
-
-.mensaje-exito {
-  color: #4CAF50;
-  font-size: 14px;
-  margin-top: 10px;
-  text-align: center;
-}
-
-/* Anuncio: Feria del Libro */
-.feria-anuncio {
-  width: min(var(--ancho, 1200px), 92%);
-  margin: 60px auto 20px;
-  display: grid;
-  grid-template-columns: minmax(240px, 380px) 1fr;
-  gap: 48px;
-  align-items: center;
-  padding: 32px;
-  background: var(--panel, #151515);
-  border: 1px solid var(--borde, #2b2b2b);
-  border-radius: 18px;
-  box-shadow: var(--sombra, 0 12px 35px rgba(0,0,0,.45));
-}
-
-.feria-afiche {
-  display: block;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--borde, #2b2b2b);
-  transition: transform .25s, box-shadow .25s;
-}
-
-.feria-afiche:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 40px rgba(0,0,0,.55);
-}
-
-.feria-afiche img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.feria-texto {
-  text-align: left;
-}
-
-.feria-etiqueta {
-  display: inline-block;
-  margin-bottom: 14px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: var(--rojo, #8e1b1b);
-  color: #fff;
-  font-size: .78rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.feria-texto h2 {
-  font-family: 'Oswald', sans-serif;
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  line-height: 1.05;
-  margin-bottom: 22px;
-}
-
-.feria-datos {
-  list-style: none;
-  margin: 0 0 22px;
-  padding: 0;
-}
-
-.feria-datos li {
-  font-family: 'Oswald', sans-serif;
-  font-size: clamp(1.2rem, 2.6vw, 1.7rem);
-  letter-spacing: 1px;
-  margin-bottom: 8px;
-}
-
-.feria-texto p {
-  color: var(--gris, #b7b7b7);
-  margin-bottom: 26px;
-  max-width: 520px;
-}
-
-@media (max-width: 768px) {
-  .feria-anuncio {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    padding: 22px;
-    margin-top: 40px;
-  }
-
-  .feria-afiche {
-    max-width: 380px;
-    margin: 0 auto;
-  }
-}
-</style>
 </head>
-
 <body>
+
 <header>
 <div class="logo">
 <h1>LEVIATÁN</h1>
@@ -240,273 +39,31 @@
 </header>
 
 <main>
-
 <section class="hero">
 <div class="hero-overlay">
 <div id="hero-contenido">
-<p class="subtitulo">MÚSICA · CÓMICS · LIBROS · FIGURAS</p>
-
-<h2>LEVIATÁN</h2>
-
-<p class="frase">El legado no se hereda.<br>Se conquista.</p>
-
-<p class="descripcion">
-Coleccionables seleccionados para quienes viven la música, el cómic y la cultura.
-</p>
+<p class="subtitulo">Tienda Leviatán</p>
+<h2>Música</h2>
+<p class="descripcion">CDs originales para coleccionistas.</p>
+<div class="buscador-hero">
+<input id="buscador" type="text" placeholder="Buscar artista o álbum...">
+</div>
 </div>
 </div>
 </section>
 
-<!-- ANUNCIO: FERIA DEL LIBRO -->
-<section class="feria-anuncio" id="feria-del-libro" aria-label="Feria del Libro">
-<a class="feria-afiche" href="img/feria-del-libro.jpg" target="_blank" rel="noopener">
-<img src="img/feria-del-libro.jpg" alt="Afiche de Leviatán Coleccionables en la Feria del Libro, 16 de octubre de 2026, de 10:30 a 19:30 hs" width="1122" height="1402" loading="lazy">
-</a>
-
-<div class="feria-texto">
-<span class="feria-etiqueta">Te esperamos</span>
-<h2>Feria del Libro</h2>
-
-<ul class="feria-datos">
-<li>📅 16 de octubre de 2026</li>
-<li>🕥 10:30 a 19:30 hs</li>
-<li>📍 IJLC · General Cabrera, Córdoba</li>
-</ul>
-
-<p>Vamos a estar con música, cómics y libros para coleccionistas.</p>
-
-<a class="btn-whatsapp" href="comics.html">Ver cómics disponibles</a>
-</div>
+<section id="catalogo">
+<div id="resultados" class="resultados"></div>
 </section>
-
-<section class="seccion-extra">
-<span class="etiqueta-seccion">Explorar Leviatán</span>
-
-<h2>Entrá a nuestras colecciones</h2>
-
-<p class="seccion-intro">
-Elegí una sección y descubrí lo que tenemos disponible.
-</p>
-
-<div class="noticias-grid">
-
-<a class="noticia-card" href="musica.html">
-<h3>MÚSICA</h3>
-<p>CDs originales y ediciones para coleccionistas.</p>
-</a>
-
-<a class="noticia-card" href="comics.html">
-<h3>CÓMICS</h3>
-<p>Historieta, novelas gráficas y cómics.</p>
-</a>
-
-<a class="noticia-card" href="libros.html">
-<h3>LIBROS</h3>
-<p>Libros seleccionados dentro del universo Leviatán.</p>
-</a>
-
-<a class="noticia-card" href="figuras.html">
-<h3>FIGURAS</h3>
-<p>Figuras y otros objetos coleccionables.</p>
-</a>
-
-<a class="noticia-card" href="noticias.html">
-<h3>NOTICIAS</h3>
-<p>Novedades de Tienda Leviatán.</p>
-</a>
-
-<a class="noticia-card" href="agenda.html">
-<h3>AGENDA</h3>
-<p>Rock y metal internacional en Argentina.</p>
-</a>
-
-</div>
-</section>
-
-<section class="seccion-extra">
-<span class="etiqueta-seccion">Leviatán</span>
-<h2>Una historia que continúa</h2>
-
-<p class="seccion-intro">
-Tres hermanos continuamos una historia familiar ligada a la música, el coleccionismo y la cultura.
-</p>
-
-<a class="btn-whatsapp" href="nosotros.html">Conocé nuestra historia</a>
-</section>
-
 </main>
 
 <footer id="contacto" class="footer">
 <div class="footer-content">
-<h2>LEVIAT&Aacute;N COLECCIONABLES</h2>
-<p class="slogan">M&uacute;sica • C&oacute;mics • Libros para coleccionistas.</p>
-
-<div class="footer-links">
-<p>tiendaleviatan.com</p>
-<p>@tiendaleviatan</p>
-<p>tiendaleviatan@proton.me</p>
-<p>Tienda en MercadoLibre</p>
-</div>
-
-<div class="footer-locations">
-<p>General Cabrera, C&oacute;rdoba</p>
-<p>Caballito, Ciudad Aut&oacute;noma de Buenos Aires</p>
-<p>Env&iacute;os a todo el pa&iacute;s.</p>
-</div>
-
-<p class="copyright">&copy; 2026 Tienda Leviat&aacute;n</p>
+<h2>LEVIATÁN COLECCIONABLES</h2>
+<p class="slogan">Música • Cómics • Libros para coleccionistas.</p>
 </div>
 </footer>
 
-<!-- REPRODUCTOR DE MÚSICA -->
-<div class="reproductor-flotante">
-<button id="boton-musica" aria-label="Reproducir música" title="Reproducir música">♫</button>
-<audio id="audio-leviatan" preload="metadata">
-<source src="audio/Weight_of_the_Deep.mp3" type="audio/mpeg">
-</audio>
-</div>
-
-<!-- BOTÓN ADMIN (aparece con Ctrl+Shift+A) -->
-<button id="btn-admin">⚙️ Admin</button>
-
-<!-- PANEL DE ADMINISTRACIÓN -->
-<div id="panel-admin">
-<h3>⚙️ Panel de Admin</h3>
-  
-<div>
-<label>Contraseña:</label>
-<input type="password" id="admin-pass" placeholder="Ingresar contraseña">
-</div>
-  
-<div id="admin-contenido">
-<div>
-<label>Descuento para cómics (%):</label>
-<input type="number" id="descuento-input" value="0" min="0" max="100" step="1">
-</div>
-    
-<div>
-<label>
-<input type="checkbox" id="mostrar-tachado" checked>
-Mostrar precio tachado
-</label>
-</div>
-    
-<button id="guardar-config">💾 Guardar y Aplicar</button>
-<div id="mensaje-guardado"></div>
-    
-<div id="config-actual">
-<strong>Configuración actual:</strong><br>
-Cargando...
-</div>
-</div>
-  
-<button id="cerrar-admin">Cerrar</button>
-</div>
-
-<!-- SCRIPTS -->
 <script src="js/catalogo.js"></script>
-
-<!-- PANEL ADMIN -->
-<script>
-const CONFIG_ADMIN = {
-  password: "leviatan2024",
-  storageKey: "leviatan_config_v1"
-};
-
-function cargarConfig() {
-  const guardado = localStorage.getItem(CONFIG_ADMIN.storageKey);
-  if (guardado) return JSON.parse(guardado);
-  return {
-    porcentaje: 0,
-    mostrarTachado: true
-  };
-}
-
-function guardarConfig(config) {
-  localStorage.setItem(CONFIG_ADMIN.storageKey, JSON.stringify(config));
-}
-
-window.configAdmin = cargarConfig();
-
-// Mostrar botón con Ctrl+Shift+A
-document.addEventListener("keydown", (e) => {
-  if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
-    e.preventDefault();
-    document.getElementById("btn-admin").style.display = "block";
-  }
-});
-
-document.getElementById("btn-admin").addEventListener("click", () => {
-  document.getElementById("panel-admin").style.display = "block";
-  actualizarVistaConfig();
-});
-
-document.getElementById("cerrar-admin").addEventListener("click", () => {
-  document.getElementById("panel-admin").style.display = "none";
-});
-
-document.getElementById("admin-pass").addEventListener("input", (e) => {
-  if (e.target.value === CONFIG_ADMIN.password) {
-    document.getElementById("admin-contenido").style.display = "block";
-    actualizarVistaConfig();
-  }
-});
-
-function actualizarVistaConfig() {
-  document.getElementById("descuento-input").value = Number(window.configAdmin.porcentaje) || 0;
-  document.getElementById("mostrar-tachado").checked = window.configAdmin.mostrarTachado !== false;
-  
-  document.getElementById("config-actual").innerHTML = `
-    <strong>Configuración actual:</strong><br>
-    Descuento para cómics: ${Number(window.configAdmin.porcentaje) || 0}%<br>
-    Precio tachado: ${window.configAdmin.mostrarTachado !== false ? "Sí" : "No"}
-  `;
-}
-
-document.getElementById("guardar-config").addEventListener("click", () => {
-  const porcentaje = Number(document.getElementById("descuento-input").value);
-
-  window.configAdmin = {
-    porcentaje: Number.isFinite(porcentaje) ? Math.min(100, Math.max(0, porcentaje)) : 0,
-    mostrarTachado: document.getElementById("mostrar-tachado").checked
-  };
-  
-  guardarConfig(window.configAdmin);
-  actualizarVistaConfig();
-  
-  document.getElementById("mensaje-guardado").innerHTML = '<div class="mensaje-exito">✓ Guardado. Recargando página...</div>';
-  
-  setTimeout(() => location.reload(), 1000);
-});
-
-// Oculta el anuncio de la Feria del Libro cuando termina (16/10/2026, 19:30 hs, Argentina)
-(function () {
-  const anuncio = document.getElementById("feria-del-libro");
-  if (anuncio && Date.now() > new Date("2026-10-16T19:30:00-03:00").getTime()) {
-    anuncio.style.display = "none";
-  }
-})();
-
-// Reproductor de música
-const botonMusica = document.getElementById("boton-musica");
-const audioLeviatan = document.getElementById("audio-leviatan");
-
-botonMusica.addEventListener("click", () => {
-  if (audioLeviatan.paused) {
-    audioLeviatan.play();
-    botonMusica.textContent = "❚❚";
-    botonMusica.classList.add("reproduciendo");
-  } else {
-    audioLeviatan.pause();
-    botonMusica.textContent = "♫";
-    botonMusica.classList.remove("reproduciendo");
-  }
-});
-
-audioLeviatan.addEventListener("ended", () => {
-  botonMusica.textContent = "♫";
-  botonMusica.classList.remove("reproduciendo");
-});
-</script>
 </body>
 </html>
