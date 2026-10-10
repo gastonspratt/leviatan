@@ -270,15 +270,6 @@
 
 <main>
 
-<!-- REPRODUCTOR PEQUEÑO: reemplaza únicamente el hero -->
-<section class="reproductor-inicio" aria-label="Reproductor de música">
-  <p class="reproductor-titulo">♫ Pacto de Acero</p>
-  <audio id="audio-pacto-de-acero" controls preload="metadata">
-    <source src="audio/Pacto_de_Acero.mp3" type="audio/mpeg">
-    Tu navegador no admite la reproducción de audio.
-  </audio>
-</section>
-
 <!-- ANUNCIO: FERIA DEL LIBRO -->
 <section class="feria-anuncio" id="feria-del-libro" aria-label="Feria del Libro">
 <a class="feria-afiche" href="img/feria-del-libro.jpg" target="_blank" rel="noopener">
@@ -379,6 +370,15 @@ Tres hermanos continuamos una historia familiar ligada a la música, el coleccio
 <p class="copyright">&copy; 2026 Tienda Leviat&aacute;n</p>
 </div>
 </footer>
+
+<!-- REPRODUCTOR PEQUEÑO FLOTANTE -->
+<div class="reproductor-flotante" style="display:block !important; visibility:visible !important; opacity:1 !important;">
+  <button id="boton-musica" type="button" aria-label="Reproducir música" title="Reproducir música">♫</button>
+  <audio id="audio-leviatan" preload="metadata">
+    <source src="audio/Pacto_de_Acero.mp3" type="audio/mpeg">
+    Tu navegador no admite la reproducción de audio.
+  </audio>
+</div>
 
 <!-- BOTÓN ADMIN (aparece con Ctrl+Shift+A) -->
 <button id="btn-admin">⚙️ Admin</button>
@@ -491,6 +491,45 @@ document.getElementById("guardar-config").addEventListener("click", () => {
   document.getElementById("mensaje-guardado").innerHTML = '<div class="mensaje-exito">✓ Guardado. Recargando página...</div>';
   
   setTimeout(() => location.reload(), 1000);
+});
+
+// Reproductor musical compacto
+const botonMusica = document.getElementById("boton-musica");
+const audioLeviatan = document.getElementById("audio-leviatan");
+
+botonMusica.addEventListener("click", async () => {
+  try {
+    if (audioLeviatan.paused) {
+      await audioLeviatan.play();
+      botonMusica.textContent = "❚❚";
+      botonMusica.setAttribute("aria-label", "Pausar música");
+      botonMusica.title = "Pausar música";
+      botonMusica.classList.add("reproduciendo");
+    } else {
+      audioLeviatan.pause();
+      botonMusica.textContent = "♫";
+      botonMusica.setAttribute("aria-label", "Reproducir música");
+      botonMusica.title = "Reproducir música";
+      botonMusica.classList.remove("reproduciendo");
+    }
+  } catch (error) {
+    console.error("No se pudo reproducir audio/Pacto_de_Acero.mp3:", error);
+  }
+});
+
+audioLeviatan.addEventListener("ended", () => {
+  botonMusica.textContent = "♫";
+  botonMusica.setAttribute("aria-label", "Reproducir música");
+  botonMusica.title = "Reproducir música";
+  botonMusica.classList.remove("reproduciendo");
+});
+
+audioLeviatan.addEventListener("pause", () => {
+  if (audioLeviatan.ended || audioLeviatan.currentTime === 0) return;
+  botonMusica.textContent = "♫";
+  botonMusica.setAttribute("aria-label", "Reproducir música");
+  botonMusica.title = "Reproducir música";
+  botonMusica.classList.remove("reproduciendo");
 });
 
 // Oculta el anuncio de la Feria del Libro cuando termina (16/10/2026, 19:30 hs, Argentina)
