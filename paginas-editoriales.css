@@ -519,3 +519,416 @@
   .editorial-hero__cta,
   .editorial-present__actions a { transition: none; }
 }
+
+
+/* ==========================================================
+   IDENTIDAD COMPARTIDA: AGENDA / NOTICIAS / NOSOTROS
+   Marca tipográfica y escala única para los títulos principales.
+   ========================================================== */
+
+header .logo--text {
+  width: 155px;
+  min-width: 155px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+header .logo--text .logo__name {
+  display: block;
+  margin: 0;
+  color: var(--texto, #eef1ef);
+  font-family: "Oswald", Impact, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  line-height: .95;
+}
+
+header .logo--text .logo__descriptor {
+  display: block;
+  margin: 3px 0 0;
+  color: var(--metal, #aeb8b5);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  line-height: 1.15;
+}
+
+/* H1 principal: misma familia, tamaño, peso y ritmo en las tres secciones. */
+.agenda-hero__content h1,
+.editorial-hero__content h1 {
+  margin: 24px 0 18px;
+  max-width: 850px;
+  color: #fff;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: clamp(3.2rem, 8vw, 7.25rem);
+  line-height: .91;
+  letter-spacing: -.035em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.agenda-hero__content h1 em,
+.editorial-hero__content h1 em {
+  color: #d52b2b;
+  font-style: normal;
+}
+
+@media (max-width: 680px) {
+  .agenda-hero__content h1,
+  .editorial-hero__content h1 {
+    font-size: clamp(2.8rem, 12vw, 4.4rem);
+    line-height: .93;
+  }
+
+  header .logo--text {
+    width: 132px;
+    min-width: 132px;
+  }
+
+  header .logo--text .logo__name {
+    font-size: 1.7rem;
+    letter-spacing: 3px;
+  }
+
+  header .logo--text .logo__descriptor {
+    font-size: .54rem;
+    letter-spacing: 3px;
+  }
+}
+
+
+/* ==========================================================
+   SISTEMA ÚNICO DE HERO — AGENDA / NOTICIAS / NOSOTROS / CONTACTO
+   La hoja se carga después de agenda.css para que estas reglas
+   tengan prioridad y las páginas compartan la misma composición.
+   ========================================================== */
+
+.agenda-hero,
+.editorial-hero {
+  min-height: 490px;
+  padding: 76px max(6vw, calc((100vw - 1200px) / 2)) 91px;
+}
+
+.agenda-hero__content,
+.editorial-hero__content {
+  max-width: 790px;
+  position: relative;
+  z-index: 1;
+}
+
+.agenda-hero__content h1,
+.editorial-hero__content h1 {
+  margin: 24px 0 18px;
+  max-width: 850px;
+  color: #fff;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: clamp(3.35rem, 8vw, 7.25rem);
+  line-height: .91;
+  letter-spacing: -.035em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.agenda-hero__content h1 em,
+.editorial-hero__content h1 em {
+  color: #d52b2b;
+  font-style: normal;
+}
+
+.agenda-hero__content > p,
+.editorial-hero__content > p {
+  max-width: 590px;
+  margin: 0;
+  color: #c5c0ba;
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.agenda-hero__cta,
+.editorial-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 29px;
+  padding: 14px 19px;
+  background: #d52b2b;
+  color: #fff;
+  text-decoration: none;
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.agenda-hero__cta:hover,
+.editorial-hero__cta:hover {
+  transform: translateY(-3px);
+  background: #ef3939;
+}
+
+.agenda-hero__cta span,
+.editorial-hero__cta span { font-size: 1.1rem; }
+
+.agenda-hero__side-word,
+.editorial-hero__side-word {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: clamp(4rem, 8vw, 7.7rem);
+  font-weight: 700;
+  line-height: .8;
+  letter-spacing: -.06em;
+}
+
+.agenda-hero__side-small,
+.editorial-hero__side-small {
+  font-size: .55rem;
+  letter-spacing: .18em;
+}
+
+.agenda-hero__bottomline,
+.editorial-hero__bottomline {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 26px;
+  width: 100%;
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  color: #b9b2aa;
+  font-size: .6rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+}
+
+.agenda-hero__bottomline-mark,
+.editorial-hero__bottomline-mark { color: #d52b2b; }
+
+@media (max-width: 900px) {
+  .agenda-hero,
+  .editorial-hero { min-height: 455px; }
+
+  .agenda-hero__side,
+  .editorial-hero__side {
+    right: 3vw;
+    opacity: .65;
+  }
+}
+
+@media (max-width: 680px) {
+  .agenda-hero,
+  .editorial-hero {
+    min-height: 430px;
+    padding: 59px 25px 84px;
+  }
+
+  .agenda-hero__content h1,
+  .editorial-hero__content h1 {
+    font-size: clamp(3rem, 13vw, 5rem);
+    line-height: .93;
+  }
+
+  .agenda-hero__content > p,
+  .editorial-hero__content > p {
+    max-width: 96%;
+    font-size: .91rem;
+  }
+
+  .agenda-hero__side,
+  .editorial-hero__side { display: none; }
+
+  .agenda-hero__bottomline,
+  .editorial-hero__bottomline {
+    gap: 9px;
+    padding: 13px 12px;
+    font-size: .46rem;
+    letter-spacing: .09em;
+  }
+}
+
+/* ==========================================================
+   INICIO — mismo sistema editorial de Agenda, Noticias,
+   Nosotros y Contacto.
+   ========================================================== */
+.editorial-home-intro {
+  padding-top: 70px;
+}
+
+.home-feature {
+  display: grid;
+  grid-template-columns: minmax(230px, 330px) minmax(0, 1fr);
+  gap: 34px;
+  align-items: center;
+  margin: 0 auto 64px;
+  padding: 28px;
+  border: 1px solid rgba(213,43,43,.42);
+  background:
+    radial-gradient(ellipse at 8% 50%, rgba(174,28,31,.13), transparent 48%),
+    linear-gradient(120deg, rgba(255,255,255,.025), transparent 58%), #141416;
+}
+
+.home-feature__image {
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.13);
+  background: #09090a;
+}
+
+.home-feature__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 410px;
+  object-fit: contain;
+  transition: transform .25s ease;
+}
+
+.home-feature__image:hover img { transform: scale(1.025); }
+
+.home-feature__copy { min-width: 0; }
+.home-feature__copy h2 {
+  margin: 10px 0 15px;
+  color: #fff;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: clamp(1.9rem, 3.8vw, 3rem);
+  line-height: 1.04;
+  font-weight: 600;
+}
+.home-feature__copy p {
+  max-width: 650px;
+  margin: 0 0 14px;
+  color: #b7b1aa;
+  font-size: .9rem;
+  line-height: 1.8;
+}
+.home-feature__copy strong { color: #f3eee7; }
+.home-feature__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+  padding: 13px 16px;
+  background: #d52b2b;
+  color: #fff;
+  text-decoration: none;
+  font-size: .67rem;
+  font-weight: 900;
+  letter-spacing: .13em;
+  transition: background .2s ease, transform .2s ease;
+}
+.home-feature__link:hover { background: #ef3939; transform: translateY(-2px); }
+
+.home-collections {
+  padding-top: 12px;
+  padding-bottom: 70px;
+}
+.home-collections__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 14px;
+  margin-top: 28px;
+}
+.home-collection-card {
+  position: relative;
+  display: flex;
+  min-height: 190px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 23px 22px 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  background: linear-gradient(135deg, rgba(255,255,255,.035), transparent 62%), #141416;
+  color: #fff;
+  text-decoration: none;
+  transition: border-color .2s ease, transform .2s ease, background .2s ease;
+}
+.home-collection-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: #d52b2b;
+  transform: scaleY(.35);
+  transform-origin: top;
+  transition: transform .2s ease;
+}
+.home-collection-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(213,43,43,.62);
+  background: linear-gradient(135deg, rgba(213,43,43,.1), transparent 62%), #171719;
+}
+.home-collection-card:hover::before { transform: scaleY(1); }
+.home-collection-card__number {
+  color: #c5a56a;
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+}
+.home-collection-card h3 {
+  margin: 0 0 7px;
+  color: #fff;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.home-collection-card p {
+  max-width: 285px;
+  margin: 0;
+  color: #aaa6a0;
+  font-size: .8rem;
+  line-height: 1.65;
+}
+.home-collection-card__arrow {
+  position: absolute;
+  right: 19px;
+  bottom: 16px;
+  color: #d52b2b;
+  font-size: 1.25rem;
+}
+
+.home-story {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto 70px;
+}
+.home-story .editorial-present__inner { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); }
+
+@media (max-width: 900px) {
+  .home-feature { grid-template-columns: minmax(200px, 280px) minmax(0,1fr); gap: 24px; }
+  .home-collections__grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+
+@media (max-width: 680px) {
+  .editorial-home-intro { padding-top: 48px; }
+  .home-feature {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 48px;
+    padding: 18px;
+  }
+  .home-feature__image { max-width: 360px; margin: 0 auto; }
+  .home-feature__image img { max-height: 430px; }
+  .home-feature__copy h2 { font-size: 1.85rem; }
+  .home-feature__copy p { font-size: .82rem; }
+  .home-collections { padding-bottom: 48px; }
+  .home-collections__grid { grid-template-columns: 1fr; gap: 10px; }
+  .home-collection-card { min-height: 150px; padding: 19px 18px; }
+  .home-story { width: min(100% - 32px, 1120px); margin-bottom: 48px; }
+  .home-story .editorial-present__inner { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-feature__image img,
+  .home-feature__link,
+  .home-collection-card,
+  .home-collection-card::before { transition: none; }
+}
