@@ -1,69 +1,360 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leviatán | Música y CDs para Coleccionistas</title>
-<meta name="description" content="Catálogo de CDs y música para coleccionistas de Tienda Leviatán.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://tiendaleviatan.com/musica.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Leviatán Coleccionables">
-<meta property="og:title" content="Leviatán | Música y CDs para Coleccionistas">
-<meta property="og:description" content="Catálogo de CDs y música para coleccionistas de Tienda Leviatán.">
-<meta property="og:url" content="https://tiendaleviatan.com/musica.html">
-<meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
-<link rel="icon" href="img/favicon.ico">
-<link rel="stylesheet" href="css/estilos.css">
-<link rel="stylesheet" href="css/internas.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Música | CDs para coleccionistas — Leviatán</title>
+  <meta name="description" content="Explorá el catálogo de CDs originales de Leviatán Coleccionables. Buscá por artista, álbum o sello y consultá disponibilidad.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://tiendaleviatan.com/musica.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Leviatán Coleccionables">
+  <meta property="og:title" content="Música | CDs para coleccionistas — Leviatán">
+  <meta property="og:description" content="Explorá el catálogo de CDs originales de Leviatán Coleccionables.">
+  <meta property="og:url" content="https://tiendaleviatan.com/musica.html">
+  <meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
+
+  <link rel="icon" href="img/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/internas.css">
+  <link rel="stylesheet" href="css/paginas-editoriales.css?v=20261102">
+
+  <style>
+    /* Música: catálogo integrado al sistema editorial de Leviatán. */
+    .editorial-main--music #catalogo {
+      position: relative;
+      margin: 0;
+      padding: 72px 0 84px;
+      background: #0b0b0c;
+      color: #f3f0e9;
+    }
+
+    .editorial-main--music #catalogo::before,
+    .editorial-main--music #catalogo::after {
+      content: none;
+      display: none;
+    }
+
+    .editorial-main--music .music-search-panel {
+      margin: 0 0 27px;
+      padding: 19px 21px 21px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-top: 2px solid #d52b2b;
+      background:
+        linear-gradient(115deg, rgba(213,43,43,.07), transparent 53%),
+        #141416;
+    }
+
+    .editorial-main--music .music-search-panel__meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 13px;
+      color: #c5a56a;
+      font-size: .61rem;
+      font-weight: 900;
+      letter-spacing: .15em;
+    }
+
+    .editorial-main--music .music-search {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      width: 100%;
+      max-width: 720px;
+      min-height: 56px;
+      padding: 0 17px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: #09090a;
+      color: #c5a56a;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .editorial-main--music .music-search:focus-within {
+      border-color: #d52b2b;
+      box-shadow: 0 0 0 3px rgba(213,43,43,.12);
+    }
+
+    .editorial-main--music .music-search__icon {
+      flex: 0 0 auto;
+      color: #d52b2b;
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .editorial-main--music #buscador {
+      width: 100%;
+      min-width: 0;
+      padding: 13px 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      box-shadow: none;
+      color: #f3f0e9;
+      font: 500 .95rem "Inter", Arial, sans-serif;
+    }
+
+    .editorial-main--music #buscador::placeholder { color: #817c77; }
+    .editorial-main--music #buscador:focus { transform: none; box-shadow: none; }
+
+    .editorial-main--music .music-results-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 0 0 17px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      color: #aaa6a0;
+      font-size: .62rem;
+      font-weight: 900;
+      letter-spacing: .16em;
+    }
+
+    .editorial-main--music .music-results-heading span:last-child { color: #c5a56a; }
+
+    .editorial-main--music .resultados {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(218px, 1fr));
+      gap: 17px;
+      width: 100%;
+      margin: 0;
+    }
+
+    .editorial-main--music .card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 0;
+      background: #141416;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .editorial-main--music .card::before {
+      height: 2px;
+      background: #d52b2b;
+      opacity: .9;
+    }
+
+    .editorial-main--music .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(213,43,43,.58);
+      box-shadow: 0 18px 38px rgba(0,0,0,.38);
+    }
+
+    .editorial-main--music .card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      padding: 13px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background: radial-gradient(circle, rgba(255,255,255,.06), transparent 65%), #09090a;
+    }
+
+    .editorial-main--music .card-body {
+      display: flex;
+      min-height: 220px;
+      flex-direction: column;
+      padding: 17px 17px 18px;
+    }
+
+    .editorial-main--music .card h3 {
+      margin: 0 0 9px;
+      color: #c5a56a;
+      font-family: "Inter", Arial, sans-serif;
+      font-size: .65rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .editorial-main--music .card p {
+      margin: 0 0 6px;
+      color: #aaa6a0;
+      font-size: .79rem;
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+    }
+
+    .editorial-main--music .card p strong {
+      color: #f3f0e9;
+      font-size: .94rem;
+      font-weight: 700;
+    }
+
+    .editorial-main--music .card .precio {
+      display: inline-block;
+      align-self: flex-start;
+      margin: 12px 0 14px;
+      padding: 6px 9px;
+      border: 1px solid rgba(197,165,106,.35);
+      background: rgba(197,165,106,.1);
+      box-shadow: none;
+      color: #e2c990;
+      font-family: "Inter", Arial, sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      transform: none;
+    }
+
+    .editorial-main--music .btn-whatsapp {
+      display: block;
+      width: 100%;
+      margin-top: auto;
+      padding: 11px 12px;
+      border: 1px solid #356f4b;
+      border-radius: 0;
+      background: #11271b;
+      color: #cce8d6;
+      font-size: .7rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background .2s ease, border-color .2s ease;
+    }
+
+    .editorial-main--music .btn-whatsapp:hover {
+      transform: none;
+      border-color: #4d8f64;
+      background: #19422b;
+    }
+
+    .editorial-main--music .sin-resultados {
+      grid-column: 1 / -1;
+      padding: 50px 25px;
+      border: 1px dashed rgba(255,255,255,.2);
+      color: #aaa6a0;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 680px) {
+      .editorial-main--music #catalogo { padding: 52px 0 60px; }
+      .editorial-main--music .music-search-panel { padding: 16px; }
+      .editorial-main--music .music-search-panel__meta { flex-direction: column; gap: 6px; }
+      .editorial-main--music .music-results-heading { align-items: flex-start; flex-direction: column; gap: 6px; }
+      .editorial-main--music .resultados { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .editorial-main--music .card-body { min-height: 210px; padding: 12px 11px 13px; }
+      .editorial-main--music .card h3 { font-size: .57rem; }
+      .editorial-main--music .card p { font-size: .72rem; }
+      .editorial-main--music .card p strong { font-size: .84rem; }
+      .editorial-main--music .card .precio { font-size: .9rem; }
+      .editorial-main--music .btn-whatsapp { padding: 10px 7px; font-size: .59rem; letter-spacing: .04em; }
+    }
+
+    @media (max-width: 360px) {
+      .editorial-main--music .resultados { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .editorial-main--music .card,
+      .editorial-main--music .music-search { transition: none; }
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
-<body>
 
-<header>
-<div class="logo">
-<h1>LEVIATÁN</h1>
-<span>COLECCIONABLES</span>
-</div>
-<nav>
-<a href="index.html">Inicio</a>
-<a href="musica.html">Música</a>
-<a href="comics.html">Cómics</a>
-<a href="libros.html">Libros</a>
-<a href="figuras.html">Figuras</a>
-<a href="noticias.html">Noticias</a>
-<a href="agenda.html">Agenda</a>
-<a href="nosotros.html">Nosotros</a>
-<a href="contacto.html">Contacto</a>
-</nav>
-</header>
+<body data-catalogo="musica">
+  <header>
+    <a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio">
+      <span class="logo__name">LEVIATÁN</span>
+      <span class="logo__descriptor">COLECCIONABLES</span>
+    </a>
 
-<main>
-<section class="hero">
-<div class="hero-overlay">
-<div id="hero-contenido">
-<p class="subtitulo">Tienda Leviatán</p>
-<h2>Música</h2>
-<p class="descripcion">CDs originales para coleccionistas.</p>
-<div class="buscador-hero">
-<input id="buscador" type="text" placeholder="Buscar artista o álbum...">
-</div>
-</div>
-</div>
-</section>
+    <nav aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="musica.html" aria-current="page">Música</a>
+      <a href="comics.html">Cómics</a>
+      <a href="libros.html">Libros</a>
+      <a href="figuras.html">Figuras</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
 
-<section id="catalogo">
-<div id="resultados" class="resultados"></div>
-</section>
-</main>
+  <main class="editorial-main editorial-main--music">
+    <section class="editorial-hero" aria-labelledby="music-title">
+      <div class="editorial-hero__texture" aria-hidden="true"></div>
 
-<footer id="contacto" class="footer">
-<div class="footer-content">
-<h2>LEVIATÁN COLECCIONABLES</h2>
-<p class="slogan">Música • Cómics • Libros para coleccionistas.</p>
-</div>
-</footer>
+      <div class="editorial-hero__content">
+        <span class="editorial-eyebrow">
+          <span class="editorial-eyebrow__dot" aria-hidden="true"></span>
+          LEVIATÁN / MÚSICA
+        </span>
+        <h1 id="music-title">DISCOS QUE<br><em>HACEN HISTORIA.</em></h1>
+        <p>CDs originales para coleccionistas. Explorá el catálogo, buscá tus artistas favoritos y consultanos por disponibilidad.</p>
+        <a class="editorial-hero__cta" href="#catalogo">
+          EXPLORAR CATÁLOGO <span aria-hidden="true">↓</span>
+        </a>
+      </div>
 
-<script src="js/catalogo.js"></script>
+      <div class="editorial-hero__side" aria-hidden="true">
+        <span class="editorial-hero__side-word">MÚSICA</span>
+        <span class="editorial-hero__side-line"></span>
+        <span class="editorial-hero__side-small">CDS · EDICIONES · COLECCIÓN</span>
+      </div>
+
+      <div class="editorial-hero__bottomline" aria-hidden="true">
+        <span>CDS ORIGINALES</span>
+        <span class="editorial-hero__bottomline-mark">✳</span>
+        <span>BUSCÁ POR ARTISTA O ÁLBUM</span>
+        <span class="editorial-hero__bottomline-mark">✳</span>
+        <span>COLECCIONISMO</span>
+      </div>
+    </section>
+
+    <section id="catalogo" aria-labelledby="catalog-title">
+      <div class="editorial-wrap">
+        <div class="editorial-section-heading">
+          <div>
+            <span class="editorial-kicker">La batea de Leviatán</span>
+            <h2 id="catalog-title">BUSCÁ TU PRÓXIMO DISCO</h2>
+          </div>
+          <p>Encontrá un álbum por artista, título o sello. Cada ficha incluye la información disponible y un acceso directo para consultar por WhatsApp.</p>
+        </div>
+
+        <div class="music-search-panel">
+          <div class="music-search-panel__meta">
+            <span>01 / BÚSQUEDA EN EL CATÁLOGO</span>
+            <span>ARTISTA · ÁLBUM · SELLO</span>
+          </div>
+          <label class="music-search" for="buscador">
+            <span class="music-search__icon" aria-hidden="true">⌕</span>
+            <input id="buscador" type="search" placeholder="Buscar artista o álbum..." autocomplete="off" aria-label="Buscar discos por artista o álbum">
+          </label>
+        </div>
+
+        <div class="music-results-heading" aria-hidden="true">
+          <span>SELECCIÓN DEL CATÁLOGO</span>
+          <span>CONSULTAS POR WHATSAPP</span>
+        </div>
+
+        <div id="resultados" class="resultados" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <h2>LEVIATÁN COLECCIONABLES</h2>
+      <p class="slogan">Música • Cómics • Libros para coleccionistas.</p>
+      <a class="editorial-backtop" href="#music-title">VOLVER ARRIBA ↑</a>
+    </div>
+  </footer>
+
+  <script src="js/catalogo.js"></script>
 </body>
 </html>
