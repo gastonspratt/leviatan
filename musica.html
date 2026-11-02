@@ -45,9 +45,9 @@
       margin: 0 0 27px;
       padding: 19px 21px 21px;
       border: 1px solid rgba(255,255,255,.12);
-      border-top: 2px solid #d52b2b;
+      border-top: 2px solid #3f7780;
       background:
-        linear-gradient(115deg, rgba(213,43,43,.07), transparent 53%),
+        linear-gradient(115deg, rgba(63,119,128,.08), transparent 53%),
         #141416;
     }
 
@@ -56,7 +56,7 @@
       justify-content: space-between;
       gap: 14px;
       margin-bottom: 13px;
-      color: #c5a56a;
+      color: #aeb8b5;
       font-size: .61rem;
       font-weight: 900;
       letter-spacing: .15em;
@@ -72,18 +72,18 @@
       padding: 0 17px;
       border: 1px solid rgba(255,255,255,.18);
       background: #09090a;
-      color: #c5a56a;
+      color: #aeb8b5;
       transition: border-color .2s ease, box-shadow .2s ease;
     }
 
     .editorial-main--music .music-search:focus-within {
-      border-color: #d52b2b;
-      box-shadow: 0 0 0 3px rgba(213,43,43,.12);
+      border-color: #3f7780;
+      box-shadow: 0 0 0 3px rgba(63,119,128,.12);
     }
 
     .editorial-main--music .music-search__icon {
       flex: 0 0 auto;
-      color: #d52b2b;
+      color: #3f7780;
       font-size: 1.55rem;
       line-height: 1;
     }
@@ -117,7 +117,7 @@
       letter-spacing: .16em;
     }
 
-    .editorial-main--music .music-results-heading span:last-child { color: #c5a56a; }
+    .editorial-main--music .music-results-heading span:last-child { color: #aeb8b5; }
 
     .editorial-main--music .resultados {
       display: grid;
@@ -139,13 +139,13 @@
 
     .editorial-main--music .card::before {
       height: 2px;
-      background: #d52b2b;
+      background: #3f7780;
       opacity: .9;
     }
 
     .editorial-main--music .card:hover {
       transform: translateY(-4px);
-      border-color: rgba(213,43,43,.58);
+      border-color: rgba(117,170,176,.58);
       box-shadow: 0 18px 38px rgba(0,0,0,.38);
     }
 
@@ -168,7 +168,7 @@
 
     .editorial-main--music .card h3 {
       margin: 0 0 9px;
-      color: #c5a56a;
+      color: #aeb8b5;
       font-family: "Inter", Arial, sans-serif;
       font-size: .65rem;
       font-weight: 900;
@@ -196,10 +196,10 @@
       align-self: flex-start;
       margin: 12px 0 14px;
       padding: 6px 9px;
-      border: 1px solid rgba(197,165,106,.35);
-      background: rgba(197,165,106,.1);
+      border: 1px solid rgba(117,170,176,.35);
+      background: rgba(174,184,181,.12);
       box-shadow: none;
-      color: #e2c990;
+      color: #dce1de;
       font-family: "Inter", Arial, sans-serif;
       font-size: 1rem;
       font-weight: 800;
@@ -260,12 +260,162 @@
       .editorial-main--music .card,
       .editorial-main--music .music-search { transition: none; }
     }
+
+
+    body.music-page {
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(63,119,128,.08), transparent 32%),
+        radial-gradient(ellipse at 88% 25%, rgba(63,119,128,.045), transparent 35%),
+        #020303;
+    }
+
+    body.music-page header::after {
+      background: linear-gradient(90deg, transparent 0%, rgba(63,119,128,.7) 24%, rgba(117,170,176,.2) 52%, rgba(35,81,90,.65) 78%, transparent 100%);
+    }
+
+    body.music-page nav a::before { background: #75aab0; }
+    body.music-page ::selection { background: #23515a; color: #fff; }
+
+    /* Identidad acuática Leviatán: metal, azul petróleo y cian. Sin rojo ni dorado. */
+    .editorial-main--music {
+      --music-metal: #aeb8b5;
+      --music-metal-light: #dce1de;
+      --music-metal-dark: #667273;
+      --music-petrol: #17363b;
+      --music-petrol-2: #23515a;
+      --music-teal: #3f7780;
+      --music-cyan: #75aab0;
+      --music-line: #223031;
+      background: #020303;
+      color: #eef1ef;
+    }
+
+    .editorial-main--music .editorial-hero {
+      background:
+        radial-gradient(ellipse at 76% 45%, rgba(63,119,128,.24), transparent 40%),
+        linear-gradient(115deg, #050809 0%, #0d1719 57%, #102428 100%);
+      border-bottom: 1px solid rgba(117,170,176,.42);
+    }
+
+    .editorial-main--music .editorial-hero__texture {
+      opacity: .19;
+      background-image: repeating-linear-gradient(135deg, transparent 0 17px, rgba(117,170,176,.09) 18px, transparent 19px 37px);
+    }
+
+    .editorial-main--music .editorial-eyebrow,
+    .editorial-main--music .editorial-kicker,
+    .editorial-main--music .music-search-panel__meta,
+    .editorial-main--music .music-search__icon,
+    .editorial-main--music .music-results-heading span:last-child,
+    .editorial-main--music .editorial-backtop {
+      color: var(--music-metal);
+    }
+
+    .editorial-main--music .editorial-eyebrow__dot {
+      background: var(--music-cyan);
+      box-shadow: 0 0 13px rgba(117,170,176,.75);
+    }
+
+    .editorial-main--music .editorial-hero h1 em {
+      color: var(--music-cyan);
+    }
+
+    .editorial-main--music .editorial-hero__cta {
+      border: 1px solid rgba(117,170,176,.55);
+      background: linear-gradient(135deg, var(--music-petrol-2), var(--music-teal));
+      color: #f4f7f5;
+    }
+
+    .editorial-main--music .editorial-hero__cta:hover {
+      background: linear-gradient(135deg, var(--music-teal), #55919a);
+    }
+
+    .editorial-main--music .editorial-hero__side-line {
+      background: var(--music-cyan);
+    }
+
+    .editorial-main--music .editorial-hero__bottomline-mark {
+      color: var(--music-cyan);
+    }
+
+    .editorial-main--music #catalogo {
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(63,119,128,.08), transparent 34%),
+        #070b0c;
+    }
+
+    .editorial-main--music .music-search-panel {
+      border-top-color: var(--music-teal);
+      background:
+        linear-gradient(115deg, rgba(63,119,128,.09), transparent 55%),
+        #0e1516;
+    }
+
+    .editorial-main--music .music-search-panel__meta {
+      color: var(--music-metal);
+    }
+
+    .editorial-main--music .music-search {
+      border-color: #334143;
+      background: #070b0c;
+    }
+
+    .editorial-main--music .music-search:focus-within {
+      border-color: var(--music-cyan);
+      box-shadow: 0 0 0 3px rgba(117,170,176,.13);
+    }
+
+    .editorial-main--music .music-search__icon {
+      color: var(--music-cyan);
+    }
+
+    .editorial-main--music .card {
+      border-color: #223031;
+      background: linear-gradient(145deg, rgba(63,119,128,.07), transparent 58%), #0e1516;
+    }
+
+    .editorial-main--music .card::before {
+      background: linear-gradient(90deg, var(--music-petrol), var(--music-cyan), var(--music-petrol));
+    }
+
+    .editorial-main--music .card:hover {
+      border-color: rgba(117,170,176,.58);
+      background-color: #121b1c;
+    }
+
+    .editorial-main--music .card img {
+      border-bottom-color: #223031;
+      background: radial-gradient(circle, rgba(117,170,176,.10), transparent 65%), #070b0c;
+    }
+
+    .editorial-main--music .card h3 {
+      color: var(--music-metal);
+    }
+
+    .editorial-main--music .card .precio {
+      border-color: rgba(174,184,181,.38);
+      background: linear-gradient(180deg, #dce1de, #aeb8b5);
+      color: #101718;
+    }
+
+    .editorial-main--music .music-results-heading {
+      border-bottom-color: #223031;
+    }
+
+    .editorial-main--music .sin-resultados {
+      border-color: rgba(117,170,176,.28);
+    }
+
+    .editorial-main--music .editorial-backtop:hover {
+      color: var(--music-cyan);
+    }
+
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 
-<body data-catalogo="musica">
+<body class="music-page" data-catalogo="musica">
   <header>
     <a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio">
       <span class="logo__name">LEVIATÁN</span>
