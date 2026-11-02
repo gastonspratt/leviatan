@@ -932,3 +932,133 @@ header .logo--text .logo__descriptor {
   .home-collection-card,
   .home-collection-card::before { transition: none; }
 }
+
+/* CONTACTO — tarjetas de canales */
+.editorial-main--contact .editorial-contact {
+  padding-top: 72px;
+}
+
+.editorial-main--contact .editorial-contact__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.editorial-main--contact .editorial-contact-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 258px;
+  padding: 25px 24px 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  background: #141416;
+  color: #f3f0e9;
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+.editorial-main--contact .editorial-contact-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(213,43,43,.65);
+  background: #1b1b1e;
+}
+
+.editorial-main--contact .editorial-contact-card__number {
+  color: #c5a56a;
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.editorial-main--contact .editorial-contact-card__icon {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(213,43,43,.65);
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 900;
+}
+
+.editorial-main--contact .editorial-contact-card h3 {
+  margin: 32px 0 9px;
+  color: #fff;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.55rem;
+}
+
+.editorial-main--contact .editorial-contact-card p {
+  flex: 1;
+  margin: 0;
+  color: #aaa6a0;
+  font-size: .84rem;
+  line-height: 1.75;
+}
+
+.editorial-main--contact .editorial-contact-card__action {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  color: #dfc48f;
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  overflow-wrap: anywhere;
+}
+
+.editorial-main--contact .editorial-contact-card__action > span {
+  color: #d52b2b;
+  font-size: 1rem;
+}
+
+.editorial-main--contact .editorial-contact__note {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 14px;
+  margin-top: 20px;
+  padding: 19px 22px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-left: 3px solid #d52b2b;
+  background: #111113;
+}
+
+.editorial-main--contact .editorial-contact__note-mark {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid #c5a56a;
+  border-radius: 50%;
+  color: #c5a56a;
+}
+
+.editorial-main--contact .editorial-contact__note p {
+  margin: 0;
+  color: #aaa6a0;
+  font-size: .82rem;
+  line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  .editorial-main--contact .editorial-contact__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .editorial-main--contact .editorial-contact {
+    padding-top: 52px;
+  }
+
+  .editorial-main--contact .editorial-contact__grid {
+    grid-template-columns: 1fr;
+  }
+}
