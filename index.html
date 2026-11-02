@@ -16,11 +16,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/internas.css">
 <link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/paginas-editoriales.css?v=6">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-
 <style>
 /* Panel Admin */
 #btn-admin {
@@ -157,221 +157,144 @@
   height: 38px;
 }
 
-/* Anuncio: Feria del Libro */
-.feria-anuncio {
-  width: min(var(--ancho, 1200px), 92%);
-  margin: 60px auto 20px;
-  display: grid;
-  grid-template-columns: minmax(240px, 380px) 1fr;
-  gap: 48px;
-  align-items: center;
-  padding: 32px;
-  background: var(--panel, #151515);
-  border: 1px solid var(--borde, #2b2b2b);
-  border-radius: 18px;
-  box-shadow: var(--sombra, 0 12px 35px rgba(0,0,0,.45));
-}
-
-.feria-afiche {
-  display: block;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--borde, #2b2b2b);
-  transition: transform .25s, box-shadow .25s;
-}
-
-.feria-afiche:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 40px rgba(0,0,0,.55);
-}
-
-.feria-afiche img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.feria-texto {
-  text-align: left;
-}
-
-.feria-etiqueta {
-  display: inline-block;
-  margin-bottom: 14px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: var(--rojo, #8e1b1b);
-  color: #fff;
-  font-size: .78rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.feria-texto h2 {
-  font-family: 'Oswald', sans-serif;
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  line-height: 1.05;
-  margin-bottom: 22px;
-}
-
-.feria-datos {
-  list-style: none;
-  margin: 0 0 22px;
-  padding: 0;
-}
-
-.feria-datos li {
-  font-family: 'Oswald', sans-serif;
-  font-size: clamp(1.2rem, 2.6vw, 1.7rem);
-  letter-spacing: 1px;
-  margin-bottom: 8px;
-}
-
-.feria-texto p {
-  color: var(--gris, #b7b7b7);
-  margin-bottom: 26px;
-  max-width: 520px;
-}
-
-@media (max-width: 768px) {
-  .feria-anuncio {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    padding: 22px;
-    margin-top: 40px;
-  }
-
-  .feria-afiche {
-    max-width: 380px;
-    margin: 0 auto;
-  }
-}
 </style>
 </head>
-
 <body>
 <header>
-<div class="logo">
-<h1>LEVIATÁN</h1>
-<span>COLECCIONABLES</span>
-</div>
-<nav>
-<a href="index.html">Inicio</a>
-<a href="musica.html">Música</a>
-<a href="comics.html">Cómics</a>
-<a href="libros.html">Libros</a>
-<a href="figuras.html">Figuras</a>
-<a href="noticias.html">Noticias</a>
-<a href="agenda.html">Agenda</a>
-<a href="nosotros.html">Nosotros</a>
-<a href="contacto.html">Contacto</a>
-</nav>
+  <a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio" aria-current="page">
+    <span class="logo__name">LEVIATÁN</span>
+    <span class="logo__descriptor">COLECCIONABLES</span>
+  </a>
+  <nav aria-label="Navegación principal">
+    <a href="index.html" aria-current="page">Inicio</a>
+    <a href="musica.html">Música</a>
+    <a href="comics.html">Cómics</a>
+    <a href="libros.html">Libros</a>
+    <a href="figuras.html">Figuras</a>
+    <a href="noticias.html">Noticias</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
 </header>
 
-<main>
+<main class="editorial-main editorial-main--home">
+  <section class="editorial-hero home-hero" aria-labelledby="home-title">
+    <div class="editorial-hero__texture" aria-hidden="true"></div>
+    <div class="editorial-hero__content">
+      <span class="editorial-eyebrow"><span class="editorial-eyebrow__dot"></span> LEVIATÁN COLECCIONABLES · GENERAL CABRERA</span>
+      <h1 id="home-title">CULTURA<br><em>PARA COLECCIONAR.</em></h1>
+      <p>Música, cómics, libros y figuras para quienes disfrutan descubrir, compartir y encontrar objetos con historia.</p>
+      <a class="editorial-hero__cta" href="#colecciones">EXPLORÁ LEVIATÁN <span aria-hidden="true">↓</span></a>
+    </div>
+    <div class="editorial-hero__side" aria-hidden="true">
+      <span class="editorial-hero__side-word">DESCUBRÍ</span>
+      <span class="editorial-hero__side-line"></span>
+      <span class="editorial-hero__side-small">MÚSICA · CÓMICS · LIBROS · FIGURAS</span>
+    </div>
+    <div class="editorial-hero__bottomline" aria-hidden="true">
+      <span>MÚSICA PARA ENCONTRAR</span>
+      <span class="editorial-hero__bottomline-mark">✳</span>
+      <span>HISTORIAS PARA LEER</span>
+      <span class="editorial-hero__bottomline-mark">✳</span>
+      <span>OBJETOS PARA COLECCIONAR</span>
+    </div>
+  </section>
 
-<!-- ANUNCIO: FERIA DEL LIBRO -->
-<section class="feria-anuncio" id="feria-del-libro" aria-label="Feria del Libro">
-<a class="feria-afiche" href="img/feria-del-libro.jpg" target="_blank" rel="noopener">
-<img src="img/feria-del-libro.jpg" alt="Afiche de Leviatán Coleccionables en la Feria del Libro, 16 de octubre de 2026, de 10:30 a 19:30 hs" width="1122" height="1402" loading="lazy">
-</a>
+  <section class="editorial-wrap editorial-home-intro" id="colecciones" aria-labelledby="collections-title">
+    <div class="editorial-section-heading">
+      <div>
+        <span class="editorial-kicker">Explorá Leviatán</span>
+        <h2 id="collections-title">ENTRÁ A NUESTRAS COLECCIONES</h2>
+      </div>
+      <p>Un catálogo que reúne distintas expresiones de la cultura popular. Elegí una sección y descubrí lo que tenemos disponible.</p>
+    </div>
 
-<div class="feria-texto">
-<span class="feria-etiqueta">Te esperamos</span>
-<h2>Feria del Libro</h2>
+    <div class="home-collections__grid">
+      <a class="home-collection-card" href="musica.html">
+        <span class="home-collection-card__number">01 / SONIDO</span>
+        <div><h3>MÚSICA</h3><p>CDs originales y ediciones para quienes disfrutan buscar y coleccionar música.</p></div>
+        <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="home-collection-card" href="comics.html">
+        <span class="home-collection-card__number">02 / HISTORIETAS</span>
+        <div><h3>CÓMICS</h3><p>Universos, personajes, novelas gráficas e historias para descubrir.</p></div>
+        <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="home-collection-card" href="libros.html">
+        <span class="home-collection-card__number">03 / LECTURAS</span>
+        <div><h3>LIBROS</h3><p>Autores, editoriales y lecturas seleccionadas dentro del universo Leviatán.</p></div>
+        <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="home-collection-card" href="figuras.html">
+        <span class="home-collection-card__number">04 / OBJETOS</span>
+        <div><h3>FIGURAS</h3><p>Figuras y otros objetos para sumar a tu colección.</p></div>
+        <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="home-collection-card" href="noticias.html">
+        <span class="home-collection-card__number">05 / ACTUALIDAD</span>
+        <div><h3>NOTICIAS</h3><p>Ferias, actividades, novedades y proyectos de Tienda Leviatán.</p></div>
+        <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="home-collection-card" href="agenda.html">
+        <span class="home-collection-card__number">06 / EN VIVO</span>
+        <div><h3>AGENDA</h3><p>Recitales, giras y festivales de rock y metal en Argentina.</p></div>
+        <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
 
-<ul class="feria-datos">
-<li>📅 16 de octubre de 2026</li>
-<li>🕥 10:30 a 19:30 hs</li>
-<li>📍 IJLC · General Cabrera, Córdoba</li>
-</ul>
+  <section class="home-feature editorial-wrap" aria-labelledby="home-feature-title">
+    <a class="home-feature__image" href="img/feria-del-libro.jpg" target="_blank" rel="noopener noreferrer">
+      <img src="img/feria-del-libro.jpg" alt="Afiche de la participación de Leviatán en la segunda Feria del Libro de la Biblioteca del ISJLC, en octubre de 2026" width="1122" height="1402" loading="lazy">
+    </a>
+    <div class="home-feature__copy">
+      <span class="editorial-kicker">Leviatán / Encuentros</span>
+      <h2 id="home-feature-title">Una jornada para compartir lo que nos apasiona</h2>
+      <p>Participamos de la segunda Feria del Libro de la Biblioteca del ISJLC, acercando al público cómics del Universo DC y Marvel, libros y también un poco de nuestra pasión por la música.</p>
+      <p>Fue una oportunidad para dar a conocer Leviatán en General Cabrera y para encontrarnos con nuevos lectores, coleccionistas y amantes del rock.</p>
+      <a class="home-feature__link" href="noticias.html">LEÉ LA CRÓNICA COMPLETA <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
 
-<p>Vamos a estar con música, cómics y libros para coleccionistas.</p>
-
-<a class="btn-whatsapp" href="comics.html">Ver cómics disponibles</a>
-</div>
-</section>
-
-<section class="seccion-extra">
-<span class="etiqueta-seccion">Explorar Leviatán</span>
-
-<h2>Entrá a nuestras colecciones</h2>
-
-<p class="seccion-intro">
-Elegí una sección y descubrí lo que tenemos disponible.
-</p>
-
-<div class="noticias-grid">
-
-<a class="noticia-card" href="musica.html">
-<h3>MÚSICA</h3>
-<p>CDs originales y ediciones para coleccionistas.</p>
-</a>
-
-<a class="noticia-card" href="comics.html">
-<h3>CÓMICS</h3>
-<p>Historieta, novelas gráficas y cómics.</p>
-</a>
-
-<a class="noticia-card" href="libros.html">
-<h3>LIBROS</h3>
-<p>Libros seleccionados dentro del universo Leviatán.</p>
-</a>
-
-<a class="noticia-card" href="figuras.html">
-<h3>FIGURAS</h3>
-<p>Figuras y otros objetos coleccionables.</p>
-</a>
-
-<a class="noticia-card" href="noticias.html">
-<h3>NOTICIAS</h3>
-<p>Novedades de Tienda Leviatán.</p>
-</a>
-
-<a class="noticia-card" href="agenda.html">
-<h3>AGENDA</h3>
-<p>Rock y metal internacional en Argentina.</p>
-</a>
-
-</div>
-</section>
-
-<section class="seccion-extra">
-<span class="etiqueta-seccion">Leviatán</span>
-<h2>Una historia que continúa</h2>
-
-<p class="seccion-intro">
-Tres hermanos continuamos una historia familiar ligada a la música, el coleccionismo y la cultura.
-</p>
-
-<a class="btn-whatsapp" href="nosotros.html">Conocé nuestra historia</a>
-</section>
-
+  <section class="editorial-present home-story" aria-labelledby="home-story-title">
+    <div class="editorial-present__inner">
+      <div>
+        <span class="editorial-kicker">Una historia que continúa</span>
+        <h2 id="home-story-title">TRES HERMANOS.<br><em>UNA MISMA PASIÓN.</em></h2>
+      </div>
+      <div class="editorial-present__copy">
+        <p>Continuamos una historia familiar ligada a la música y el coleccionismo. Desde General Cabrera, Córdoba, construimos un espacio para acercar música, cómics, libros y objetos a quienes disfrutan descubrir algo especial.</p>
+        <div class="editorial-present__actions">
+          <a href="nosotros.html">CONOCÉ NUESTRA HISTORIA <span aria-hidden="true">↗</span></a>
+          <a href="contacto.html">CONTACTANOS <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer id="contacto" class="footer">
-<div class="footer-content">
-<h2>LEVIAT&Aacute;N COLECCIONABLES</h2>
-<p class="slogan">M&uacute;sica • C&oacute;mics • Libros para coleccionistas.</p>
-
-<div class="footer-links">
-<p>tiendaleviatan.com</p>
-<p>@tiendaleviatan</p>
-<p>tiendaleviatan@proton.me</p>
-<p>Tienda en MercadoLibre</p>
-</div>
-
-<div class="footer-locations">
-<p>General Cabrera, C&oacute;rdoba</p>
-<p>Caballito, Ciudad Aut&oacute;noma de Buenos Aires</p>
-<p>Env&iacute;os a todo el pa&iacute;s.</p>
-</div>
-
-<p class="copyright">&copy; 2026 Tienda Leviat&aacute;n</p>
-</div>
+  <div class="footer-content">
+    <h2>LEVIATÁN COLECCIONABLES</h2>
+    <p class="slogan">Música • Cómics • Libros para coleccionistas.</p>
+    <div class="footer-links">
+      <p><a href="https://tiendaleviatan.com/">tiendaleviatan.com</a></p>
+      <p><a href="https://instagram.com/tiendaleviatan" target="_blank" rel="noopener noreferrer">@tiendaleviatan</a></p>
+      <p><a href="mailto:tiendaleviatan@proton.me">tiendaleviatan@proton.me</a></p>
+      <p>Tienda en MercadoLibre</p>
+    </div>
+    <div class="footer-locations">
+      <p>General Cabrera, Córdoba</p>
+      <p>Caballito, Ciudad Autónoma de Buenos Aires</p>
+      <p>Envíos a todo el país.</p>
+    </div>
+    <p class="copyright">&copy; 2026 Tienda Leviatán</p>
+    <a class="editorial-backtop" href="#home-title">VOLVER ARRIBA ↑</a>
+  </div>
 </footer>
 
-<!-- REPRODUCTOR PEQUEÑO FLOTANTE -->
+<!-- REPRODUCTOR MUSICAL FLOTANTE: se conserva la funcionalidad existente. -->
 <div class="reproductor-flotante" style="display:block !important; visibility:visible !important; opacity:1 !important;">
   <button id="boton-musica" type="button" aria-label="Reproducir música" title="Reproducir música">♫</button>
   <audio id="audio-leviatan" preload="metadata">
@@ -381,46 +304,34 @@ Tres hermanos continuamos una historia familiar ligada a la música, el coleccio
 </div>
 
 <!-- BOTÓN ADMIN (aparece con Ctrl+Shift+A) -->
-<button id="btn-admin">⚙️ Admin</button>
+<button id="btn-admin" type="button">⚙️ Admin</button>
 
 <!-- PANEL DE ADMINISTRACIÓN -->
-<div id="panel-admin">
-<h3>⚙️ Panel de Admin</h3>
-  
-<div>
-<label>Contraseña:</label>
-<input type="password" id="admin-pass" placeholder="Ingresar contraseña">
-</div>
-  
-<div id="admin-contenido">
-<div>
-<label>Descuento para cómics (%):</label>
-<input type="number" id="descuento-input" value="0" min="0" max="100" step="1">
-</div>
-    
-<div>
-<label>
-<input type="checkbox" id="mostrar-tachado" checked>
-Mostrar precio tachado
-</label>
-</div>
-    
-<button id="guardar-config">💾 Guardar y Aplicar</button>
-<div id="mensaje-guardado"></div>
-    
-<div id="config-actual">
-<strong>Configuración actual:</strong><br>
-Cargando...
-</div>
-</div>
-  
-<button id="cerrar-admin">Cerrar</button>
+<div id="panel-admin" role="dialog" aria-modal="true" aria-labelledby="admin-title">
+  <h3 id="admin-title">⚙️ Panel de Admin</h3>
+  <div>
+    <label for="admin-pass">Contraseña:</label>
+    <input type="password" id="admin-pass" placeholder="Ingresar contraseña" autocomplete="current-password">
+  </div>
+  <div id="admin-contenido">
+    <div>
+      <label for="descuento-input">Descuento para cómics (%):</label>
+      <input type="number" id="descuento-input" value="0" min="0" max="100" step="1">
+    </div>
+    <div>
+      <label for="mostrar-tachado"><input type="checkbox" id="mostrar-tachado" checked> Mostrar precio tachado</label>
+    </div>
+    <button id="guardar-config" type="button">💾 Guardar y Aplicar</button>
+    <div id="mensaje-guardado" aria-live="polite"></div>
+    <div id="config-actual">
+      <strong>Configuración actual:</strong><br>
+      Cargando...
+    </div>
+  </div>
+  <button id="cerrar-admin" type="button">Cerrar</button>
 </div>
 
-<!-- SCRIPTS -->
 <script src="js/catalogo.js"></script>
-
-<!-- PANEL ADMIN -->
 <script>
 const CONFIG_ADMIN = {
   password: "leviatan2024",
@@ -429,11 +340,11 @@ const CONFIG_ADMIN = {
 
 function cargarConfig() {
   const guardado = localStorage.getItem(CONFIG_ADMIN.storageKey);
-  if (guardado) return JSON.parse(guardado);
-  return {
-    porcentaje: 0,
-    mostrarTachado: true
-  };
+  if (guardado) {
+    try { return JSON.parse(guardado); }
+    catch (error) { console.error("No se pudo leer la configuración guardada:", error); }
+  }
+  return { porcentaje: 0, mostrarTachado: true };
 }
 
 function guardarConfig(config) {
@@ -453,6 +364,7 @@ document.addEventListener("keydown", (e) => {
 document.getElementById("btn-admin").addEventListener("click", () => {
   document.getElementById("panel-admin").style.display = "block";
   actualizarVistaConfig();
+  document.getElementById("admin-pass").focus();
 });
 
 document.getElementById("cerrar-admin").addEventListener("click", () => {
@@ -469,7 +381,6 @@ document.getElementById("admin-pass").addEventListener("input", (e) => {
 function actualizarVistaConfig() {
   document.getElementById("descuento-input").value = Number(window.configAdmin.porcentaje) || 0;
   document.getElementById("mostrar-tachado").checked = window.configAdmin.mostrarTachado !== false;
-  
   document.getElementById("config-actual").innerHTML = `
     <strong>Configuración actual:</strong><br>
     Descuento para cómics: ${Number(window.configAdmin.porcentaje) || 0}%<br>
@@ -479,17 +390,13 @@ function actualizarVistaConfig() {
 
 document.getElementById("guardar-config").addEventListener("click", () => {
   const porcentaje = Number(document.getElementById("descuento-input").value);
-
   window.configAdmin = {
     porcentaje: Number.isFinite(porcentaje) ? Math.min(100, Math.max(0, porcentaje)) : 0,
     mostrarTachado: document.getElementById("mostrar-tachado").checked
   };
-  
   guardarConfig(window.configAdmin);
   actualizarVistaConfig();
-  
   document.getElementById("mensaje-guardado").innerHTML = '<div class="mensaje-exito">✓ Guardado. Recargando página...</div>';
-  
   setTimeout(() => location.reload(), 1000);
 });
 
@@ -531,15 +438,6 @@ audioLeviatan.addEventListener("pause", () => {
   botonMusica.title = "Reproducir música";
   botonMusica.classList.remove("reproduciendo");
 });
-
-// Oculta el anuncio de la Feria del Libro cuando termina (16/10/2026, 19:30 hs, Argentina)
-(function () {
-  const anuncio = document.getElementById("feria-del-libro");
-  if (anuncio && Date.now() > new Date("2026-10-16T19:30:00-03:00").getTime()) {
-    anuncio.style.display = "none";
-  }
-})();
-
 </script>
 </body>
 </html>
