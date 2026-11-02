@@ -519,3 +519,86 @@
   .editorial-hero__cta,
   .editorial-present__actions a { transition: none; }
 }
+
+
+/* ==========================================================
+   IDENTIDAD COMPARTIDA: AGENDA / NOTICIAS / NOSOTROS
+   Marca tipográfica y escala única para los títulos principales.
+   ========================================================== */
+
+header .logo--text {
+  width: 155px;
+  min-width: 155px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+header .logo--text .logo__name {
+  display: block;
+  margin: 0;
+  color: var(--texto, #eef1ef);
+  font-family: "Oswald", Impact, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  line-height: .95;
+}
+
+header .logo--text .logo__descriptor {
+  display: block;
+  margin: 3px 0 0;
+  color: var(--metal, #aeb8b5);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  line-height: 1.15;
+}
+
+/* H1 principal: misma familia, tamaño, peso y ritmo en las tres secciones. */
+.agenda-hero__content h1,
+.editorial-hero__content h1 {
+  margin: 24px 0 18px;
+  max-width: 850px;
+  color: #fff;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: clamp(3.2rem, 8vw, 7.25rem);
+  line-height: .91;
+  letter-spacing: -.035em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.agenda-hero__content h1 em,
+.editorial-hero__content h1 em {
+  color: #d52b2b;
+  font-style: normal;
+}
+
+@media (max-width: 680px) {
+  .agenda-hero__content h1,
+  .editorial-hero__content h1 {
+    font-size: clamp(2.8rem, 12vw, 4.4rem);
+    line-height: .93;
+  }
+
+  header .logo--text {
+    width: 132px;
+    min-width: 132px;
+  }
+
+  header .logo--text .logo__name {
+    font-size: 1.7rem;
+    letter-spacing: 3px;
+  }
+
+  header .logo--text .logo__descriptor {
+    font-size: .54rem;
+    letter-spacing: 3px;
+  }
+}
