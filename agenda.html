@@ -1,148 +1,187 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agenda Rock y Metal en Argentina | Leviatán Coleccionables</title>
   <meta name="description" content="Agenda de recitales y festivales de rock y metal en Argentina. Fechas nacionales e internacionales de heavy, power, thrash, metal extremo y más.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://tiendaleviatan.com/agenda.html">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Leviatán Coleccionables">
-  <meta property="og:title" content="Agenda Rock y Metal en Argentina | Leviatán">
-  <meta property="og:description" content="Recitales, giras y festivales de heavy, power, thrash y metal en Argentina.">
-  <meta property="og:url" content="https://tiendaleviatan.com/agenda.html">
-  <meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
-  <link rel="icon" href="img/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilos.css">
-  <link rel="stylesheet" href="css/internas.css">
-  <link rel="stylesheet" href="css/agenda.css">
-  <link rel="stylesheet" href="css/paginas-editoriales.css?v=8">
+  <meta name="robots" content="index, follow"><link rel="canonical" href="https://tiendaleviatan.com/agenda.html">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="Leviatán Coleccionables"><meta property="og:title" content="Agenda Rock y Metal en Argentina | Leviatán"><meta property="og:description" content="Recitales, giras y festivales de heavy, power, thrash y metal en Argentina."><meta property="og:url" content="https://tiendaleviatan.com/agenda.html"><meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
+  <link rel="icon" href="img/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css"><link rel="stylesheet" href="css/internas.css"><link rel="stylesheet" href="css/agenda.css"><link rel="stylesheet" href="css/paginas-editoriales.css?v=8">
+  <style id="leviatan-aquatic-theme">/* Leviatán — identidad acuática: negro, acero, plata, azul petróleo y cian. */
+:root {
+  --rojo: #23515a;
+  --rojo-hover: #3f7780;
+  --cian: #75aab0;
+  --ag-bg: #070b0c;
+  --ag-panel: #0e1516;
+  --ag-panel-2: #121b1c;
+  --ag-line: rgba(117,170,176,.22);
+  --ag-text: #eef1ef;
+  --ag-muted: #a7b0ad;
+  --ag-red: #75aab0;
+  --ag-red-dark: #17363b;
+  --ag-gold: #aeb8b5;
+  --ed-bg: #070b0c;
+  --ed-panel: #0e1516;
+  --ed-panel-2: #121b1c;
+  --ed-line: rgba(117,170,176,.22);
+  --ed-text: #eef1ef;
+  --ed-muted: #a7b0ad;
+  --ed-red: #75aab0;
+  --ed-red-dark: #17363b;
+  --ed-gold: #aeb8b5;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(63,119,128,.12), transparent 34%),
+    radial-gradient(ellipse at 88% 25%, rgba(35,81,90,.10), transparent 38%),
+    #020303;
+}
+::selection { background: #3f7780; color: #fff; }
+header { border-bottom-color: rgba(117,170,176,.24); }
+header::after {
+  background: linear-gradient(90deg, transparent, rgba(63,119,128,.72) 24%, rgba(117,170,176,.25) 50%, rgba(35,81,90,.68) 78%, transparent);
+  opacity: .8;
+}
+nav a::before { background: #75aab0; }
+nav a:hover { border-color: rgba(117,170,176,.25); background: rgba(28,55,59,.42); }
+
+.editorial-main,
+.agenda-main {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(35,81,90,.12), transparent 42%),
+    #070b0c;
+  color: #eef1ef;
+}
+.editorial-hero,
+.agenda-hero {
+  background:
+    radial-gradient(ellipse at 76% 45%, rgba(63,119,128,.26), transparent 42%),
+    radial-gradient(ellipse at 18% 88%, rgba(23,54,59,.28), transparent 48%),
+    linear-gradient(115deg, #05090a 0%, #0c1517 57%, #102327 100%);
+  border-bottom: 1px solid rgba(117,170,176,.42);
+}
+.editorial-hero__texture,
+.agenda-hero__texture {
+  opacity: .2;
+  background-image: repeating-linear-gradient(135deg, transparent 0 17px, rgba(174,184,181,.075) 18px, transparent 19px 37px);
+}
+.editorial-eyebrow,
+.editorial-kicker,
+.agenda-eyebrow,
+.agenda-kicker { color: #aeb8b5; }
+.editorial-eyebrow__dot,
+.agenda-eyebrow__dot,
+.agenda-live-label span {
+  background: #75aab0;
+  box-shadow: 0 0 13px rgba(117,170,176,.72);
+}
+.editorial-hero h1 em,
+.agenda-hero h1 em,
+.editorial-present h2 em { color: #75aab0; }
+.editorial-hero__cta,
+.agenda-hero__cta {
+  background: linear-gradient(135deg, #23515a, #17363b);
+  border: 1px solid rgba(117,170,176,.42);
+}
+.editorial-hero__cta:hover,
+.agenda-hero__cta:hover { background: #3f7780; }
+.editorial-hero__side-line,
+.agenda-hero__side-line { background: #75aab0; }
+.editorial-hero__bottomline,
+.agenda-hero__bottomline { border-top-color: rgba(117,170,176,.22); }
+.editorial-hero__bottomline-mark,
+.agenda-hero__bottomline-mark { color: #75aab0; }
+
+/* Noticias y Nosotros */
+.editorial-section-heading h2,
+.editorial-timeline__content h3,
+.editorial-present h2,
+.editorial-news-feature__body h2,
+.editorial-news-archive-card__body h2 { color: #dce1de; }
+.editorial-archive-mark strong,
+.editorial-news-feature__date small,
+.editorial-news-subblocks .editorial-card-kicker { color: #aeb8b5; }
+.editorial-timeline::before { background: linear-gradient(#75aab0, rgba(174,184,181,.22)); }
+.editorial-timeline__item { border-color: rgba(117,170,176,.20); background: linear-gradient(120deg, rgba(117,170,176,.035), transparent 42%), #0e1516; }
+.editorial-timeline__stamp > span { border-color: rgba(117,170,176,.65); background: #0e1516; }
+.editorial-timeline__stamp strong { color: #aeb8b5; }
+.editorial-card-kicker { color: #75aab0; }
+.editorial-timeline__item--today { border-color: rgba(117,170,176,.48); background: linear-gradient(110deg, rgba(63,119,128,.15), rgba(255,255,255,.018) 48%), #0e1516; }
+.editorial-timeline__item--today .editorial-timeline__stamp > span { background: #17363b; }
+.editorial-present {
+  border-color: rgba(117,170,176,.4);
+  background: radial-gradient(ellipse at 15% 50%, rgba(35,81,90,.23), transparent 45%), linear-gradient(110deg, rgba(255,255,255,.025), transparent 58%), #0e1516;
+}
+.editorial-present__actions a { border-color: rgba(174,184,181,.26); color: #dce1de; }
+.editorial-present__actions a:hover { border-color: #75aab0; background: #17363b; }
+.editorial-news-feature {
+  border-color: rgba(117,170,176,.42);
+  background: linear-gradient(110deg, rgba(35,81,90,.16), rgba(255,255,255,.018) 43%), #0e1516;
+}
+.editorial-news-feature__meta,
+.editorial-news-archive-card__header { border-color: rgba(117,170,176,.2); }
+.editorial-status-tag { border-color: rgba(117,170,176,.48); color: #c5d9d8; }
+.editorial-status-tag--muted { border-color: rgba(174,184,181,.34); color: #aeb8b5; }
+.editorial-news-confirmation { border-color: rgba(117,170,176,.32); color: #c5d9d8; }
+.editorial-news-confirmation__dot { background: #75aab0; box-shadow: 0 0 10px rgba(117,170,176,.55); }
+.editorial-news-archive-card { border-color: rgba(117,170,176,.2); background: linear-gradient(145deg, rgba(117,170,176,.035), transparent 65%), #0e1516; }
+.editorial-news-subblocks > div { border-top-color: #75aab0; background: #121b1c; }
+.editorial-backtop { color: #aeb8b5; }
+.editorial-backtop:hover { color: #75aab0; }
+
+/* Agenda: filtros, tarjetas, etiquetas y aviso */
+.agenda-live-label { border-color: rgba(117,170,176,.42); color: #c5d9d8; }
+.agenda-next__card {
+  border-color: rgba(117,170,176,.42);
+  background: linear-gradient(110deg, rgba(35,81,90,.17), rgba(255,255,255,.02) 42%), #0e1516;
+}
+.agenda-next__date span,
+.agenda-update strong,
+.agenda-card__month,
+.agenda-search__icon { color: #aeb8b5; }
+.agenda-next__info small { color: #75aab0; }
+.agenda-next__action:hover,
+.agenda-ticket:hover { border-color: #75aab0; background: #17363b; }
+.agenda-filter:hover { border-color: rgba(117,170,176,.65); }
+.agenda-filter.is-active { border-color: #75aab0; background: #17363b; color: #eef1ef; }
+.agenda-card { border-color: rgba(117,170,176,.2); background: linear-gradient(145deg, rgba(117,170,176,.045), transparent 65%), #0e1516; }
+.agenda-card:hover { border-color: rgba(117,170,176,.65); background-color: #121b1c; }
+.agenda-card__rule { background: #75aab0; }
+.agenda-card__type--nacional { border-color: rgba(174,184,181,.4); color: #aeb8b5; }
+.agenda-tag { background: rgba(117,170,176,.09); color: #c4d0ce; }
+.agenda-empty { border-color: rgba(117,170,176,.28); }
+.agenda-empty button { background: #23515a; }
+.agenda-empty button:hover { background: #3f7780; }
+.agenda-note { border-left-color: #75aab0; background: #0e1516; }
+.agenda-note__symbol { border-color: #75aab0; color: #75aab0; }
+.agenda-backtop { color: #aeb8b5; }
+.agenda-backtop:hover { color: #75aab0; }
+
+.footer { border-top-color: rgba(117,170,176,.24); }
+.footer::before { background: linear-gradient(90deg, transparent, rgba(63,119,128,.72) 23%, rgba(117,170,176,.24) 52%, rgba(35,81,90,.68) 78%, transparent); }
+.footer h2 { color: #dce1de; }
+.footer a:hover { color: #75aab0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
 </head>
 <body>
-
-  <header>
-<a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio">
-      <span class="logo__name">LEVIATÁN</span>
-      <span class="logo__descriptor">COLECCIONABLES</span>
-    </a>
-    <nav aria-label="Navegación principal">
-      <a href="index.html">Inicio</a>
-      <a href="musica.html">Música</a>
-      <a href="comics.html">Cómics</a>
-      <a href="libros.html">Libros</a>
-      <a href="figuras.html">Figuras</a>
-      <a href="noticias.html">Noticias</a>
-      <a href="agenda.html" aria-current="page">Agenda</a>
-      <a href="nosotros.html">Nosotros</a>
-      <a href="contacto.html">Contacto</a>
-    </nav>
-  </header>
-
-  <main class="agenda-main">
-    <section class="agenda-hero" aria-labelledby="agenda-title">
-      <div class="agenda-hero__texture" aria-hidden="true"></div>
-      <div class="agenda-hero__content">
-        <span class="agenda-eyebrow"><span class="agenda-eyebrow__dot"></span> Leviatán presenta · Argentina 2026 / 2027</span>
-        <h1 id="agenda-title">EL METAL<br><em>NO ESPERA.</em></h1>
-        <p>La agenda para salir a buscar riffs, distorsión y potencia. Recitales, giras y festivales de la escena nacional e internacional.</p>
-        <a class="agenda-hero__cta" href="#fechas">EXPLORAR FECHAS <span aria-hidden="true">↓</span></a>
-      </div>
-      <div class="agenda-hero__side" aria-hidden="true">
-        <span class="agenda-hero__side-word">LOUD</span>
-        <span class="agenda-hero__side-line"></span>
-        <span class="agenda-hero__side-small">ROCK · HEAVY · POWER · THRASH · METAL</span>
-      </div>
-      <div class="agenda-hero__bottomline">
-        <span>SONIDO INTERNACIONAL</span>
-        <span class="agenda-hero__bottomline-mark">✳</span>
-        <span>ORGULLO NACIONAL</span>
-        <span class="agenda-hero__bottomline-mark">✳</span>
-        <span>ESCENA EN VIVO</span>
-      </div>
-    </section>
-
-    <section class="agenda-wrap agenda-next" aria-labelledby="proximo-title">
-      <div class="agenda-section-heading">
-        <div>
-          <span class="agenda-kicker">La próxima descarga</span>
-          <h2 id="proximo-title">PRÓXIMO SHOW</h2>
-        </div>
-        <span class="agenda-live-label"><span></span> EN AGENDA</span>
-      </div>
-      <div id="next-event" class="agenda-next__card">
-        <p class="agenda-loading">Cargando próxima fecha…</p>
-      </div>
-    </section>
-
-    <section class="agenda-wrap agenda-listing" id="fechas" aria-labelledby="fechas-title">
-      <div class="agenda-section-heading agenda-section-heading--listing">
-        <div>
-          <span class="agenda-kicker">Calendario de recitales</span>
-          <h2 id="fechas-title">TODAS LAS FECHAS</h2>
-          <p class="agenda-intro">Una selección de shows confirmados y anunciados. Usá los filtros para encontrar tu próximo recital.</p>
-        </div>
-        <div class="agenda-update">
-          <span class="agenda-update__label">ÚLTIMA REVISIÓN</span>
-          <strong>01 NOV 2026</strong>
-        </div>
-      </div>
-
-      <div class="agenda-tools">
-        <div class="agenda-filters" role="group" aria-label="Filtrar eventos">
-          <button class="agenda-filter is-active" type="button" data-filter="todos" aria-pressed="true">Todos</button>
-          <button class="agenda-filter" type="button" data-filter="internacional" aria-pressed="false">Internacionales</button>
-          <button class="agenda-filter" type="button" data-filter="nacional" aria-pressed="false">Nacionales</button>
-          <button class="agenda-filter" type="button" data-filter="power" aria-pressed="false">Power</button>
-          <button class="agenda-filter" type="button" data-filter="heavy" aria-pressed="false">Heavy</button>
-          <button class="agenda-filter" type="button" data-filter="thrash" aria-pressed="false">Thrash</button>
-          <button class="agenda-filter" type="button" data-filter="extremo" aria-pressed="false">Extremo</button>
-          <button class="agenda-filter" type="button" data-filter="progresivo" aria-pressed="false">Progresivo</button>
-          <button class="agenda-filter" type="button" data-filter="sinfonico" aria-pressed="false">Sinfónico</button>
-          <button class="agenda-filter" type="button" data-filter="hardrock" aria-pressed="false">Hard rock</button>
-        </div>
-        <label class="agenda-search">
-          <span class="agenda-search__icon" aria-hidden="true">⌕</span>
-          <span class="sr-only">Buscar por banda, ciudad o sala</span>
-          <input id="agenda-search" type="search" placeholder="Buscar banda, ciudad o sala…" autocomplete="off">
-        </label>
-      </div>
-
-      <div class="agenda-results-bar">
-        <p id="agenda-count" aria-live="polite">Preparando agenda…</p>
-        <span>FECHAS SUJETAS A MODIFICACIONES</span>
-      </div>
-
-      <div id="agenda-events" class="agenda-grid" aria-live="polite">
-        <p class="agenda-loading">Cargando recitales…</p>
-      </div>
-      <div id="agenda-empty" class="agenda-empty" hidden>
-        <strong>No encontramos fechas con esos filtros.</strong>
-        <span>Probá con otro género, banda o ciudad.</span>
-        <button type="button" id="agenda-reset">VER TODA LA AGENDA</button>
-      </div>
-    </section>
-
-    <section class="agenda-note" aria-label="Información importante">
-      <div class="agenda-note__symbol" aria-hidden="true">!</div>
-      <div>
-        <h2>ANTES DE SALIR</h2>
-        <p>Las fechas, salas, horarios y condiciones de venta pueden cambiar. Confirmá siempre la información y la disponibilidad de entradas en el sitio del artista, la sala, la productora o la ticketera oficial antes de viajar.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <h2>LEVIATÁN COLECCIONABLES</h2>
-      <p class="slogan">Historias, música y cultura para coleccionar.</p>
-      <a href="#agenda-title" class="agenda-backtop">VOLVER ARRIBA ↑</a>
-    </div>
-  </footer>
-
-  <script src="js/agenda.js" defer></script>
-</body>
-</html>
+<header><a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio"><span class="logo__name">LEVIATÁN</span><span class="logo__descriptor">COLECCIONABLES</span></a>
+<nav aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="musica.html">Música</a><a href="comics.html">Cómics</a><a href="libros.html">Libros</a><a href="figuras.html">Figuras</a><a href="noticias.html">Noticias</a><a href="agenda.html" aria-current="page">Agenda</a><a href="nosotros.html">Nosotros</a><a href="contacto.html">Contacto</a></nav></header>
+<main class="agenda-main">
+  <section class="agenda-hero" aria-labelledby="agenda-title"><div class="agenda-hero__texture" aria-hidden="true"></div><div class="agenda-hero__content"><span class="agenda-eyebrow"><span class="agenda-eyebrow__dot"></span> Leviatán presenta · Argentina 2026 / 2027</span><h1 id="agenda-title">EL METAL<br><em>NO ESPERA.</em></h1><p>La agenda para salir a buscar riffs, distorsión y potencia. Recitales, giras y festivales de la escena nacional e internacional.</p><a class="agenda-hero__cta" href="#fechas">EXPLORAR FECHAS <span aria-hidden="true">↓</span></a></div><div class="agenda-hero__side" aria-hidden="true"><span class="agenda-hero__side-word">LOUD</span><span class="agenda-hero__side-line"></span><span class="agenda-hero__side-small">ROCK · HEAVY · POWER · THRASH · METAL</span></div><div class="agenda-hero__bottomline"><span>SONIDO INTERNACIONAL</span><span class="agenda-hero__bottomline-mark">✳</span><span>ORGULLO NACIONAL</span><span class="agenda-hero__bottomline-mark">✳</span><span>ESCENA EN VIVO</span></div></section>
+  <section class="agenda-wrap agenda-next" aria-labelledby="proximo-title"><div class="agenda-section-heading"><div><span class="agenda-kicker">La próxima descarga</span><h2 id="proximo-title">PRÓXIMO SHOW</h2></div><span class="agenda-live-label"><span></span> EN AGENDA</span></div><div id="next-event" class="agenda-next__card"><p class="agenda-loading">Cargando próxima fecha…</p></div></section>
+  <section class="agenda-wrap agenda-listing" id="fechas" aria-labelledby="fechas-title"><div class="agenda-section-heading agenda-section-heading--listing"><div><span class="agenda-kicker">Calendario de recitales</span><h2 id="fechas-title">TODAS LAS FECHAS</h2><p class="agenda-intro">Una selección de shows confirmados y anunciados. Usá los filtros para encontrar tu próximo recital.</p></div><div class="agenda-update"><span class="agenda-update__label">ÚLTIMA REVISIÓN</span><strong>01 NOV 2026</strong></div></div>
+    <div class="agenda-tools"><div class="agenda-filters" role="group" aria-label="Filtrar eventos"><button class="agenda-filter is-active" type="button" data-filter="todos" aria-pressed="true">Todos</button><button class="agenda-filter" type="button" data-filter="internacional" aria-pressed="false">Internacionales</button><button class="agenda-filter" type="button" data-filter="nacional" aria-pressed="false">Nacionales</button><button class="agenda-filter" type="button" data-filter="power" aria-pressed="false">Power</button><button class="agenda-filter" type="button" data-filter="heavy" aria-pressed="false">Heavy</button><button class="agenda-filter" type="button" data-filter="thrash" aria-pressed="false">Thrash</button><button class="agenda-filter" type="button" data-filter="extremo" aria-pressed="false">Extremo</button><button class="agenda-filter" type="button" data-filter="progresivo" aria-pressed="false">Progresivo</button><button class="agenda-filter" type="button" data-filter="sinfonico" aria-pressed="false">Sinfónico</button><button class="agenda-filter" type="button" data-filter="hardrock" aria-pressed="false">Hard rock</button></div><label class="agenda-search"><span class="agenda-search__icon" aria-hidden="true">⌕</span><span class="sr-only">Buscar por banda, ciudad o sala</span><input id="agenda-search" type="search" placeholder="Buscar banda, ciudad o sala…" autocomplete="off"></label></div>
+    <div class="agenda-results-bar"><p id="agenda-count" aria-live="polite">Preparando agenda…</p><span>FECHAS SUJETAS A MODIFICACIONES</span></div><div id="agenda-events" class="agenda-grid" aria-live="polite"><p class="agenda-loading">Cargando recitales…</p></div><div id="agenda-empty" class="agenda-empty" hidden><strong>No encontramos fechas con esos filtros.</strong><span>Probá con otro género, banda o ciudad.</span><button type="button" id="agenda-reset">VER TODA LA AGENDA</button></div>
+  </section>
+  <section class="agenda-note" aria-label="Información importante"><div class="agenda-note__symbol" aria-hidden="true">!</div><div><h2>ANTES DE SALIR</h2><p>Las fechas, salas, horarios y condiciones de venta pueden cambiar. Confirmá siempre la información y la disponibilidad de entradas en el sitio del artista, la sala, la productora o la ticketera oficial antes de viajar.</p></div></section>
+</main>
+<footer class="footer"><div class="footer-content"><h2>LEVIATÁN COLECCIONABLES</h2><p class="slogan">Historias, música y cultura para coleccionar.</p><a href="#agenda-title" class="agenda-backtop">VOLVER ARRIBA ↑</a></div></footer>
+<script src="js/agenda.js" defer></script>
+</body></html>
