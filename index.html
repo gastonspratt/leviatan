@@ -20,6 +20,172 @@
 <link rel="stylesheet" href="css/internas.css">
 <link rel="stylesheet" href="css/estilos.css">
 <link rel="stylesheet" href="css/paginas-editoriales.css?v=7">
+
+<style id="leviatan-home-aquatic">
+/* LEVIATÁN / INICIO — identidad acuática: negro, acero, petróleo y cian. */
+body.home-aquatic {
+  background:
+    radial-gradient(ellipse at 14% 0%, rgba(63,119,128,.12), transparent 34%),
+    radial-gradient(ellipse at 88% 30%, rgba(35,81,90,.10), transparent 38%),
+    #020607;
+  color: #eef1ef;
+}
+body.home-aquatic ::selection { background: #23515a; color: #fff; }
+body.home-aquatic header { border-bottom-color: rgba(117,170,176,.24); }
+body.home-aquatic header::after {
+  background: linear-gradient(90deg, transparent, rgba(63,119,128,.78) 24%, rgba(117,170,176,.24) 51%, rgba(35,81,90,.72) 78%, transparent);
+  opacity: .85;
+}
+body.home-aquatic nav a::before { background: #75aab0; }
+body.home-aquatic nav a:hover { border-color: rgba(117,170,176,.24); background: rgba(28,55,59,.42); }
+body.home-aquatic .editorial-main--home {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(35,81,90,.14), transparent 43%),
+    #070d0f;
+}
+body.home-aquatic .editorial-main--home .home-hero {
+  background:
+    radial-gradient(ellipse at 76% 45%, rgba(63,119,128,.28), transparent 42%),
+    radial-gradient(ellipse at 18% 90%, rgba(23,54,59,.32), transparent 48%),
+    linear-gradient(115deg, #05090a 0%, #0c1517 57%, #102327 100%);
+  border-bottom: 1px solid rgba(117,170,176,.45);
+}
+body.home-aquatic .editorial-main--home .editorial-hero__texture {
+  opacity: .2;
+  background-image: repeating-linear-gradient(135deg, transparent 0 17px, rgba(174,184,181,.075) 18px, transparent 19px 37px);
+}
+body.home-aquatic .editorial-main--home .editorial-eyebrow,
+body.home-aquatic .editorial-main--home .editorial-kicker { color: #aeb8b5; }
+body.home-aquatic .editorial-main--home .editorial-eyebrow__dot {
+  background: #75aab0;
+  box-shadow: 0 0 13px rgba(117,170,176,.82);
+}
+body.home-aquatic .editorial-main--home .editorial-hero h1 em,
+body.home-aquatic .editorial-main--home .editorial-present h2 em { color: #75aab0; }
+body.home-aquatic .editorial-main--home .editorial-hero__cta {
+  border: 1px solid rgba(117,170,176,.5);
+  background: linear-gradient(135deg, #23515a, #3f7780);
+  color: #f4f7f5;
+}
+body.home-aquatic .editorial-main--home .editorial-hero__cta:hover { background: #3f7780; }
+body.home-aquatic .editorial-main--home .editorial-hero__side-line { background: #75aab0; }
+body.home-aquatic .editorial-main--home .editorial-hero__bottomline { border-top-color: rgba(117,170,176,.23); }
+body.home-aquatic .editorial-main--home .editorial-hero__bottomline-mark { color: #75aab0; }
+body.home-aquatic .editorial-main--home .editorial-section-heading h2 { color: #dce1de; }
+
+/* Tarjetas de acceso: superficies azul petróleo y filete cian. */
+body.home-aquatic .editorial-main--home .home-collections__grid { gap: 14px; }
+body.home-aquatic .editorial-main--home .home-collection-card {
+  min-height: 205px;
+  padding: 21px 22px 19px;
+  border-color: rgba(117,170,176,.22);
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(63,119,128,.13), transparent 54%),
+    linear-gradient(145deg, rgba(255,255,255,.035), transparent 62%),
+    #0e1719;
+  color: #eef1ef;
+}
+body.home-aquatic .editorial-main--home .home-collection-card::before {
+  width: 3px;
+  background: linear-gradient(180deg, #75aab0, #23515a);
+  transform: scaleY(.42);
+}
+body.home-aquatic .editorial-main--home .home-collection-card:hover {
+  border-color: rgba(117,170,176,.68);
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(63,119,128,.22), transparent 58%),
+    linear-gradient(145deg, rgba(255,255,255,.045), transparent 62%),
+    #142124;
+  box-shadow: 0 14px 34px rgba(0,0,0,.3), 0 0 0 1px rgba(117,170,176,.08);
+}
+body.home-aquatic .editorial-main--home .home-collection-card__top {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+body.home-aquatic .editorial-main--home .home-collection-card__number {
+  padding-top: 5px;
+  color: #aeb8b5;
+}
+body.home-aquatic .editorial-main--home .home-collection-card__count {
+  display: inline-flex;
+  min-width: 78px;
+  align-items: baseline;
+  justify-content: center;
+  gap: 7px;
+  padding: 6px 9px 7px;
+  border: 1px solid rgba(117,170,176,.36);
+  background: rgba(23,54,59,.42);
+  color: #dce1de;
+  line-height: 1;
+  white-space: nowrap;
+}
+body.home-aquatic .editorial-main--home .home-collection-card__count strong {
+  color: #75aab0;
+  font-family: "Oswald", Impact, sans-serif;
+  font-size: 1.34rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+body.home-aquatic .editorial-main--home .home-collection-card__count small {
+  color: #aeb8b5;
+  font-size: .48rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+body.home-aquatic .editorial-main--home .home-collection-card h3 { color: #dce1de; }
+body.home-aquatic .editorial-main--home .home-collection-card p { color: #a7b0ad; }
+body.home-aquatic .editorial-main--home .home-collection-card__arrow { color: #75aab0; }
+body.home-aquatic .editorial-main--home .home-collection-card:focus-visible { outline: 2px solid #75aab0; outline-offset: 4px; }
+
+/* Destacados, historia y pie de página. */
+body.home-aquatic .editorial-main--home .home-feature {
+  border-color: rgba(117,170,176,.38);
+  background:
+    radial-gradient(ellipse at 8% 50%, rgba(35,81,90,.24), transparent 48%),
+    linear-gradient(120deg, rgba(255,255,255,.025), transparent 58%),
+    #0e1719;
+}
+body.home-aquatic .editorial-main--home .home-feature__image { border-color: rgba(117,170,176,.3); }
+body.home-aquatic .editorial-main--home .home-feature__link {
+  border: 1px solid rgba(117,170,176,.46);
+  background: linear-gradient(135deg, #23515a, #3f7780);
+}
+body.home-aquatic .editorial-main--home .home-feature__link:hover { background: #3f7780; }
+body.home-aquatic .editorial-main--home .editorial-present {
+  border-color: rgba(117,170,176,.42);
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(35,81,90,.26), transparent 45%),
+    linear-gradient(110deg, rgba(255,255,255,.025), transparent 58%),
+    #0e1719;
+}
+body.home-aquatic .editorial-main--home .editorial-present__actions a {
+  border-color: rgba(174,184,181,.28);
+  color: #dce1de;
+}
+body.home-aquatic .editorial-main--home .editorial-present__actions a:hover {
+  border-color: #75aab0;
+  background: #17363b;
+}
+body.home-aquatic .footer { border-top-color: rgba(117,170,176,.25); }
+body.home-aquatic .footer::before {
+  background: linear-gradient(90deg, transparent, rgba(63,119,128,.75) 23%, rgba(117,170,176,.22) 52%, rgba(35,81,90,.72) 78%, transparent);
+}
+body.home-aquatic .footer h2 { color: #dce1de; }
+body.home-aquatic .footer a:hover { color: #75aab0; }
+
+@media (max-width: 680px) {
+  body.home-aquatic .editorial-main--home .home-collection-card { min-height: 184px; }
+  body.home-aquatic .editorial-main--home .home-collection-card__count { min-width: 70px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.home-aquatic .editorial-main--home .home-collection-card,
+  body.home-aquatic .editorial-main--home .home-collection-card::before { transition: none; }
+}
+</style>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <style>
 /* Reproductor musical compacto del inicio */
@@ -53,7 +219,7 @@
 
 </style>
 </head>
-<body>
+<body class="home-aquatic">
 <header>
   <a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio" aria-current="page">
     <span class="logo__name">LEVIATÁN</span>
@@ -106,32 +272,32 @@
 
     <div class="home-collections__grid">
       <a class="home-collection-card" href="musica.html">
-        <span class="home-collection-card__number">01 / SONIDO</span>
+        <div class="home-collection-card__top"><span class="home-collection-card__number">01 / SONIDO</span><span class="home-collection-card__count" data-home-count="musica" aria-label="Cantidad de discos"><strong>—</strong><small>CDS</small></span></div>
         <div><h3>MÚSICA</h3><p>CDs originales y ediciones para quienes disfrutan buscar y coleccionar música.</p></div>
         <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
       </a>
       <a class="home-collection-card" href="comics.html">
-        <span class="home-collection-card__number">02 / HISTORIETAS</span>
+        <div class="home-collection-card__top"><span class="home-collection-card__number">02 / HISTORIETAS</span><span class="home-collection-card__count" data-home-count="comics" aria-label="Cantidad de cómics"><strong>—</strong><small>CÓMICS</small></span></div>
         <div><h3>CÓMICS</h3><p>Universos, personajes, novelas gráficas e historias para descubrir.</p></div>
         <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
       </a>
       <a class="home-collection-card" href="libros.html">
-        <span class="home-collection-card__number">03 / LECTURAS</span>
+        <div class="home-collection-card__top"><span class="home-collection-card__number">03 / LECTURAS</span><span class="home-collection-card__count" data-home-count="libros" aria-label="Cantidad de libros"><strong>50</strong><small>LIBROS</small></span></div>
         <div><h3>LIBROS</h3><p>Autores, editoriales y lecturas seleccionadas dentro del universo Leviatán.</p></div>
         <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
       </a>
       <a class="home-collection-card" href="figuras.html">
-        <span class="home-collection-card__number">04 / OBJETOS</span>
+        <div class="home-collection-card__top"><span class="home-collection-card__number">04 / OBJETOS</span><span class="home-collection-card__count" data-home-count="figuras" aria-label="Cantidad de figuras"><strong>0</strong><small>PIEZAS</small></span></div>
         <div><h3>FIGURAS</h3><p>Figuras y otros objetos para sumar a tu colección.</p></div>
         <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
       </a>
       <a class="home-collection-card" href="noticias.html">
-        <span class="home-collection-card__number">05 / ACTUALIDAD</span>
+        <div class="home-collection-card__top"><span class="home-collection-card__number">05 / ACTUALIDAD</span><span class="home-collection-card__count" data-home-count="noticias" aria-label="Cantidad de noticias"><strong>2</strong><small>NOTAS</small></span></div>
         <div><h3>NOTICIAS</h3><p>Ferias, actividades, novedades y proyectos de Tienda Leviatán.</p></div>
         <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
       </a>
       <a class="home-collection-card" href="agenda.html">
-        <span class="home-collection-card__number">06 / EN VIVO</span>
+        <div class="home-collection-card__top"><span class="home-collection-card__number">06 / EN VIVO</span><span class="home-collection-card__count" data-home-count="agenda" aria-label="Cantidad de fechas en agenda"><strong>28</strong><small>FECHAS</small></span></div>
         <div><h3>AGENDA</h3><p>Recitales, giras y festivales de rock y metal en Argentina.</p></div>
         <span class="home-collection-card__arrow" aria-hidden="true">↗</span>
       </a>
@@ -197,7 +363,6 @@
   </audio>
 </div>
 
-<script src="js/catalogo.js"></script>
 <script>
 // Reproductor musical compacto
 const botonMusica = document.getElementById("boton-musica");
@@ -238,5 +403,56 @@ audioLeviatan.addEventListener("pause", () => {
   botonMusica.classList.remove("reproduciendo");
 });
 </script>
+
+<script>
+/* Contadores del inicio: se leen desde las mismas hojas que alimentan los catálogos. */
+(() => {
+  const MUSIC_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=0&single=true&output=csv";
+  const COMICS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=2096118978&single=true&output=csv";
+
+  function setCount(key, count) {
+    const node = document.querySelector('[data-home-count="' + key + '"] strong');
+    if (node && Number.isFinite(count)) node.textContent = String(count);
+  }
+
+  function countSheet(url, validRow) {
+    return new Promise(resolve => {
+      if (!window.Papa || typeof Papa.parse !== "function") return resolve(null);
+      Papa.parse(url, {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: result => resolve((result.data || []).filter(validRow).length),
+        error: () => resolve(null)
+      });
+    });
+  }
+
+  function countNews() {
+    return fetch("noticias.html", { cache: "no-store" })
+      .then(response => { if (!response.ok) throw new Error("Noticias no disponibles"); return response.text(); })
+      .then(markup => {
+        const doc = new DOMParser().parseFromString(markup, "text/html");
+        return doc.querySelectorAll(".editorial-news-feature, .editorial-news-archive-card, .noticia-card").length;
+      });
+  }
+
+  function countAgenda() {
+    return fetch("js/agenda.js", { cache: "no-store" })
+      .then(response => { if (!response.ok) throw new Error("Agenda no disponible"); return response.text(); })
+      .then(source => (source.match(/\bdate\s*:\s*["']\d{4}-\d{2}-\d{2}["']/g) || []).length);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    countSheet(MUSIC_CSV, row => Boolean((row.Artista || "").trim() && (row.Album || "").trim()))
+      .then(count => { if (count !== null) setCount("musica", count); });
+    countSheet(COMICS_CSV, row => Boolean((row.Serie || row.Franquicia || "").trim()))
+      .then(count => { if (count !== null) setCount("comics", count); });
+    countNews().then(count => setCount("noticias", count)).catch(() => {});
+    countAgenda().then(count => setCount("agenda", count)).catch(() => {});
+  });
+})();
+</script>
+
 </body>
 </html>
