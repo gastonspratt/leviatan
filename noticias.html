@@ -3,19 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Leviatán | Noticias y Novedades</title>
   <meta name="description" content="Noticias, actividades y novedades de Tienda Leviatán: cómics, libros, música y coleccionismo desde General Cabrera.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://tiendaleviatan.com/noticias.html">
-
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Leviatán Coleccionables">
   <meta property="og:title" content="Leviatán | Noticias y Novedades">
   <meta property="og:description" content="Novedades de la tienda, ferias, actividades y proyectos de Leviatán alrededor de la música, los cómics, los libros y el coleccionismo.">
   <meta property="og:url" content="https://tiendaleviatan.com/noticias.html">
   <meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
-
   <link rel="icon" href="img/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,27 +20,177 @@
   <link rel="stylesheet" href="css/estilos.css">
   <link rel="stylesheet" href="css/internas.css">
   <link rel="stylesheet" href="css/paginas-editoriales.css?v=3">
+  <style id="leviatan-aquatic-theme">/* Leviatán — identidad acuática: negro, acero, plata, azul petróleo y cian. */
+:root {
+  --rojo: #23515a;
+  --rojo-hover: #3f7780;
+  --cian: #75aab0;
+  --ag-bg: #070b0c;
+  --ag-panel: #0e1516;
+  --ag-panel-2: #121b1c;
+  --ag-line: rgba(117,170,176,.22);
+  --ag-text: #eef1ef;
+  --ag-muted: #a7b0ad;
+  --ag-red: #75aab0;
+  --ag-red-dark: #17363b;
+  --ag-gold: #aeb8b5;
+  --ed-bg: #070b0c;
+  --ed-panel: #0e1516;
+  --ed-panel-2: #121b1c;
+  --ed-line: rgba(117,170,176,.22);
+  --ed-text: #eef1ef;
+  --ed-muted: #a7b0ad;
+  --ed-red: #75aab0;
+  --ed-red-dark: #17363b;
+  --ed-gold: #aeb8b5;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(63,119,128,.12), transparent 34%),
+    radial-gradient(ellipse at 88% 25%, rgba(35,81,90,.10), transparent 38%),
+    #020303;
+}
+::selection { background: #3f7780; color: #fff; }
+header { border-bottom-color: rgba(117,170,176,.24); }
+header::after {
+  background: linear-gradient(90deg, transparent, rgba(63,119,128,.72) 24%, rgba(117,170,176,.25) 50%, rgba(35,81,90,.68) 78%, transparent);
+  opacity: .8;
+}
+nav a::before { background: #75aab0; }
+nav a:hover { border-color: rgba(117,170,176,.25); background: rgba(28,55,59,.42); }
+
+.editorial-main,
+.agenda-main {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(35,81,90,.12), transparent 42%),
+    #070b0c;
+  color: #eef1ef;
+}
+.editorial-hero,
+.agenda-hero {
+  background:
+    radial-gradient(ellipse at 76% 45%, rgba(63,119,128,.26), transparent 42%),
+    radial-gradient(ellipse at 18% 88%, rgba(23,54,59,.28), transparent 48%),
+    linear-gradient(115deg, #05090a 0%, #0c1517 57%, #102327 100%);
+  border-bottom: 1px solid rgba(117,170,176,.42);
+}
+.editorial-hero__texture,
+.agenda-hero__texture {
+  opacity: .2;
+  background-image: repeating-linear-gradient(135deg, transparent 0 17px, rgba(174,184,181,.075) 18px, transparent 19px 37px);
+}
+.editorial-eyebrow,
+.editorial-kicker,
+.agenda-eyebrow,
+.agenda-kicker { color: #aeb8b5; }
+.editorial-eyebrow__dot,
+.agenda-eyebrow__dot,
+.agenda-live-label span {
+  background: #75aab0;
+  box-shadow: 0 0 13px rgba(117,170,176,.72);
+}
+.editorial-hero h1 em,
+.agenda-hero h1 em,
+.editorial-present h2 em { color: #75aab0; }
+.editorial-hero__cta,
+.agenda-hero__cta {
+  background: linear-gradient(135deg, #23515a, #17363b);
+  border: 1px solid rgba(117,170,176,.42);
+}
+.editorial-hero__cta:hover,
+.agenda-hero__cta:hover { background: #3f7780; }
+.editorial-hero__side-line,
+.agenda-hero__side-line { background: #75aab0; }
+.editorial-hero__bottomline,
+.agenda-hero__bottomline { border-top-color: rgba(117,170,176,.22); }
+.editorial-hero__bottomline-mark,
+.agenda-hero__bottomline-mark { color: #75aab0; }
+
+/* Noticias y Nosotros */
+.editorial-section-heading h2,
+.editorial-timeline__content h3,
+.editorial-present h2,
+.editorial-news-feature__body h2,
+.editorial-news-archive-card__body h2 { color: #dce1de; }
+.editorial-archive-mark strong,
+.editorial-news-feature__date small,
+.editorial-news-subblocks .editorial-card-kicker { color: #aeb8b5; }
+.editorial-timeline::before { background: linear-gradient(#75aab0, rgba(174,184,181,.22)); }
+.editorial-timeline__item { border-color: rgba(117,170,176,.20); background: linear-gradient(120deg, rgba(117,170,176,.035), transparent 42%), #0e1516; }
+.editorial-timeline__stamp > span { border-color: rgba(117,170,176,.65); background: #0e1516; }
+.editorial-timeline__stamp strong { color: #aeb8b5; }
+.editorial-card-kicker { color: #75aab0; }
+.editorial-timeline__item--today { border-color: rgba(117,170,176,.48); background: linear-gradient(110deg, rgba(63,119,128,.15), rgba(255,255,255,.018) 48%), #0e1516; }
+.editorial-timeline__item--today .editorial-timeline__stamp > span { background: #17363b; }
+.editorial-present {
+  border-color: rgba(117,170,176,.4);
+  background: radial-gradient(ellipse at 15% 50%, rgba(35,81,90,.23), transparent 45%), linear-gradient(110deg, rgba(255,255,255,.025), transparent 58%), #0e1516;
+}
+.editorial-present__actions a { border-color: rgba(174,184,181,.26); color: #dce1de; }
+.editorial-present__actions a:hover { border-color: #75aab0; background: #17363b; }
+.editorial-news-feature {
+  border-color: rgba(117,170,176,.42);
+  background: linear-gradient(110deg, rgba(35,81,90,.16), rgba(255,255,255,.018) 43%), #0e1516;
+}
+.editorial-news-feature__meta,
+.editorial-news-archive-card__header { border-color: rgba(117,170,176,.2); }
+.editorial-status-tag { border-color: rgba(117,170,176,.48); color: #c5d9d8; }
+.editorial-status-tag--muted { border-color: rgba(174,184,181,.34); color: #aeb8b5; }
+.editorial-news-confirmation { border-color: rgba(117,170,176,.32); color: #c5d9d8; }
+.editorial-news-confirmation__dot { background: #75aab0; box-shadow: 0 0 10px rgba(117,170,176,.55); }
+.editorial-news-archive-card { border-color: rgba(117,170,176,.2); background: linear-gradient(145deg, rgba(117,170,176,.035), transparent 65%), #0e1516; }
+.editorial-news-subblocks > div { border-top-color: #75aab0; background: #121b1c; }
+.editorial-backtop { color: #aeb8b5; }
+.editorial-backtop:hover { color: #75aab0; }
+
+/* Agenda: filtros, tarjetas, etiquetas y aviso */
+.agenda-live-label { border-color: rgba(117,170,176,.42); color: #c5d9d8; }
+.agenda-next__card {
+  border-color: rgba(117,170,176,.42);
+  background: linear-gradient(110deg, rgba(35,81,90,.17), rgba(255,255,255,.02) 42%), #0e1516;
+}
+.agenda-next__date span,
+.agenda-update strong,
+.agenda-card__month,
+.agenda-search__icon { color: #aeb8b5; }
+.agenda-next__info small { color: #75aab0; }
+.agenda-next__action:hover,
+.agenda-ticket:hover { border-color: #75aab0; background: #17363b; }
+.agenda-filter:hover { border-color: rgba(117,170,176,.65); }
+.agenda-filter.is-active { border-color: #75aab0; background: #17363b; color: #eef1ef; }
+.agenda-card { border-color: rgba(117,170,176,.2); background: linear-gradient(145deg, rgba(117,170,176,.045), transparent 65%), #0e1516; }
+.agenda-card:hover { border-color: rgba(117,170,176,.65); background-color: #121b1c; }
+.agenda-card__rule { background: #75aab0; }
+.agenda-card__type--nacional { border-color: rgba(174,184,181,.4); color: #aeb8b5; }
+.agenda-tag { background: rgba(117,170,176,.09); color: #c4d0ce; }
+.agenda-empty { border-color: rgba(117,170,176,.28); }
+.agenda-empty button { background: #23515a; }
+.agenda-empty button:hover { background: #3f7780; }
+.agenda-note { border-left-color: #75aab0; background: #0e1516; }
+.agenda-note__symbol { border-color: #75aab0; color: #75aab0; }
+.agenda-backtop { color: #aeb8b5; }
+.agenda-backtop:hover { color: #75aab0; }
+
+.footer { border-top-color: rgba(117,170,176,.24); }
+.footer::before { background: linear-gradient(90deg, transparent, rgba(63,119,128,.72) 23%, rgba(117,170,176,.24) 52%, rgba(35,81,90,.68) 78%, transparent); }
+.footer h2 { color: #dce1de; }
+.footer a:hover { color: #75aab0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
 </head>
 <body>
-
 <header>
-<a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio">
-      <span class="logo__name">LEVIATÁN</span>
-      <span class="logo__descriptor">COLECCIONABLES</span>
-    </a>
+  <a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio">
+    <span class="logo__name">LEVIATÁN</span><span class="logo__descriptor">COLECCIONABLES</span>
+  </a>
   <nav aria-label="Navegación principal">
-    <a href="index.html">Inicio</a>
-    <a href="musica.html">Música</a>
-    <a href="comics.html">Cómics</a>
-    <a href="libros.html">Libros</a>
-    <a href="figuras.html">Figuras</a>
-    <a href="noticias.html" aria-current="page">Noticias</a>
-    <a href="agenda.html">Agenda</a>
-    <a href="nosotros.html">Nosotros</a>
-    <a href="contacto.html">Contacto</a>
+    <a href="index.html">Inicio</a><a href="musica.html">Música</a><a href="comics.html">Cómics</a><a href="libros.html">Libros</a><a href="figuras.html">Figuras</a><a href="noticias.html" aria-current="page">Noticias</a><a href="agenda.html">Agenda</a><a href="nosotros.html">Nosotros</a><a href="contacto.html">Contacto</a>
   </nav>
 </header>
-
 <main class="editorial-main editorial-main--news">
   <section class="editorial-hero" aria-labelledby="news-title">
     <div class="editorial-hero__texture" aria-hidden="true"></div>
@@ -53,109 +200,43 @@
       <p>Ferias, novedades, proyectos y encuentros. Todo lo que vamos construyendo alrededor de la música, los cómics, los libros y el coleccionismo.</p>
       <a class="editorial-hero__cta" href="#actualidad">LEER LAS NOVEDADES <span aria-hidden="true">↓</span></a>
     </div>
-    <div class="editorial-hero__side" aria-hidden="true">
-      <span class="editorial-hero__side-word">ACTUALIDAD</span>
-      <span class="editorial-hero__side-line"></span>
-      <span class="editorial-hero__side-small">FERIAS · CULTURA · COLECCIONISMO</span>
-    </div>
-    <div class="editorial-hero__bottomline" aria-hidden="true">
-      <span>LA VIDA DE LA TIENDA</span>
-      <span class="editorial-hero__bottomline-mark">✳</span>
-      <span>ENCUENTROS Y ACTIVIDADES</span>
-      <span class="editorial-hero__bottomline-mark">✳</span>
-      <span>EL PROYECTO LEVIATÁN</span>
-    </div>
+    <div class="editorial-hero__side" aria-hidden="true"><span class="editorial-hero__side-word">ACTUALIDAD</span><span class="editorial-hero__side-line"></span><span class="editorial-hero__side-small">FERIAS · CULTURA · COLECCIONISMO</span></div>
+    <div class="editorial-hero__bottomline" aria-hidden="true"><span>LA VIDA DE LA TIENDA</span><span class="editorial-hero__bottomline-mark">✳</span><span>ENCUENTROS Y ACTIVIDADES</span><span class="editorial-hero__bottomline-mark">✳</span><span>EL PROYECTO LEVIATÁN</span></div>
   </section>
-
   <section class="editorial-wrap editorial-news" id="actualidad" aria-labelledby="news-section-title">
-    <div class="editorial-section-heading">
-      <div>
-        <span class="editorial-kicker">Crónicas, novedades y actividades</span>
-        <h2 id="news-section-title">LO QUE ESTÁ PASANDO EN LEVIATÁN</h2>
-      </div>
-      <div class="editorial-archive-mark">
-        <span>ARCHIVO</span>
-        <strong>2026</strong>
-      </div>
-    </div>
-
+    <div class="editorial-section-heading"><div><span class="editorial-kicker">Crónicas, novedades y actividades</span><h2 id="news-section-title">LO QUE ESTÁ PASANDO EN LEVIATÁN</h2></div><div class="editorial-archive-mark"><span>ARCHIVO</span><strong>2026</strong></div></div>
     <article class="editorial-news-feature">
-      <div class="editorial-news-feature__meta">
-        <span class="editorial-status-tag">PARTICIPACIÓN REALIZADA</span>
-        <time datetime="2026-10-16">16 OCT 2026</time>
-      </div>
+      <div class="editorial-news-feature__meta"><span class="editorial-status-tag">PARTICIPACIÓN REALIZADA</span><time datetime="2026-10-16">16 OCT 2026</time></div>
       <div class="editorial-news-feature__grid">
-        <aside class="editorial-news-feature__rail" aria-label="Datos del evento">
-          <span class="editorial-news-feature__number">01</span>
-          <span class="editorial-news-feature__date">16<small>OCT</small></span>
-          <span class="editorial-news-feature__place">2.ª FERIA DEL LIBRO<br> BIBLIOTECA ISJLC</span>
-        </aside>
-
+        <aside class="editorial-news-feature__rail" aria-label="Datos del evento"><span class="editorial-news-feature__number">01</span><span class="editorial-news-feature__date">16<small>OCT</small></span><span class="editorial-news-feature__place">2.ª FERIA DEL LIBRO<br> BIBLIOTECA ISJLC</span></aside>
         <div class="editorial-news-feature__body">
           <span class="editorial-card-kicker">LEVIATÁN / EVENTOS</span>
           <h2>Leviatán participó con éxito de la segunda Feria del Libro de la Biblioteca del ISJLC</h2>
           <p class="editorial-news-lead">Una jornada de encuentros, lecturas, historietas y buena música. Estuvimos presentes desde la apertura, a las 10:00, hasta el cierre de la feria, a las 19:30, compartiendo con el público una selección de nuestro catálogo.</p>
-
           <p>Nuestra propuesta tuvo como protagonistas a los cómics del <strong>Universo DC</strong>, que despertaron especial interés entre los visitantes. También presentamos historietas de <strong>Marvel</strong> y una selección de libros de autores y autoras como <strong>Mariana Enríquez, Federico Falco y Malena Pichot</strong>, entre otros.</p>
-
           <p>La participación fue una excelente oportunidad para dar a conocer el proyecto Leviatán ante nuevos públicos. Para muchos de los visitantes fuimos el descubrimiento de un emprendimiento de <strong>General Cabrera, Córdoba</strong>, con conexión con Buenos Aires y con un catálogo que reúne distintas expresiones de la cultura, la música y el coleccionismo.</p>
-
           <p>También hubo lugar para esos pequeños momentos que hacen especial una jornada. Uno de ellos fue la sonrisa de un cliente metalero que, al realizar la compra de un cómic, recibió de regalo el CD <strong><em>Blackout</em></strong>, del legendario grupo alemán <strong>Scorpions</strong>. Una combinación perfecta entre historietas y heavy rock, muy al estilo Leviatán.</p>
-
           <p>Nos llevamos una experiencia muy positiva y el reconocimiento de la organización, que nos invitó a participar de la edición del año próximo. Será un placer volver a formar parte de esta propuesta cultural y reencontrarnos con quienes se acercaron a conocer nuestro proyecto.</p>
-
-          <div class="editorial-news-confirmation">
-            <span class="editorial-news-confirmation__dot"></span>
-            <span>Participación concretada · Invitados para la edición 2027</span>
-          </div>
-
+          <div class="editorial-news-confirmation"><span class="editorial-news-confirmation__dot"></span><span>Participación concretada · Invitados para la edición 2027</span></div>
           <p class="editorial-news-signoff">Gracias a la organización y a todas las personas que se acercaron a compartir esta jornada con nosotros. ¡Nos vemos en la próxima edición!</p>
         </div>
       </div>
     </article>
-
     <article class="editorial-news-archive-card">
-      <div class="editorial-news-archive-card__header">
-        <div>
-          <span class="editorial-status-tag editorial-status-tag--muted">ACTUALIZACIÓN</span>
-          <time datetime="2026-09">SEPTIEMBRE 2026</time>
-        </div>
-        <span class="editorial-news-archive-card__number">02</span>
-      </div>
+      <div class="editorial-news-archive-card__header"><div><span class="editorial-status-tag editorial-status-tag--muted">ACTUALIZACIÓN</span><time datetime="2026-09">SEPTIEMBRE 2026</time></div><span class="editorial-news-archive-card__number">02</span></div>
       <div class="editorial-news-archive-card__body">
-        <span class="editorial-card-kicker">LA WEB DE LEVIATÁN CRECE</span>
-        <h2>Nueva etapa para Tienda Leviatán</h2>
+        <span class="editorial-card-kicker">LA WEB DE LEVIATÁN CRECE</span><h2>Nueva etapa para Tienda Leviatán</h2>
         <p>La web de Tienda Leviatán sigue creciendo. En esta nueva actualización incorporamos varias novedades pensadas para hacer más completa la experiencia de quienes nos visitan y, sobre todo, para seguir construyendo este espacio alrededor de la música, los cómics y el coleccionismo.</p>
-
         <div class="editorial-news-subblocks">
-          <div>
-            <h3>Ahora también tenemos cómics</h3>
-            <p>El catálogo se amplía con una nueva sección dedicada a cómics y novelas gráficas, con títulos, editoriales, números, estado y disponibilidad.</p>
-          </div>
-          <div>
-            <h3>Una banda sonora para acompañar la visita</h3>
-            <p>Incorporamos un reproductor de música flotante que permite escuchar nuestra propia banda sonora mientras recorrés la página.</p>
-          </div>
-          <div>
-            <h3>Nuevas secciones</h3>
-            <p>La web empieza a convertirse en algo más que un catálogo. Sumamos noticias, una agenda de recitales de rock y metal y nuevos contenidos relacionados con nuestra pasión por la música y el coleccionismo.</p>
-          </div>
+          <div><h3>Ahora también tenemos cómics</h3><p>El catálogo se amplía con una nueva sección dedicada a cómics y novelas gráficas, con títulos, editoriales, números, estado y disponibilidad.</p></div>
+          <div><h3>Una banda sonora para acompañar la visita</h3><p>Incorporamos un reproductor de música flotante que permite escuchar nuestra propia banda sonora mientras recorrés la página.</p></div>
+          <div><h3>Nuevas secciones</h3><p>La web empieza a convertirse en algo más que un catálogo. Sumamos noticias, una agenda de recitales de rock y metal y nuevos contenidos relacionados con nuestra pasión por la música y el coleccionismo.</p></div>
         </div>
-
-        <p class="editorial-news-signoff">Y esto recién empieza.</p>
-        <p>Estamos trabajando para que <strong>Tienda Leviatán</strong> sea cada vez más que una tienda: un lugar para descubrir música, cómics, historias y objetos que merecen formar parte de una colección.</p>
+        <p class="editorial-news-signoff">Y esto recién empieza.</p><p>Estamos trabajando para que <strong>Tienda Leviatán</strong> sea cada vez más que una tienda: un lugar para descubrir música, cómics, historias y objetos que merecen formar parte de una colección.</p>
       </div>
     </article>
   </section>
 </main>
-
-<footer class="footer">
-  <div class="footer-content">
-    <h2>LEVIATÁN COLECCIONABLES</h2>
-    <p class="slogan">Música • Cómics • Libros para coleccionistas.</p>
-    <a class="editorial-backtop" href="#news-title">VOLVER ARRIBA ↑</a>
-  </div>
-</footer>
-
+<footer class="footer"><div class="footer-content"><h2>LEVIATÁN COLECCIONABLES</h2><p class="slogan">Música • Cómics • Libros para coleccionistas.</p><a class="editorial-backtop" href="#news-title">VOLVER ARRIBA ↑</a></div></footer>
 </body>
 </html>
