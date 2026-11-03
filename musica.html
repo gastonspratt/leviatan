@@ -23,6 +23,7 @@
 
   <link rel="stylesheet" href="css/estilos.css">
   <link rel="stylesheet" href="css/internas.css">
+  <link rel="stylesheet" href="css/catalogos-acuaticos.css?v=20261103">
   <link rel="stylesheet" href="css/paginas-editoriales.css?v=20261102">
 
   <style>
@@ -256,6 +257,18 @@
       .editorial-main--music .resultados { grid-template-columns: 1fr; }
     }
 
+    @media (max-width: 680px) {
+      .editorial-main--music .editorial-hero {
+        margin-top: 82px;
+        min-height: 430px;
+        padding: 59px 25px 84px;
+      }
+      .editorial-main--music .editorial-hero h1 {
+        font-size: clamp(3rem, 13vw, 5rem);
+        line-height: .93;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .editorial-main--music .card,
       .editorial-main--music .music-search { transition: none; }
@@ -291,10 +304,17 @@
     }
 
     .editorial-main--music .editorial-hero {
+      /* Igual que el hero de Cómics: despeja el header fijo. */
+      margin-top: 82px;
+      min-height: 490px;
       background:
         radial-gradient(ellipse at 76% 45%, rgba(63,119,128,.24), transparent 40%),
         linear-gradient(115deg, #050809 0%, #0d1719 57%, #102428 100%);
       border-bottom: 1px solid rgba(117,170,176,.42);
+    }
+
+    .editorial-main--music .editorial-hero h1 {
+      font-size: clamp(3.35rem, 8vw, 7.1rem);
     }
 
     .editorial-main--music .editorial-hero__texture {
@@ -415,7 +435,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 
-<body class="music-page" data-catalogo="musica">
+<body class="catalog-page music-page" data-catalogo="musica">
   <header>
     <a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio">
       <span class="logo__name">LEVIATÁN</span>
