@@ -1,189 +1,239 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leviatán | Nuestra Historia</title>
-  <meta name="description" content="Conocé la historia familiar detrás de Tienda Leviatán: música, disquerías, cultura y coleccionismo desde los años 80 hasta hoy.">
-  <meta name="robots" content="index, follow"><link rel="canonical" href="https://tiendaleviatan.com/nosotros.html">
-  <meta property="og:type" content="website"><meta property="og:site_name" content="Leviatán Coleccionables"><meta property="og:title" content="Leviatán | Nuestra Historia"><meta property="og:description" content="Una historia familiar ligada a la música, la cultura y el coleccionismo que sigue creciendo en Leviatán."><meta property="og:url" content="https://tiendaleviatan.com/nosotros.html"><meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
-  <link rel="icon" href="img/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilos.css"><link rel="stylesheet" href="css/internas.css"><link rel="stylesheet" href="css/paginas-editoriales.css?v=3">
-  <style id="leviatan-aquatic-theme">/* Leviatán — identidad acuática: negro, acero, plata, azul petróleo y cian. */
-:root {
-  --rojo: #23515a;
-  --rojo-hover: #3f7780;
-  --cian: #75aab0;
-  --ag-bg: #070b0c;
-  --ag-panel: #0e1516;
-  --ag-panel-2: #121b1c;
-  --ag-line: rgba(117,170,176,.22);
-  --ag-text: #eef1ef;
-  --ag-muted: #a7b0ad;
-  --ag-red: #75aab0;
-  --ag-red-dark: #17363b;
-  --ag-gold: #aeb8b5;
-  --ed-bg: #070b0c;
-  --ed-panel: #0e1516;
-  --ed-panel-2: #121b1c;
-  --ed-line: rgba(117,170,176,.22);
-  --ed-text: #eef1ef;
-  --ed-muted: #a7b0ad;
-  --ed-red: #75aab0;
-  --ed-red-dark: #17363b;
-  --ed-gold: #aeb8b5;
-}
-
-body {
-  background:
-    radial-gradient(ellipse at 15% 0%, rgba(63,119,128,.12), transparent 34%),
-    radial-gradient(ellipse at 88% 25%, rgba(35,81,90,.10), transparent 38%),
-    #020303;
-}
-::selection { background: #3f7780; color: #fff; }
-header { border-bottom-color: rgba(117,170,176,.24); }
-header::after {
-  background: linear-gradient(90deg, transparent, rgba(63,119,128,.72) 24%, rgba(117,170,176,.25) 50%, rgba(35,81,90,.68) 78%, transparent);
-  opacity: .8;
-}
-nav a::before { background: #75aab0; }
-nav a:hover { border-color: rgba(117,170,176,.25); background: rgba(28,55,59,.42); }
-
-.editorial-main,
-.agenda-main {
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(35,81,90,.12), transparent 42%),
-    #070b0c;
-  color: #eef1ef;
-}
-.editorial-hero,
-.agenda-hero {
-  background:
-    radial-gradient(ellipse at 76% 45%, rgba(63,119,128,.26), transparent 42%),
-    radial-gradient(ellipse at 18% 88%, rgba(23,54,59,.28), transparent 48%),
-    linear-gradient(115deg, #05090a 0%, #0c1517 57%, #102327 100%);
-  border-bottom: 1px solid rgba(117,170,176,.42);
-}
-.editorial-hero__texture,
-.agenda-hero__texture {
-  opacity: .2;
-  background-image: repeating-linear-gradient(135deg, transparent 0 17px, rgba(174,184,181,.075) 18px, transparent 19px 37px);
-}
-.editorial-eyebrow,
-.editorial-kicker,
-.agenda-eyebrow,
-.agenda-kicker { color: #aeb8b5; }
-.editorial-eyebrow__dot,
-.agenda-eyebrow__dot,
-.agenda-live-label span {
-  background: #75aab0;
-  box-shadow: 0 0 13px rgba(117,170,176,.72);
-}
-.editorial-hero h1 em,
-.agenda-hero h1 em,
-.editorial-present h2 em { color: #75aab0; }
-.editorial-hero__cta,
-.agenda-hero__cta {
-  background: linear-gradient(135deg, #23515a, #17363b);
-  border: 1px solid rgba(117,170,176,.42);
-}
-.editorial-hero__cta:hover,
-.agenda-hero__cta:hover { background: #3f7780; }
-.editorial-hero__side-line,
-.agenda-hero__side-line { background: #75aab0; }
-.editorial-hero__bottomline,
-.agenda-hero__bottomline { border-top-color: rgba(117,170,176,.22); }
-.editorial-hero__bottomline-mark,
-.agenda-hero__bottomline-mark { color: #75aab0; }
-
-/* Noticias y Nosotros */
-.editorial-section-heading h2,
-.editorial-timeline__content h3,
-.editorial-present h2,
-.editorial-news-feature__body h2,
-.editorial-news-archive-card__body h2 { color: #dce1de; }
-.editorial-archive-mark strong,
-.editorial-news-feature__date small,
-.editorial-news-subblocks .editorial-card-kicker { color: #aeb8b5; }
-.editorial-timeline::before { background: linear-gradient(#75aab0, rgba(174,184,181,.22)); }
-.editorial-timeline__item { border-color: rgba(117,170,176,.20); background: linear-gradient(120deg, rgba(117,170,176,.035), transparent 42%), #0e1516; }
-.editorial-timeline__stamp > span { border-color: rgba(117,170,176,.65); background: #0e1516; }
-.editorial-timeline__stamp strong { color: #aeb8b5; }
-.editorial-card-kicker { color: #75aab0; }
-.editorial-timeline__item--today { border-color: rgba(117,170,176,.48); background: linear-gradient(110deg, rgba(63,119,128,.15), rgba(255,255,255,.018) 48%), #0e1516; }
-.editorial-timeline__item--today .editorial-timeline__stamp > span { background: #17363b; }
-.editorial-present {
-  border-color: rgba(117,170,176,.4);
-  background: radial-gradient(ellipse at 15% 50%, rgba(35,81,90,.23), transparent 45%), linear-gradient(110deg, rgba(255,255,255,.025), transparent 58%), #0e1516;
-}
-.editorial-present__actions a { border-color: rgba(174,184,181,.26); color: #dce1de; }
-.editorial-present__actions a:hover { border-color: #75aab0; background: #17363b; }
-.editorial-news-feature {
-  border-color: rgba(117,170,176,.42);
-  background: linear-gradient(110deg, rgba(35,81,90,.16), rgba(255,255,255,.018) 43%), #0e1516;
-}
-.editorial-news-feature__meta,
-.editorial-news-archive-card__header { border-color: rgba(117,170,176,.2); }
-.editorial-status-tag { border-color: rgba(117,170,176,.48); color: #c5d9d8; }
-.editorial-status-tag--muted { border-color: rgba(174,184,181,.34); color: #aeb8b5; }
-.editorial-news-confirmation { border-color: rgba(117,170,176,.32); color: #c5d9d8; }
-.editorial-news-confirmation__dot { background: #75aab0; box-shadow: 0 0 10px rgba(117,170,176,.55); }
-.editorial-news-archive-card { border-color: rgba(117,170,176,.2); background: linear-gradient(145deg, rgba(117,170,176,.035), transparent 65%), #0e1516; }
-.editorial-news-subblocks > div { border-top-color: #75aab0; background: #121b1c; }
-.editorial-backtop { color: #aeb8b5; }
-.editorial-backtop:hover { color: #75aab0; }
-
-/* Agenda: filtros, tarjetas, etiquetas y aviso */
-.agenda-live-label { border-color: rgba(117,170,176,.42); color: #c5d9d8; }
-.agenda-next__card {
-  border-color: rgba(117,170,176,.42);
-  background: linear-gradient(110deg, rgba(35,81,90,.17), rgba(255,255,255,.02) 42%), #0e1516;
-}
-.agenda-next__date span,
-.agenda-update strong,
-.agenda-card__month,
-.agenda-search__icon { color: #aeb8b5; }
-.agenda-next__info small { color: #75aab0; }
-.agenda-next__action:hover,
-.agenda-ticket:hover { border-color: #75aab0; background: #17363b; }
-.agenda-filter:hover { border-color: rgba(117,170,176,.65); }
-.agenda-filter.is-active { border-color: #75aab0; background: #17363b; color: #eef1ef; }
-.agenda-card { border-color: rgba(117,170,176,.2); background: linear-gradient(145deg, rgba(117,170,176,.045), transparent 65%), #0e1516; }
-.agenda-card:hover { border-color: rgba(117,170,176,.65); background-color: #121b1c; }
-.agenda-card__rule { background: #75aab0; }
-.agenda-card__type--nacional { border-color: rgba(174,184,181,.4); color: #aeb8b5; }
-.agenda-tag { background: rgba(117,170,176,.09); color: #c4d0ce; }
-.agenda-empty { border-color: rgba(117,170,176,.28); }
-.agenda-empty button { background: #23515a; }
-.agenda-empty button:hover { background: #3f7780; }
-.agenda-note { border-left-color: #75aab0; background: #0e1516; }
-.agenda-note__symbol { border-color: #75aab0; color: #75aab0; }
-.agenda-backtop { color: #aeb8b5; }
-.agenda-backtop:hover { color: #75aab0; }
-
-.footer { border-top-color: rgba(117,170,176,.24); }
-.footer::before { background: linear-gradient(90deg, transparent, rgba(63,119,128,.72) 23%, rgba(117,170,176,.24) 52%, rgba(35,81,90,.68) 78%, transparent); }
-.footer h2 { color: #dce1de; }
-.footer a:hover { color: #75aab0; }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosotros | Leviatán</title>
+<meta name="description" content="Federico Spratt: expediente musical. Parque Rivadavia, Rainbow y Excalibur, Madhouse, Schizophrenia. Power metal y criterio propio.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tiendaleviatan.com/nosotros.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nosotros | Leviatán">
+<meta property="og:description" content="Expediente musical de Federico Spratt. El legado no se hereda: se conquista.">
+<meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/internas.css">
+<link rel="stylesheet" href="css/estilos.css">
+<style>
+:root{--bg:#020607;--panel:#0a1113;--line:#1e3a3e;--teal:#75aab0;--teal-d:#23515a;--paper:#e8e4d8;--muted:#a7b0ad;--dim:#7e8a87;--mono:"IBM Plex Mono",monospace}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 75% 12%,rgba(63,119,128,.10),transparent 30%),var(--bg);color:#eef1ef;font-family:Inter,sans-serif;line-height:1.65}
+a{color:inherit;text-decoration:none}
+.container{width:min(1080px,calc(100% - 44px));margin:auto}
+header{position:sticky;top:0;z-index:60;background:#020607;border-bottom:1px solid rgba(117,170,176,.24);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 18px;padding:13px 22px}
+.marca{display:flex;align-items:center;gap:11px;width:max-content}
+.marca svg{width:48px;height:48px}
+.marca__nombre{display:block;white-space:nowrap;font-family:Oswald,sans-serif;font-size:1.4rem;font-weight:600;line-height:1;letter-spacing:.07em;text-transform:uppercase}
+.marca__sub{display:block;white-space:nowrap;font-family:Oswald,sans-serif;font-size:.52rem;letter-spacing:.2em;color:var(--dim);margin-top:5px;text-transform:uppercase}
+nav{display:flex;flex:1 1 auto;justify-content:flex-end;flex-wrap:wrap;gap:14px}
+nav a{font-family:Oswald,sans-serif;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding-bottom:3px;border-bottom:1px solid transparent}
+nav a[aria-current]{color:#fff;border-bottom-color:#b02a1a}
+.hero{padding:56px 0 34px}
+.eyebrow,.card-code{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+h1{margin:12px 0 10px;font-family:Oswald,sans-serif;font-weight:700;font-size:clamp(38px,6.4vw,72px);line-height:.9;letter-spacing:-.02em;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--teal)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:stretch}
+.panel{position:relative;background:linear-gradient(135deg,rgba(117,170,176,.05),transparent 32%),rgba(10,17,19,.94);border:1px solid var(--line);border-radius:14px}
+.panel::before{content:"";position:absolute;top:-1px;left:40px;width:104px;height:2px;background:var(--teal)}
+.manifesto{margin-top:26px;padding:24px 26px}
+.manifesto p{margin:8px 0;color:#d7dcd9}
+.manifesto span{display:inline-block;margin-top:12px;color:var(--teal);font-family:var(--mono);font-size:11px;letter-spacing:.16em}
+.hero-ficha{padding:26px;display:flex;flex-direction:column;justify-content:center}
+.ficha-tabla{width:100%;border-collapse:collapse;margin-top:10px}
+.ficha-tabla td{padding:11px 0;border-bottom:1px solid #16282b;font-size:13.5px}
+.ficha-tabla td:first-child{width:44%;color:var(--dim);font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em}
+.section{padding:40px 0}
+.section-heading{display:flex;align-items:flex-end;gap:16px;margin-bottom:22px}
+.section-number{color:var(--teal);font-family:var(--mono);font-size:12px;letter-spacing:.12em}
+h2{margin:0;font-family:Oswald,sans-serif;font-size:clamp(26px,3.6vw,42px);font-weight:700;text-transform:uppercase;letter-spacing:-.01em}
+.section-intro{max-width:720px;color:var(--muted);margin:-6px 0 24px}
+.timeline{position:relative;display:grid;gap:16px}
+.timeline::before{content:"";position:absolute;left:70px;top:10px;bottom:10px;width:1px;background:linear-gradient(var(--teal),var(--line),var(--teal))}
+.timeline-item{position:relative;display:grid;grid-template-columns:104px 1fr;gap:20px;align-items:start}
+.timeline-year{position:relative;z-index:2;padding-top:20px;text-align:right;color:var(--teal);font-family:var(--mono);font-weight:500;font-size:16px}
+.timeline-year::after{content:"";position:absolute;right:-29px;top:26px;width:9px;height:9px;border:1px solid var(--teal);background:var(--bg);transform:rotate(45deg)}
+.timeline-card{padding:20px 24px}
+.timeline-card h3{margin:0 0 8px;font-family:Oswald,sans-serif;font-size:20px;font-weight:600;text-transform:uppercase;letter-spacing:.01em}
+.timeline-card p{margin:6px 0;color:#c4cbc8;font-size:14.5px}
+.divisor{border:0;border-top:1px solid #16282b;margin:24px 0}
+.quote{margin:20px 0 0;padding:18px 22px;border-left:2px solid var(--teal);color:#e5ebe8;font-size:17px}
+.influence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px 44px;margin-top:28px;align-items:start}
+.influence-group{position:relative;padding-top:16px}
+.influence-group::before{content:"";position:absolute;top:0;left:0;width:52px;height:2px;background:var(--teal)}
+.influence-group h3{margin:0 0 14px;color:var(--teal);font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+.influence-list{display:flex;flex-direction:column;gap:8px}
+.influence-name{position:relative;display:block;padding-left:16px;color:#dfe5e2;font-family:Oswald,sans-serif;font-size:16px;transition:color .2s,transform .2s}
+.influence-name::before{content:"◆";position:absolute;left:0;top:.3em;color:#3d5f63;font-size:7px}
+.influence-name:hover{color:#fff;transform:translateX(4px)}
+footer{padding:34px 0 60px;border-top:1px solid #16282b;text-align:center;color:var(--dim);font-family:var(--mono);font-size:11px;letter-spacing:.12em}
+.slogan-pie{font-family:Oswald,sans-serif;font-size:20px;color:var(--paper);letter-spacing:.02em;margin:0 0 16px}
+.slogan-pie em{font-style:normal;color:var(--teal)}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}.influence-grid{grid-template-columns:repeat(2,1fr);gap:28px}}
+@media(max-width:620px){
+  .timeline::before{left:14px}
+  .timeline-item{grid-template-columns:1fr;gap:6px;padding-left:38px}
+  .timeline-year{text-align:left;padding-top:0}
+  .timeline-year::after{left:-29px;right:auto;top:5px}
+  .influence-grid{grid-template-columns:1fr}
+  .marca__sub{display:none}
 }
 </style>
 </head>
 <body>
-<header><a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio"><span class="logo__name">LEVIATÁN</span><span class="logo__descriptor">COLECCIONABLES</span></a>
-<nav aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="musica.html">Música</a><a href="comics.html">Cómics</a><a href="libros.html">Libros</a><a href="figuras.html">Figuras</a><a href="noticias.html">Noticias</a><a href="agenda.html">Agenda</a><a href="nosotros.html" aria-current="page">Nosotros</a><a href="contacto.html">Contacto</a></nav></header>
-<main class="editorial-main editorial-main--history">
-  <section class="editorial-hero" aria-labelledby="history-title"><div class="editorial-hero__texture" aria-hidden="true"></div><div class="editorial-hero__content"><span class="editorial-eyebrow"><span class="editorial-eyebrow__dot"></span> LEVIATÁN / NUESTRA HISTORIA</span><h1 id="history-title">UNA HISTORIA<br><em>QUE SIGUE SONANDO.</em></h1><p>De los primeros casetes en Parque Rivadavia a un proyecto familiar que reúne música, cómics, libros y objetos para coleccionar.</p><a class="editorial-hero__cta" href="#historia">CONOCÉ NUESTRO RECORRIDO <span aria-hidden="true">↓</span></a></div><div class="editorial-hero__side" aria-hidden="true"><span class="editorial-hero__side-word">HERENCIA</span><span class="editorial-hero__side-line"></span><span class="editorial-hero__side-small">FAMILIA · MÚSICA · CULTURA · COLECCIÓN</span></div><div class="editorial-hero__bottomline" aria-hidden="true"><span>UNA HISTORIA FAMILIAR</span><span class="editorial-hero__bottomline-mark">✳</span><span>UNA PASIÓN QUE SE TRANSMITE</span><span class="editorial-hero__bottomline-mark">✳</span><span>UN PROYECTO QUE CRECE</span></div></section>
-  <section class="editorial-wrap editorial-history" id="historia" aria-labelledby="history-section-title"><div class="editorial-section-heading"><div><span class="editorial-kicker">De generación en generación</span><h2 id="history-section-title">EL CAMINO HASTA LEVIATÁN</h2></div><p>Hay proyectos que empiezan mucho antes de tener un nombre. El nuestro nació entre discos, conversaciones y la búsqueda de esa música que no siempre estaba al alcance de todos.</p></div>
-    <div class="editorial-timeline">
-      <article class="editorial-timeline__item"><div class="editorial-timeline__stamp"><span>01</span><strong>AÑOS 80</strong></div><div class="editorial-timeline__content"><span class="editorial-card-kicker">LOS PRIMEROS PASOS</span><h3>Casetes, Parque Rivadavia y una pasión que empezaba a tomar forma</h3><p>Tienda Leviatán está formada por tres hermanos que continuamos una historia familiar que comenzó mucho antes de Internet. En la década de 1980, nuestro papá dio sus primeros pasos vendiendo casetes en la legendaria feria de música del Parque Rivadavia, uno de los grandes puntos de encuentro del coleccionismo musical argentino.</p></div></article>
-      <article class="editorial-timeline__item"><div class="editorial-timeline__stamp"><span>02</span><strong>BUENOS AIRES</strong></div><div class="editorial-timeline__content"><span class="editorial-card-kicker">DISQUERÍAS CON IDENTIDAD</span><h3>Dos locales en Corrientes Angosta</h3><p>Con el tiempo fundó dos de las disquerías más recordadas de la Galería Corrientes Angosta, en pleno centro de Buenos Aires, a metros del Teatro Gran Rex. Durante años, esos locales fueron un punto de encuentro para coleccionistas, músicos y fanáticos del rock y el heavy metal que buscaban ediciones difíciles de conseguir.</p></div></article>
-      <article class="editorial-timeline__item"><div class="editorial-timeline__stamp"><span>03</span><strong>ESCENA</strong></div><div class="editorial-timeline__content"><span class="editorial-card-kicker">DIFUSIÓN Y COMPROMISO</span><h3>Descubrir bandas, acompañar músicos, hacer circular la cultura</h3><p>Era mucho más que un vendedor. Fue un difusor incansable de bandas poco conocidas, un apasionado por descubrir música que rara vez llegaba a los circuitos comerciales y un profundo conocedor de un género tan amplio y diverso como las propias bandas que recomendaba.</p><p>Su vínculo con la escena también lo llevó a participar en la fundación de la revista <em>Madhouse</em>, una publicación que se convirtió en un referente del heavy metal argentino, y a desempeñarse como manager de <em>Schizophrenia</em>, acompañando de cerca el crecimiento de la escena nacional.</p></div></article>
-      <article class="editorial-timeline__item editorial-timeline__item--today"><div class="editorial-timeline__stamp"><span>04</span><strong>HOY</strong></div><div class="editorial-timeline__content"><span class="editorial-card-kicker">LA HISTORIA CONTINÚA</span><h3>Tres hermanos, un mismo espíritu</h3><p>Hoy esa historia continúa. En <strong>Tienda Leviatán</strong>, tres hermanos mantenemos vivo ese espíritu de curiosidad, descubrimiento y amor por la cultura. Seleccionamos cuidadosamente música, libros y cómics con la misma convicción que impulsó aquellos primeros pasos: acercar a otros apasionados obras capaces de dejar una huella.</p><p>Actualmente llevamos adelante nuestro proyecto de tienda física en <strong>General Cabrera, Córdoba</strong>, mientras realizamos compras, pedidos y envíos a través de Instagram y de nuestra propia página web.</p></div></article>
+
+<header>
+  <a class="marca" href="index.html" aria-label="Leviatán - Inicio">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <g fill="#e8dec7">
+        <path d="M9 20 L54 12 Q78 9 84 26 L98 33 L84 46 L62 45 Q40 44 12 48 Z"/>
+        <path d="M14 58 L60 57 Q76 57 82 66 L97 70 L80 82 Q58 93 30 95 L10 92 Z"/>
+        <path d="M12 44 L62 44 Q82 45 84 47 L84 56 L58 55 Q38 55 12 52 Z" fill="#020607"/>
+        <circle cx="24" cy="29" r="5" fill="#020607"/>
+        <circle cx="26" cy="74" r="5" fill="#020607"/>
+        <circle cx="52" cy="34" r="12" fill="none" stroke="#020607" stroke-width="5" stroke-dasharray="3.4 3.4"/>
+        <circle cx="52" cy="34" r="7" fill="#020607"/>
+        <circle cx="52" cy="34" r="3.2" fill="#e8dec7"/>
+      </g>
+    </svg>
+    <span><span class="marca__nombre">LEVIATÁN</span><span class="marca__sub">FEDERICO SPRATT</span></span>
+  </a>
+  <nav aria-label="Navegación principal">
+    <a href="index.html">Inicio</a>
+    <a href="musica.html">Música</a>
+    <a href="comics.html">Cómics</a>
+    <a href="libros.html">Libros</a>
+    <a href="figuras.html">Objetos</a>
+    <a href="noticias.html">Noticias</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="nosotros.html" aria-current="page">Nosotros</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero"><div class="container"><div class="hero-grid">
+  <div>
+    <p class="eyebrow">EXPEDIENTE MUSICAL · NIVEL_01</p>
+    <h1>ME LLAMO<br>FEDERICO<br><em>SPRATT.</em></h1>
+    <p class="eyebrow" style="color:var(--muted)">IGUAL QUE MI VIEJO · POWER METAL Y LO QUE VENGA</p>
+    <div class="panel manifesto">
+      <p class="card-code">// MANIFIESTO</p>
+      <p>Él tenía el oído. Nosotros teníamos la plata.</p>
+      <p>Él odiaba el power. Yo lo escucho fuerte.</p>
+      <p>Y el legado no se hereda: se conquista.</p>
+      <span>— FEDERICO SPRATT (HIJO)</span>
     </div>
-  </section>
-  <section class="editorial-present" aria-labelledby="present-title"><div class="editorial-present__inner"><div><span class="editorial-kicker">El espíritu sigue intacto</span><h2 id="present-title">DESCUBRIR.<br><em>COMPARTIR.</em><br>COLECCIONAR.</h2></div><div class="editorial-present__copy"><p>Leviatán es nuestro modo de seguir esa historia: acercar música, cómics, libros y objetos a quienes disfrutan encontrar algo especial, conocer una nueva banda o sumar una pieza a su colección.</p><div class="editorial-present__actions"><a href="musica.html">EXPLORAR MÚSICA <span aria-hidden="true">↗</span></a><a href="comics.html">DESCUBRIR CÓMICS <span aria-hidden="true">↗</span></a></div></div></div></section>
+  </div>
+  <div class="panel hero-ficha">
+    <p class="card-code">FICHA DEL EXPEDIENTE</p>
+    <table class="ficha-tabla">
+      <tr><td>Nombre</td><td>Federico Spratt</td></tr>
+      <tr><td>Origen</td><td>Buenos Aires</td></tr>
+      <tr><td>Residencia</td><td>General Cabrera, Córdoba</td></tr>
+      <tr><td>Especialidad</td><td>Power metal</td></tr>
+      <tr><td>Batea</td><td>Metal y hard rock</td></tr>
+      <tr><td>Estado</td><td>Abierto</td></tr>
+      <tr><td>Clasificación</td><td>Nivel 1</td></tr>
+    </table>
+  </div>
+</div></div></section>
+
+<section class="section"><div class="container">
+  <div class="section-heading"><span class="section-number">01</span><h2>CRONOLOGÍA</h2></div>
+  <div class="timeline">
+
+    <article class="timeline-item"><div class="timeline-year">1981</div><div class="timeline-card">
+      <h3>NACER EN UNA DISQUERÍA</h3>
+      <p>Nací en Buenos Aires con el nombre de mi viejo ya decidido. No hubo discusión: Federico, como él, como el abuelo.</p>
+      <p>Mi infancia no tuvo jardín: tuvo bateas. Vacaciones enteras adentro de un negocio de discos, ordenando, cargando, aguantando. Aprendí a leer lomos antes que a leer bien.</p>
+    </div></article>
+
+    <article class="timeline-item"><div class="timeline-year">1985</div><div class="timeline-card">
+      <h3>PARQUE RIVADAVIA, RAINBOW Y EXCALIBUR</h3>
+      <p>El nombre de mi viejo venía con un mapa: los casetes del Parque Rivadavia en los ochenta y dos disquerías en el centro porteño, Rainbow y Excalibur.</p>
+      <p>También venía con la revista <em>Madhouse</em> y con Schizophrenia. Un tipo al que muchos recuerdan como un genio loco que recomendaba cosas rarísimas. Y que te echaba del negocio si le decías que los Beatles eran mejores que Black Sabbath. O te cagaba a trompadas.</p>
+    </div></article>
+
+    <article class="timeline-item"><div class="timeline-year">1994</div><div class="timeline-card">
+      <h3>EL POWER METAL: LO QUE MI VIEJO ODIABA</h3>
+      <p>Ahí empezó mi propia colección, y con ella la primera grieta seria. Helloween, Sonata Arctica, Avantasia, Stratovarius. Melodía, coros, guitarras limpias, estribillos enormes.</p>
+      <p>Para él era blandengue. Para mí era todo lo contrario: el metal también podía ser luminoso y no solo oscuro.</p>
+    </div></article>
+
+    <article class="timeline-item"><div class="timeline-year">2002</div><div class="timeline-card">
+      <h3>MÉXICO Y LA PLATA DE LOS DISCOS</h3>
+      <p>Me fui a vivir a México. Desde allá mandaba plata, y buena parte de esa plata terminó en discos que se quedaban acá.</p>
+      <p>Él los elegía con un oído que no tenía nadie. Nosotros los pagábamos.</p>
+    </div></article>
+
+    <article class="timeline-item"><div class="timeline-year">2010</div><div class="timeline-card">
+      <h3>VOLVER Y ARMAR OTRA COSA</h3>
+      <p>Volví al país. Años de trabajo, de atención al público, de observar gente. La música dejó de ser compra y pasó a ser refugio.</p>
+    </div></article>
+
+    <article class="timeline-item"><div class="timeline-year">2021</div><div class="timeline-card">
+      <h3>GENERAL CABRERA Y EL DIAGNÓSTICO</h3>
+      <p>Me instalé en General Cabrera, Córdoba. Ese mismo año llegó el diagnóstico de Parkinson.</p>
+      <p>Cambió la relación con el tiempo, con el cuerpo y con los discos. Ya no se trataba de acumular.</p>
+    </div></article>
+
+    <article class="timeline-item"><div class="timeline-year">2026</div><div class="timeline-card">
+      <h3>ABRIR LEVIATÁN</h3>
+      <p>Después de una separación que me dejó solo, endeudado y con dos hijas chicas a las que sostener, abrí la batea.</p>
+      <p>No como homenaje. Como conquista: los discos salen a la calle, uno por uno, con criterio propio y a la vista.</p>
+    </div></article>
+
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
+  <div class="section-heading"><span class="section-number">02</span><h2>EL CRITERIO</h2></div>
+  <div class="panel" style="padding:26px 28px">
+    <p class="card-code">// CÓMO SE ELIGE ACÁ</p>
+    <p>En esta batea no entra lo que se vende solo. Entra lo que alguien eligió con ganas: la banda que nadie conocía, el sello chico, la edición que costó conseguir.</p>
+    <p>Todo se revisa a mano y cada disco se describe con su estado real, sin maquillaje. Si está rayado, lo dice. Si es prensado original, también.</p>
+    <hr class="divisor">
+    <p>Y una advertencia: si pensás que los Beatles son mejores que Black Sabbath, acá vas a estar incómodo. Si te burlás de Ferro, peor.</p>
+    <blockquote class="quote">A mí, entre Black Sabbath y los Beatles, me quedo con Deep Purple. Pero no te metas con Ferro.</blockquote>
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
+  <div class="section-heading"><span class="section-number">03</span><h2>INFLUENCIAS</h2></div>
+  <p class="section-intro">Lo que suena en la batea mientras se ordena. Sin orden de importancia, salvo el primero de la lista.</p>
+  <div class="influence-grid">
+    <div class="influence-group"><h3>Power metal</h3><div class="influence-list">
+      <span class="influence-name">Stratovarius</span><span class="influence-name">Helloween</span><span class="influence-name">Sonata Arctica</span><span class="influence-name">Avantasia</span><span class="influence-name">Gamma Ray</span><span class="influence-name">Blind Guardian</span>
+    </div></div>
+    <div class="influence-group"><h3>Metal clásico</h3><div class="influence-list">
+      <span class="influence-name">Black Sabbath</span><span class="influence-name">Deep Purple</span><span class="influence-name">Scorpions</span><span class="influence-name">Accept</span><span class="influence-name">Judas Priest</span><span class="influence-name">Iron Maiden</span>
+    </div></div>
+    <div class="influence-group"><h3>Peso argentino</h3><div class="influence-list">
+      <span class="influence-name">V8</span><span class="influence-name">Hermética</span><span class="influence-name">Almafuerte</span><span class="influence-name">Horcas</span><span class="influence-name">Ferro</span><span class="influence-name">Malón</span>
+    </div></div>
+    <div class="influence-group"><h3>Extremos</h3><div class="influence-list">
+      <span class="influence-name">Slayer</span><span class="influence-name">Death</span><span class="influence-name">Sepultura</span><span class="influence-name">Sarcofago</span>
+    </div></div>
+    <div class="influence-group"><h3>Doom y oscuro</h3><div class="influence-list">
+      <span class="influence-name">Candlemass</span><span class="influence-name">Cathedral</span><span class="influence-name">Type O Negative</span>
+    </div></div>
+    <div class="influence-group"><h3>Fuera del metal</h3><div class="influence-list">
+      <span class="influence-name">Raymond Carver</span><span class="influence-name">Philip K. Dick</span><span class="influence-name">David Lynch</span>
+    </div></div>
+  </div>
+</div></section>
 </main>
-<footer class="footer"><div class="footer-content"><h2>LEVIATÁN COLECCIONABLES</h2><p class="slogan">Música • Cómics • Libros para coleccionistas.</p><a class="editorial-backtop" href="#history-title">VOLVER ARRIBA ↑</a></div></footer>
-</body></html>
+
+<footer>
+  <div class="container">
+    <p class="slogan-pie">EL LEGADO NO SE HEREDA. <em>SE CONQUISTA.</em></p>
+    <p>GENERAL CABRERA, CÓRDOBA · ENVÍOS A TODO EL PAÍS</p>
+    <p style="margin-top:8px">© 2026 LEVIATÁN · FEDERICO SPRATT</p>
+  </div>
+</footer>
+
+</body>
+</html>
