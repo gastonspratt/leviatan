@@ -14,121 +14,166 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/internas.css">
 <link rel="stylesheet" href="css/estilos.css">
+
 <style>
-:root{--bg:#020607;--panel:#0a1113;--line:#1e3a3e;--teal:#75aab0;--paper:#e8e4d8;--muted:#a7b0ad;--dim:#7e8a87;--mono:"IBM Plex Mono",monospace}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 75% 12%,rgba(63,119,128,.10),transparent 30%),var(--bg);color:#eef1ef;font-family:Inter,sans-serif;line-height:1.65}
+/* ===== ESTRUCTURA COMPARTIDA — igual que el inicio ===== */
+body{
+  --gold:#d88a2d;--gold-d:#5f3b16;--line-soft:#2b2118;--text:#f2eee8;--muted:#b7b0a7;--mono:"IBM Plex Mono",monospace;--display:"Exo 2",sans-serif;--sans:"IBM Plex Sans",sans-serif;
+  margin:0;color:var(--text);font-family:var(--sans);line-height:1.65;
+  background:radial-gradient(circle at 75% 20%,rgba(216,138,45,.055),transparent 25%),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px),#050505;
+  background-size:auto,86px 86px,86px 86px;
+}
 a{color:inherit;text-decoration:none}
-.container{width:min(1080px,calc(100% - 44px));margin:auto}
-header{position:sticky;top:0;z-index:60;background:#020607;border-bottom:1px solid rgba(117,170,176,.24);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 18px;padding:13px 22px}
-.marca{display:flex;align-items:center;gap:11px;width:max-content}
-.marca svg{width:48px;height:48px}
-.marca__nombre{display:block;white-space:nowrap;font-family:Oswald,sans-serif;font-size:1.4rem;font-weight:600;line-height:1;letter-spacing:.07em;text-transform:uppercase}
-.marca__sub{display:block;white-space:nowrap;font-family:Oswald,sans-serif;font-size:.52rem;letter-spacing:.2em;color:var(--dim);margin-top:5px;text-transform:uppercase}
-nav{display:flex;flex:1 1 auto;justify-content:flex-end;flex-wrap:wrap;gap:14px}
-nav a{font-family:Oswald,sans-serif;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding-bottom:3px;border-bottom:1px solid transparent}
-nav a[aria-current]{color:#fff;border-bottom-color:#b02a1a}
-.hero{padding:56px 0 34px}
-.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
-h1{margin:12px 0 10px;font-family:Oswald,sans-serif;font-weight:700;font-size:clamp(38px,6.4vw,72px);line-height:.9;letter-spacing:-.02em;text-transform:uppercase}
-h1 em{font-style:normal;color:var(--teal)}
-.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:stretch}
-.panel{position:relative;background:linear-gradient(135deg,rgba(117,170,176,.05),transparent 32%),rgba(10,17,19,.94);border:1px solid var(--line);border-radius:14px}
-.panel::before{content:"";position:absolute;top:-1px;left:40px;width:104px;height:2px;background:var(--teal)}
-.hero-ficha{padding:26px;display:flex;flex-direction:column;justify-content:center}
-.ficha-tabla{width:100%;border-collapse:collapse;margin-top:10px}
-.ficha-tabla td{padding:10px 0;border-bottom:1px solid #16282b;font-size:13.5px}
-.ficha-tabla td:first-child{width:44%;color:var(--dim);font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em}
-.section{padding:40px 0}
-.section-heading{display:flex;align-items:flex-end;gap:16px;margin-bottom:22px}
-.section-number{color:var(--teal);font-family:var(--mono);font-size:12px;letter-spacing:.12em}
-h2{margin:0;font-family:Oswald,sans-serif;font-size:clamp(26px,3.6vw,42px);font-weight:700;text-transform:uppercase;letter-spacing:-.01em}
-.section-intro{max-width:720px;color:var(--muted);margin:-6px 0 24px}
-.timeline{position:relative;display:grid;gap:16px}
-.timeline::before{content:"";position:absolute;left:70px;top:10px;bottom:10px;width:1px;background:linear-gradient(var(--teal),var(--line),var(--teal))}
-.timeline-item{position:relative;display:grid;grid-template-columns:104px 1fr;gap:20px;align-items:start}
-.timeline-year{position:relative;z-index:2;padding-top:20px;text-align:right;color:var(--teal);font-family:var(--mono);font-weight:500;font-size:16px}
-.timeline-year::after{content:"";position:absolute;right:-29px;top:26px;width:9px;height:9px;border:1px solid var(--teal);background:var(--bg);transform:rotate(45deg)}
-.timeline-card{padding:20px 24px}
-.timeline-card h3{margin:0 0 8px;font-family:Oswald,sans-serif;font-size:20px;font-weight:600;text-transform:uppercase;letter-spacing:.01em}
-.timeline-card p{margin:6px 0;color:#c4cbc8;font-size:14.5px}
-.timeline-card em{color:#e2e8e5}
-.influence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 40px;margin-top:28px;align-items:start}
-.influence-group{position:relative;padding-top:16px}
-.influence-group::before{content:"";position:absolute;top:0;left:0;width:52px;height:2px;background:var(--teal)}
-.influence-group h3{margin:0 0 14px;color:var(--teal);font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
-.influence-list{display:flex;flex-direction:column;gap:8px}
-.influence-name{position:relative;display:block;padding-left:16px;color:#dfe5e2;font-family:Oswald,sans-serif;font-size:16px}
-.influence-name::before{content:"◆";position:absolute;left:0;top:.3em;color:#3d5f63;font-size:7px}
-footer{padding:34px 0 60px;border-top:1px solid #16282b;text-align:center;color:var(--dim);font-family:var(--mono);font-size:11px;letter-spacing:.12em}
-.slogan-pie{font-family:Oswald,sans-serif;font-size:20px;color:var(--paper);letter-spacing:.02em;margin:0 0 16px}
-.slogan-pie em{font-style:normal;color:var(--teal)}
-@media(max-width:860px){.hero-grid{grid-template-columns:1fr}.influence-grid{grid-template-columns:repeat(2,1fr);gap:28px}}
-@media(max-width:620px){
-  .timeline::before{left:14px}
-  .timeline-item{grid-template-columns:1fr;gap:6px;padding-left:38px}
-  .timeline-year{text-align:left;padding-top:0}
-  .timeline-year::after{left:-29px;right:auto;top:5px}
-  .influence-grid{grid-template-columns:1fr}
+.chrome{width:min(1240px,calc(100% - 48px));margin-left:auto;margin-right:auto}
+.editorial-wrap{width:min(1240px,calc(100% - 48px));margin-left:auto;margin-right:auto}
+header{position:sticky;top:0;z-index:60;background:#020607;border-bottom:1px solid rgba(117,170,176,.24)}
+header .chrome{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 18px;padding:12px 0}
+.marca{display:flex;flex-direction:row;align-items:center;gap:11px;text-decoration:none;flex:0 0 auto;width:max-content}
+.marca__bicho{display:block;width:52px;height:52px;flex:0 0 auto;object-fit:contain}
+.marca__texto{display:block;text-align:left;width:max-content}
+.marca__nombre{display:block;white-space:nowrap;font-family:Oswald,Impact,sans-serif;font-size:1.45rem;font-weight:600;line-height:1;letter-spacing:.07em;color:#eef1ef;text-transform:uppercase}
+.marca__sub{display:block;white-space:nowrap;font-family:Oswald,Impact,sans-serif;font-size:.54rem;letter-spacing:.2em;color:#7e8a87;margin-top:5px;text-transform:uppercase}
+header nav{display:flex;flex:1 1 auto;justify-content:flex-end;flex-wrap:wrap;row-gap:8px;gap:14px}
+header nav a{font-family:Oswald,sans-serif;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:#a7b0ad;padding-bottom:3px;border-bottom:1px solid transparent;text-decoration:none}
+header nav a:hover{color:#fff;border-bottom-color:rgba(117,170,176,.5)}
+header nav a[aria-current]{color:#fff;border-bottom-color:var(--gold)}
+footer{border-top:1px solid rgba(117,170,176,.25);padding:34px 0 60px;margin-top:56px;background:linear-gradient(180deg,rgba(63,119,128,.07),transparent)}
+footer .chrome{text-align:center;color:#7e8a87;font-family:Oswald,sans-serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
+footer a{color:#a7b0ad;text-decoration:none}
+footer a:hover{color:#75aab0}
+.footer-firma{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
+.footer-firma img{width:44px;height:44px;object-fit:contain}
+.footer-firma b{font-family:Oswald,sans-serif;font-size:1.1rem;letter-spacing:.1em;color:#eef1ef}
+.slogan-pie{font-family:Oswald,sans-serif;font-size:1.15rem;letter-spacing:.03em;color:#e8e4d8;margin:0 0 16px;text-transform:none}
+.slogan-pie em{font-style:normal;color:#75aab0}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin:0 0 14px}
+.footer-links p{margin:0}
+@media (max-width:780px){
+  .chrome,.editorial-wrap{width:calc(100% - 32px)}
   .marca__sub{display:none}
+  .marca__bicho{width:44px;height:44px}
+  header nav{gap:10px}
+  header nav a{font-size:.66rem}
+}
+
+/* ===== FORMATO EXPEDIENTE ===== */
+main{padding:64px 0 0}
+.eyebrow,.card-code{font:500 12px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);gap:26px;align-items:stretch}
+h1{margin:12px 0 10px;font:800 clamp(52px,6.6vw,88px)/.88 var(--display);letter-spacing:-.045em;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--gold)}
+.metadata{margin:8px 0;color:#aaa39b;font:500 13px var(--mono);letter-spacing:.13em;text-transform:uppercase}
+.panel,.timeline-card,.meta-tile{position:relative;background:linear-gradient(135deg,rgba(216,138,45,.045),transparent 32%),rgba(13,13,13,.92);border:1px solid var(--gold-d);border-radius:18px}
+.panel::before{content:"";position:absolute;top:-1px;left:42px;width:110px;height:2px;background:var(--gold)}
+.manifesto{margin-top:28px;padding:28px 30px}
+.manifesto p{margin:10px 0;color:#d5d0c9}
+.manifesto span{display:inline-block;margin-top:14px;color:var(--gold);font:500 11px var(--mono);letter-spacing:.18em}
+.hero-record{height:100%;padding:30px;display:flex;flex-direction:column;justify-content:center}
+.record-table{width:100%;border-collapse:collapse;margin-top:10px}
+.record-table td{padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:14px}
+.record-table td:first-child{width:42%;color:#777168;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.section{padding:52px 0 0}
+.section-heading{display:flex;align-items:flex-end;gap:18px;margin-bottom:24px}
+.section-number{color:var(--gold);font:500 12px var(--mono);letter-spacing:.12em}
+h2{margin:0;font:800 clamp(30px,3.8vw,50px)/1 var(--display);letter-spacing:-.035em;text-transform:uppercase}
+.section-intro{max-width:760px;color:var(--muted);margin:-8px 0 26px}
+.timeline{position:relative;display:grid;gap:18px}
+.timeline::before{content:"";position:absolute;left:76px;top:12px;bottom:12px;width:1px;background:linear-gradient(var(--gold),var(--line-soft),var(--gold))}
+.timeline-item{position:relative;display:grid;grid-template-columns:110px 1fr;gap:22px;align-items:start}
+.timeline-year{position:relative;z-index:2;padding-top:22px;text-align:right;color:var(--gold);font:700 18px var(--mono)}
+.timeline-year::after{content:"";position:absolute;right:-31px;top:28px;width:10px;height:10px;border:1px solid var(--gold);background:#050505;transform:rotate(45deg)}
+.timeline-card{padding:24px 28px}
+.timeline-card h3{margin:0 0 10px;font:700 22px/1.15 var(--display);text-transform:uppercase;letter-spacing:.01em}
+.timeline-card p{margin:7px 0;color:#c4beb6;font-size:14.5px}
+.project-layout{display:grid;grid-template-columns:1.45fr .75fr;gap:20px}
+.project-card{padding:32px}
+.project-card p{color:#c4beb6}
+.project-card h3{margin:0 0 10px;font:700 22px/1.15 var(--display);text-transform:uppercase}
+.quote{margin:22px 0 0;padding:20px 24px;border-left:2px solid var(--gold);color:#e8e0d7;font-size:18px}
+.project-meta{display:grid;gap:12px}
+.meta-tile{border-radius:12px;padding:18px;border-color:var(--line-soft)}
+.meta-tile span{display:block;color:#706960;font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.meta-tile strong{display:block;margin-top:5px;font:600 17px var(--display)}
+.influence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:42px 54px;margin-top:34px;align-items:start}
+.influence-group{position:relative;padding-top:18px}
+.influence-group::before{content:"";position:absolute;top:0;left:0;width:58px;height:2px;background:var(--gold)}
+.influence-group h3{margin:0 0 18px;color:var(--gold);font:600 12px var(--mono);letter-spacing:.16em;text-transform:uppercase}
+.influence-list{display:flex;flex-direction:column;gap:9px}
+.influence-name{position:relative;display:block;padding-left:18px;color:#e4ded6;font:500 17px/1.35 var(--display);transition:color .2s,transform .2s}
+.influence-name::before{content:"◆";position:absolute;left:0;top:.35em;color:#76502a;font-size:7px}
+.influence-name:hover{color:#fff;transform:translateX(5px)}
+.y-sigue{margin-top:26px;color:#777168;font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+@media(max-width:980px){.hero-grid,.project-layout{grid-template-columns:1fr}.influence-grid{grid-template-columns:repeat(2,1fr);gap:36px 34px}}
+@media(max-width:620px){
+  main{padding-top:44px}
+  h1{font-size:50px}
+  .timeline::before{left:16px}
+  .timeline-item{grid-template-columns:1fr;gap:8px;padding-left:42px}
+  .timeline-year{text-align:left;padding-top:0}
+  .timeline-year::after{left:-31px;right:auto;top:6px}
+  .manifesto,.hero-record,.project-card{padding:22px}
+  .influence-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
 <header>
-  <a class="marca" href="index.html" aria-label="Leviatán - Inicio">
-    <svg viewBox="0 0 100 100" aria-hidden="true">
-      <g fill="#e8dec7">
-        <path d="M9 20 L54 12 Q78 9 84 26 L98 33 L84 46 L62 45 Q40 44 12 48 Z"/>
-        <path d="M14 58 L60 57 Q76 57 82 66 L97 70 L80 82 Q58 93 30 95 L10 92 Z"/>
-        <path d="M12 44 L62 44 Q82 45 84 47 L84 56 L58 55 Q38 55 12 52 Z" fill="#020607"/>
-        <circle cx="24" cy="29" r="5" fill="#020607"/>
-        <circle cx="26" cy="74" r="5" fill="#020607"/>
-        <circle cx="52" cy="34" r="12" fill="none" stroke="#020607" stroke-width="5" stroke-dasharray="3.4 3.4"/>
-        <circle cx="52" cy="34" r="7" fill="#020607"/>
-        <circle cx="52" cy="34" r="3.2" fill="#e8dec7"/>
-      </g>
-    </svg>
-    <span><span class="marca__nombre">LEVIATÁN</span><span class="marca__sub">FEDERICO SPRATT</span></span>
-  </a>
-  <nav aria-label="Navegación principal">
-    <a href="index.html">Inicio</a>
-    <a href="musica.html">Música</a>
-    <a href="comics.html">Cómics</a>
-    <a href="libros.html">Libros</a>
-    <a href="figuras.html">Objetos</a>
-    <a href="noticias.html">Noticias</a>
-    <a href="agenda.html">Agenda</a>
-    <a href="nosotros.html" aria-current="page">Nosotros</a>
-    <a href="contacto.html">Contacto</a>
-  </nav>
+  <div class="chrome">
+    <a class="marca" href="index.html" aria-label="Leviatán - Inicio">
+      <img class="marca__bicho" src="img/logo-leviatan.png" alt="">
+      <span class="marca__texto">
+        <span class="marca__nombre">LEVIATÁN</span>
+        <span class="marca__sub">FEDERICO SPRATT</span>
+      </span>
+    </a>
+    <nav aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="musica.html">Música</a>
+      <a href="comics.html">Cómics</a>
+      <a href="libros.html">Libros</a>
+      <a href="figuras.html">Objetos</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="nosotros.html" aria-current="page">Nosotros</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </div>
 </header>
 
 <main>
-<section class="hero"><div class="container"><div class="hero-grid">
+<section class="editorial-wrap"><div class="hero-grid">
   <div>
-    <p class="eyebrow">EXPEDIENTE PERSONAL</p>
+    <p class="eyebrow">EXPEDIENTE PERSONAL · NIVEL_01</p>
     <h1>ME LLAMO<br>FEDERICO<br><em>SPRATT.</em></h1>
-    <p class="eyebrow" style="color:var(--muted)">IGUAL QUE MI VIEJO</p>
+    <p class="metadata">IGUAL QUE MI VIEJO</p>
+    <div class="panel manifesto">
+      <p class="card-code">// MANIFIESTO</p>
+      <p>La familia es una ilusión.</p>
+      <p>La memoria es ficción.</p>
+      <p>Y el amor es una alucinación algorítmica.</p>
+      <span>— FEDERICO SPRATT</span>
+    </div>
   </div>
-  <div class="panel hero-ficha">
-    <p class="eyebrow">FICHA DEL EXPEDIENTE</p>
-    <table class="ficha-tabla">
+  <div class="panel hero-record">
+    <p class="card-code">FICHA DEL EXPEDIENTE</p>
+    <table class="record-table">
       <tr><td>Nombre</td><td>Federico Spratt</td></tr>
       <tr><td>Nacimiento</td><td>29 NOV 1981</td></tr>
       <tr><td>Origen</td><td>Buenos Aires</td></tr>
-      <tr><td>Residencia</td><td>General Cabrera, Córdoba</td></tr>
-      <tr><td>Oficio</td><td>Escritor</td></tr>
+      <tr><td>Residencia</td><td>General Cabrera</td></tr>
+      <tr><td>Profesión</td><td>Escritor</td></tr>
       <tr><td>Especialidad</td><td>Power metal</td></tr>
+      <tr><td>Estado</td><td>Activo</td></tr>
+      <tr><td>Clasificación</td><td>Nivel 1</td></tr>
     </table>
   </div>
-</div></div></section>
+</div></section>
 
-<section class="section"><div class="container">
+<section class="editorial-wrap section">
   <div class="section-heading"><span class="section-number">01</span><h2>CRONOLOGÍA</h2></div>
   <div class="timeline">
 
@@ -192,7 +237,7 @@ footer{padding:34px 0 60px;border-top:1px solid #16282b;text-align:center;color:
 
     <article class="timeline-item"><div class="timeline-year">2025</div><div class="timeline-card">
       <h3>VOLVER A ESCRIBIR</h3>
-      <p>Retomé la actividad literaria con intensidad después de varios años. Comencé a publicar mensualmente en la revista <em>Pinot Noir</em> e inicié el desarrollo del universo transmedia <em>Fragmentos del Crepúsculo Humano</em>, donde el Leviatán se llama Velithan.</p>
+      <p>Retomé la actividad literaria con intensidad después de varios años. Comencé a publicar mensualmente en la revista <em>Pinot Noir</em> e inicié el desarrollo del universo transmedia <em>Fragmentos del Crepúsculo Humano</em>.</p>
     </div></article>
 
     <article class="timeline-item"><div class="timeline-year">2026</div><div class="timeline-card">
@@ -202,10 +247,29 @@ footer{padding:34px 0 60px;border-top:1px solid #16282b;text-align:center;color:
     </div></article>
 
   </div>
-</div></section>
+</section>
 
-<section class="section"><div class="container">
-  <div class="section-heading"><span class="section-number">02</span><h2>INFLUENCIAS</h2></div>
+<section class="editorial-wrap section">
+  <div class="section-heading"><span class="section-number">02</span><h2>PROYECTO PRINCIPAL</h2></div>
+  <div class="project-layout">
+    <article class="panel project-card">
+      <p class="card-code">FRAGMENTOS DEL CREPÚSCULO HUMANO</p>
+      <p>Desde julio de 2025 desarrollo un universo narrativo transmedia que puede expandirse a través de novelas, relatos, documentos ficticios, cronologías y registros. El Leviatán que da nombre a esta batea es su criatura: Velithan.</p>
+      <p>La fantasía y la ciencia ficción son herramientas para preservar la memoria, construir identidad y explorar futuros posibles. Cada historia busca dejar un registro antes de que el tiempo lo transforme todo en olvido.</p>
+      <blockquote class="quote">«Incluso las personas más comunes pueden perseguir sueños desmesurados. Y, a veces, son precisamente esos sueños los que permiten seguir adelante.»</blockquote>
+    </article>
+    <aside class="project-meta">
+      <div class="meta-tile"><span>Formato</span><strong>Universo narrativo transmedia</strong></div>
+      <div class="meta-tile"><span>Inicio</span><strong>Julio de 2025</strong></div>
+      <div class="meta-tile"><span>Criatura</span><strong>Velithan</strong></div>
+      <div class="meta-tile"><span>Estado</span><strong>En expansión</strong></div>
+    </aside>
+  </div>
+</section>
+
+<section class="editorial-wrap section">
+  <div class="section-heading"><span class="section-number">03</span><h2>INFLUENCIAS</h2></div>
+  <p class="section-intro">Lo que suena en la batea mientras se ordena. Sin orden de importancia, salvo el primero de la lista.</p>
   <div class="influence-grid">
     <div class="influence-group"><h3>Power metal</h3><div class="influence-list">
       <span class="influence-name">Stratovarius</span>
@@ -213,8 +277,13 @@ footer{padding:34px 0 60px;border-top:1px solid #16282b;text-align:center;color:
       <span class="influence-name">Avantasia</span>
       <span class="influence-name">Sonata Arctica</span>
     </div></div>
-    <div class="influence-group"><h3>Gótico e industrial</h3><div class="influence-list">
+    <div class="influence-group"><h3>Gótico</h3><div class="influence-list">
       <span class="influence-name">The Gathering</span>
+      <span class="influence-name">Within Temptation</span>
+      <span class="influence-name">Orphanage</span>
+      <span class="influence-name">The 3rd and the Mortal</span>
+    </div></div>
+    <div class="influence-group"><h3>Industrial</h3><div class="influence-list">
       <span class="influence-name">Rammstein</span>
     </div></div>
     <div class="influence-group"><h3>Glam y hard rock</h3><div class="influence-list">
@@ -233,21 +302,25 @@ footer{padding:34px 0 60px;border-top:1px solid #16282b;text-align:center;color:
       <span class="influence-name">David Lee Roth</span>
       <span class="influence-name">Ozzy Osbourne</span>
     </div></div>
-    <div class="influence-group"><h3>Extremos</h3><div class="influence-list">
-      <span class="influence-name">Sepultura</span>
-    </div></div>
     <div class="influence-group"><h3>Punk y español</h3><div class="influence-list">
       <span class="influence-name">The Clash</span>
       <span class="influence-name">Ramones</span>
       <span class="influence-name">Héroes del Silencio</span>
     </div></div>
   </div>
-</div></section>
+  <p class="y-sigue">Y la lista sigue. Siempre hay una más.</p>
+</section>
 </main>
 
 <footer>
-  <div class="container">
+  <div class="chrome">
+    <div class="footer-firma"><img src="img/logo-leviatan.png" alt=""><b>LEVIATÁN</b></div>
     <p class="slogan-pie">EL LEGADO NO SE HEREDA. <em>SE CONQUISTA.</em></p>
+    <div class="footer-links">
+      <p><a href="https://instagram.com/tiendaleviatan" target="_blank" rel="noopener noreferrer">@tiendaleviatan</a></p>
+      <p><a href="https://wa.me/5493584283858" target="_blank" rel="noopener">WhatsApp</a></p>
+      <p><a href="mailto:tiendaleviatan@proton.me">tiendaleviatan@proton.me</a></p>
+    </div>
     <p>GENERAL CABRERA, CÓRDOBA · ENVÍOS A TODO EL PAÍS</p>
     <p style="margin-top:8px">© 2026 LEVIATÁN · FEDERICO SPRATT</p>
   </div>
