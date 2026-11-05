@@ -1,30 +1,254 @@
-/* CARRITO / COMANDA — Leviatán */
-.carrito-badge{display:none;align-items:center;gap:7px;border:1px solid rgba(117,170,176,.5);background:#17363b;color:#dce1de;font-family:Oswald,Impact,sans-serif;font-size:.72rem;letter-spacing:.12em;padding:7px 12px;text-decoration:none}
-.carrito-badge.visible{display:inline-flex}
-.carrito-badge b{color:#75aab0}
-.btn-agregar{display:block;width:100%;margin-top:8px;padding:8px;border:1px solid rgba(174,184,181,.3);background:transparent;color:#dce1de;font-family:Oswald,Impact,sans-serif;font-size:.66rem;letter-spacing:.12em;cursor:pointer}
-.btn-agregar:hover{background:#17363b;border-color:#75aab0}
-.btn-agregar[disabled]{background:rgba(63,119,128,.22);border-color:#3f7780;color:#9fc6cb;cursor:default}
-.destacados__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin-top:16px}
-.mini{border:1px solid rgba(117,170,176,.22);background:#0e1719;display:flex;flex-direction:column}
-.mini__img{height:96px;background:#0a1214;object-fit:cover;width:100%}
-.mini__cuerpo{padding:8px 9px 10px;display:flex;flex-direction:column;flex:1}
-.mini__artista{font-family:Oswald,Impact,sans-serif;font-size:.8rem;letter-spacing:.03em;color:#dce1de;line-height:1.15}
-.mini__album{font-size:.72rem;color:#a7b0ad;line-height:1.3;margin-bottom:6px}
-.mini__datos{font-size:.62rem;color:#7e8a87;margin-top:auto}
-.mini__precio{font-family:Oswald,Impact,sans-serif;font-size:.85rem;color:#75aab0;margin-top:6px}
-.comanda{margin-top:22px;border:1px solid rgba(117,170,176,.4);background:#0c1416;padding:16px 18px}
-.comanda__cab{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed rgba(117,170,176,.35);padding-bottom:9px;margin-bottom:10px}
-.comanda__cab b{font-family:Oswald,Impact,sans-serif;letter-spacing:.14em;font-size:.8rem;color:#dce1de}
-.comanda__cab span{font-size:.62rem;letter-spacing:.1em;color:#7e8a87}
-.comanda__vacia{font-size:.75rem;color:#7e8a87;padding:6px 0}
-.comanda__linea{display:flex;gap:9px;align-items:baseline;font-size:.78rem;padding:6px 0;border-bottom:1px dotted rgba(117,170,176,.2);color:#dce1de}
-.comanda__linea .monto{margin-left:auto;color:#9fc6cb;white-space:nowrap}
-.comanda__quitar{background:none;border:0;color:#c2543f;cursor:pointer;font-size:.9rem;padding:0 3px;line-height:1}
-.comanda__total{display:flex;justify-content:space-between;font-family:Oswald,Impact,sans-serif;letter-spacing:.1em;font-size:.9rem;margin-top:11px;padding-top:9px;border-top:1px solid rgba(117,170,176,.4)}
-.comanda__acciones{display:flex;gap:9px;margin-top:12px;flex-wrap:wrap}
-.comanda__enviar{flex:1;min-width:180px;text-align:center;text-decoration:none;background:#3f7780;color:#f4f7f5;font-family:Oswald,Impact,sans-serif;font-size:.7rem;letter-spacing:.12em;padding:11px}
-.comanda__enviar:hover{background:#4f9099}
-.comanda__enviar.off{opacity:.45;pointer-events:none}
-.comanda__vaciar{background:none;border:1px solid rgba(174,184,181,.3);color:#a7b0ad;font-family:Oswald,Impact,sans-serif;font-size:.64rem;letter-spacing:.1em;padding:11px 14px;cursor:pointer}
-.comanda__nota{font-size:.64rem;color:#7e8a87;line-height:1.5;margin-top:11px}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leviatán | Música pesada, cómics y libros · General Cabrera</title>
+<meta name="description" content="Discos pesados, cómics y libros para coleccionistas. General Cabrera, Córdoba. Envíos a todo el país.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tiendaleviatan.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Leviatán">
+<meta property="og:title" content="Leviatán | Música pesada, cómics y libros">
+<meta property="og:description" content="Discos pesados, cómics y libros para coleccionistas. General Cabrera, Córdoba.">
+<meta property="og:url" content="https://tiendaleviatan.com/">
+<meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/internas.css">
+<link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/paginas-editoriales.css?v=7">
+<link rel="stylesheet" href="css/carrito.css">
+
+<style id="leviatan-home-aquatic">
+body.home-aquatic {
+  background:
+    radial-gradient(ellipse at 14% 0%, rgba(63,119,128,.12), transparent 34%),
+    radial-gradient(ellipse at 88% 30%, rgba(35,81,90,.10), transparent 38%),
+    #020607;
+  color: #eef1ef;
+}
+body.home-aquatic ::selection { background: #23515a; color: #fff; }
+body.home-aquatic header { border-bottom-color: rgba(117,170,176,.24); }
+body.home-aquatic header::after {
+  background: linear-gradient(90deg, transparent, rgba(63,119,128,.78) 24%, rgba(117,170,176,.24) 51%, rgba(35,81,90,.72) 78%, transparent);
+  opacity: .85;
+}
+body.home-aquatic nav a::before { background: #75aab0; }
+body.home-aquatic nav a:hover { border-color: rgba(117,170,176,.24); background: rgba(28,55,59,.42); }
+body.home-aquatic .editorial-main--home {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(35,81,90,.14), transparent 43%),
+    #070d0f;
+}
+body.home-aquatic .editorial-main--home .home-hero {
+  background:
+    radial-gradient(ellipse at 76% 45%, rgba(63,119,128,.28), transparent 42%),
+    radial-gradient(ellipse at 18% 90%, rgba(23,54,59,.32), transparent 48%),
+    linear-gradient(115deg, #05090a 0%, #0c1517 57%, #102327 100%);
+  border-bottom: 1px solid rgba(117,170,176,.45);
+}
+body.home-aquatic .editorial-main--home .editorial-hero__texture {
+  opacity: .2;
+  background-image: repeating-linear-gradient(135deg, transparent 0 17px, rgba(174,184,181,.075) 18px, transparent 19px 37px);
+}
+body.home-aquatic .editorial-main--home .editorial-eyebrow,
+body.home-aquatic .editorial-main--home .editorial-kicker { color: #aeb8b5; }
+body.home-aquatic .editorial-main--home .editorial-eyebrow__dot {
+  background: #75aab0;
+  box-shadow: 0 0 13px rgba(117,170,176,.82);
+}
+body.home-aquatic .editorial-main--home .editorial-hero h1 em,
+body.home-aquatic .editorial-main--home .editorial-present h2 em { color: #75aab0; }
+body.home-aquatic .editorial-main--home .editorial-hero__cta {
+  border: 1px solid rgba(117,170,176,.5);
+  background: linear-gradient(135deg, #23515a, #3f7780);
+  color: #f4f7f5;
+}
+body.home-aquatic .editorial-main--home .editorial-hero__cta:hover { background: #3f7780; }
+body.home-aquatic .editorial-main--home .editorial-hero__side-line { background: #75aab0; }
+body.home-aquatic .editorial-main--home .editorial-hero__bottomline { border-top-color: rgba(117,170,176,.23); }
+body.home-aquatic .editorial-main--home .editorial-hero__bottomline-mark { color: #75aab0; }
+body.home-aquatic .editorial-main--home .editorial-section-heading h2 { color: #dce1de; }
+body.home-aquatic .editorial-main--home .home-collections__grid { gap: 14px; }
+body.home-aquatic .editorial-main--home .home-collection-card {
+  min-height: 205px;
+  padding: 21px 22px 19px;
+  border-color: rgba(117,170,176,.22);
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(63,119,128,.13), transparent 54%),
+    linear-gradient(145deg, rgba(255,255,255,.035), transparent 62%),
+    #0e1719;
+  color: #eef1ef;
+}
+body.home-aquatic .editorial-main--home .home-collection-card::before {
+  width: 3px;
+  background: linear-gradient(180deg, #75aab0, #23515a);
+  transform: scaleY(.42);
+}
+body.home-aquatic .editorial-main--home .home-collection-card:hover {
+  border-color: rgba(117,170,176,.68);
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(63,119,128,.22), transparent 58%),
+    linear-gradient(145deg, rgba(255,255,255,.045), transparent 62%),
+    #142124;
+  box-shadow: 0 14px 34px rgba(0,0,0,.3), 0 0 0 1px rgba(117,170,176,.08);
+}
+body.home-aquatic .editorial-main--home .home-collection-card__top {
+  display: flex; width: 100%; align-items: flex-start; justify-content: space-between; gap: 12px;
+}
+body.home-aquatic .editorial-main--home .home-collection-card__number { padding-top: 5px; color: #aeb8b5; }
+body.home-aquatic .editorial-main--home .home-collection-card__count {
+  display: inline-flex; min-width: 78px; align-items: baseline; justify-content: center; gap: 7px;
+  padding: 6px 9px 7px; border: 1px solid rgba(117,170,176,.36);
+  background: rgba(23,54,59,.42); color: #dce1de; line-height: 1; white-space: nowrap;
+}
+body.home-aquatic .editorial-main--home .home-collection-card__count strong {
+  color: #75aab0; font-family: "Oswald", Impact, sans-serif; font-size: 1.34rem; font-weight: 600; letter-spacing: .01em;
+}
+body.home-aquatic .editorial-main--home .home-collection-card__count small {
+  color: #aeb8b5; font-size: .48rem; font-weight: 900; letter-spacing: .1em;
+}
+body.home-aquatic .editorial-main--home .home-collection-card h3 { color: #dce1de; }
+body.home-aquatic .editorial-main--home .home-collection-card p { color: #a7b0ad; }
+body.home-aquatic .editorial-main--home .home-collection-card__arrow { color: #75aab0; }
+body.home-aquatic .editorial-main--home .home-collection-card:focus-visible { outline: 2px solid #75aab0; outline-offset: 4px; }
+body.home-aquatic .editorial-main--home .home-feature {
+  border-color: rgba(117,170,176,.38);
+  background:
+    radial-gradient(ellipse at 8% 50%, rgba(35,81,90,.24), transparent 48%),
+    linear-gradient(120deg, rgba(255,255,255,.025), transparent 58%),
+    #0e1719;
+}
+body.home-aquatic .editorial-main--home .home-feature__image { border-color: rgba(117,170,176,.3); }
+body.home-aquatic .editorial-main--home .home-feature__link {
+  border: 1px solid rgba(117,170,176,.46);
+  background: linear-gradient(135deg, #23515a, #3f7780);
+}
+body.home-aquatic .editorial-main--home .home-feature__link:hover { background: #3f7780; }
+body.home-aquatic .editorial-main--home .editorial-present {
+  border-color: rgba(117,170,176,.42);
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(35,81,90,.26), transparent 45%),
+    linear-gradient(110deg, rgba(255,255,255,.025), transparent 58%),
+    #0e1719;
+}
+body.home-aquatic .editorial-main--home .editorial-present__actions a {
+  border-color: rgba(174,184,181,.28); color: #dce1de;
+}
+body.home-aquatic .editorial-main--home .editorial-present__actions a:hover {
+  border-color: #75aab0; background: #17363b;
+}
+body.home-aquatic .footer { border-top-color: rgba(117,170,176,.25); }
+body.home-aquatic .footer::before {
+  background: linear-gradient(90deg, transparent, rgba(63,119,128,.75) 23%, rgba(117,170,176,.22) 52%, rgba(35,81,90,.72) 78%, transparent);
+}
+body.home-aquatic .footer h2 { color: #dce1de; }
+body.home-aquatic .footer a:hover { color: #75aab0; }
+@media (max-width: 680px) {
+  body.home-aquatic .editorial-main--home .home-collection-card { min-height: 184px; }
+  body.home-aquatic .editorial-main--home .home-collection-card__count { min-width: 70px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.home-aquatic .editorial-main--home .home-collection-card,
+  body.home-aquatic .editorial-main--home .home-collection-card::before { transition: none; }
+}
+</style>
+
+<style id="leviatan-home-marca">
+.logo--marca { display: flex; align-items: center; gap: 11px; }
+.logo--marca svg { width: 40px; height: 40px; flex: 0 0 auto; }
+.marca-hero { width: 172px; margin: 0 auto 12px; }
+.marca-hero svg { width: 100%; height: auto; display: block; }
+.marca-hero span { display: block; text-align: center; font-family: Oswald, sans-serif; font-size: .56rem; letter-spacing: .22em; color: #7e8a87; margin-top: 6px; }
+.confianza { display: flex; flex-wrap: wrap; border-top: 1px solid rgba(117,170,176,.25); border-bottom: 1px solid rgba(117,170,176,.25); background: #081013; }
+.confianza span { flex: 1; min-width: 168px; padding: 11px 18px; font-family: Oswald, sans-serif; font-size: .62rem; letter-spacing: .12em; color: #a7b0ad; border-right: 1px solid rgba(117,170,176,.16); }
+.confianza span:last-child { border-right: 0; }
+.pasos { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid rgba(117,170,176,.3); margin-top: 22px; }
+.pasos div { padding: 15px 17px; border-right: 1px solid rgba(117,170,176,.16); font-size: .78rem; color: #a7b0ad; line-height: 1.55; }
+.pasos div:last-child { border-right: 0; }
+.pasos b { display: block; font-family: Oswald, sans-serif; font-size: .8rem; letter-spacing: .1em; color: #dce1de; margin-bottom: 6px; }
+@media (max-width: 680px) { .pasos { grid-template-columns: 1fr; } .pasos div { border-right: 0; border-bottom: 1px solid rgba(117,170,176,.16); } .marca-hero { width: 132px; } }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+.reproductor-inicio { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; width:100%; box-sizing:border-box; margin:18px auto 0; padding:0 12px; text-align:center; }
+.reproductor-titulo { margin:0; color: var(--gris, #b7b7b7); font-family:'Oswald', sans-serif; font-size:.9rem; letter-spacing:1px; }
+.reproductor-inicio audio { display:block; width:260px; max-width:100%; height:38px; }
+</style>
+</head>
+<body class="home-aquatic">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<symbol id="bicho" viewBox="0 0 100 100">
+  <g fill="#e8dec7">
+    <path d="M8 13 L58 7 Q76 6 80 22 L97 29 L82 41 L60 39 Q34 38 8 41 Z"/>
+    <path d="M22 55 L62 53 Q75 53 79 61 L96 65 L77 77 Q58 89 34 92 L8 88 Z"/>
+    <path d="M14 12 L10 20 L16 24 L11 32 L17 36 L12 44 L18 48 L14 56 L20 58 L17 66 L23 68 L20 76 L26 78 L24 86 L8 88 Z" fill="#020607"/>
+    <circle cx="19" cy="22" r="4.2" fill="#020607"/>
+    <circle cx="19" cy="66" r="4.2" fill="#020607"/>
+    <path d="M56 8 L52 8 L52 15 L56 15 Z" fill="#020607"/>
+  </g>
+  <g fill="#020607">
+    <path d="M62 40 L66 46 L70 40 Z"/><path d="M74 40 L78 47 L82 41 Z"/><path d="M86 41 L89 47 L93 44 Z"/>
+    <path d="M64 52 L68 47 L72 52 Z"/><path d="M76 53 L79 47 L83 54 Z"/>
+  </g>
+  <circle cx="38" cy="31" r="11" fill="none" stroke="#e8dec7" stroke-width="4" stroke-dasharray="3 3.2"/>
+  <circle cx="38" cy="31" r="7.5" fill="#020607"/>
+  <circle cx="38" cy="31" r="3.6" fill="#e8dec7"/>
+  <circle cx="38" cy="31" r="1.5" fill="#020607"/>
+</symbol>
+</svg>
+
+<header>
+  <a class="logo logo--marca" href="index.html" aria-label="Leviatán - Inicio" aria-current="page">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#bicho"/></svg>
+    <span>
+      <span class="logo__name">LEVIATÁN</span>
+      <span class="logo__descriptor">FEDERICO SPRATT · GENERAL CABRERA</span>
+    </span>
+  </a>
+  <nav aria-label="Navegación principal">
+    <a href="index.html" aria-current="page">Inicio</a>
+    <a href="musica.html">Música</a>
+    <a href="comics.html">Cómics</a>
+    <a href="libros.html">Libros</a>
+    <a href="figuras.html">Objetos</a>
+    <a href="noticias.html">Noticias</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="contacto.html">Contacto</a>
+    <a class="carrito-badge" id="carrito-badge" href="#comanda">COMANDA <b>0</b></a>
+  </nav>
+</header>
+
+<main class="editorial-main editorial-main--home">
+  <section class="editorial-hero home-hero" aria-labelledby="home-title">
+    <div class="editorial-hero__texture" aria-hidden="true"></div>
+    <div class="editorial-hero__content">
+      <span class="editorial-eyebrow"><span class="editorial-eyebrow__dot"></span> GENERAL CABRERA · CÓRDOBA</span>
+      <h1 id="home-title">EL LEGADO NO SE HEREDA.<br><em>SE CONQUISTA.</em></h1>
+      <p><strong>Dos bateas.</strong> Un cajón de discos pesados y uno de back-issues. Se revuelven igual: despacio, hasta que aparece algo que no sabías que buscabas.</p>
+      <a class="editorial-hero__cta" href="#colecciones">EXPLORÁ LEVIATÁN <span aria-hidden="true">↓</span></a>
+    </div>
+    <div class="editorial-hero__side" aria-hidden="true">
+      <span class="marca-hero"><svg viewBox="0 0 100 100"><use href="#bicho"/></svg><span>VELITHAN</span></span>
+      <span class="editorial-hero__side-word">REVOLVÉ</span>
+      <span class="editorial-hero__side-line"></span>
+      <span class="editorial-hero__side-small">MÚSICA · CÓMICS · LIBROS</span>
+    </div>
+    <div class="editorial-hero__bottomline" aria-hidden="true">
+      <span>MÚSICA PARA ENCONTRAR</span>
+      <span class="editorial-hero__bottomline-mark">✳</span>
+      <span>HISTORIAS PARA LEER</span>
+      <span class="editorial-hero__bottomline-mark">✳</span>
+      <span>OBJETOS PARA COLECCIONAR</span>
+    </div>
+  </section>
+
+  <div class="confianza">
+    <span>Envíos a todo el país</span>
+   
