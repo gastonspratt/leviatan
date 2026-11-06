@@ -10,11 +10,13 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Leviatán">
 <meta property="og:title" content="Leviatán | Música pesada, cómics y libros">
-<meta property="og:description" content="Discos pesados, tomos y libros para coleccionistas. General Cabrera, Córdoba.">
+<meta property="og:description" content="Dos bateas: discos pesados y tomos para revolver despacio. General Cabrera, Córdoba.">
 <meta property="og:url" content="https://tiendaleviatan.com/">
+<!-- TODO: reemplazar por og-image 1200x630: fondo grafito #1A1C19, emblema hueso con punto óxido, wordmark debajo -->
 <meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/internas.css">
@@ -24,133 +26,133 @@
 
 <style>
 body.home-aquatic{
-  background:radial-gradient(ellipse at 14% 0%,rgba(63,119,128,.12),transparent 34%),radial-gradient(ellipse at 88% 30%,rgba(35,81,90,.10),transparent 38%),#020607;
-  color:#eef1ef;
+  background:radial-gradient(ellipse at 14% 0%,rgba(47,68,56,.14),transparent 34%),radial-gradient(ellipse at 88% 30%,rgba(47,68,56,.10),transparent 38%),#0d0f0d;
+  color:#EFECE6;
 }
-body.home-aquatic ::selection{background:#23515a;color:#fff}
-body.home-aquatic nav a::before{background:#75aab0}
-body.home-aquatic nav a:hover{border-color:rgba(117,170,176,.24);background:rgba(28,55,59,.42)}
-body.home-aquatic .editorial-main--home{background:radial-gradient(ellipse at 50% 0%,rgba(35,81,90,.14),transparent 43%),#070d0f}
+body.home-aquatic ::selection{background:#2F4438;color:#EFECE6}
+body.home-aquatic nav a::before{background:#93AB9D}
+body.home-aquatic nav a:hover{border-color:rgba(147,171,157,.24);background:rgba(35,50,42,.5)}
+body.home-aquatic .editorial-main--home{background:radial-gradient(ellipse at 50% 0%,rgba(47,68,56,.14),transparent 43%),#101211}
 body.home-aquatic .home-hero{
   overflow:hidden;padding-bottom:56px;
-  background:radial-gradient(ellipse at 76% 45%,rgba(63,119,128,.28),transparent 42%),radial-gradient(ellipse at 18% 90%,rgba(23,54,59,.32),transparent 48%),linear-gradient(115deg,#05090a 0%,#0c1517 57%,#102327 100%);
-  border-bottom:1px solid rgba(117,170,176,.45);
+  background:radial-gradient(ellipse at 76% 45%,rgba(47,68,56,.30),transparent 42%),radial-gradient(ellipse at 18% 90%,rgba(30,44,37,.35),transparent 48%),linear-gradient(115deg,#0d0f0d 0%,#141614 57%,#161b17 100%);
+  border-bottom:1px solid rgba(228,230,223,.18);
 }
 body.home-aquatic .home-hero .editorial-hero__side{padding-top:34px;align-items:flex-start}
 body.home-aquatic .home-hero .editorial-hero__side-word{font-size:clamp(2.6rem,5.2vw,4.4rem);line-height:.9;margin-top:18px}
 body.home-aquatic .home-hero .editorial-hero__side-small{font-size:.5rem;letter-spacing:.2em;line-height:1.7;margin-top:14px;max-height:120px;overflow:hidden}
 body.home-aquatic .home-hero .editorial-hero__bottomline{position:absolute;left:0;right:0;bottom:0}
-body.home-aquatic .editorial-hero__texture{opacity:.2;background-image:repeating-linear-gradient(135deg,transparent 0 17px,rgba(174,184,181,.075) 18px,transparent 19px 37px)}
-body.home-aquatic .editorial-eyebrow,body.home-aquatic .editorial-kicker{color:#aeb8b5}
-body.home-aquatic .editorial-eyebrow__dot{background:#75aab0;box-shadow:0 0 13px rgba(117,170,176,.82)}
-body.home-aquatic .editorial-hero h1 em,body.home-aquatic .editorial-present h2 em{color:#75aab0}
-body.home-aquatic .editorial-hero__cta{border:1px solid rgba(117,170,176,.5);background:linear-gradient(135deg,#23515a,#3f7780);color:#f4f7f5}
-body.home-aquatic .editorial-hero__cta:hover{background:#3f7780}
-body.home-aquatic .editorial-hero__side-line{background:#75aab0}
-body.home-aquatic .editorial-hero__bottomline{border-top-color:rgba(117,170,176,.23)}
-body.home-aquatic .editorial-hero__bottomline-mark{color:#75aab0}
-body.home-aquatic .editorial-section-heading h2{color:#dce1de}
+body.home-aquatic .editorial-hero__texture{opacity:.2;background-image:repeating-linear-gradient(135deg,transparent 0 17px,rgba(228,230,223,.06) 18px,transparent 19px 37px)}
+body.home-aquatic .editorial-eyebrow,body.home-aquatic .editorial-kicker{color:#9a9d95}
+body.home-aquatic .editorial-eyebrow__dot{background:#A5402A;box-shadow:none}
+body.home-aquatic .editorial-hero h1 em{color:#EFECE6;background:#2F4438;padding:0 8px}
+body.home-aquatic .editorial-present h2 em{color:#93AB9D;font-style:normal}
+body.home-aquatic .editorial-hero__cta{border:1px solid rgba(228,230,223,.6);background:transparent;color:#EFECE6}
+body.home-aquatic .editorial-hero__cta:hover{background:#2F4438;border-color:#2F4438}
+body.home-aquatic .editorial-hero__side-line{background:#93AB9D}
+body.home-aquatic .editorial-hero__bottomline{border-top-color:rgba(228,230,223,.18)}
+body.home-aquatic .editorial-hero__bottomline-mark{color:#A5402A}
+body.home-aquatic .editorial-section-heading h2{color:#E4E6DF}
 body.home-aquatic .home-collections__grid{gap:14px}
 body.home-aquatic .home-collection-card{
-  min-height:205px;padding:21px 22px 19px;border-color:rgba(117,170,176,.22);
-  background:radial-gradient(ellipse at 100% 0%,rgba(63,119,128,.13),transparent 54%),linear-gradient(145deg,rgba(255,255,255,.035),transparent 62%),#0e1719;
-  color:#eef1ef;
+  min-height:205px;padding:21px 22px 19px;border-color:rgba(228,230,223,.18);
+  background:radial-gradient(ellipse at 100% 0%,rgba(47,68,56,.16),transparent 54%),linear-gradient(145deg,rgba(255,255,255,.03),transparent 62%),#121412;
+  color:#EFECE6;
 }
-body.home-aquatic .home-collection-card::before{width:3px;background:linear-gradient(180deg,#75aab0,#23515a);transform:scaleY(.42)}
+body.home-aquatic .home-collection-card::before{width:3px;background:#2F4438;transform:scaleY(.42)}
 body.home-aquatic .home-collection-card:hover{
-  border-color:rgba(117,170,176,.68);
-  background:radial-gradient(ellipse at 100% 0%,rgba(63,119,128,.22),transparent 58%),linear-gradient(145deg,rgba(255,255,255,.045),transparent 62%),#142124;
-  box-shadow:0 14px 34px rgba(0,0,0,.3),0 0 0 1px rgba(117,170,176,.08);
+  border-color:rgba(147,171,157,.6);
+  background:radial-gradient(ellipse at 100% 0%,rgba(47,68,56,.26),transparent 58%),linear-gradient(145deg,rgba(255,255,255,.04),transparent 62%),#1a201b;
+  box-shadow:0 14px 34px rgba(0,0,0,.35);
 }
 body.home-aquatic .home-collection-card__top{display:flex;width:100%;align-items:flex-start;justify-content:space-between;gap:12px}
-body.home-aquatic .home-collection-card__number{padding-top:5px;color:#aeb8b5}
-body.home-aquatic .home-collection-card__count{display:inline-flex;min-width:78px;align-items:baseline;justify-content:center;gap:7px;padding:6px 9px 7px;border:1px solid rgba(117,170,176,.36);background:rgba(23,54,59,.42);color:#dce1de;line-height:1;white-space:nowrap}
-body.home-aquatic .home-collection-card__count strong{color:#75aab0;font-family:Oswald,Impact,sans-serif;font-size:1.34rem;font-weight:600}
-body.home-aquatic .home-collection-card__count small{color:#aeb8b5;font-size:.48rem;font-weight:900;letter-spacing:.1em}
-body.home-aquatic .home-collection-card h3{color:#dce1de}
-body.home-aquatic .home-collection-card p{color:#a7b0ad}
-body.home-aquatic .home-collection-card__arrow{color:#75aab0}
-body.home-aquatic .home-collection-card:focus-visible{outline:2px solid #75aab0;outline-offset:4px}
+body.home-aquatic .home-collection-card__number{padding-top:5px;color:#9a9d95}
+body.home-aquatic .home-collection-card__count{display:inline-flex;min-width:78px;align-items:baseline;justify-content:center;gap:7px;padding:6px 9px 7px;border:1px solid rgba(147,171,157,.36);background:rgba(35,50,42,.5);color:#E4E6DF;line-height:1;white-space:nowrap}
+body.home-aquatic .home-collection-card__count strong{color:#93AB9D;font-family:Oswald,Impact,sans-serif;font-size:1.34rem;font-weight:600}
+body.home-aquatic .home-collection-card__count small{color:#9a9d95;font-size:.48rem;font-weight:900;letter-spacing:.1em}
+body.home-aquatic .home-collection-card h3{color:#E4E6DF}
+body.home-aquatic .home-collection-card p{color:#a0a39b}
+body.home-aquatic .home-collection-card__arrow{color:#93AB9D}
+body.home-aquatic .home-collection-card:focus-visible{outline:2px solid #93AB9D;outline-offset:4px}
 body.home-aquatic .home-feature{
-  border-color:rgba(117,170,176,.38);
-  background:radial-gradient(ellipse at 8% 50%,rgba(35,81,90,.24),transparent 48%),linear-gradient(120deg,rgba(255,255,255,.025),transparent 58%),#0e1719;
+  border-color:rgba(228,230,223,.2);
+  background:radial-gradient(ellipse at 8% 50%,rgba(47,68,56,.22),transparent 48%),linear-gradient(120deg,rgba(255,255,255,.02),transparent 58%),#121412;
 }
-body.home-aquatic .home-feature__image{border-color:rgba(117,170,176,.3)}
-body.home-aquatic .home-feature__link{border:1px solid rgba(117,170,176,.46);background:linear-gradient(135deg,#23515a,#3f7780)}
-body.home-aquatic .home-feature__link:hover{background:#3f7780}
+body.home-aquatic .home-feature__image{border-color:rgba(228,230,223,.2)}
+body.home-aquatic .home-feature__link{border:1px solid rgba(228,230,223,.4);background:#2F4438}
+body.home-aquatic .home-feature__link:hover{background:#3A5548}
 body.home-aquatic .editorial-present{
-  border-color:rgba(117,170,176,.42);
-  background:radial-gradient(ellipse at 15% 50%,rgba(35,81,90,.26),transparent 45%),linear-gradient(110deg,rgba(255,255,255,.025),transparent 58%),#0e1719;
+  border-color:rgba(228,230,223,.22);
+  background:radial-gradient(ellipse at 15% 50%,rgba(47,68,56,.24),transparent 45%),linear-gradient(110deg,rgba(255,255,255,.02),transparent 58%),#121412;
 }
-body.home-aquatic .editorial-present__actions a{border-color:rgba(174,184,181,.28);color:#dce1de}
-body.home-aquatic .editorial-present__actions a:hover{border-color:#75aab0;background:#17363b}
-body.home-aquatic .footer{border-top:1px solid rgba(117,170,176,.25)}
-body.home-aquatic .footer h2{color:#dce1de}
-body.home-aquatic .footer a:hover{color:#75aab0}
+body.home-aquatic .editorial-present__actions a{border-color:rgba(228,230,223,.3);color:#E4E6DF}
+body.home-aquatic .editorial-present__actions a:hover{border-color:#93AB9D;background:#232f28}
+body.home-aquatic .footer{border-top:1px solid rgba(228,230,223,.2)}
+body.home-aquatic .footer h2{color:#E4E6DF}
+body.home-aquatic .footer a:hover{color:#93AB9D}
 
 body.home-aquatic header{
   position:sticky;top:0;z-index:60;
   display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
-  gap:10px 18px;background:#020607;border-bottom:1px solid rgba(117,170,176,.24);
+  gap:10px 18px;background:#0d0f0d;border-bottom:1px solid rgba(228,230,223,.18);
 }
-body.home-aquatic .marca{display:flex;flex-direction:row;align-items:center;gap:11px;text-decoration:none;flex:0 0 auto;width:max-content}
-body.home-aquatic .marca__bicho{display:block;width:52px;height:52px;flex:0 0 auto;margin:0}
+body.home-aquatic .marca{display:flex;flex-direction:row;align-items:center;gap:12px;text-decoration:none;flex:0 0 auto;width:max-content}
+body.home-aquatic .marca__bicho{display:block;width:66px;height:auto;flex:0 0 auto;margin:0}
 body.home-aquatic .marca__texto{display:block;text-align:left;width:max-content}
-body.home-aquatic .marca__nombre{display:block;white-space:nowrap;font-family:Oswald,Impact,sans-serif;font-size:1.45rem;font-weight:600;line-height:1;letter-spacing:.07em;color:#eef1ef;text-transform:uppercase}
-body.home-aquatic .marca__sub{display:block;white-space:nowrap;font-family:Oswald,Impact,sans-serif;font-size:.54rem;letter-spacing:.2em;color:#7e8a87;margin-top:5px;text-transform:uppercase}
+body.home-aquatic .marca__nombre{display:block;white-space:nowrap;font-family:Oswald,Impact,sans-serif;font-size:1.45rem;font-weight:600;line-height:1;letter-spacing:.07em;color:#EFECE6;text-transform:uppercase}
+body.home-aquatic .marca__sub{display:block;white-space:nowrap;font-family:Oswald,Impact,sans-serif;font-size:.54rem;letter-spacing:.2em;color:#8a8d86;margin-top:5px;text-transform:uppercase}
 body.home-aquatic header nav{display:flex;flex:1 1 auto;justify-content:flex-end;flex-wrap:wrap;row-gap:8px}
-.marca-hero{width:150px;margin:0 auto 10px}
-.marca-hero svg{width:100%;height:auto;display:block}
-.marca-hero span{display:block;text-align:center;font-family:Oswald,sans-serif;font-size:.55rem;letter-spacing:.22em;color:#7e8a87;margin-top:6px}
 
-.confianza{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(117,170,176,.25);border-bottom:1px solid rgba(117,170,176,.25);background:#081013}
-.confianza span{padding:11px 18px;font-family:Oswald,sans-serif;font-size:.62rem;letter-spacing:.12em;color:#a7b0ad;border-right:1px solid rgba(117,170,176,.16);text-align:center}
+.hero-trazo{display:block;width:calc(100% + 44px);margin:26px -22px -56px;height:auto}
+.hero-trazo path{fill:none;stroke:#2F4438;stroke-width:6}
+.hero-trazo circle{fill:#A5402A}
+
+.confianza{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(228,230,223,.18);border-bottom:1px solid rgba(228,230,223,.18);background:#0e100e}
+.confianza span{padding:11px 18px;font-family:Oswald,sans-serif;font-size:.62rem;letter-spacing:.12em;color:#a0a39b;border-right:1px solid rgba(228,230,223,.12);text-align:center}
 .confianza span:last-child{border-right:0}
-.pasos{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(117,170,176,.3);margin:18px 0 4px}
-.pasos div{padding:15px 17px;border-right:1px solid rgba(117,170,176,.16);font-size:.78rem;color:#a7b0ad;line-height:1.55}
+.pasos{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(228,230,223,.22);margin:18px 0 4px}
+.pasos div{padding:15px 17px;border-right:1px solid rgba(228,230,223,.12);font-size:.78rem;color:#a0a39b;line-height:1.55}
 .pasos div:last-child{border-right:0}
-.pasos b{display:block;font-family:Oswald,sans-serif;font-size:.8rem;letter-spacing:.1em;color:#dce1de;margin-bottom:6px}
+.pasos b{display:block;font-family:Oswald,sans-serif;font-size:.8rem;letter-spacing:.1em;color:#E4E6DF;margin-bottom:6px}
 
-.carrito-badge{display:none;align-items:center;gap:7px;border:1px solid rgba(117,170,176,.5);background:#17363b;color:#dce1de;font-family:Oswald,Impact,sans-serif;font-size:.72rem;letter-spacing:.12em;padding:7px 12px;text-decoration:none}
+.carrito-badge{display:none;align-items:center;gap:7px;border:1px solid rgba(147,171,157,.5);background:#232f28;color:#E4E6DF;font-family:Oswald,Impact,sans-serif;font-size:.72rem;letter-spacing:.12em;padding:7px 12px;text-decoration:none}
 .carrito-badge.visible{display:inline-flex}
-.carrito-badge b{color:#75aab0}
-.btn-agregar{display:block;width:100%;margin-top:8px;padding:8px;border:1px solid rgba(174,184,181,.3);background:transparent;color:#dce1de;font-family:Oswald,Impact,sans-serif;font-size:.66rem;letter-spacing:.12em;cursor:pointer}
-.btn-agregar:hover{background:#17363b;border-color:#75aab0}
-.btn-agregar[disabled]{background:rgba(63,119,128,.22);border-color:#3f7780;color:#9fc6cb;cursor:default}
+.carrito-badge b{color:#93AB9D}
+.btn-agregar{display:block;width:100%;margin-top:8px;padding:8px;border:1px solid rgba(228,230,223,.3);background:transparent;color:#E4E6DF;font-family:Oswald,Impact,sans-serif;font-size:.66rem;letter-spacing:.12em;cursor:pointer}
+.btn-agregar:hover{background:#232f28;border-color:#93AB9D}
+.btn-agregar[disabled]{background:rgba(47,68,56,.3);border-color:#2F4438;color:#b9c9bd;cursor:default}
 .destacados__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin-top:16px}
-.mini{border:1px solid rgba(117,170,176,.22);background:#0e1719;display:flex;flex-direction:column}
-.mini__img{height:96px;background:#0a1214;object-fit:cover;width:100%;display:block}
+.mini{border:1px solid rgba(228,230,223,.16);background:#121412;display:flex;flex-direction:column}
+.mini__img{height:96px;background:#0c0e0c;object-fit:cover;width:100%;display:block}
 .mini__cuerpo{padding:8px 9px 10px;display:flex;flex-direction:column;flex:1}
-.mini__artista{font-family:Oswald,Impact,sans-serif;font-size:.8rem;letter-spacing:.03em;color:#dce1de;line-height:1.15}
-.mini__album{font-size:.72rem;color:#a7b0ad;line-height:1.3;margin-bottom:6px}
-.mini__datos{font-size:.62rem;color:#7e8a87;margin-top:auto}
-.mini__precio{font-family:Oswald,Impact,sans-serif;font-size:.85rem;color:#75aab0;margin-top:6px}
-.carrito{margin-top:22px;border:1px solid rgba(117,170,176,.4);background:#0c1416;padding:16px 18px}
-.carrito__cab{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed rgba(117,170,176,.35);padding-bottom:9px;margin-bottom:10px}
-.carrito__cab b{font-family:Oswald,Impact,sans-serif;letter-spacing:.14em;font-size:.8rem;color:#dce1de}
-.carrito__cab span{font-size:.62rem;letter-spacing:.1em;color:#7e8a87}
-.carrito__vacia{font-size:.75rem;color:#7e8a87;padding:6px 0}
-.carrito__linea{display:flex;gap:9px;align-items:baseline;font-size:.78rem;padding:6px 0;border-bottom:1px dotted rgba(117,170,176,.2);color:#dce1de}
-.carrito__linea .monto{margin-left:auto;color:#9fc6cb;white-space:nowrap}
-.carrito__quitar{background:none;border:0;color:#c2543f;cursor:pointer;font-size:.9rem;padding:0 3px;line-height:1}
-.carrito__total{display:flex;justify-content:space-between;font-family:Oswald,Impact,sans-serif;letter-spacing:.1em;font-size:.9rem;margin-top:11px;padding-top:9px;border-top:1px solid rgba(117,170,176,.4)}
+.mini__artista{font-family:Oswald,Impact,sans-serif;font-size:.8rem;letter-spacing:.03em;color:#E4E6DF;line-height:1.15}
+.mini__album{font-size:.72rem;color:#a0a39b;line-height:1.3;margin-bottom:6px}
+.mini__datos{font-size:.62rem;color:#8a8d86;margin-top:auto}
+.mini__precio{font-family:Oswald,Impact,sans-serif;font-size:.85rem;color:#93AB9D;margin-top:6px}
+.carrito{margin-top:22px;border:1px solid rgba(147,171,157,.4);background:#101211;padding:16px 18px}
+.carrito__cab{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed rgba(147,171,157,.35);padding-bottom:9px;margin-bottom:10px}
+.carrito__cab b{font-family:Oswald,Impact,sans-serif;letter-spacing:.14em;font-size:.8rem;color:#E4E6DF}
+.carrito__cab span{font-size:.62rem;letter-spacing:.1em;color:#8a8d86}
+.carrito__vacia{font-size:.75rem;color:#8a8d86;padding:6px 0}
+.carrito__linea{display:flex;gap:9px;align-items:baseline;font-size:.78rem;padding:6px 0;border-bottom:1px dotted rgba(228,230,223,.15);color:#E4E6DF}
+.carrito__linea .monto{margin-left:auto;color:#b9c9bd;white-space:nowrap}
+.carrito__quitar{background:none;border:0;color:#A5402A;cursor:pointer;font-size:.9rem;padding:0 3px;line-height:1}
+.carrito__total{display:flex;justify-content:space-between;font-family:Oswald,Impact,sans-serif;letter-spacing:.1em;font-size:.9rem;margin-top:11px;padding-top:9px;border-top:1px solid rgba(147,171,157,.4)}
 .carrito__acciones{display:flex;gap:9px;margin-top:12px;flex-wrap:wrap}
-.carrito__enviar{flex:1;min-width:180px;text-align:center;text-decoration:none;background:#3f7780;color:#f4f7f5;font-family:Oswald,Impact,sans-serif;font-size:.7rem;letter-spacing:.12em;padding:11px}
-.carrito__enviar:hover{background:#4f9099}
+.carrito__enviar{flex:1;min-width:180px;text-align:center;text-decoration:none;background:#2F4438;color:#EFECE6;font-family:Oswald,Impact,sans-serif;font-size:.7rem;letter-spacing:.12em;padding:11px}
+.carrito__enviar:hover{background:#3A5548}
 .carrito__enviar.off{opacity:.45;pointer-events:none}
-.carrito__vaciar{background:none;border:1px solid rgba(174,184,181,.3);color:#a7b0ad;font-family:Oswald,Impact,sans-serif;font-size:.64rem;letter-spacing:.1em;padding:11px 14px;cursor:pointer}
-.carrito__nota{font-size:.64rem;color:#7e8a87;line-height:1.5;margin-top:11px}
-.reproductor-inicio{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:100%;box-sizing:border-box;margin:18px auto 0;padding:0 12px;text-align:center}
-.reproductor-inicio audio{display:block;width:260px;max-width:100%;height:38px}
+.carrito__vaciar{background:none;border:1px solid rgba(228,230,223,.3);color:#a0a39b;font-family:Oswald,Impact,sans-serif;font-size:.64rem;letter-spacing:.1em;padding:11px 14px;cursor:pointer}
+.carrito__nota{font-size:.64rem;color:#8a8d86;line-height:1.5;margin-top:11px}
 
 @media (max-width:780px){
   body.home-aquatic .marca__sub{display:none}
   body.home-aquatic .home-hero .editorial-hero__side{display:none}
   .confianza{grid-template-columns:1fr}
-  .confianza span{border-right:0;border-bottom:1px solid rgba(117,170,176,.16)}
+  .confianza span{border-right:0;border-bottom:1px solid rgba(228,230,223,.12)}
   .confianza span:last-child{border-bottom:0}
   .pasos{grid-template-columns:1fr}
-  .pasos div{border-right:0;border-bottom:1px solid rgba(117,170,176,.16)}
+  .pasos div{border-right:0;border-bottom:1px solid rgba(228,230,223,.12)}
 }
 @media (prefers-reduced-motion:reduce){
   body.home-aquatic .home-collection-card,body.home-aquatic .home-collection-card::before{transition:none}
@@ -160,21 +162,15 @@ body.home-aquatic header nav{display:flex;flex:1 1 auto;justify-content:flex-end
 <body class="home-aquatic">
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-<symbol id="bicho" viewBox="0 0 100 100">
-  <path fill="#e8dec7" d="M9 20 L54 12 Q78 9 84 26 L98 33 L84 46 L62 45 Q40 44 12 48 Z"/>
-  <path fill="#e8dec7" d="M14 58 L60 57 Q76 57 82 66 L97 70 L80 82 Q58 93 30 95 L10 92 Z"/>
-  <path fill="#020607" d="M12 44 L62 44 Q82 45 84 47 L84 56 L58 55 Q38 55 12 52 Z"/>
-  <circle cx="24" cy="29" r="5" fill="#020607"/>
-  <circle cx="26" cy="74" r="5" fill="#020607"/>
-  <circle cx="52" cy="34" r="12" fill="none" stroke="#020607" stroke-width="5" stroke-dasharray="3.4 3.4"/>
-  <circle cx="52" cy="34" r="7" fill="#020607"/>
-  <circle cx="52" cy="34" r="3.2" fill="#e8dec7"/>
+<symbol id="sismografo" viewBox="0 0 232 100">
+  <path d="M2 50 L66 50 L74 50 L80 34 L88 62 L96 20 L106 82 L114 41 L122 58 L130 50 L230 50" fill="none" stroke="#EFECE6" stroke-width="5"/>
+  <circle cx="96" cy="82" r="9" fill="#A5402A"/>
 </symbol>
 </svg>
 
 <header>
   <a class="marca" href="index.html" aria-label="Leviatán - Inicio" aria-current="page">
-    <svg class="marca__bicho" viewBox="0 0 100 100" aria-hidden="true"><use href="#bicho"/></svg>
+    <svg class="marca__bicho" viewBox="0 0 232 100" aria-hidden="true"><use href="#sismografo"/></svg>
     <span class="marca__texto">
       <span class="marca__nombre">LEVIATÁN</span>
       <span class="marca__sub">FEDERICO SPRATT</span>
@@ -199,21 +195,24 @@ body.home-aquatic header nav{display:flex;flex:1 1 auto;justify-content:flex-end
     <div class="editorial-hero__texture" aria-hidden="true"></div>
     <div class="editorial-hero__content">
       <span class="editorial-eyebrow"><span class="editorial-eyebrow__dot"></span> GENERAL CABRERA · CÓRDOBA</span>
-      <h1 id="home-title">EL LEGADO NO SE HEREDA.<br><em>SE CONQUISTA.</em></h1>
-      <p><strong>Dos bateas.</strong> Un cajón de discos pesados y uno de tomos. Se revuelven igual: despacio, hasta que aparece algo que no sabías que buscabas.</p>
-      <a class="editorial-hero__cta" href="#colecciones">EXPLORÁ LEVIATÁN <span aria-hidden="true">↓</span></a>
+      <h1 id="home-title">DOS BATEAS.<br><em>SE REVUELVEN IGUAL: DESPACIO.</em></h1>
+      <p><strong>Un cajón de discos pesados y uno de tomos.</strong> Hasta que aparece algo que no sabías que buscabas. Cada disco es único: si dos lo piden, se lo queda quien confirme primero.</p>
+      <a class="editorial-hero__cta" href="#colecciones">REMOVÉ LA BATEA <span aria-hidden="true">↓</span></a>
+      <svg class="hero-trazo" viewBox="0 0 744 120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 70 L180 70 L206 70 L218 44 L232 84 L248 22 L268 112 L286 50 L302 78 L318 70 L744 70"/>
+        <circle cx="268" cy="112" r="8"/>
+      </svg>
     </div>
     <div class="editorial-hero__side" aria-hidden="true">
-      <span class="marca-hero"><svg viewBox="0 0 100 100"><use href="#bicho"/></svg><span>VELITHAN</span></span>
       <span class="editorial-hero__side-word">REVOLVÉ</span>
       <span class="editorial-hero__side-line"></span>
       <span class="editorial-hero__side-small">MÚSICA · TOMOS · LIBROS</span>
     </div>
     <div class="editorial-hero__bottomline" aria-hidden="true">
       <span>MÚSICA PARA ENCONTRAR</span>
-      <span class="editorial-hero__bottomline-mark">✳</span>
+      <span class="editorial-hero__bottomline-mark">·</span>
       <span>HISTORIAS PARA LEER</span>
-      <span class="editorial-hero__bottomline-mark">✳</span>
+      <span class="editorial-hero__bottomline-mark">·</span>
       <span>OBJETOS PARA COLECCIONAR</span>
     </div>
   </section>
@@ -230,7 +229,7 @@ body.home-aquatic header nav{display:flex;flex:1 1 auto;justify-content:flex-end
         <span class="editorial-kicker">Explorá Leviatán</span>
         <h2 id="collections-title">ENTRÁ A NUESTRAS COLECCIONES</h2>
       </div>
-      <p>Un catálogo que reúne distintas expresiones de la cultura popular. Elegí una sección y descubrí lo que tenemos disponible.</p>
+      <p>Elegí una sección y revolvé lo que tenemos disponible.</p>
     </div>
 
     <div class="home-collections__grid">
@@ -331,7 +330,7 @@ body.home-aquatic header nav{display:flex;flex:1 1 auto;justify-content:flex-end
 <footer id="contacto" class="footer">
   <div class="footer-content">
     <h2>LEVIATÁN</h2>
-    <p class="slogan">EL LEGADO NO SE HEREDA. SE CONQUISTA.</p>
+    <p class="slogan">DOS BATEAS. SE REVUELVEN IGUAL: DESPACIO.</p>
     <div class="footer-links">
       <p><a href="https://tiendaleviatan.com/">tiendaleviatan.com</a></p>
       <p><a href="https://instagram.com/tiendaleviatan" target="_blank" rel="noopener noreferrer">@tiendaleviatan</a></p>
@@ -399,6 +398,12 @@ audioLeviatan.addEventListener("ended", () => {
     countSheet(COMICS_CSV, r => Boolean((r.Serie || r.Franquicia || "").trim())).then(c => { if (c !== null) setCount("comics", c); });
     countNews().then(c => setCount("noticias", c)).catch(() => {});
     countAgenda().then(c => setCount("agenda", c)).catch(() => {});
+    /* Fallback: si a los 6 segundos el contador sigue en "—", se muestra "+" en vez de un guion que parece catálogo vacío */
+    setTimeout(() => {
+      document.querySelectorAll('[data-home-count] strong').forEach(s => {
+        if (s.textContent === '—') s.textContent = '+';
+      });
+    }, 6000);
   });
 })();
 </script>
@@ -425,125 +430,5 @@ audioLeviatan.addEventListener("ended", () => {
     if (/^-?\d{1,3}[.,]\d{3}$/.test(t)) t = t.replace(/[.,]/g, "");
     else if (t.includes(",")) t = t.replace(/\./g, "").replace(",", ".");
     const n = Number(t);
-    return Number.isFinite(n) && n > 0 ? Math.round(n * MULTIPLICADOR) : null;
-  }
-  const claveDe = (a, b) => (a + "___" + b).toLowerCase().trim();
-  const limpiar = t => (t || "").replace(/\(.*?\)/g, "").replace(/\[.*?\]/g, "").replace(/\b(reedicion|reedición|bootleg|cd|lp|remaster(izado)?|edicion|edición|import|importado)\b/gi, "").replace(/\s+/g, " ").trim();
-
-  function agregar(item) {
-    if (pedido.some(p => p.clave === item.clave)) return;
-    pedido.push(item); guardar(); pintar();
-  }
-  const quitar = clave => { pedido = pedido.filter(p => p.clave !== clave); guardar(); pintar(); };
-
-  function pintar() {
-    const caja = document.getElementById("carrito-lineas");
-    const cuenta = document.getElementById("carrito-cuenta");
-    const totalEl = document.getElementById("carrito-total");
-    const enviar = document.getElementById("carrito-enviar");
-    const badge = document.getElementById("carrito-badge");
-    if (!caja) return;
-
-    if (badge) {
-      badge.classList.toggle("visible", pedido.length > 0);
-      const n = badge.querySelector("b");
-      if (n) n.textContent = pedido.length;
-    }
-    if (cuenta) cuenta.textContent = pedido.length + (pedido.length === 1 ? " ÍTEM" : " ÍTEMS");
-
-    caja.innerHTML = pedido.length
-      ? pedido.map(p => `<div class="carrito__linea"><span><strong>${esc(p.artista)}</strong> — ${esc(p.album)}</span><span class="monto">${plata(p.precio)}</span><button class="carrito__quitar" data-quitar="${esc(p.clave)}" aria-label="Quitar ${esc(p.artista)}">✕</button></div>`).join("")
-      : '<div class="carrito__vacia">Todavía no agregaste nada.</div>';
-
-    const total = pedido.reduce((a, p) => a + p.precio, 0);
-    if (totalEl) totalEl.textContent = pedido.length ? plata(total) : "—";
-
-    if (enviar) {
-      if (!pedido.length) { enviar.classList.add("off"); enviar.removeAttribute("href"); }
-      else {
-        enviar.classList.remove("off");
-        const texto = "Hola, quiero reservar este pedido de Leviatán:\n\n"
-          + pedido.map((p, i) => `${i + 1}. ${p.artista} — ${p.album}${p.estado ? " (" + p.estado + ")" : ""} — ${plata(p.precio)}`).join("\n")
-          + `\n\nTotal: ${plata(total)}\n\n¿Está disponible?`;
-        enviar.href = "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(texto);
-      }
-    }
-
-    document.querySelectorAll("[data-agregar]").forEach(b => {
-      const dentro = pedido.some(p => p.clave === b.dataset.agregar);
-      b.disabled = dentro;
-      b.textContent = dentro ? "EN EL CARRITO" : "AGREGAR";
-    });
-  }
-
-  document.addEventListener("click", e => {
-    const add = e.target.closest("[data-agregar]");
-    if (add) agregar({
-      clave: add.dataset.agregar,
-      artista: add.dataset.artista || "",
-      album: add.dataset.album || "",
-      estado: add.dataset.estado || "",
-      precio: Number(add.dataset.precio) || 0
-    });
-    const q = e.target.closest("[data-quitar]");
-    if (q) quitar(q.dataset.quitar);
-  });
-
-  const vaciar = document.getElementById("carrito-vaciar");
-  if (vaciar) vaciar.addEventListener("click", () => { pedido = []; guardar(); pintar(); });
-
-  async function portada(artista, album) {
-    try {
-      const r = await fetch(PROXY + "?artist=" + encodeURIComponent(limpiar(artista)) + "&album=" + encodeURIComponent(limpiar(album)));
-      if (!r.ok) return null;
-      const d = await r.json();
-      return d.cover || null;
-    } catch { return null; }
-  }
-
-  function destacados() {
-    const caja = document.getElementById("destacados");
-    if (!caja || !window.Papa) return;
-    Papa.parse(SHEET_CD, {
-      download: true, header: true, skipEmptyLines: true,
-      complete: r => {
-        let items = (r.data || []).filter(x => (x.Artista || "").trim() && (x.Album || "").trim());
-        const conPrecio = items.filter(x => precioNum(x.Precio));
-        if (conPrecio.length >= 4) items = conPrecio;
-        for (let i = items.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [items[i], items[j]] = [items[j], items[i]]; }
-        const lote = items.slice(0, 8);
-        caja.innerHTML = lote.map(x => {
-          const p = precioNum(x.Precio) || 0;
-          const clave = claveDe(x.Artista, x.Album);
-          return `<article class="mini">
-            <img class="mini__img" data-key="${esc(clave)}" src="img/sin-portada.png" alt="${esc(x.Artista)} - ${esc(x.Album)}" loading="lazy" onerror="this.src='img/sin-portada.png'">
-            <div class="mini__cuerpo">
-              <div class="mini__artista">${esc(x.Artista)}</div>
-              <div class="mini__album">${esc(x.Album)}</div>
-              <div class="mini__datos">${esc(x["Año de lanzamiento"] || "")} · ${esc(x.Estado || "")}</div>
-              <div class="mini__precio">${p ? plata(p) : "Consultar"}</div>
-              <button class="btn-agregar" data-agregar="${esc(clave)}" data-artista="${esc(x.Artista)}" data-album="${esc(x.Album)}" data-estado="${esc(x.Estado || "")}" data-precio="${p}">AGREGAR</button>
-            </div></article>`;
-        }).join("");
-        pintar();
-
-        (async () => {
-          for (const x of lote) {
-            const url = await portada(x.Artista, x.Album);
-            if (!url) continue;
-            const img = caja.querySelector(`img[data-key="${CSS.escape(claveDe(x.Artista, x.Album))}"]`);
-            if (img) img.src = url;
-            await new Promise(s => setTimeout(s, 900));
-          }
-        })();
-      },
-      error: e => console.error("No se pudo leer la planilla:", e)
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", () => { pintar(); destacados(); });
-})();
-</script>
-
-</body>
-</html>
+    /* Regla: la planilla carga miles abreviados ("12" = $12.000).
+      
