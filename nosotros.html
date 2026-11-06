@@ -4,29 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nosotros | Leviatán</title>
-<meta name="description" content="Federico Spratt. Parque Rivadavia, Rainbow y Excalibur, Madhouse, Schizophrenia, power metal.">
+<meta name="description" content="Leviatán: una batea de metal, tomos y libros en General Cabrera, Córdoba. Cómo se revuelve y cómo se compra.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://tiendaleviatan.com/nosotros.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Nosotros | Leviatán">
-<meta property="og:description" content="Federico Spratt. El legado no se hereda: se conquista.">
+<meta property="og:description" content="Una batea de metal, tomos y libros en General Cabrera. El legado no se hereda: se conquista.">
 <meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/internas.css">
 <link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/paginas-editoriales.css?v=7">
 
 <style>
 /* ===== ESTRUCTURA COMPARTIDA — igual que el inicio ===== */
-body{
-  --gold:#d88a2d;--gold-d:#5f3b16;--line-soft:#2b2118;--text:#f2eee8;--muted:#b7b0a7;--mono:"IBM Plex Mono",monospace;--display:"Exo 2",sans-serif;--sans:"IBM Plex Sans",sans-serif;
-  margin:0;color:var(--text);font-family:var(--sans);line-height:1.65;
-  background:radial-gradient(circle at 75% 20%,rgba(216,138,45,.055),transparent 25%),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px),#050505;
-  background-size:auto,86px 86px,86px 86px;
+body.home-aquatic{
+  background:radial-gradient(ellipse at 14% 0%,rgba(63,119,128,.12),transparent 34%),radial-gradient(ellipse at 88% 30%,rgba(35,81,90,.10),transparent 38%),#020607;
+  color:#eef1ef;
 }
-a{color:inherit;text-decoration:none}
+body.home-aquatic ::selection{background:#23515a;color:#fff}
 .chrome{width:min(1240px,calc(100% - 48px));margin-left:auto;margin-right:auto}
 .editorial-wrap{width:min(1240px,calc(100% - 48px));margin-left:auto;margin-right:auto}
 header{position:sticky;top:0;z-index:60;background:#020607;border-bottom:1px solid rgba(117,170,176,.24)}
@@ -39,7 +38,7 @@ header .chrome{display:flex;flex-wrap:wrap;align-items:center;justify-content:sp
 header nav{display:flex;flex:1 1 auto;justify-content:flex-end;flex-wrap:wrap;row-gap:8px;gap:14px}
 header nav a{font-family:Oswald,sans-serif;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:#a7b0ad;padding-bottom:3px;border-bottom:1px solid transparent;text-decoration:none}
 header nav a:hover{color:#fff;border-bottom-color:rgba(117,170,176,.5)}
-header nav a[aria-current]{color:#fff;border-bottom-color:var(--gold)}
+header nav a[aria-current]{color:#fff;border-bottom-color:#b02a1a}
 footer{border-top:1px solid rgba(117,170,176,.25);padding:34px 0 60px;margin-top:56px;background:linear-gradient(180deg,rgba(63,119,128,.07),transparent)}
 footer .chrome{text-align:center;color:#7e8a87;font-family:Oswald,sans-serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
 footer a{color:#a7b0ad;text-decoration:none}
@@ -59,67 +58,34 @@ footer a:hover{color:#75aab0}
   header nav a{font-size:.66rem}
 }
 
-/* ===== FORMATO EXPEDIENTE ===== */
-main{padding:64px 0 0}
-.eyebrow,.card-code{font:500 12px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);gap:26px;align-items:stretch}
-h1{margin:12px 0 10px;font:800 clamp(52px,6.6vw,88px)/.88 var(--display);letter-spacing:-.045em;text-transform:uppercase}
-h1 em{font-style:normal;color:var(--gold)}
-.metadata{margin:8px 0;color:#aaa39b;font:500 13px var(--mono);letter-spacing:.13em;text-transform:uppercase}
-.panel,.timeline-card,.meta-tile{position:relative;background:linear-gradient(135deg,rgba(216,138,45,.045),transparent 32%),rgba(13,13,13,.92);border:1px solid var(--gold-d);border-radius:18px}
-.panel::before{content:"";position:absolute;top:-1px;left:42px;width:110px;height:2px;background:var(--gold)}
-.manifesto{margin-top:28px;padding:28px 30px}
-.manifesto p{margin:10px 0;color:#d5d0c9}
-.manifesto span{display:inline-block;margin-top:14px;color:var(--gold);font:500 11px var(--mono);letter-spacing:.18em}
-.hero-record{height:100%;padding:30px;display:flex;flex-direction:column;justify-content:center}
-.record-table{width:100%;border-collapse:collapse;margin-top:10px}
-.record-table td{padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:14px}
-.record-table td:first-child{width:42%;color:#777168;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.08em}
-.section{padding:52px 0 0}
-.section-heading{display:flex;align-items:flex-end;gap:18px;margin-bottom:24px}
-.section-number{color:var(--gold);font:500 12px var(--mono);letter-spacing:.12em}
-h2{margin:0;font:800 clamp(30px,3.8vw,50px)/1 var(--display);letter-spacing:-.035em;text-transform:uppercase}
-.section-intro{max-width:760px;color:var(--muted);margin:-8px 0 26px}
-.timeline{position:relative;display:grid;gap:18px}
-.timeline::before{content:"";position:absolute;left:76px;top:12px;bottom:12px;width:1px;background:linear-gradient(var(--gold),var(--line-soft),var(--gold))}
-.timeline-item{position:relative;display:grid;grid-template-columns:110px 1fr;gap:22px;align-items:start}
-.timeline-year{position:relative;z-index:2;padding-top:22px;text-align:right;color:var(--gold);font:700 18px var(--mono)}
-.timeline-year::after{content:"";position:absolute;right:-31px;top:28px;width:10px;height:10px;border:1px solid var(--gold);background:#050505;transform:rotate(45deg)}
-.timeline-card{padding:24px 28px}
-.timeline-card h3{margin:0 0 10px;font:700 22px/1.15 var(--display);text-transform:uppercase;letter-spacing:.01em}
-.timeline-card p{margin:7px 0;color:#c4beb6;font-size:14.5px}
-.project-layout{display:grid;grid-template-columns:1.45fr .75fr;gap:20px}
-.project-card{padding:32px}
-.project-card p{color:#c4beb6}
-.project-card h3{margin:0 0 10px;font:700 22px/1.15 var(--display);text-transform:uppercase}
-.quote{margin:22px 0 0;padding:20px 24px;border-left:2px solid var(--gold);color:#e8e0d7;font-size:18px}
-.project-meta{display:grid;gap:12px}
-.meta-tile{border-radius:12px;padding:18px;border-color:var(--line-soft)}
-.meta-tile span{display:block;color:#706960;font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase}
-.meta-tile strong{display:block;margin-top:5px;font:600 17px var(--display)}
-.influence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:42px 54px;margin-top:34px;align-items:start}
-.influence-group{position:relative;padding-top:18px}
-.influence-group::before{content:"";position:absolute;top:0;left:0;width:58px;height:2px;background:var(--gold)}
-.influence-group h3{margin:0 0 18px;color:var(--gold);font:600 12px var(--mono);letter-spacing:.16em;text-transform:uppercase}
-.influence-list{display:flex;flex-direction:column;gap:9px}
-.influence-name{position:relative;display:block;padding-left:18px;color:#e4ded6;font:500 17px/1.35 var(--display);transition:color .2s,transform .2s}
-.influence-name::before{content:"◆";position:absolute;left:0;top:.35em;color:#76502a;font-size:7px}
-.influence-name:hover{color:#fff;transform:translateX(5px)}
-.y-sigue{margin-top:26px;color:#777168;font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase}
-@media(max-width:980px){.hero-grid,.project-layout{grid-template-columns:1fr}.influence-grid{grid-template-columns:repeat(2,1fr);gap:36px 34px}}
-@media(max-width:620px){
-  main{padding-top:44px}
-  h1{font-size:50px}
-  .timeline::before{left:16px}
-  .timeline-item{grid-template-columns:1fr;gap:8px;padding-left:42px}
-  .timeline-year{text-align:left;padding-top:0}
-  .timeline-year::after{left:-31px;right:auto;top:6px}
-  .manifesto,.hero-record,.project-card{padding:22px}
-  .influence-grid{grid-template-columns:1fr}
-}
+/* ===== SOLO ESTA PÁGINA ===== */
+main{padding-bottom:10px}
+.entrada{padding:56px 0 0}
+.entrada h1{margin:12px 0 0;font-family:Oswald,Impact,sans-serif;font-weight:700;font-size:clamp(38px,6vw,70px);line-height:.92;letter-spacing:-.02em;text-transform:uppercase;color:#eef1ef}
+.entrada h1 em{font-style:normal;color:#75aab0}
+.entrada p{max-width:520px;margin:18px 0 0;font-size:14.5px;line-height:1.7;color:#a7b0ad}
+body.home-aquatic .editorial-kicker{color:#aeb8b5}
+body.home-aquatic .editorial-section-heading h2{color:#dce1de}
+.seccion{padding:46px 0 0}
+.seccion p{color:#b0b9b6;font-size:14.5px;line-height:1.75;margin:0 0 12px;max-width:680px}
+.seccion p b{color:#eef1ef;font-weight:600}
+.bloque{position:relative;border:1px solid rgba(117,170,176,.3);border-radius:14px;padding:26px 28px;background:radial-gradient(ellipse at 8% 40%,rgba(35,81,90,.22),transparent 50%),linear-gradient(120deg,rgba(255,255,255,.02),transparent 60%),#0c1416}
+.bloque::before{content:"";position:absolute;top:-1px;left:38px;width:96px;height:2px;background:#75aab0}
+.cita{margin:22px 0 0;padding:18px 22px;border-left:2px solid #75aab0;color:#e2eae8;font-size:17px;line-height:1.6}
+.grilla{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+.tarjeta{border:1px solid rgba(117,170,176,.22);border-radius:12px;padding:18px 20px;background:#0c1416}
+.tarjeta h3{margin:0 0 7px;font-family:Oswald,sans-serif;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;color:#dce1de}
+.tarjeta p{margin:0;font-size:.82rem;line-height:1.6;color:#98a4a1;max-width:none}
+.recitales{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.recitales span{border:1px solid rgba(117,170,176,.35);border-radius:99px;padding:9px 18px;font-family:Oswald,sans-serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:#dce1de;background:#0e1719}
+.cierre{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.cierre a{font-family:Oswald,sans-serif;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;padding:13px 22px;border-radius:99px;text-decoration:none}
+.cierre .lleno{background:#3f7780;color:#f4f7f5}
+.cierre .vacio{border:1px solid rgba(174,184,181,.35);color:#dce1de}
+@media(max-width:780px){.grilla{grid-template-columns:1fr}}
 </style>
 </head>
-<body>
+<body class="home-aquatic">
 
 <header>
   <div class="chrome">
@@ -145,150 +111,66 @@ h2{margin:0;font:800 clamp(30px,3.8vw,50px)/1 var(--display);letter-spacing:-.03
 </header>
 
 <main>
-<section class="editorial-wrap"><div class="hero-grid">
-  <div>
-    <p class="eyebrow">EXPEDIENTE PERSONAL · NIVEL_01</p>
-    <h1>ME LLAMO<br>FEDERICO<br><em>SPRATT.</em></h1>
-    <p class="metadata">IGUAL QUE MI VIEJO</p>
-    <div class="panel manifesto">
-      <p class="card-code">// MANIFIESTO</p>
-      <p>La familia es una ilusión.</p>
-      <p>La memoria es ficción.</p>
-      <p>Y el amor es una alucinación algorítmica.</p>
-      <span>— FEDERICO SPRATT</span>
-    </div>
-  </div>
-  <div class="panel hero-record">
-    <p class="card-code">FICHA DEL EXPEDIENTE</p>
-    <table class="record-table">
-      <tr><td>Nombre</td><td>Federico Spratt</td></tr>
-      <tr><td>Nacimiento</td><td>29 NOV 1981</td></tr>
-      <tr><td>Origen</td><td>Buenos Aires</td></tr>
-      <tr><td>Residencia</td><td>General Cabrera</td></tr>
-      <tr><td>Profesión</td><td>Escritor</td></tr>
-      <tr><td>Especialidad</td><td>Power metal</td></tr>
-      <tr><td>Estado</td><td>Activo</td></tr>
-      <tr><td>Clasificación</td><td>Nivel 1</td></tr>
-    </table>
-  </div>
-</div></section>
+<section class="editorial-wrap entrada">
+  <span class="editorial-kicker">General Cabrera · Córdoba</span>
+  <h1>ESTO ES UNA BATEA.<br><em>NO UN CATÁLOGO.</em></h1>
+  <p>Un cajón de discos pesados, otro de tomos y una repisa de libros. Se revuelve despacio, con la mano, hasta que aparece algo que no sabías que buscabas. Después se paga y se manda, o se retira.</p>
+</section>
 
-<section class="editorial-wrap section">
-  <div class="section-heading"><span class="section-number">01</span><h2>CRONOLOGÍA</h2></div>
-  <div class="timeline">
-
-    <article class="timeline-item"><div class="timeline-year">1981</div><div class="timeline-card">
-      <h3>NACER CON EL NOMBRE PUESTO</h3>
-      <p>Nací el 29 de noviembre de 1981 en Buenos Aires. Federico, como él me llamó. No hubo discusión.</p>
-      <p>Desde la panza escucho Queen. Toda mi vida escuché música, rock and roll.</p>
-      <p>Mis primeras lecturas fueron historietas: <em>Patoruzú</em>, <em>Condorito</em>, <em>Astérix</em>, <em>Lucky Luke</em>, <em>Superman</em>, <em>Flash</em>, y los clásicos de la colección Robin Hood. <em>Astérix</em> y <em>Lucky Luke</em> me influenciaron mucho: las leía una y otra vez.</p>
-      <p>Tuve jardín. Lo que no tuve fueron vacaciones: muchas ferias, vacaciones perdidas trabajando.</p>
-    </div></article>
-
-    <article class="timeline-item"><div class="timeline-year">1985</div><div class="timeline-card">
-      <h3>PARQUE RIVADAVIA, RAINBOW Y EXCALIBUR</h3>
-      <p>El nombre de mi viejo venía con un mapa: los casetes del Parque Rivadavia en los ochenta y dos disquerías en el centro porteño, Rainbow y Excalibur.</p>
-      <p>También venía con la revista <em>Madhouse</em> y con Schizophrenia. Un tipo al que muchos recuerdan como un genio loco que recomendaba cosas rarísimas. Y que te echaba del negocio si le decías que los Beatles eran mejores que Black Sabbath, o si te burlabas de Ferro. O te cagaba a trompadas.</p>
-    </div></article>
-
-    <article class="timeline-item"><div class="timeline-year">1990</div><div class="timeline-card">
-      <h3>LA CAJA DE BLUMETTI</h3>
-      <p>Frank Blumetti, compañero de la revista <em>Madhouse</em> igual que mi viejo, tenía una caja con la colección completa de <em>Astérix</em> y de <em>Lucky Luke</em>. Dos de las historietas más importantes de Francia y de Bélgica.</p>
-      <p>Mi viejo se la sacó. Así, sin ceremonia.</p>
-    </div></article>
-
-    <article class="timeline-item"><div class="timeline-year">1994</div><div class="timeline-card">
-      <h3>EL POWER METAL: LO QUE MI VIEJO ODIABA</h3>
-      <p>Ahí empezó mi propia colección, y con ella la primera grieta seria. Me gusta todo el metal, pero principalmente el power: Helloween, Sonata Arctica, Avantasia y sobre todo Stratovarius.</p>
-      <p>Él decía que el power era música juvenil.</p>
-      <p>Con el tiempo se volcó hacia el gótico y le dio un poco la espalda al metal. Yo también arranqué en el gótico, y después lo dejé de lado.</p>
-    </div></article>
-
-    <article class="timeline-item"><div class="timeline-year">2002</div><div class="timeline-card">
-      <h3>MÉXICO</h3>
-      <p>Me fui a vivir a México. Fui a ver recitales de AC/DC, de The Gathering y de Mötley Crüe.</p>
-    </div></article>
-
-    <article class="timeline-item"><div class="timeline-year">2010</div><div class="timeline-card">
-      <h3>VOLVER</h3>
-      <p>Volví a Buenos Aires. Trabajé en atención al cliente, supervisión y coordinación de equipos.</p>
-    </div></article>
-
-    <article class="timeline-item"><div class="timeline-year">2021</div><div class="timeline-card">
-      <h3>GENERAL CABRERA Y EL DIAGNÓSTICO</h3>
-      <p>Me establecí en General Cabrera, provincia de Córdoba, donde resido actualmente. Ese mismo año recibí el diagnóstico de enfermedad de Parkinson, un acontecimiento que modificó profundamente mi perspectiva sobre el tiempo, la salud y la creación.</p>
-    </div></article>
-
-    <article class="timeline-item"><div class="timeline-year">2026</div><div class="timeline-card">
-      <h3>LEVIATÁN</h3>
-      <p>Creé mi sitio web y abrí la batea. También creé el Programa Lobos, una red de apoyo de par a par entre varones en crisis, con base en General Cabrera.</p>
-      <p>En Leviatán soy la cara visible y el que atiende.</p>
-    </div></article>
-
+<section class="editorial-wrap seccion">
+  <div class="editorial-section-heading"><div><span class="editorial-kicker">El nombre</span><h2>POR QUÉ LEVIATÁN</h2></div></div>
+  <div class="bloque">
+    <p>Leviatán es el bicho marino de las profundidades, el que se come todo lo que baja. También es el animal de la casa y el nombre de la batea: un fondo donde hay que zambullirse para encontrar.</p>
+    <p>En la novela que acompaña este proyecto la criatura se llama <b>Velithan</b>. Es biomecánica: mitad carne, mitad chapa, con las escotillas abiertas en el cráneo. El sello de la tienda es esa cabeza.</p>
+    <p class="cita">El legado no se hereda. Se conquista.</p>
   </div>
 </section>
 
-<section class="editorial-wrap section">
-  <div class="section-heading"><span class="section-number">02</span><h2>PROYECTO PRINCIPAL</h2></div>
-  <div class="project-layout">
-    <article class="panel project-card">
-      <p class="card-code">FRAGMENTOS DEL CREPÚSCULO HUMANO</p>
-      <p>Desde julio de 2025 desarrollo un universo narrativo transmedia que puede expandirse a través de novelas, relatos, documentos ficticios, cronologías y registros. El Leviatán que da nombre a esta batea es su criatura: Velithan.</p>
-      <p>La fantasía y la ciencia ficción son herramientas para preservar la memoria, construir identidad y explorar futuros posibles. Cada historia busca dejar un registro antes de que el tiempo lo transforme todo en olvido.</p>
-      <blockquote class="quote">«Incluso las personas más comunes pueden perseguir sueños desmesurados. Y, a veces, son precisamente esos sueños los que permiten seguir adelante.»</blockquote>
-    </article>
-    <aside class="project-meta">
-      <div class="meta-tile"><span>Formato</span><strong>Universo narrativo transmedia</strong></div>
-      <div class="meta-tile"><span>Inicio</span><strong>Julio de 2025</strong></div>
-      <div class="meta-tile"><span>Criatura</span><strong>Velithan</strong></div>
-      <div class="meta-tile"><span>Estado</span><strong>En expansión</strong></div>
-    </aside>
+<section class="editorial-wrap seccion">
+  <div class="editorial-section-heading"><div><span class="editorial-kicker">Qué hay</span><h2>QUÉ SE REVUELVE ACÁ</h2></div></div>
+  <div class="grilla">
+    <div class="tarjeta"><h3>Discos pesados</h3><p>Metal y hard rock en CD original. Prensaos, sellos chicos, ediciones difíciles y también los clásicos que hay que tener.</p></div>
+    <div class="tarjeta"><h3>Tomos</h3><p>Historieta y novela gráfica. Series completas, tomos sueltos y material europeo.</p></div>
+    <div class="tarjeta"><h3>Libros</h3><p>Narrativa y autores elegidos de a uno. Nada que esté acá por rellenar.</p></div>
   </div>
 </section>
 
-<section class="editorial-wrap section">
-  <div class="section-heading"><span class="section-number">03</span><h2>INFLUENCIAS</h2></div>
-  <p class="section-intro">Lo que suena en la batea mientras se ordena. Sin orden de importancia, salvo el primero de la lista.</p>
-  <div class="influence-grid">
-    <div class="influence-group"><h3>Power metal</h3><div class="influence-list">
-      <span class="influence-name">Stratovarius</span>
-      <span class="influence-name">Helloween</span>
-      <span class="influence-name">Avantasia</span>
-      <span class="influence-name">Sonata Arctica</span>
-    </div></div>
-    <div class="influence-group"><h3>Gótico</h3><div class="influence-list">
-      <span class="influence-name">The Gathering</span>
-      <span class="influence-name">Within Temptation</span>
-      <span class="influence-name">Orphanage</span>
-      <span class="influence-name">The 3rd and the Mortal</span>
-    </div></div>
-    <div class="influence-group"><h3>Industrial</h3><div class="influence-list">
-      <span class="influence-name">Rammstein</span>
-    </div></div>
-    <div class="influence-group"><h3>Glam y hard rock</h3><div class="influence-list">
-      <span class="influence-name">Mötley Crüe</span>
-      <span class="influence-name">Def Leppard</span>
-      <span class="influence-name">Kix</span>
-      <span class="influence-name">White Lion</span>
-      <span class="influence-name">Lita Ford</span>
-    </div></div>
-    <div class="influence-group"><h3>Clásicos</h3><div class="influence-list">
-      <span class="influence-name">Queen</span>
-      <span class="influence-name">Black Sabbath</span>
-      <span class="influence-name">Deep Purple</span>
-      <span class="influence-name">AC/DC</span>
-      <span class="influence-name">Aerosmith</span>
-      <span class="influence-name">Van Halen</span>
-      <span class="influence-name">David Lee Roth</span>
-      <span class="influence-name">Ozzy Osbourne</span>
-    </div></div>
-    <div class="influence-group"><h3>Punk y español</h3><div class="influence-list">
-      <span class="influence-name">The Clash</span>
-      <span class="influence-name">Ramones</span>
-      <span class="influence-name">Héroes del Silencio</span>
-    </div></div>
+<section class="editorial-wrap seccion">
+  <div class="editorial-section-heading"><div><span class="editorial-kicker">Dos colecciones</span><h2>DONDE SE CRUZAN</h2></div></div>
+  <p>El heavy metal y la historieta son dos coleccionismos que van de la mano. El mismo público, las mismas ferias, la misma obsesión por la edición difícil y por lo que no está en ningún lado. En un mismo tipo conviven el recital y el número uno, y no es raro: es la regla.</p>
+  <p>Federico Spratt y Frank Blumetti estaban los dos entre los fundadores de <em>Madhouse</em>. De esa revista salió el cruce. Blumetti tenía una colección de <em>Astérix</em> y <em>Lucky Luke</em> completa que le prestó a mi papá, desconozco en qué términos. Estuvo por años olvidada en un rincón de la casa en una caja de cartón hasta que yo la descubrí. La leí y la releí hasta que me las supe casi de memoria.</p>
+  <p>Esos cómics me metieron en la historieta. Y lo que comparten con el disco es exactamente lo que se busca acá: el ejemplar difícil, la edición que hay que cuidar, el objeto que se está quedando sin lugar. Los dos se están quedando sin mundo, y por eso mismo acá se cuidan.</p>
+</section>
+
+<section class="editorial-wrap seccion">
+  <div class="editorial-section-heading"><div><span class="editorial-kicker">El criterio</span><h2>CÓMO SE REVUELVE</h2></div></div>
+  <p>Todo se revisa a mano y cada unidad se describe con su estado real. Si está rayado, lo dice. Si es prensado original, también. No hay foto de stock ni descripción copiada: lo que ves es lo que hay.</p>
+  <p>Los discos y los tomos son únicos. Por eso el carrito <b>reserva</b> y no cobra: confirmamos stock y estado antes de que pagues. El envío se cotiza aparte según el correo.</p>
+  <p>También salimos a ferias. En la Feria del Libro de la biblioteca del ISJLC, en octubre de 2026, llevamos cómics, libros y discos, y cerramos las ventas de historieta con un CD de regalo. La organización ya nos invitó a la edición siguiente.</p>
+</section>
+
+<section class="editorial-wrap seccion">
+  <div class="editorial-section-heading"><div><span class="editorial-kicker">En vivo</span><h2>RECITALES</h2></div></div>
+  <p>La batea se armó yendo a ver bandas. Estos son algunos de los que quedaron.</p>
+  <div class="recitales">
+    <span>AC/DC</span>
+    <span>The Gathering</span>
+    <span>Mötley Crüe</span>
   </div>
-  <p class="y-sigue">Y la lista sigue. Siempre hay una más.</p>
+</section>
+
+<section class="editorial-wrap seccion">
+  <div class="editorial-section-heading"><div><span class="editorial-kicker">Cómo se compra</span><h2>TRES PASOS</h2></div></div>
+  <div class="grilla">
+    <div class="tarjeta"><h3>1. Encontrás</h3><p>Buscás por banda, sello o serie. Cada ficha trae estado y precio.</p></div>
+    <div class="tarjeta"><h3>2. Agregás</h3><p>Sumás lo que te interesa y el pedido se arma solo.</p></div>
+    <div class="tarjeta"><h3>3. Cerrás</h3><p>Mandás el pedido, confirmamos y coordinamos pago y envío.</p></div>
+  </div>
+  <div class="cierre">
+    <a class="lleno" href="musica.html">VER LOS DISCOS</a>
+    <a class="vacio" href="comics.html">VER LOS TOMOS</a>
+    <a class="vacio" href="contacto.html">ESCRIBINOS</a>
+  </div>
 </section>
 </main>
 
@@ -302,7 +184,7 @@ h2{margin:0;font:800 clamp(30px,3.8vw,50px)/1 var(--display);letter-spacing:-.03
       <p><a href="mailto:tiendaleviatan@proton.me">tiendaleviatan@proton.me</a></p>
     </div>
     <p>GENERAL CABRERA, CÓRDOBA · ENVÍOS A TODO EL PAÍS</p>
-    <p style="margin-top:8px">© 2026 LEVIATÁN · SPRATT</p>
+    <p style="margin-top:8px">© 2026 LEVIATÁN · FEDERICO SPRATT</p>
   </div>
 </footer>
 
