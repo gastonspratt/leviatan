@@ -1,0 +1,19 @@
+/* leviatan.css · Tokens únicos. Un solo lugar para cambiar la identidad. */
+:root {
+  /* Color */
+  --hueso: #EFECE6;
+  --papel: #E4E6DF;
+  --grafito: #1A1C19;
+  --fondo: #101211;
+  --panel: #121412;
+  --panel-alto: #1a201b;
+  --linea: rgba(228,230,223,.12);
+  --verde: #2F4438;
+  --verde-claro: #93AB9D;
+  --oxido: #A5402A;
+  /* Tipografía */
+  --tt: "Oswald", "Arial Narrow", sans-serif;   /* titulares y datos */
+  --tc: "Inter", Arial, sans-serif;             /* cuerpo */
+  /* Ritmo */
+  --wrap: min(1120px, calc(100% - 48px));
+}
