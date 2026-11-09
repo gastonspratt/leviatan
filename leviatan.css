@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leviatán | Música pesada, cómics y libros · General Cabrera</title>
+<meta name="description" content="Dos bateas: discos pesados y tomos para revolver despacio. General Cabrera, Córdoba. Envíos a todo el país.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tiendaleviatan.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Leviatán">
+<meta property="og:title" content="Leviatán | Música pesada, cómics y libros">
+<meta property="og:description" content="Dos bateas: discos pesados y tomos para revolver despacio.">
+<meta property="og:url" content="https://tiendaleviatan.com/">
+<meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/leviatan.css">
+
+<style>
+/* Único bloque propio del home: reproductor flotante y grilla de colecciones.
+   Todo lo demás viene de leviatan.css. */
+.reproductor-flotante{position:fixed;right:18px;bottom:18px;z-index:998}
+#boton-musica{width:46px;height:46px;border:1px solid rgba(147,171,157,.5);border-radius:50%;background:#121412;color:#93AB9D;font-size:1.1rem}
+#boton-musica.reproduciendo{background:#2F4438;color:#EFECE6}
+.colecciones{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.coleccion{position:relative;display:flex;flex-direction:column;min-height:170px;padding:21px;border:1px solid var(--linea);background:linear-gradient(145deg,rgba(47,68,56,.10),transparent 58%),var(--panel);transition:border-color .2s ease,background .2s ease}
+.coleccion:hover{border-color:rgba(147,171,157,.5);background:linear-gradient(145deg,rgba(47,68,56,.18),transparent 58%),var(--panel-alto)}
+.coleccion small{color:var(--verde-claro);font-size:.58rem;font-weight:900;letter-spacing:.18em}
+.coleccion h3{margin:14px 0 7px;color:var(--papel);font-family:var(--tt);font-size:1.5rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase}
+.coleccion p{color:var(--texto-3);font-size:.8rem;line-height:1.6}
+.coleccion span{margin-top:auto;padding-top:14px;color:var(--verde-claro);font-size:.72rem;letter-spacing:.14em}
+@media(max-width:900px){.colecciones{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.colecciones{grid-template-columns:1fr}}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+
+<body>
+
+<header>
+  <a class="marca" href="index.html" aria-label="Leviatán - Inicio" aria-current="page">
+    <svg viewBox="0 0 232 100" aria-hidden="true">
+      <path d="M2 50 L66 50 L74 50 L80 34 L88 62 L96 20 L106 82 L114 41 L122 58 L130 50 L230 50" fill="none" stroke="#EFECE6" stroke-width="5"/>
+      <circle cx="96" cy="82" r="9" fill="#A5402A"/>
+    </svg>
+    <span>
+      <span class="marca__nombre">LEVIATÁN</span>
+      <span class="marca__sub">FEDERICO SPRATT</span>
+    </span>
+  </a>
+  <nav aria-label="Navegación principal">
+    <a href="index.html" aria-current="page">Inicio</a>
+    <a href="musica.html">Música</a>
+    <a href="comics.html">Cómics</a>
+    <a href="libros.html">Libros</a>
+    <a href="figuras.html">Objetos</a>
+    <a href="noticias.html">Noticias</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="contacto.html">Contacto</a>
+    <a class="carrito-badge" id="carrito-badge" href="#carrito">CARRITO <b>0</b></a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO · grado 2 -->
+  <section class="hero" aria-labelledby="home-title">
+    <div class="hero__texture" aria-hidden="true"></div>
+    <div class="hero__content">
+      <span class="eyebrow"><span class="eyebrow__dot"></span> GENERAL CABRERA · CÓRDOBA</span>
+      <h1 id="home-title">DOS BATEAS.<br><em>SE REVUELVEN IGUAL: DESPACIO.</em></h1>
+      <p class="hero__lead">Un cajón de discos pesados y uno de tomos. Cada disco es único: si dos lo piden, se lo queda quien confirme primero.</p>
+      <a class="hero__cta" href="#colecciones">REMOVÉ LA BATEA <span aria-hidden="true">↓</span></a>
+      <svg class="hero__trazo" viewBox="0 0 700 110" aria-hidden="true">
+        <path d="M0 55 H180 L206 55 L218 29 L232 69 L248 7 L268 102 L286 38 L302 66 L318 55 H700"/>
+        <circle cx="268" cy="102" r="7"/>
+      </svg>
+    </div>
+    <div class="hero__bottomline" aria-hidden="true">
+      <span>MÚSICA PARA ENCONTRAR</span>
+      <span class="hero__bottomline-mark">·</span>
+      <span>HISTORIAS PARA LEER</span>
+      <span class="hero__bottomline-mark">·</span>
+      <span>OBJETOS PARA COLECCIONAR</span>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-top:26px">
+    <div class="agenda-note">
+      <span class="agenda-note__symbol" aria-hidden="true">✳</span>
+      <div>
+        <h2>EN CONFIANZA</h2>
+        <p>Envíos a todo el país · fotos reales de cada unidad · retiro en General Cabrera.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLECCIONES -->
+  <section class="seccion wrap" id="colecciones" aria-labelledby="collections-title">
+    <div class="cabecera-seccion">
+      <div>
+        <span class="kicker">Explorá Leviatán</span>
+        <h2 id="collections-title">ENTRÁ A NUESTRAS COLECCIONES</h2>
+      </div>
+      <p>Elegí una sección y revolvé lo que tenemos disponible.</p>
+    </div>
+
+    <div class="colecciones">
+      <a class="coleccion" href="musica.html">
+        <small>01 / SONIDO</small><h3>Música</h3>
+        <p>CDs originales y ediciones para quienes disfrutan buscar y coleccionar.</p>
+        <span>VER CATÁLOGO →</span>
+      </a>
+      <a class="coleccion" href="comics.html">
+        <small>02 / HISTORIETAS</small><h3>Cómics</h3>
+        <p>Tomos, novelas gráficas y series completas.</p>
+        <span>VER CATÁLOGO →</span>
+      </a>
+      <a class="coleccion" href="libros.html">
+        <small>03 / LECTURAS</small><h3>Libros</h3>
+        <p>Autores, editoriales y lecturas seleccionadas.</p>
+        <span>VER CATÁLOGO →</span>
+      </a>
+      <a class="coleccion" href="figuras.html">
+        <small>04 / OBJETOS</small><h3>Objetos</h3>
+        <p>Figuras y otros objetos para sumar a tu colección.</p>
+        <span>VER CATÁLOGO →</span>
+      </a>
+      <a class="coleccion" href="noticias.html">
+        <small>05 / ACTUALIDAD</small><h3>Noticias</h3>
+        <p>Ferias, actividades, novedades y proyectos.</p>
+        <span>LEER →</span>
+      </a>
+      <a class="coleccion" href="agenda.html">
+        <small>06 / EN VIVO</small><h3>Agenda</h3>
+        <p>Recitales, giras y festivales de rock y metal en Argentina.</p>
+        <span>VER FECHAS →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ÚLTIMOS INGRESOS -->
+  <section class="seccion wrap" id="ultimos" aria-labelledby="ultimos-title">
+    <div class="cabecera-seccion">
+      <div>
+        <span class="kicker">Recién cargado en la batea</span>
+        <h2 id="ultimos-title">ÚLTIMOS INGRESOS</h2>
+      </div>
+      <p>Armá el carrito y lo mandás por WhatsApp. Confirmamos stock y estado uno por uno.</p>
+    </div>
+
+    <div class="destacados__grid" id="destacados"></div>
+
+    <div class="carrito" id="carrito">
+      <div class="carrito__cab"><b>CARRITO</b><span id="carrito-cuenta">0 ÍTEMS</span></div>
+      <div id="carrito-lineas"></div>
+      <div class="carrito__total"><span>TOTAL</span><span id="carrito-total">—</span></div>
+      <div class="carrito__acciones">
+        <a class="carrito__enviar off" id="carrito-enviar">ENVIAR PEDIDO POR WHATSAPP</a>
+        <button class="carrito__vaciar" id="carrito-vaciar" type="button">VACIAR</button>
+      </div>
+      <p class="carrito__nota">Los discos son únicos: si dos personas piden el mismo, se lo queda quien confirme primero. El envío se cotiza aparte.</p>
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section class="seccion wrap" aria-labelledby="home-story-title">
+    <div class="tarjeta-destacada" style="padding:36px">
+      <span class="kicker">Un nombre heredado</span>
+      <h2 id="home-story-title" style="margin:12px 0 18px;font-family:var(--tt);font-size:clamp(2.2rem,4.5vw,3.6rem);line-height:.97;color:var(--papel);text-transform:uppercase">
+        ME LLAMO FEDERICO SPRATT.<br><em style="color:var(--verde-claro);font-style:normal">IGUAL QUE MI VIEJO.</em>
+      </h2>
+      <p style="max-width:760px;color:var(--texto-2);line-height:1.8;margin-bottom:14px">
+        En el under del metal argentino ese nombre dice algo: el Parque Rivadavia, las disquerías Rainbow y Excalibur del centro porteño, la revista <em>Madhouse</em>, Schizophrenia. Alguien que apostaba siempre por las bandas menos conocidas, por lo raro. Y que te echaba del negocio si le decías que los Beatles eran mejores que Black Sabbath, o si te burlabas de Ferro. O te cagaba a trompadas.
+      </p>
+      <p style="max-width:760px;color:var(--texto-2);line-height:1.8;margin-bottom:14px">
+        A mí, entre Black Sabbath y los Beatles, me quedo con Deep Purple. Pero no te metas con Ferro.
+      </p>
+      <p style="max-width:760px;color:var(--texto-2);line-height:1.8;margin-bottom:24px">
+        <strong style="color:var(--hueso)">De ahí viene el criterio de esta batea. No de la sangre.</strong>
+      </p>
+      <a class="btn btn--lleno" href="nosotros.html">CONOCÉ LA HISTORIA <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <h2>LEVIATÁN</h2>
+    <p class="slogan">DOS BATEAS. SE REVUELVEN IGUAL: DESPACIO.</p>
+    <div class="footer-links">
+      <p><a href="https://tiendaleviatan.com/">tiendaleviatan.com</a></p>
+      <p><a href="https://instagram.com/tiendaleviatan" target="_blank" rel="noopener noreferrer">@tiendaleviatan</a></p>
+      <p><a href="mailto:tiendaleviatan@proton.me">tiendaleviatan@proton.me</a></p>
+      <p><a href="https://wa.me/5493584283858" target="_blank" rel="noopener">WhatsApp</a></p>
+    </div>
+    <div class="footer-locations">
+      <p>General Cabrera, Córdoba · Caballito, Buenos Aires</p>
+      <p>Envíos a todo el país.</p>
+    </div>
+    <p class="copyright">&copy; 2026 Leviatán · Federico Spratt</p>
+    <a class="editorial-backtop" href="#home-title">VOLVER ARRIBA ↑</a>
+  </div>
+</footer>
+
+<div class="reproductor-flotante">
+  <button id="boton-musica" type="button" aria-label="Reproducir música" title="Reproducir música">♫</button>
+  <audio id="audio-leviatan" preload="metadata">
+    <source src="audio/Pacto_de_Acero.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<script>
+/* Reproductor */
+const botonMusica = document.getElementById("boton-musica");
+const audioLeviatan = document.getElementById("audio-leviatan");
+botonMusica.addEventListener("click", async () => {
+  try {
+    if (audioLeviatan.paused) {
+      await audioLeviatan.play();
+      botonMusica.textContent = "❚❚";
+      botonMusica.setAttribute("aria-label", "Pausar música");
+      botonMusica.classList.add("reproduciendo");
+    } else {
+      audioLeviatan.pause();
+      botonMusica.textContent = "♫";
+      botonMusica.setAttribute("aria-label", "Reproducir música");
+      botonMusica.classList.remove("reproduciendo");
+    }
+  } catch (e) { console.error("No se pudo reproducir el audio:", e); }
+});
+audioLeviatan.addEventListener("ended", () => {
+  botonMusica.textContent = "♫";
+  botonMusica.classList.remove("reproduciendo");
+});
+</script>
+
+<script>
+/* Contadores desde las planillas */
+(() => {
+  const MUSIC_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=0&single=true&output=csv";
+  const COMICS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=2096118978&single=true&output=csv";
+  const countSheet = (url, ok) => new Promise(res => {
+    if (!window.Papa) return res(null);
+    Papa.parse(url, { download: true, header: true, skipEmptyLines: true, complete: r => res((r.data || []).filter(ok).length), error: () => res(null) });
+  });
+  document.addEventListener("DOMContentLoaded", () => {
+    countSheet(MUSIC_CSV, r => Boolean((r.Artista || "").trim() && (r.Album || "").trim())).then(c => {
+      if (c !== null) document.getElementById("count-musica").textContent = c;
+    });
+    countSheet(COMICS_CSV, r => Boolean((r.Serie || r.Franquicia || "").trim())).then(c => {
+      if (c !== null) document.getElementById("count-comics").textContent = c;
+    });
+  });
+})();
+</script>
+
+<script>
+/* Carrito por WhatsApp */
+(() => {
+  const NUMERO = "5493584283858";
+  const CLAVE = "leviatan_pedido_v2";
+  const MONEDA = "ARS";
+  const MULTIPLICADOR = 1000;
+  const SHEET_CD = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=0&single=true&output=csv";
+  const PROXY = "https://leviatan-portadas.f-g-spratt.workers.dev";
+
+  let pedido = [];
+  try { pedido = JSON.parse(localStorage.getItem(CLAVE) || "[]"); } catch { pedido = []; }
+
+  const guardar = () => localStorage.setItem(CLAVE, JSON.stringify(pedido));
+  const plata = n => new Intl.NumberFormat("es-AR", { style: "currency", currency: MONEDA, maximumFractionDigits: 0 }).format(Number(n));
+  const esc = t => String(t ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+  function precioNum(v) {
+    let t = String(v ?? "").replace(/[^0-9,.-]/g, "");
+    if (!t) return null;
+    if (/^-?\d{1,3}[.,]\d{3}$/.test(t)) t = t.replace(/[.,]/g, "");
+    else if (t.includes(",")) t = t.replace(/\./g, "").replace(",", ".");
+    const n = Number(t);
+    return Number.isFinite(n) && n > 0 ? Math.round(n < 1000 ? n * MULTIPLICADOR : n) : null;
+  }
+  const claveDe = (a, b) => (a + "___" + b).toLowerCase().trim();
+
+  function agregar(item) { if (!pedido.some(p => p.clave === item.clave)) { pedido.push(item); guardar(); pintar(); } }
+  const quitar = clave => { pedido = pedido.filter(p => p.clave !== clave); guardar(); pintar(); };
+
+  function pintar() {
+    const caja = document.getElementById("carrito-lineas");
+    const cuenta = document.getElementById("carrito-cuenta");
+    const totalEl = document.getElementById("carrito-total");
+    const enviar = document.getElementById("carrito-enviar");
+    const badge = document.getElementById("carrito-badge");
+
+    if (badge) {
+      badge.classList.toggle("visible", pedido.length > 0);
+      badge.querySelector("b").textContent = pedido.length;
+    }
+    if (cuenta) cuenta.textContent = pedido.length + (pedido.length === 1 ? " ÍTEM" : " ÍTEMS");
+    caja.innerHTML = pedido.length
+      ? pedido.map(p => `<div class="carrito__linea"><span><strong>${esc(p.artista)}</strong> — ${esc(p.album)}</span><span class="monto">${plata(p.precio)}</span><button class="carrito__quitar" data-quitar="${esc(p.clave)}" aria-label="Quitar ${esc(p.artista)}">✕</button></div>`).join("")
+      : '<div class="carrito__vacia">Todavía no agregaste nada.</div>';
+    const total = pedido.reduce((a, p) => a + p.precio, 0);
+    totalEl.textContent = pedido.length ? plata(total) : "—";
+    if (pedido.length) {
+      enviar.classList.remove("off");
+      const texto = "Hola, quiero reservar este pedido de Leviatán:\n\n"
+        + pedido.map((p, i) => `${i + 1}. ${p.artista} — ${p.album}${p.estado ? " (" + p.estado + ")" : ""} — ${plata(p.precio)}`).join("\n")
+        + `\n\nTotal: ${plata(total)}\n\n¿Está disponible?`;
+      enviar.href = "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(texto);
+    } else { enviar.classList.add("off"); enviar.removeAttribute("href"); }
+    document.querySelectorAll("[data-agregar]").forEach(b => {
+      const dentro = pedido.some(p => p.clave === b.dataset.agregar);
+      b.disabled = dentro;
+      b.textContent = dentro ? "EN EL CARRITO" : "AGREGAR";
+    });
+  }
+
+  document.addEventListener("click", e => {
+    const add = e.target.closest("[data-agregar]");
+    if (add) agregar({
+      clave: add.dataset.agregar,
+      artista: add.dataset.artista || "",
+      album: add.dataset.album || "",
+      estado: add.dataset.estado || "",
+      precio: Number(add.dataset.precio) || 0
+    });
+    const q = e.target.closest("[data-quitar]");
+    if (q) quitar(q.dataset.quitar);
+  });
+  document.getElementById("carrito-vaciar").addEventListener("click", () => { pedido = []; guardar(); pintar(); });
+
+  async function portada(artista, album) {
+    try {
+      const r = await fetch(PROXY + "?artist=" + encodeURIComponent(artista) + "&album=" + encodeURIComponent(album));
+      if (!r.ok) return null;
+      return (await r.json()).cover || null;
+    } catch { return null; }
+  }
+
+  function destacados() {
+    const caja = document.getElementById("destacados");
+    if (!window.Papa) return;
+    Papa.parse(SHEET_CD, {
+      download: true, header: true, skipEmptyLines: true,
+      complete: r => {
+        let items = (r.data || []).filter(x => (x.Artista || "").trim() && (x.Album || "").trim());
+        const conPrecio = items.filter(x => precioNum(x.Precio));
+        if (conPrecio.length >= 4) items = conPrecio;
+        for (let i = items.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [items[i], items[j]] = [items[j], items[i]]; }
+        const lote = items.slice(0, 8);
+        caja.innerHTML = lote.map(x => {
+          const p = precioNum(x.Precio) || 0;
+          const clave = claveDe(x.Artista, x.Album);
+          return `<article class="mini">
+            <img class="mini__img" data-key="${esc(clave)}" src="img/sin-portada.png" alt="${esc(x.Artista)} - ${esc(x.Album)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.src='img/sin-portada.png'">
+            <div class="mini__cuerpo">
+              <div class="mini__artista">${esc(x.Artista)}</div>
+              <div class="mini__album">${esc(x.Album)}</div>
+              <div class="mini__datos">${esc(x["Año de lanzamiento"] || "")} · ${esc(x.Estado || "")}</div>
+              <div class="mini__precio">${p ? plata(p) : "Consultar"}</div>
+              <button class="btn-agregar" data-agregar="${esc(clave)}" data-artista="${esc(x.Artista)}" data-album="${esc(x.Album)}" data-estado="${esc(x.Estado || "")}" data-precio="${p}">AGREGAR</button>
+            </div></article>`;
+        }).join("");
+        pintar();
+        (async () => {
+          for (const x of lote) {
+            const url = await portada(x.Artista, x.Album);
+            if (!url) continue;
+            const img = caja.querySelector(`img[data-key="${CSS.escape(claveDe(x.Artista, x.Album))}"]`);
+            if (img) { img.referrerPolicy = "no-referrer"; img.src = url; }
+            await new Promise(s => setTimeout(s, 900));
+          }
+        })();
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => { pintar(); destacados(); });
+})();
+</script>
+
+</body>
+</html>
