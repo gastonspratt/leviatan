@@ -1,0 +1,305 @@
+/* ============================================================
+   LEVIATÁN · CAPA UNIFICADORA — se carga ÚLTIMA en todas las páginas.
+   Fase 1: redirige todas las variables legacy a la paleta del sistema
+   y corrige los colores hardcodeados que se escaparon de los :root.
+   Fase 2: absorber estas reglas a la base y borrar los archivos viejos.
+
+   PALETA: hueso #EFECE6 · grafito #1A1C19 · verde instrumento #2F4438
+   Óxido #A5402A: alarma única (punto del emblema). Nunca acento general.
+   ============================================================ */
+
+:root {
+  /* —— Sistema —— */
+  --hueso: #EFECE6;
+  --papel: #E4E6DF;
+  --grafito: #1A1C19;
+  --verde: #2F4438;
+  --verde-claro: #93AB9D;
+  --oxido: #A5402A;
+
+  /* —— legacy: estilos.css —— */
+  --fondo: #0d0f0d;
+  --fondo-2: #101211;
+  --fondo-3: #141614;
+  --panel: #121412;
+  --panel-2: #161a16;
+  --panel-3: #1a201b;
+  --metal: #9a9d95;
+  --metal-claro: #E4E6DF;
+  --metal-oscuro: #6f726b;
+  --azul: #232f28;
+  --azul-2: #2F4438;
+  --azul-3: #3A5548;
+  --cian: #93AB9D;
+  --rojo: #2F4438;
+  --rojo-hover: #3A5548;
+  --borde: rgba(228,230,223,.15);
+  --borde-2: rgba(228,230,223,.25);
+  --borde-oscuro: rgba(228,230,223,.08);
+  --texto: #EFECE6;
+  --texto-2: #c9ccc4;
+  --texto-3: #9a9d95;
+  --texto-4: #6f726b;
+  --radio: 0px;
+
+  /* —— legacy: agenda.css —— */
+  --ag-bg: #101211;
+  --ag-panel: #121412;
+  --ag-panel-2: #1a201b;
+  --ag-line: rgba(228,230,223,.12);
+  --ag-text: #EFECE6;
+  --ag-muted: #9a9d95;
+  --ag-red: #2F4438;
+  --ag-red-dark: #1e2b23;
+  --ag-gold: #93AB9D;
+
+  /* —— legacy: catalogos-acuaticos.css —— */
+  --lv-bg: #0d0f0d;
+  --lv-bg-soft: #101211;
+  --lv-panel: #121412;
+  --lv-panel-2: #1a201b;
+  --lv-metal: #9a9d95;
+  --lv-metal-light: #E4E6DF;
+  --lv-metal-dark: #6f726b;
+  --lv-petrol: #232f28;
+  --lv-petrol-2: #2F4438;
+  --lv-teal: #3A5548;
+  --lv-cyan: #93AB9D;
+  --lv-line: rgba(228,230,223,.14);
+  --lv-line-light: rgba(228,230,223,.16);
+  --lv-text: #EFECE6;
+  --lv-muted: #9a9d95;
+}
+
+/* ============ SELECCIÓN Y SCROLLBAR ============ */
+::selection { background: #2F4438; color: #EFECE6; }
+::-webkit-scrollbar-track { background: #0d0f0d; }
+::-webkit-scrollbar-thumb { background: #2c332d; }
+::-webkit-scrollbar-thumb:hover { background: #3A5548; }
+
+/* ============ HEADER (estilos.css / catalogos) ============ */
+header::after,
+.catalog-page header::after,
+.footer::before,
+.catalog-page .footer::before {
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(147,171,157,.5) 24%,
+    rgba(147,171,157,.14) 52%,
+    rgba(147,171,157,.4) 78%,
+    transparent);
+  opacity: .5;
+}
+
+/* ============ HÉROES — gradientes viejos a grafito/verde ============ */
+.hero,
+.agenda-hero,
+.catalog-hero,
+.editorial-hero {
+  background:
+    radial-gradient(ellipse at 76% 45%, rgba(47,68,56,.30), transparent 40%),
+    linear-gradient(115deg, #0d0f0d 0%, #141614 57%, #161b17 100%);
+  border-bottom: 1px solid rgba(147,171,157,.3);
+}
+
+/* énfasis del titular: verde claro, sin caja de fondo */
+.editorial-hero h1 em,
+.agenda-hero h2 em,
+.catalog-hero h1 em {
+  color: var(--verde-claro);
+  font-style: normal;
+  background: none;
+  padding: 0;
+}
+
+/* el punto del eyebrow: óxido con anillo, sin glow de neón */
+.editorial-eyebrow__dot,
+.agenda-eyebrow__dot,
+.catalog-eyebrow__dot {
+  background: var(--oxido);
+  box-shadow: 0 0 0 3px rgba(165,64,42,.28);
+}
+
+/* marcas de la línea inferior: verde claro, no alarma */
+.editorial-hero__bottomline-mark,
+.agenda-hero__bottomline-mark,
+.catalog-hero__bottomline-mark { color: var(--verde-claro); }
+
+/* líneas laterales verticales del hero */
+.editorial-hero__side-line,
+.agenda-hero__side-line,
+.catalog-hero__side-line { background: var(--verde-claro); }
+
+/* CTAs de hero: verde sólido, sin degradado tech */
+.editorial-hero__cta,
+.agenda-hero__cta,
+.catalog-hero__cta {
+  background: var(--verde);
+  border-color: rgba(228,230,223,.4);
+  color: #EFECE6;
+}
+.editorial-hero__cta:hover,
+.agenda-hero__cta:hover,
+.catalog-hero__cta:hover {
+  background: #3A5548;
+}
+
+/* ============ AGENDA (hardcodeados de agenda.css) ============ */
+.agenda-live-label { border-color: rgba(147,171,157,.4); color: #b9c9bd; }
+.agenda-live-label span { background: var(--oxido); box-shadow: none; }
+
+.agenda-next__card {
+  border-color: rgba(147,171,157,.35);
+  background: linear-gradient(110deg, rgba(47,68,56,.16), rgba(255,255,255,.015) 42%), var(--ag-panel);
+}
+
+.agenda-card:hover { border-color: rgba(147,171,157,.5); background-color: #1a201b; }
+.agenda-card__rule { background: var(--verde); }
+.agenda-card__type--nacional { border-color: rgba(147,171,157,.4); color: var(--verde-claro); }
+.agenda-filter:hover { border-color: rgba(147,171,157,.5); }
+.agenda-search { background: #0e100e; }
+.agenda-search input { color: #EFECE6; }
+.agenda-note { background: #0e100e; border-left-color: var(--verde); }
+.agenda-note__symbol { border-color: var(--verde-claro); color: var(--verde-claro); }
+.agenda-update strong { color: var(--verde-claro); }
+.agenda-empty button { background: var(--verde); }
+
+/* ============ CATÁLOGOS (hardcodeados de catalogos-acuaticos.css) ============ */
+.catalog-search { border-color: rgba(228,230,223,.2); background: #0e100e; }
+.catalog-search:focus-within { border-color: var(--verde-claro); box-shadow: 0 0 0 3px rgba(147,171,157,.12); }
+.catalog-search__icon { color: var(--verde-claro); }
+.catalog-search input { color: #EFECE6; }
+
+.catalog-page .card,
+.catalog-page .libro-card {
+  background: linear-gradient(145deg, rgba(47,68,56,.10), transparent 58%), var(--lv-panel);
+}
+.catalog-page .card::before { background: linear-gradient(90deg, #232f28, #3A5548, #232f28); }
+.catalog-page .card:hover,
+.catalog-page .libro-card:hover { border-color: rgba(147,171,157,.5); }
+.catalog-page .card img,
+.catalog-page .libro-portada {
+  background: radial-gradient(circle, rgba(147,171,157,.08), transparent 65%), #0c0e0c;
+}
+.catalog-page .btn-whatsapp,
+.catalog-page .libro-whatsapp,
+.figure-feature__copy a {
+  border-color: rgba(147,171,157,.45);
+  background: var(--verde);
+  color: #EFECE6;
+}
+.catalog-page .btn-whatsapp:hover,
+.catalog-page .libro-whatsapp:hover,
+.figure-feature__copy a:hover { background: #3A5548; }
+.catalog-page .catalog-search-panel { border-top-color: var(--verde); }
+.figure-feature { border-color: rgba(147,171,157,.3); background: radial-gradient(ellipse at 12% 50%, rgba(47,68,56,.16), transparent 48%), var(--lv-panel); }
+.figure-feature__mark { border-color: rgba(228,230,223,.14); }
+.catalog-page .sin-resultados,
+.catalog-page .libros-vacio { border-color: rgba(147,171,157,.3); }
+
+/* ============ ESTILOS.CSS (restos hardcodeados) ============ */
+body { background: var(--fondo); }
+body::before { opacity: .02; }
+
+.card { border-radius: 0; }
+.card::before { background: linear-gradient(90deg, #232f28, #3A5548, #232f28); }
+.card img { background: radial-gradient(circle at center, rgba(147,171,157,.07), transparent 58%), #0c0e0c; }
+.card:hover { border-color: #3A5548; }
+.card button { border-color: rgba(147,171,157,.4); background: var(--verde); }
+.card button:hover { background: #3A5548; border-color: var(--verde-claro); }
+.card h3 { color: #E4E6DF; }
+
+.precio,
+.precio-bonificado {
+  background: linear-gradient(180deg, var(--papel), #c9c6bc);
+  color: #1A1C19;
+  transform: none;
+  box-shadow: 2px 3px 0 rgba(0,0,0,.3);
+}
+.precio-tachado { color: #6f726b; }
+
+.bonificacion-tag { background: var(--verde); }
+.ovnipress-tag { background: var(--oxido); }
+
+.btn-whatsapp {
+  border-color: rgba(147,171,157,.45);
+  background: var(--verde);
+  color: #EFECE6;
+}
+.btn-whatsapp:hover { background: #3A5548; border-color: var(--verde-claro); transform: none; }
+
+/* Manifiesto / Nosotros (estilos.css) */
+.manifiesto h2::before { color: var(--verde-claro); }
+.manifiesto h2::after { background: var(--verde); }
+.manifiesto p:first-of-type {
+  background: linear-gradient(135deg, rgba(47,68,56,.14), rgba(255,255,255,.015) 65%);
+  border-top-color: #2F4438;
+  border-bottom-color: rgba(47,68,56,.6);
+}
+.manifiesto p:nth-of-type(2),
+.manifiesto p:nth-of-type(3),
+.manifiesto p:nth-of-type(4),
+.manifiesto p:nth-of-type(5) {
+  background: linear-gradient(135deg, #121412, #101211);
+  border-color: rgba(228,230,223,.14);
+  border-left-color: #3A5548;
+}
+.manifiesto p:nth-of-type(2)::before,
+.manifiesto p:nth-of-type(3)::before,
+.manifiesto p:nth-of-type(4)::before,
+.manifiesto p:nth-of-type(5)::before { color: #7d8f83; }
+.manifiesto p:nth-of-type(8) {
+  background: linear-gradient(135deg, #1a201b, #121412);
+  border-color: rgba(147,171,157,.3);
+}
+.manifiesto p:nth-of-type(8)::before { color: var(--oxido); }
+
+/* Agenda vieja (estilos.css) */
+.filtro-btn { border-color: rgba(228,230,223,.18); background: #101211; color: #a8aba3; }
+.filtro-btn:hover { border-color: #3A5548; }
+.filtro-btn.activo { background: var(--verde); border-color: var(--verde); }
+.agenda-mes h3 { color: var(--verde-claro); border-bottom-color: rgba(228,230,223,.15); }
+.agenda-mes h3::after { background: rgba(228,230,223,.1); }
+.agenda-card { background: #121412; border-color: rgba(228,230,223,.15); border-radius: 0; }
+.agenda-card.destacado { border-color: var(--oxido); box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+.agenda-card-fecha { background: #0c0e0c; border-right-color: rgba(228,230,223,.12); }
+.agenda-card-fecha .mes { color: var(--oxido); }
+.btn-entradas { background: var(--verde); border-radius: 0; }
+.btn-entradas:hover { background: #3A5548; }
+.genero-tag { border-color: rgba(228,230,223,.18); background: #161a16; color: #9a9d95; border-radius: 0; }
+
+/* Footer */
+.footer { background: linear-gradient(180deg, #101211, #0d0f0d); border-top-color: rgba(228,230,223,.15); }
+.footer-links a:hover { background: #1a201b; border-color: rgba(147,171,157,.3); }
+
+/* ============ INTERNAS (internas.css) ============ */
+.seccion-extra { background: #101211; color: #EFECE6; }
+.etiqueta-seccion { color: var(--verde-claro); }
+.noticia-card,
+.agenda-vacia { background: #121412; border-color: rgba(228,230,223,.15); border-radius: 0; }
+.noticia-card:hover { border-color: rgba(147,171,157,.5); background: #1a201b; }
+.noticia-card p,
+.agenda-vacia p { color: #a8aba3; }
+
+/* ============ COMPONENTE NUEVO: TRAZO POR GRADO ============
+   Trazo sismográfico compartido. La horizontal base, el peso de
+   tinta y la legibilidad no se descontrolan nunca.           */
+.trazo { display: block; width: 100%; height: auto; }
+.trazo path { fill: none; stroke: var(--hueso); stroke-width: 3; }
+.trazo--g1 path { stroke-width: 2.4; }
+.trazo circle { fill: var(--oxido); }
+
+/* Grado 4: el trazo rompe el margen (overflow del contenedor) */
+.trazo--g4 { overflow: visible; }
+.trazo--g4 path { stroke-width: 3.5; }
+
+/* El punto como objeto físico (grado 4+): reemplaza al circle
+   por un span .punto-objeto con sombra real sobre la escena   */
+.punto-objeto {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #c96a4f, var(--oxido) 55%, #7c2f1d);
+  box-shadow: 2px 3px 5px rgba(0,0,0,.6);
+}
