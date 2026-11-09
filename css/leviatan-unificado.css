@@ -1,760 +1,389 @@
-/* ============================================================
-   LEVIATÁN · HOJA BASE ÚNICA
-   Un formato para todo el sitio. Cada página aporta solo:
-   su título de hero y su grado de trazo (variable --grado).
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leviatán | Música pesada, cómics y libros · General Cabrera</title>
+<meta name="description" content="Dos bateas: discos pesados y tomos para revolver despacio. General Cabrera, Córdoba. Envíos a todo el país.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tiendaleviatan.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Leviatán">
+<meta property="og:title" content="Leviatán | Música pesada, cómics y libros">
+<meta property="og:description" content="Dos bateas: discos pesados y tomos para revolver despacio.">
+<meta property="og:url" content="https://tiendaleviatan.com/">
+<meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/leviatan.css">
 
-   PALETA  hueso #EFECE6 · papel #E4E6DF · grafito #1A1C19
-           verde instrumento #2F4438 · óxido #A5402A (alarma única)
-   TIPO    Oswald: titulares y datos · Inter: cuerpo
-   REGLA   La horizontal de la base, el peso de tinta y la
-           legibilidad nunca se descontrolan.
-   ============================================================ */
+<style>
+/* Único bloque propio del home: reproductor flotante y grilla de colecciones.
+   Todo lo demás viene de leviatan.css. */
+.reproductor-flotante{position:fixed;right:18px;bottom:18px;z-index:998}
+#boton-musica{width:46px;height:46px;border:1px solid rgba(147,171,157,.5);border-radius:50%;background:#121412;color:#93AB9D;font-size:1.1rem}
+#boton-musica.reproduciendo{background:#2F4438;color:#EFECE6}
+.colecciones{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.coleccion{position:relative;display:flex;flex-direction:column;min-height:170px;padding:21px;border:1px solid var(--linea);background:linear-gradient(145deg,rgba(47,68,56,.10),transparent 58%),var(--panel);transition:border-color .2s ease,background .2s ease}
+.coleccion:hover{border-color:rgba(147,171,157,.5);background:linear-gradient(145deg,rgba(47,68,56,.18),transparent 58%),var(--panel-alto)}
+.coleccion small{color:var(--verde-claro);font-size:.58rem;font-weight:900;letter-spacing:.18em}
+.coleccion h3{margin:14px 0 7px;color:var(--papel);font-family:var(--tt);font-size:1.5rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase}
+.coleccion p{color:var(--texto-3);font-size:.8rem;line-height:1.6}
+.coleccion span{margin-top:auto;padding-top:14px;color:var(--verde-claro);font-size:.72rem;letter-spacing:.14em}
+@media(max-width:900px){.colecciones{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.colecciones{grid-template-columns:1fr}}
+</style>
 
-:root {
-  --hueso: #EFECE6;
-  --papel: #E4E6DF;
-  --grafito: #1A1C19;
-  --fondo: #0d0f0d;
-  --panel: #121412;
-  --panel-alto: #1a201b;
-  --linea: rgba(228,230,223,.13);
-  --verde: #2F4438;
-  --verde-hover: #3A5548;
-  --verde-claro: #93AB9D;
-  --oxido: #A5402A;
-  --texto: #EFECE6;
-  --texto-2: #c9ccc4;
-  --texto-3: #9a9d95;
-  --texto-4: #6f726b;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
 
-  --tt: "Oswald", "Arial Narrow", sans-serif;
-  --tc: "Inter", Arial, sans-serif;
+<body>
 
-  --ancho: 1200px;
-  --wrap: min(1120px, calc(100% - 48px));
-  --pad-hero: 76px max(6vw, calc((100vw - var(--ancho)) / 2)) 88px;
-}
+<header>
+  <a class="marca" href="index.html" aria-label="Leviatán - Inicio" aria-current="page">
+    <svg viewBox="0 0 232 100" aria-hidden="true">
+      <path d="M2 50 L66 50 L74 50 L80 34 L88 62 L96 20 L106 82 L114 41 L122 58 L130 50 L230 50" fill="none" stroke="#EFECE6" stroke-width="5"/>
+      <circle cx="96" cy="82" r="9" fill="#A5402A"/>
+    </svg>
+    <span>
+      <span class="marca__nombre">LEVIATÁN</span>
+      <span class="marca__sub">FEDERICO SPRATT</span>
+    </span>
+  </a>
+  <nav aria-label="Navegación principal">
+    <a href="index.html" aria-current="page">Inicio</a>
+    <a href="musica.html">Música</a>
+    <a href="comics.html">Cómics</a>
+    <a href="libros.html">Libros</a>
+    <a href="figuras.html">Objetos</a>
+    <a href="noticias.html">Noticias</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="contacto.html">Contacto</a>
+    <a class="carrito-badge" id="carrito-badge" href="#carrito">CARRITO <b>0</b></a>
+  </nav>
+</header>
 
-/* ============ 01 · RESET ============ */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; background: var(--fondo); }
-body {
-  min-height: 100vh;
-  background: var(--fondo);
-  color: var(--texto);
-  font-family: var(--tc);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-a { color: inherit; text-decoration: none; }
-img { display: block; max-width: 100%; }
-button, input, select, textarea { font: inherit; }
-button { cursor: pointer; }
-::selection { background: var(--verde); color: var(--hueso); }
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: #0a0c0a; }
-::-webkit-scrollbar-thumb { background: #2c332d; border: 2px solid #0a0c0a; }
-::-webkit-scrollbar-thumb:hover { background: var(--verde-hover); }
+<main>
 
-/* grano de fotocopia global */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  pointer-events: none;
-  opacity: .025;
-  background: repeating-linear-gradient(0deg, rgba(255,255,255,.55) 0 1px, transparent 1px 5px);
-  mix-blend-mode: screen;
-}
+  <!-- HERO · grado 2 -->
+  <section class="hero" aria-labelledby="home-title">
+    <div class="hero__texture" aria-hidden="true"></div>
+    <div class="hero__content">
+      <span class="eyebrow"><span class="eyebrow__dot"></span> GENERAL CABRERA · CÓRDOBA</span>
+      <h1 id="home-title">DOS BATEAS.<br><em>SE REVUELVEN IGUAL: DESPACIO.</em></h1>
+      <p class="hero__lead">Un cajón de discos pesados y uno de tomos. Cada disco es único: si dos lo piden, se lo queda quien confirme primero.</p>
+      <a class="hero__cta" href="#colecciones">REMOVÉ LA BATEA <span aria-hidden="true">↓</span></a>
+      <svg class="hero__trazo" viewBox="0 0 700 110" aria-hidden="true">
+        <path d="M0 55 H180 L206 55 L218 29 L232 69 L248 7 L268 102 L286 38 L302 66 L318 55 H700"/>
+        <circle cx="268" cy="102" r="7"/>
+      </svg>
+    </div>
+    <div class="hero__bottomline" aria-hidden="true">
+      <span>MÚSICA PARA ENCONTRAR</span>
+      <span class="hero__bottomline-mark">·</span>
+      <span>HISTORIAS PARA LEER</span>
+      <span class="hero__bottomline-mark">·</span>
+      <span>OBJETOS PARA COLECCIONAR</span>
+    </div>
+  </section>
 
-/* ============ 02 · HEADER ============ */
-header {
-  position: fixed;
-  top: 0; left: 0; width: 100%;
-  min-height: 82px;
-  padding: 0 38px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 30px;
-  background: rgba(13,15,13,.97);
-  border-bottom: 1px solid var(--linea);
-  backdrop-filter: blur(9px);
-  z-index: 999;
-}
+  <div class="wrap" style="padding-top:26px">
+    <div class="agenda-note">
+      <span class="agenda-note__symbol" aria-hidden="true">✳</span>
+      <div>
+        <h2>EN CONFIANZA</h2>
+        <p>Envíos a todo el país · fotos reales de cada unidad · retiro en General Cabrera.</p>
+      </div>
+    </div>
+  </div>
 
-.marca { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.marca svg { width: 66px; height: auto; }
-.marca__nombre {
-  display: block;
-  font-family: var(--tt);
-  font-size: 1.45rem;
-  font-weight: 600;
-  letter-spacing: .07em;
-  line-height: 1;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.marca__sub {
-  display: block;
-  margin-top: 5px;
-  font-family: var(--tt);
-  font-size: .54rem;
-  letter-spacing: .2em;
-  color: var(--texto-4);
-  text-transform: uppercase;
-  white-space: nowrap;
-}
+  <!-- COLECCIONES -->
+  <section class="seccion wrap" id="colecciones" aria-labelledby="collections-title">
+    <div class="cabecera-seccion">
+      <div>
+        <span class="kicker">Explorá Leviatán</span>
+        <h2 id="collections-title">ENTRÁ A NUESTRAS COLECCIONES</h2>
+      </div>
+      <p>Elegí una sección y revolvé lo que tenemos disponible.</p>
+    </div>
 
-nav { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 3px; flex: 1; }
-nav a {
-  position: relative;
-  padding: 9px 11px 8px;
-  color: var(--texto-3);
-  font-size: .84rem;
-  letter-spacing: .03em;
-  text-transform: uppercase;
-  transition: color .2s ease, background .2s ease;
-}
-nav a::before {
-  content: "";
-  position: absolute;
-  left: 9px; bottom: 4px;
-  width: 5px; height: 1px;
-  background: var(--verde-claro);
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: .2s ease;
-}
-nav a:hover { color: var(--hueso); background: rgba(47,68,56,.3); }
-nav a:hover::before { opacity: 1; transform: translateX(0); }
-nav a[aria-current="page"] { color: var(--hueso); }
+    <div class="colecciones">
+      <a class="coleccion" href="musica.html">
+        <small>01 / SONIDO</small><h3>Música</h3>
+        <p>CDs originales y ediciones para quienes disfrutan buscar y coleccionar.</p>
+        <span>VER CATÁLOGO →</span>
+      </a>
+      <a class="coleccion" href="comics.html">
+        <small>02 / HISTORIETAS</small><h3>Cómics</h3>
+        <p>Tomos, novelas gráficas y series completas.</p>
+        <span>VER CATÁLOGO →</span>
+      </a>
+      <a class="coleccion" href="libros.html">
+        <small>03 / LECTURAS</small><h3>Libros</h3>
+        <p>Autores, editoriales y lecturas seleccionadas.</p>
+        <span>VER CATÁLOGO →</span>
+      </a>
+      <a class="coleccion" href="figuras.html">
+        <small>04 / OBJETOS</small><h3>Objetos</h3>
+        <p>Figuras y otros objetos para sumar a tu colección.</p>
+        <span>VER CATÁLOGO →</span>
+      </a>
+      <a class="coleccion" href="noticias.html">
+        <small>05 / ACTUALIDAD</small><h3>Noticias</h3>
+        <p>Ferias, actividades, novedades y proyectos.</p>
+        <span>LEER →</span>
+      </a>
+      <a class="coleccion" href="agenda.html">
+        <small>06 / EN VIVO</small><h3>Agenda</h3>
+        <p>Recitales, giras y festivales de rock y metal en Argentina.</p>
+        <span>VER FECHAS →</span>
+      </a>
+    </div>
+  </section>
 
-/* badge de carrito */
-.carrito-badge {
-  display: none;
-  align-items: center;
-  gap: 7px;
-  padding: 7px 12px;
-  border: 1px solid rgba(147,171,157,.5);
-  background: rgba(47,68,56,.4);
-  color: var(--papel);
-  font-family: var(--tt);
-  font-size: .72rem;
-  letter-spacing: .12em;
-}
-.carrito-badge.visible { display: inline-flex; }
-.carrito-badge b { color: var(--verde-claro); }
+  <!-- ÚLTIMOS INGRESOS -->
+  <section class="seccion wrap" id="ultimos" aria-labelledby="ultimos-title">
+    <div class="cabecera-seccion">
+      <div>
+        <span class="kicker">Recién cargado en la batea</span>
+        <h2 id="ultimos-title">ÚLTIMOS INGRESOS</h2>
+      </div>
+      <p>Armá el carrito y lo mandás por WhatsApp. Confirmamos stock y estado uno por uno.</p>
+    </div>
 
-/* ============ 03 · HERO (común a todas las páginas) ============ */
-.hero {
-  position: relative;
-  margin-top: 82px;
-  min-height: 470px;
-  display: flex;
-  align-items: center;
-  isolation: isolate;
-  overflow: hidden;
-  padding: var(--pad-hero);
-  background:
-    radial-gradient(ellipse at 76% 45%, rgba(47,68,56,.30), transparent 40%),
-    linear-gradient(115deg, var(--fondo) 0%, #141614 57%, #161b17 100%);
-  border-bottom: 1px solid rgba(147,171,157,.3);
-}
-.hero__texture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  opacity: .16;
-  background-image: repeating-linear-gradient(135deg, transparent 0 17px, rgba(228,230,223,.06) 18px, transparent 19px 37px);
-  -webkit-mask-image: linear-gradient(90deg, #000, transparent 83%);
-  mask-image: linear-gradient(90deg, #000, transparent 83%);
-}
-.hero__content { max-width: 790px; position: relative; z-index: 1; padding-top: 10px; }
+    <div class="destacados__grid" id="destacados"></div>
 
-.eyebrow, .kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--verde-claro);
-  font-size: .72rem;
-  font-weight: 800;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-}
-.eyebrow__dot {
-  width: 9px; height: 9px;
-  border-radius: 50%;
-  background: var(--oxido);
-  box-shadow: 0 0 0 3px rgba(165,64,42,.28);
-}
+    <div class="carrito" id="carrito">
+      <div class="carrito__cab"><b>CARRITO</b><span id="carrito-cuenta">0 ÍTEMS</span></div>
+      <div id="carrito-lineas"></div>
+      <div class="carrito__total"><span>TOTAL</span><span id="carrito-total">—</span></div>
+      <div class="carrito__acciones">
+        <a class="carrito__enviar off" id="carrito-enviar">ENVIAR PEDIDO POR WHATSAPP</a>
+        <button class="carrito__vaciar" id="carrito-vaciar" type="button">VACIAR</button>
+      </div>
+      <p class="carrito__nota">Los discos son únicos: si dos personas piden el mismo, se lo queda quien confirme primero. El envío se cotiza aparte.</p>
+    </div>
+  </section>
 
-.hero h1, .hero h2 {
-  margin: 24px 0 18px;
-  max-width: 850px;
-  color: var(--hueso);
-  font-family: var(--tt);
-  font-size: clamp(2.9rem, 6.5vw, 5.4rem);
-  line-height: .97;
-  letter-spacing: -.02em;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-.hero h1 em, .hero h2 em { color: var(--verde-claro); font-style: normal; }
+  <!-- HISTORIA -->
+  <section class="seccion wrap" aria-labelledby="home-story-title">
+    <div class="tarjeta-destacada" style="padding:36px">
+      <span class="kicker">Un nombre heredado</span>
+      <h2 id="home-story-title" style="margin:12px 0 18px;font-family:var(--tt);font-size:clamp(2.2rem,4.5vw,3.6rem);line-height:.97;color:var(--papel);text-transform:uppercase">
+        ME LLAMO FEDERICO SPRATT.<br><em style="color:var(--verde-claro);font-style:normal">IGUAL QUE MI VIEJO.</em>
+      </h2>
+      <p style="max-width:760px;color:var(--texto-2);line-height:1.8;margin-bottom:14px">
+        En el under del metal argentino ese nombre dice algo: el Parque Rivadavia, las disquerías Rainbow y Excalibur del centro porteño, la revista <em>Madhouse</em>, Schizophrenia. Alguien que apostaba siempre por las bandas menos conocidas, por lo raro. Y que te echaba del negocio si le decías que los Beatles eran mejores que Black Sabbath, o si te burlabas de Ferro. O te cagaba a trompadas.
+      </p>
+      <p style="max-width:760px;color:var(--texto-2);line-height:1.8;margin-bottom:14px">
+        A mí, entre Black Sabbath y los Beatles, me quedo con Deep Purple. Pero no te metas con Ferro.
+      </p>
+      <p style="max-width:760px;color:var(--texto-2);line-height:1.8;margin-bottom:24px">
+        <strong style="color:var(--hueso)">De ahí viene el criterio de esta batea. No de la sangre.</strong>
+      </p>
+      <a class="btn btn--lleno" href="nosotros.html">CONOCÉ LA HISTORIA <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+</main>
 
-.hero__lead {
-  max-width: 590px;
-  color: var(--texto-2);
-  font-size: 1.02rem;
-  line-height: 1.75;
-}
+<footer class="footer">
+  <div class="footer-content">
+    <h2>LEVIATÁN</h2>
+    <p class="slogan">DOS BATEAS. SE REVUELVEN IGUAL: DESPACIO.</p>
+    <div class="footer-links">
+      <p><a href="https://tiendaleviatan.com/">tiendaleviatan.com</a></p>
+      <p><a href="https://instagram.com/tiendaleviatan" target="_blank" rel="noopener noreferrer">@tiendaleviatan</a></p>
+      <p><a href="mailto:tiendaleviatan@proton.me">tiendaleviatan@proton.me</a></p>
+      <p><a href="https://wa.me/5493584283858" target="_blank" rel="noopener">WhatsApp</a></p>
+    </div>
+    <div class="footer-locations">
+      <p>General Cabrera, Córdoba · Caballito, Buenos Aires</p>
+      <p>Envíos a todo el país.</p>
+    </div>
+    <p class="copyright">&copy; 2026 Leviatán · Federico Spratt</p>
+    <a class="editorial-backtop" href="#home-title">VOLVER ARRIBA ↑</a>
+  </div>
+</footer>
 
-/* el trazo: un solo path + un punto. El grado se setea con la variable */
-.hero__trazo {
-  display: block;
-  width: min(760px, 100%);
-  height: auto;
-  margin-top: 30px;
-  overflow: visible;
-}
-.hero__trazo path { fill: none; stroke: var(--hueso); stroke-width: 3; }
-.hero__trazo circle { fill: var(--oxido); }
+<div class="reproductor-flotante">
+  <button id="boton-musica" type="button" aria-label="Reproducir música" title="Reproducir música">♫</button>
+  <audio id="audio-leviatan" preload="metadata">
+    <source src="audio/Pacto_de_Acero.mp3" type="audio/mpeg">
+  </audio>
+</div>
 
-.hero__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 22px;
-  margin-top: 29px;
-  padding: 14px 19px;
-  background: var(--verde);
-  color: var(--hueso);
-  font-size: .72rem;
-  font-weight: 900;
-  letter-spacing: .14em;
-  transition: transform .2s ease, background .2s ease;
-}
-.hero__cta:hover { transform: translateY(-3px); background: var(--verde-hover); }
+<script>
+/* Reproductor */
+const botonMusica = document.getElementById("boton-musica");
+const audioLeviatan = document.getElementById("audio-leviatan");
+botonMusica.addEventListener("click", async () => {
+  try {
+    if (audioLeviatan.paused) {
+      await audioLeviatan.play();
+      botonMusica.textContent = "❚❚";
+      botonMusica.setAttribute("aria-label", "Pausar música");
+      botonMusica.classList.add("reproduciendo");
+    } else {
+      audioLeviatan.pause();
+      botonMusica.textContent = "♫";
+      botonMusica.setAttribute("aria-label", "Reproducir música");
+      botonMusica.classList.remove("reproduciendo");
+    }
+  } catch (e) { console.error("No se pudo reproducir el audio:", e); }
+});
+audioLeviatan.addEventListener("ended", () => {
+  botonMusica.textContent = "♫";
+  botonMusica.classList.remove("reproduciendo");
+});
+</script>
 
-.hero__bottomline {
-  position: absolute;
-  bottom: 0; left: 0;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 26px;
-  width: 100%;
-  padding: 14px 20px;
-  border-top: 1px solid var(--linea);
-  color: var(--texto-3);
-  font-size: .6rem;
-  font-weight: 800;
-  letter-spacing: .2em;
-}
-.hero__bottomline-mark { color: var(--verde-claro); }
+<script>
+/* Contadores desde las planillas */
+(() => {
+  const MUSIC_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=0&single=true&output=csv";
+  const COMICS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=2096118978&single=true&output=csv";
+  const countSheet = (url, ok) => new Promise(res => {
+    if (!window.Papa) return res(null);
+    Papa.parse(url, { download: true, header: true, skipEmptyLines: true, complete: r => res((r.data || []).filter(ok).length), error: () => res(null) });
+  });
+  document.addEventListener("DOMContentLoaded", () => {
+    countSheet(MUSIC_CSV, r => Boolean((r.Artista || "").trim() && (r.Album || "").trim())).then(c => {
+      if (c !== null) document.getElementById("count-musica").textContent = c;
+    });
+    countSheet(COMICS_CSV, r => Boolean((r.Serie || r.Franquicia || "").trim())).then(c => {
+      if (c !== null) document.getElementById("count-comics").textContent = c;
+    });
+  });
+})();
+</script>
 
-/* ============ 04 · ESTRUCTURA ============ */
-.wrap { width: var(--wrap); margin: 0 auto; }
-.seccion { padding-top: 72px; }
+<script>
+/* Carrito por WhatsApp */
+(() => {
+  const NUMERO = "5493584283858";
+  const CLAVE = "leviatan_pedido_v2";
+  const MONEDA = "ARS";
+  const MULTIPLICADOR = 1000;
+  const SHEET_CD = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=0&single=true&output=csv";
+  const PROXY = "https://leviatan-portadas.f-g-spratt.workers.dev";
 
-.cabecera-seccion {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 28px;
-  margin-bottom: 30px;
-}
-.cabecera-seccion h2 {
-  margin: 9px 0 0;
-  color: var(--papel);
-  font-family: var(--tt);
-  font-size: clamp(2rem, 4.3vw, 3.4rem);
-  line-height: .98;
-  letter-spacing: -.02em;
-  font-weight: 700;
-}
-.cabecera-seccion > p {
-  max-width: 435px;
-  margin: 0 0 2px;
-  color: var(--texto-3);
-  font-size: .88rem;
-  line-height: 1.75;
-}
+  let pedido = [];
+  try { pedido = JSON.parse(localStorage.getItem(CLAVE) || "[]"); } catch { pedido = []; }
 
-/* ============ 05 · BOTONES ============ */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 13px 16px;
-  border: 1px solid rgba(228,230,223,.25);
-  background: transparent;
-  color: var(--papel);
-  font-size: .68rem;
-  font-weight: 900;
-  letter-spacing: .13em;
-  text-align: center;
-  text-transform: uppercase;
-  transition: .2s ease;
-}
-.btn:hover { border-color: var(--verde-claro); background: var(--verde); color: var(--hueso); }
-.btn--lleno { background: var(--verde); border-color: var(--verde); color: var(--hueso); }
-.btn--lleno:hover { background: var(--verde-hover); }
-.btn--whatsapp { width: 100%; margin-top: auto; padding: 11px 12px; }
+  const guardar = () => localStorage.setItem(CLAVE, JSON.stringify(pedido));
+  const plata = n => new Intl.NumberFormat("es-AR", { style: "currency", currency: MONEDA, maximumFractionDigits: 0 }).format(Number(n));
+  const esc = t => String(t ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-/* ============ 06 · TARJETAS DE CATÁLOGO (clases de js/catalogo.js) ============ */
-.resultados {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(218px, 1fr));
-  gap: 17px;
-  width: 100%;
-}
-.card {
-  min-width: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--linea);
-  background: linear-gradient(145deg, rgba(47,68,56,.10), transparent 58%), var(--panel);
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
-  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-}
-.card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(147,171,157,.5);
-  box-shadow: 0 18px 38px rgba(0,0,0,.38);
-}
-.card img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
-  padding: 13px;
-  border-bottom: 1px solid var(--linea);
-  background: radial-gradient(circle, rgba(147,171,157,.08), transparent 65%), #0c0e0c;
-}
-.card-body { display: flex; min-height: 210px; flex-direction: column; padding: 17px; }
-.card h3 {
-  margin: 0 0 9px;
-  color: var(--verde-claro);
-  font-family: var(--tt);
-  font-size: .68rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  line-height: 1.5;
-  text-transform: uppercase;
-}
-.card p { margin: 0 0 6px; color: var(--texto-3); font-size: .8rem; line-height: 1.55; overflow-wrap: anywhere; }
-.card p strong { color: var(--texto); font-size: .95rem; font-weight: 700; }
-.sin-resultados {
-  grid-column: 1 / -1;
-  padding: 50px 25px;
-  border: 1px dashed rgba(147,171,157,.3);
-  color: var(--texto-3);
-  font-size: .9rem;
-}
-
-/* precios */
-.precio-container { margin: 12px 0 14px; }
-.precio, .precio-bonificado {
-  display: inline-block;
-  padding: 6px 9px;
-  border: 1px solid rgba(228,230,223,.25);
-  background: linear-gradient(180deg, var(--papel), #c9c6bc);
-  color: var(--grafito);
-  font-family: var(--tt);
-  font-size: 1rem;
-  font-weight: 700;
-  transform: none;
-  box-shadow: 2px 3px 0 rgba(0,0,0,.3);
-}
-.precio-tachado { margin-right: .5rem; color: var(--texto-4); font-size: .85rem; text-decoration: line-through; }
-.tag-descuento { color: var(--verde-claro); font-weight: 800; }
-.bonificacion-tag, .ovnipress-tag {
-  display: inline-block;
-  margin-left: .5rem;
-  padding: .2rem .45rem;
-  background: var(--verde);
-  color: var(--hueso);
-  font-size: .64rem;
-  vertical-align: middle;
-}
-
-/* libros */
-.libros-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 17px; }
-.libro-card {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  overflow: hidden;
-  border: 1px solid var(--linea);
-  background: linear-gradient(145deg, rgba(47,68,56,.10), transparent 58%), var(--panel);
-  box-shadow: 0 12px 30px rgba(0,0,0,.22);
-  transition: transform .2s ease, border-color .2s ease;
-}
-.libro-card:hover { transform: translateY(-4px); border-color: rgba(147,171,157,.5); }
-.libro-portada {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 230px;
-  padding: 20px;
-  border-bottom: 1px solid var(--linea);
-  background: radial-gradient(circle, rgba(147,171,157,.08), transparent 65%), #0c0e0c;
-  color: var(--papel);
-  text-align: center;
-}
-.libro-portada span { font-family: var(--tt); font-size: 1.35rem; line-height: 1.25; }
-.libro-info { display: flex; flex: 1; flex-direction: column; gap: .55rem; padding: 17px; }
-.libro-info h3 { margin: 0; color: var(--papel); font-family: var(--tt); font-size: 1.15rem; font-weight: 600; line-height: 1.25; }
-.libro-autor { margin: 0; color: var(--texto-3); font-size: .82rem; line-height: 1.45; }
-.libro-precio { margin: 7px 0 12px; color: var(--papel); font-family: var(--tt); font-size: 1.08rem; font-weight: 700; }
-.libros-vacio { grid-column: 1 / -1; padding: 35px; border: 1px dashed rgba(147,171,157,.3); color: var(--texto-3); text-align: center; }
-
-/* buscadores */
-.panel-busqueda {
-  margin: 0 0 25px;
-  padding: 19px 21px 21px;
-  border: 1px solid var(--linea);
-  border-top: 2px solid var(--verde);
-  background: linear-gradient(115deg, rgba(47,68,56,.10), transparent 55%), var(--panel);
-}
-.buscador {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  width: 100%;
-  max-width: 720px;
-  min-height: 55px;
-  padding: 0 17px;
-  border: 1px solid rgba(228,230,223,.2);
-  background: #0e100e;
-  transition: border-color .2s ease, box-shadow .2s ease;
-}
-.buscador:focus-within { border-color: var(--verde-claro); box-shadow: 0 0 0 3px rgba(147,171,157,.12); }
-.buscador__icono { flex: 0 0 auto; color: var(--verde-claro); font-size: 1.55rem; line-height: 1; }
-.buscador input {
-  width: 100%;
-  min-width: 0;
-  padding: 13px 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--texto);
-  font: 500 .94rem var(--tc);
-}
-.buscador input::placeholder { color: var(--texto-4); }
-.resultados-cabecera {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  margin: 0 0 17px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--linea);
-  color: var(--texto-3);
-  font-size: .61rem;
-  font-weight: 900;
-  letter-spacing: .16em;
-}
-.filtros { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 22px; }
-.filtro {
-  padding: 10px 14px;
-  border: 1px solid var(--linea);
-  background: transparent;
-  color: var(--texto-2);
-  cursor: pointer;
-  font-size: .68rem;
-  font-weight: 800;
-  letter-spacing: .05em;
-  transition: .2s ease;
-}
-.filtro:hover { border-color: rgba(147,171,157,.5); color: var(--hueso); }
-.filtro.is-active, .filtro.activo { border-color: var(--verde); background: var(--verde); color: var(--hueso); }
-
-/* ============ 07 · MINIS / ÚLTIMOS INGRESOS (home) ============ */
-.destacados__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 10px; margin-top: 16px; }
-.mini { border: 1px solid var(--linea); background: var(--panel); display: flex; flex-direction: column; }
-.mini__img { height: 96px; background: #0c0e0c; object-fit: cover; width: 100%; }
-.mini__cuerpo { padding: 8px 9px 10px; display: flex; flex-direction: column; flex: 1; }
-.mini__artista { font-family: var(--tt); font-size: .8rem; letter-spacing: .03em; color: var(--papel); line-height: 1.15; }
-.mini__album { font-size: .72rem; color: var(--texto-3); line-height: 1.3; margin-bottom: 6px; }
-.mini__datos { font-size: .62rem; color: var(--texto-4); margin-top: auto; }
-.mini__precio { font-family: var(--tt); font-size: .85rem; color: var(--verde-claro); margin-top: 6px; }
-.btn-agregar {
-  display: block;
-  width: 100%;
-  margin-top: 8px;
-  padding: 8px;
-  border: 1px solid rgba(228,230,223,.3);
-  background: transparent;
-  color: var(--papel);
-  font-family: var(--tt);
-  font-size: .66rem;
-  letter-spacing: .12em;
-}
-.btn-agregar:hover { background: rgba(47,68,56,.4); border-color: var(--verde-claro); }
-.btn-agregar[disabled] { background: rgba(47,68,56,.3); border-color: var(--verde); color: var(--verde-claro); cursor: default; }
-
-/* ============ 08 · CARRITO ============ */
-.carrito, .comanda {
-  margin-top: 22px;
-  border: 1px solid rgba(147,171,157,.4);
-  background: var(--panel);
-  padding: 16px 18px;
-}
-.carrito__cab, .comanda__cab {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  border-bottom: 1px dashed rgba(147,171,157,.35);
-  padding-bottom: 9px;
-  margin-bottom: 10px;
-}
-.carrito__cab b, .comanda__cab b { font-family: var(--tt); letter-spacing: .14em; font-size: .8rem; color: var(--papel); }
-.carrito__cab span, .comanda__cab span { font-size: .62rem; letter-spacing: .1em; color: var(--texto-4); }
-.carrito__vacia, .comanda__vacia { font-size: .75rem; color: var(--texto-4); padding: 6px 0; }
-.carrito__linea, .comanda__linea {
-  display: flex;
-  gap: 9px;
-  align-items: baseline;
-  font-size: .78rem;
-  padding: 6px 0;
-  border-bottom: 1px dotted var(--linea);
-  color: var(--papel);
-}
-.carrito__linea .monto, .comanda__linea .monto { margin-left: auto; color: var(--verde-claro); white-space: nowrap; }
-.carrito__quitar, .comanda__quitar { background: none; border: 0; color: var(--oxido); cursor: pointer; font-size: .9rem; padding: 0 3px; line-height: 1; }
-.carrito__total, .comanda__total {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--tt);
-  letter-spacing: .1em;
-  font-size: .9rem;
-  margin-top: 11px;
-  padding-top: 9px;
-  border-top: 1px solid rgba(147,171,157,.4);
-}
-.carrito__acciones, .comanda__acciones { display: flex; gap: 9px; margin-top: 12px; flex-wrap: wrap; }
-.carrito__enviar, .comanda__enviar {
-  flex: 1;
-  min-width: 180px;
-  text-align: center;
-  text-decoration: none;
-  background: var(--verde);
-  color: var(--hueso);
-  font-family: var(--tt);
-  font-size: .7rem;
-  letter-spacing: .12em;
-  padding: 11px;
-}
-.carrito__enviar:hover, .comanda__enviar:hover { background: var(--verde-hover); }
-.carrito__enviar.off, .comanda__enviar.off { opacity: .45; pointer-events: none; }
-.carrito__vaciar, .comanda__vaciar {
-  background: none;
-  border: 1px solid rgba(228,230,223,.3);
-  color: var(--texto-3);
-  font-family: var(--tt);
-  font-size: .64rem;
-  letter-spacing: .1em;
-  padding: 11px 14px;
-}
-.carrito__nota, .comanda__nota { font-size: .64rem; color: var(--texto-4); line-height: 1.5; margin-top: 11px; }
-
-/* ============ 09 · AGENDA (clases de js/agenda.js) ============ */
-.agenda-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 15px; padding-top: 20px; }
-.agenda-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 260px;
-  padding: 21px;
-  border: 1px solid var(--linea);
-  background: linear-gradient(145deg, rgba(255,255,255,.03), transparent 65%), var(--panel);
-  transition: transform .22s ease, border-color .22s ease, background .22s ease;
-}
-.agenda-card:hover { transform: translateY(-4px); border-color: rgba(147,171,157,.5); background-color: var(--panel-alto); }
-.agenda-card__top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
-.agenda-card__date { display: flex; flex-direction: column; gap: 2px; }
-.agenda-card__day { color: var(--hueso); font-family: var(--tt); font-size: 2.35rem; line-height: .9; font-weight: 700; letter-spacing: -.02em; }
-.agenda-card__month { color: var(--verde-claro); font-size: .62rem; font-weight: 900; letter-spacing: .17em; text-transform: uppercase; }
-.agenda-card__type {
-  padding: 6px 8px;
-  border: 1px solid rgba(228,230,223,.15);
-  color: var(--texto-2);
-  font-size: .54rem;
-  font-weight: 900;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.agenda-card__type--nacional { border-color: rgba(147,171,157,.4); color: var(--verde-claro); }
-.agenda-card__rule { width: 34px; height: 2px; margin: 19px 0 14px; background: var(--verde); }
-.agenda-card h3 { margin: 0 0 9px; color: var(--papel); font-size: 1.16rem; line-height: 1.15; font-weight: 700; }
-.agenda-card__venue { margin: 0; color: var(--texto-3); font-size: .77rem; line-height: 1.5; }
-.agenda-card__genres { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
-.agenda-tag { padding: 5px 7px; background: rgba(228,230,223,.06); color: var(--texto-2); font-size: .55rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
-.agenda-card__bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 19px; }
-.agenda-card__time { color: var(--texto-4); font-size: .67rem; }
-.agenda-ticket { min-width: auto; padding: 9px 11px; font-size: .58rem; }
-.agenda-empty { margin-top: 20px; padding: 45px 20px; border: 1px dashed rgba(228,230,223,.2); text-align: center; }
-.agenda-empty strong { display: block; color: var(--hueso); font-size: 1.15rem; }
-.agenda-empty span { display: block; margin-top: 8px; color: var(--texto-3); font-size: .85rem; }
-.agenda-empty button { margin-top: 19px; padding: 11px 15px; border: 0; background: var(--verde); color: var(--hueso); font-size: .67rem; font-weight: 900; letter-spacing: .1em; }
-.agenda-loading { grid-column: 1 / -1; color: var(--texto-3); }
-.agenda-note {
-  display: flex;
-  gap: 17px;
-  width: var(--wrap);
-  margin: 62px auto 0;
-  padding: 23px 25px;
-  border-left: 3px solid var(--verde);
-  background: #0e100e;
-}
-.agenda-note__symbol { flex: 0 0 28px; display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid var(--verde-claro); border-radius: 50%; color: var(--verde-claro); font-weight: 900; }
-.agenda-note h2 { margin: 1px 0 6px; color: var(--papel); font-size: .76rem; letter-spacing: .16em; }
-.agenda-note p { margin: 0; color: var(--texto-3); font-size: .8rem; line-height: 1.65; }
-
-/* ============ 10 · NOTICIAS Y TIMELINE ============ */
-.noticias-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 24px; }
-.noticia-card, .agenda-vacia {
-  display: block;
-  padding: 28px;
-  background: var(--panel);
-  border: 1px solid var(--linea);
-  color: var(--texto);
-  box-shadow: 0 10px 30px rgba(0,0,0,.3);
-  transition: transform .2s ease, border-color .2s ease, background .2s ease;
-}
-.noticia-card:hover { transform: translateY(-4px); border-color: rgba(147,171,157,.5); background: var(--panel-alto); }
-.noticia-card h3, .agenda-vacia h3 {
-  margin: 0 0 14px;
-  font-family: var(--tt);
-  font-size: 1.3rem;
-  line-height: 1.1;
-  letter-spacing: .02em;
-  text-transform: uppercase;
-}
-.noticia-card p, .agenda-vacia p { margin: 0; color: var(--texto-3); line-height: 1.7; }
-
-.editorial-timeline { position: relative; display: grid; gap: 14px; margin-top: 34px; }
-.editorial-timeline::before {
-  content: "";
-  position: absolute;
-  top: 20px; bottom: 22px; left: 76px;
-  width: 1px;
-  background: linear-gradient(var(--verde), rgba(147,171,157,.24));
-}
-.editorial-timeline__item {
-  position: relative;
-  display: grid;
-  grid-template-columns: 154px minmax(0,1fr);
-  gap: 25px;
-  padding: 25px 28px 27px 0;
-  border: 1px solid var(--linea);
-  background: linear-gradient(120deg, rgba(255,255,255,.02), transparent 42%), var(--panel);
-}
-.editorial-timeline__stamp { position: relative; z-index: 1; display: flex; align-items: center; flex-direction: column; gap: 11px; padding-top: 2px; text-align: center; }
-.editorial-timeline__stamp > span {
-  display: grid;
-  place-items: center;
-  width: 38px; height: 38px;
-  border: 1px solid rgba(147,171,157,.55);
-  border-radius: 50%;
-  background: var(--panel);
-  color: var(--hueso);
-  font-size: .7rem;
-  font-weight: 900;
-}
-.editorial-timeline__stamp strong { color: var(--verde-claro); font-size: .61rem; letter-spacing: .14em; line-height: 1.4; }
-.editorial-timeline__content h3 {
-  margin: 8px 0 12px;
-  color: var(--papel);
-  font-family: var(--tt);
-  font-size: clamp(1.35rem, 2.7vw, 2rem);
-  line-height: 1.1;
-  font-weight: 600;
-}
-.editorial-timeline__content p { margin: 0 0 12px; color: var(--texto-3); font-size: .88rem; line-height: 1.8; }
-.editorial-timeline__content p:last-child { margin-bottom: 0; }
-.editorial-timeline__content strong { color: var(--hueso); }
-.editorial-card-kicker { display: inline-block; color: var(--verde-claro); font-size: .63rem; font-weight: 900; letter-spacing: .17em; text-transform: uppercase; }
-
-/* tarjetas destacadas (noticia principal, feature de home, contacto) */
-.tarjeta-destacada {
-  border: 1px solid rgba(147,171,157,.35);
-  background: linear-gradient(110deg, rgba(47,68,56,.14), rgba(255,255,255,.015) 43%), var(--panel);
-  box-shadow: 0 22px 55px rgba(0,0,0,.25);
-}
-
-/* ============ 11 · FOOTER ============ */
-.footer {
-  position: relative;
-  margin-top: 0;
-  padding: 70px 20px 40px;
-  background: linear-gradient(180deg, var(--fondo-2, #101211), var(--fondo));
-  border-top: 1px solid var(--linea);
-}
-.footer-content { width: min(var(--ancho), 92%); margin: auto; text-align: center; }
-.footer h2 { margin-bottom: 10px; font-family: var(--tt); font-size: 2rem; letter-spacing: 3px; color: var(--papel); }
-.slogan { margin-bottom: 38px; color: var(--texto-3); font-size: .95rem; letter-spacing: .08em; }
-.footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px; margin-bottom: 35px; }
-.footer-links p { color: var(--texto-3); }
-.footer-links a { padding: 6px 9px; border: 1px solid transparent; transition: .2s ease; }
-.footer-links a:hover { color: var(--hueso); background: var(--panel-alto); }
-.footer-locations { margin-bottom: 35px; }
-.footer-locations p { margin: 7px 0; color: var(--texto-3); }
-.copyright { margin-top: 30px; color: var(--texto-4); font-size: .77rem; }
-.editorial-backtop, .agenda-backtop, .catalog-backtop {
-  display: inline-block;
-  margin-top: 13px;
-  color: var(--verde-claro);
-  font-size: .64rem;
-  font-weight: 900;
-  letter-spacing: .13em;
-}
-.editorial-backtop:hover, .agenda-backtop:hover, .catalog-backtop:hover { color: var(--hueso); }
-
-/* ============ 12 · UTILIDADES ============ */
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-@keyframes aparecer { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }
-.card, .mini, .agenda-card { animation: aparecer .4s ease both; }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; animation: none !important; }
-}
-
-/* ============ 13 · RESPONSIVE ============ */
-@media (max-width: 992px) {
-  header { padding: 0 24px; }
-  .resultados { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-  .noticias-grid, .agenda-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-  .libros-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-}
-@media (max-width: 768px) {
-  header {
-    min-height: 122px;
-    height: auto;
-    padding: 16px 20px 14px;
-    flex-direction: column;
-    gap: 12px;
+  function precioNum(v) {
+    let t = String(v ?? "").replace(/[^0-9,.-]/g, "");
+    if (!t) return null;
+    if (/^-?\d{1,3}[.,]\d{3}$/.test(t)) t = t.replace(/[.,]/g, "");
+    else if (t.includes(",")) t = t.replace(/\./g, "").replace(",", ".");
+    const n = Number(t);
+    return Number.isFinite(n) && n > 0 ? Math.round(n < 1000 ? n * MULTIPLICADOR : n) : null;
   }
-  .marca { width: max-content; }
-  .marca__sub { display: none; }
-  nav { justify-content: center; }
-  nav a { padding: 6px 7px; font-size: .72rem; }
-  .hero { margin-top: 122px; min-height: 0; padding: 59px 25px 84px; }
-  .hero h1, .hero h2 { font-size: clamp(2.6rem, 11vw, 4.2rem); line-height: .99; }
-  .hero__lead { max-width: 96%; font-size: .91rem; }
-  .hero__bottomline { gap: 10px; font-size: .47rem; letter-spacing: .1em; }
-  .wrap { width: min(100% - 32px, 1120px); }
-  .seccion { padding-top: 52px; }
-  .cabecera-seccion { flex-direction: column; align-items: start; gap: 15px; margin-bottom: 22px; }
-  .editorial-timeline::before { left: 24px; }
-  .editorial-timeline__item { grid-template-columns: 50px minmax(0,1fr); gap: 13px; padding: 19px 15px 21px 0; }
-  .editorial-timeline__stamp > span { width: 34px; height: 34px; font-size: .63rem; }
-  .footer-links { flex-direction: column; gap: 7px; }
-}
-@media (max-width: 620px) {
-  .resultados, .noticias-grid, .agenda-grid, .libros-grid { grid-template-columns: 1fr; }
-  .card, .libro-card { max-width: 400px; margin: 0 auto; width: 100%; }
-}
+  const claveDe = (a, b) => (a + "___" + b).toLowerCase().trim();
+
+  function agregar(item) { if (!pedido.some(p => p.clave === item.clave)) { pedido.push(item); guardar(); pintar(); } }
+  const quitar = clave => { pedido = pedido.filter(p => p.clave !== clave); guardar(); pintar(); };
+
+  function pintar() {
+    const caja = document.getElementById("carrito-lineas");
+    const cuenta = document.getElementById("carrito-cuenta");
+    const totalEl = document.getElementById("carrito-total");
+    const enviar = document.getElementById("carrito-enviar");
+    const badge = document.getElementById("carrito-badge");
+
+    if (badge) {
+      badge.classList.toggle("visible", pedido.length > 0);
+      badge.querySelector("b").textContent = pedido.length;
+    }
+    if (cuenta) cuenta.textContent = pedido.length + (pedido.length === 1 ? " ÍTEM" : " ÍTEMS");
+    caja.innerHTML = pedido.length
+      ? pedido.map(p => `<div class="carrito__linea"><span><strong>${esc(p.artista)}</strong> — ${esc(p.album)}</span><span class="monto">${plata(p.precio)}</span><button class="carrito__quitar" data-quitar="${esc(p.clave)}" aria-label="Quitar ${esc(p.artista)}">✕</button></div>`).join("")
+      : '<div class="carrito__vacia">Todavía no agregaste nada.</div>';
+    const total = pedido.reduce((a, p) => a + p.precio, 0);
+    totalEl.textContent = pedido.length ? plata(total) : "—";
+    if (pedido.length) {
+      enviar.classList.remove("off");
+      const texto = "Hola, quiero reservar este pedido de Leviatán:\n\n"
+        + pedido.map((p, i) => `${i + 1}. ${p.artista} — ${p.album}${p.estado ? " (" + p.estado + ")" : ""} — ${plata(p.precio)}`).join("\n")
+        + `\n\nTotal: ${plata(total)}\n\n¿Está disponible?`;
+      enviar.href = "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(texto);
+    } else { enviar.classList.add("off"); enviar.removeAttribute("href"); }
+    document.querySelectorAll("[data-agregar]").forEach(b => {
+      const dentro = pedido.some(p => p.clave === b.dataset.agregar);
+      b.disabled = dentro;
+      b.textContent = dentro ? "EN EL CARRITO" : "AGREGAR";
+    });
+  }
+
+  document.addEventListener("click", e => {
+    const add = e.target.closest("[data-agregar]");
+    if (add) agregar({
+      clave: add.dataset.agregar,
+      artista: add.dataset.artista || "",
+      album: add.dataset.album || "",
+      estado: add.dataset.estado || "",
+      precio: Number(add.dataset.precio) || 0
+    });
+    const q = e.target.closest("[data-quitar]");
+    if (q) quitar(q.dataset.quitar);
+  });
+  document.getElementById("carrito-vaciar").addEventListener("click", () => { pedido = []; guardar(); pintar(); });
+
+  async function portada(artista, album) {
+    try {
+      const r = await fetch(PROXY + "?artist=" + encodeURIComponent(artista) + "&album=" + encodeURIComponent(album));
+      if (!r.ok) return null;
+      return (await r.json()).cover || null;
+    } catch { return null; }
+  }
+
+  function destacados() {
+    const caja = document.getElementById("destacados");
+    if (!window.Papa) return;
+    Papa.parse(SHEET_CD, {
+      download: true, header: true, skipEmptyLines: true,
+      complete: r => {
+        let items = (r.data || []).filter(x => (x.Artista || "").trim() && (x.Album || "").trim());
+        const conPrecio = items.filter(x => precioNum(x.Precio));
+        if (conPrecio.length >= 4) items = conPrecio;
+        for (let i = items.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [items[i], items[j]] = [items[j], items[i]]; }
+        const lote = items.slice(0, 8);
+        caja.innerHTML = lote.map(x => {
+          const p = precioNum(x.Precio) || 0;
+          const clave = claveDe(x.Artista, x.Album);
+          return `<article class="mini">
+            <img class="mini__img" data-key="${esc(clave)}" src="img/sin-portada.png" alt="${esc(x.Artista)} - ${esc(x.Album)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.src='img/sin-portada.png'">
+            <div class="mini__cuerpo">
+              <div class="mini__artista">${esc(x.Artista)}</div>
+              <div class="mini__album">${esc(x.Album)}</div>
+              <div class="mini__datos">${esc(x["Año de lanzamiento"] || "")} · ${esc(x.Estado || "")}</div>
+              <div class="mini__precio">${p ? plata(p) : "Consultar"}</div>
+              <button class="btn-agregar" data-agregar="${esc(clave)}" data-artista="${esc(x.Artista)}" data-album="${esc(x.Album)}" data-estado="${esc(x.Estado || "")}" data-precio="${p}">AGREGAR</button>
+            </div></article>`;
+        }).join("");
+        pintar();
+        (async () => {
+          for (const x of lote) {
+            const url = await portada(x.Artista, x.Album);
+            if (!url) continue;
+            const img = caja.querySelector(`img[data-key="${CSS.escape(claveDe(x.Artista, x.Album))}"]`);
+            if (img) { img.referrerPolicy = "no-referrer"; img.src = url; }
+            await new Promise(s => setTimeout(s, 900));
+          }
+        })();
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => { pintar(); destacados(); });
+})();
+</script>
+
+</body>
+</html>
