@@ -1,187 +1,119 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11110f">
-  <meta name="description" content="Explorá el catálogo de CDs originales de Leviatán. Buscá por artista, álbum o sello y consultá disponibilidad.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://tiendaleviatan.com/musica.html">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Leviatán">
-  <meta property="og:title" content="Música — Leviatán">
-  <meta property="og:description" content="Discos originales, música pesada y piezas para coleccionistas.">
-  <meta property="og:url" content="https://tiendaleviatan.com/musica.html">
-  <meta property="og:image" content="https://tiendaleviatan.com/img/emblema-leviatan.png">
-  <link rel="icon" href="img/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <title>Música — Leviatán | Discos que hacen historia</title>
-  <style>
-    :root {
-      --ink:#11110f; --black:#090909; --panel:#171613; --paper:#e8e1cf;
-      --paper-dim:#c2b9a7; --muted:#928a7d; --rust:#b64e36; --rust-dark:#713526;
-      --steel:#77746d; --line:rgba(218,205,174,.22); --mono:"DM Mono",monospace;
-      --display:"Barlow Condensed",Impact,sans-serif; --body:"Manrope",Arial,sans-serif;
-    }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { margin:0; background:var(--ink); color:var(--paper); font-family:var(--body); }
-    a { color:inherit; }
-    .grain { position:fixed; inset:0; z-index:5; pointer-events:none; opacity:.12; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E"); }
-    .site-header { min-height:88px; padding:16px max(5.5vw, calc((100vw - 1320px)/2)); display:flex; align-items:center; justify-content:space-between; gap:30px; border-bottom:1px solid var(--line); background:#10100f; position:relative; z-index:10; }
-    .wordmark { display:flex; align-items:center; gap:12px; text-decoration:none; }
-    .wordmark-mark { width:43px; height:43px; display:grid; place-items:center; border:1px solid #8b8069; color:var(--paper); font:800 1.7rem var(--display); transform:rotate(-4deg); }
-    .wordmark b { display:block; font-size:1.08rem; letter-spacing:.12em; }
-    .wordmark small { display:block; margin-top:3px; color:#a69c88; font: .55rem var(--mono); letter-spacing:.12em; }
-    .main-nav { display:flex; align-items:center; gap:clamp(15px,2.3vw,34px); }
-    .main-nav a { color:#c7beac; text-decoration:none; font: .68rem var(--mono); letter-spacing:.09em; text-transform:uppercase; transition:color .2s; }
-    .main-nav a:hover,.main-nav a[aria-current="page"] { color:var(--rust); }
-    .main-nav .nav-contact { padding:13px 18px; border:1px solid #71634e; color:var(--paper); }
-    .menu-toggle { display:none; padding:10px 12px; border:1px solid var(--line); background:transparent; color:var(--paper); font: .7rem var(--mono); }
-    .hero { min-height:465px; position:relative; overflow:hidden; display:grid; grid-template-columns:1.1fr .9fr; align-items:center; gap:5vw; padding:76px max(7vw, calc((100vw - 1240px)/2)) 90px; background:radial-gradient(ellipse at 78% 45%,rgba(182,78,54,.12),transparent 35%),linear-gradient(120deg,#10100f,#171512 65%,#0b0b0a); border-bottom:1px solid var(--line); }
-    .eyebrow { display:flex; align-items:center; gap:12px; color:#b69b7b; font: .68rem var(--mono); letter-spacing:.16em; text-transform:uppercase; }
-    .eyebrow-line { width:35px; height:1px; background:var(--rust); }
-    h1,h2,h3,p { margin-top:0; }
-    .hero h1 { margin:25px 0 18px; font:900 clamp(4rem,8vw,7.6rem)/.83 var(--display); letter-spacing:-.025em; text-transform:uppercase; }
-    .hero h1 em { color:var(--rust); font-style:normal; }
-    .hero-copy>p:not(.eyebrow) { max-width:550px; color:var(--paper-dim); font-size:.98rem; line-height:1.8; }
-    .hero-actions { display:flex; flex-wrap:wrap; align-items:center; gap:26px; margin-top:30px; }
-    .button { display:inline-flex; align-items:center; gap:25px; padding:17px 21px; background:var(--paper); color:#151412; text-decoration:none; font: .7rem var(--mono); letter-spacing:.08em; }
-    .button span { color:var(--rust); font-size:1rem; }
-    .text-link { color:var(--paper-dim); font-size:.78rem; text-decoration:none; border-bottom:1px solid #71634e; padding-bottom:6px; }
-    .hero-art { position:relative; max-width:470px; justify-self:end; width:100%; }
-    .art-frame { padding:12px; border:1px solid #766c58; outline:1px solid rgba(218,205,174,.12); outline-offset:7px; background:#0a0a09; }
-    .art-frame img { display:block; width:100%; aspect-ratio:1/1; object-fit:cover; }
-    .art-caption { display:flex; justify-content:space-between; gap:12px; margin-top:17px; color:#8f8067; font: .55rem var(--mono); letter-spacing:.1em; }
-    .hero-bottomline { position:absolute; bottom:0; left:7vw; right:7vw; display:flex; justify-content:space-between; gap:12px; padding:15px 0; border-top:1px solid var(--line); color:#9c8d74; font: .57rem var(--mono); letter-spacing:.12em; }
-    .catalog-section { min-height:calc(100vh - 170px); padding:64px max(6vw,calc((100vw - 1240px)/2)) 88px; background:radial-gradient(ellipse at 15% 0%,rgba(182,78,54,.06),transparent 34%),#0c0c0b; }
-    .section-heading { display:flex; align-items:end; justify-content:space-between; gap:35px; margin-bottom:30px; }
-    .section-heading h1 { margin:10px 0 0; font:900 clamp(3.8rem,7vw,6rem)/.88 var(--display); letter-spacing:-.02em; text-transform:uppercase; }
-    .section-heading h1 { color:var(--paper); }
-    .section-heading>p { max-width:430px; margin:0 0 4px; color:var(--paper-dim); font-size:.85rem; line-height:1.75; }
-    .search-panel { margin-bottom:27px; padding:20px 22px 22px; border:1px solid var(--line); border-top:2px solid var(--rust-dark); background:linear-gradient(115deg,rgba(182,78,54,.07),transparent 55%),#151411; }
-    .search-meta { display:flex; justify-content:space-between; gap:14px; margin-bottom:14px; color:#ad9a7b; font: .62rem var(--mono); letter-spacing:.13em; }
-    .music-search { display:flex; align-items:center; gap:13px; width:100%; max-width:760px; min-height:57px; padding:0 17px; border:1px solid rgba(218,205,174,.24); background:#090909; }
-    .music-search:focus-within { border-color:#b58a68; box-shadow:0 0 0 3px rgba(182,78,54,.1); }
-    .music-search__icon { color:var(--rust); font-size:1.5rem; }
-    #buscador { width:100%; min-width:0; padding:13px 0; border:0; outline:0; background:transparent; color:var(--paper); font:500 .95rem var(--body); }
-    #buscador::placeholder { color:#81796d; }
-    .results-heading { display:flex; justify-content:space-between; gap:15px; margin:0 0 17px; padding-bottom:12px; border-bottom:1px solid var(--line); color:#a89d89; font: .62rem var(--mono); letter-spacing:.14em; }
-    .resultados { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:17px; width:100%; align-items:stretch; }
-    .card { min-width:0; overflow:hidden; border:1px solid var(--line); background:linear-gradient(145deg,rgba(182,78,54,.045),transparent 58%),#171613; box-shadow:0 12px 30px rgba(0,0,0,.25); transition:transform .2s,border-color .2s; }
-    .card::before { content:""; display:block; height:2px; background:linear-gradient(90deg,#54271e,var(--rust),#54271e); }
-    .card:hover { transform:translateY(-4px); border-color:rgba(182,78,54,.6); }
-    .card img { display:block; width:100%; aspect-ratio:1/1; object-fit:contain; padding:13px; border-bottom:1px solid var(--line); background:#090909; }
-    .card-body { display:flex; min-height:230px; flex-direction:column; padding:17px 17px 18px; }
-    .card h3 { margin:0 0 9px; color:#b69b7b; font: .65rem var(--mono); letter-spacing:.1em; line-height:1.5; text-transform:uppercase; }
-    .card p { margin:0 0 6px; color:#a79f91; font-size:.79rem; line-height:1.55; overflow-wrap:anywhere; }
-    .card p strong { color:var(--paper); font-size:.94rem; font-weight:800; }
-    .card .precio { display:inline-block; align-self:flex-start; margin:12px 0 14px; padding:6px 9px; border:1px solid rgba(182,78,54,.4); background:#2b1a15; color:#f0dfca; font-size:1rem; font-weight:800; }
-    .btn-whatsapp { display:block; width:100%; margin-top:auto; padding:11px 12px; border:1px solid #71513d; background:#261a14; color:#e8d8c4; font: .67rem var(--mono); letter-spacing:.06em; text-align:center; text-decoration:none; text-transform:uppercase; transition:background .2s,border-color .2s; }
-    .btn-whatsapp:hover { border-color:var(--rust); background:#3a211a; }
-    .sin-resultados { grid-column:1/-1; padding:50px 25px; border:1px dashed var(--line); color:var(--paper-dim); text-align:center; }
-    .catalog-note { margin-top:28px; padding:18px 20px; border-left:2px solid var(--rust); background:rgba(255,255,255,.025); color:#a9a091; font-size:.78rem; line-height:1.7; }
-    .footer { padding:32px max(6vw,calc((100vw - 1240px)/2)); border-top:1px solid var(--line); background:#090909; }
-    .footer-inner { display:flex; justify-content:space-between; align-items:center; gap:20px; }
-    .footer-brand { font:800 1.4rem var(--display); letter-spacing:.1em; }
-    .footer-brand span { color:var(--rust); }
-    .footer-motto { color:#a99c85; font: .65rem var(--mono); line-height:1.8; text-align:center; letter-spacing:.1em; }
-    .backtop { color:#b69b7b; font: .62rem var(--mono); text-decoration:none; }
-    @media(max-width:1100px) { .resultados { grid-template-columns:repeat(4,minmax(0,1fr)); } }
-    @media(max-width:850px) {
-      .resultados { grid-template-columns:repeat(3,minmax(0,1fr)); }
-      .site-header { min-height:76px; }
-      .menu-toggle { display:block; }
-      .main-nav { display:none; position:absolute; top:100%; left:0; right:0; padding:18px 6vw 22px; flex-direction:column; align-items:stretch; gap:18px; border-bottom:1px solid var(--line); background:#10100f; }
-      .main-nav.is-open { display:flex; }
-      .main-nav .nav-contact { text-align:center; }
-      .hero { grid-template-columns:1fr; padding-top:62px; gap:45px; }
-      .hero-art { justify-self:start; max-width:390px; }
-      .section-heading { align-items:flex-start; flex-direction:column; gap:12px; }
-      .section-heading h1 { font-size:clamp(3.4rem,15vw,5rem); }
-    }
-    @media(max-width:600px) {
-      .catalog-section { padding:48px 20px 65px; }
-      .catalog-section { padding:60px 20px 70px; }
-      .search-panel { padding:16px; }
-      .search-meta,.results-heading { flex-direction:column; gap:7px; }
-      .resultados { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-      .card-body { min-height:220px; padding:12px 11px 13px; }
-      .card h3 { font-size:.57rem; }
-      .card p { font-size:.72rem; }
-      .card p strong { font-size:.84rem; }
-      .card .precio { font-size:.9rem; }
-      .btn-whatsapp { padding:10px 7px; font-size:.57rem; letter-spacing:.02em; }
-      .footer-inner { align-items:flex-start; flex-direction:column; }
-      .footer-motto { text-align:left; }
-    }
-    @media(max-width:360px) { .resultados { grid-template-columns:1fr; } }
-    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080909">
+<meta name="description" content="Catálogo de música de Leviatán. Buscá discos por artista, álbum o sello y consultá disponibilidad.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tiendaleviatan.com/musica.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Leviatán">
+<meta property="og:title" content="Música — Leviatán">
+<meta property="og:description" content="Discos originales, música pesada y piezas para coleccionistas.">
+<meta property="og:url" content="https://tiendaleviatan.com/musica.html">
+<meta property="og:image" content="https://tiendaleviatan.com/img/emblema-leviatan.png">
+<link rel="icon" href="img/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<title>Música — Leviatán</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* La página usa la misma hoja, paleta, tipografía y ancho que index.html.
+   Estos estilos solo resuelven la búsqueda y la grilla del catálogo. */
+.music-catalog { width:100%; max-width:1600px; margin:0 auto; padding:72px 7vw 110px; }
+.music-heading { display:flex; justify-content:space-between; align-items:end; gap:30px; margin-bottom:34px; }
+.music-heading .eyebrow { margin-bottom:18px; }
+.music-heading h1 { margin:0; color:var(--paper); font:800 clamp(48px,6vw,76px)/.88 var(--display); letter-spacing:-.015em; text-transform:uppercase; }
+.music-heading h1 em { color:var(--rust); font-style:normal; }
+.music-heading>p { max-width:340px; margin:0 4vw 5px 20px; color:#a9a18f; font-size:12px; line-height:1.8; }
+.music-search-panel { margin:0 0 24px; padding:22px 24px 24px; border:1px solid var(--line); background:#111211; }
+.music-search-meta { display:flex; justify-content:space-between; gap:15px; margin-bottom:14px; color:#a79d88; font:8px var(--mono); letter-spacing:.13em; }
+.music-search { display:flex; align-items:center; gap:13px; width:100%; min-height:56px; padding:0 16px; border:1px solid rgba(216,210,194,.2); background:#080909; }
+.music-search:focus-within { border-color:#b7a98b; }
+.music-search-icon { color:var(--rust); font-size:24px; line-height:1; }
+#buscador { width:100%; min-width:0; padding:14px 0; border:0; outline:0; background:transparent; color:var(--paper); font:500 14px var(--body); }
+#buscador::placeholder { color:#827d72; }
+.music-results-label { display:flex; justify-content:space-between; gap:15px; margin:0 0 17px; padding-bottom:12px; border-bottom:1px solid var(--line); color:#a79d88; font:8px var(--mono); letter-spacing:.13em; }
+.music-catalog #resultados { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; align-items:stretch; }
+.music-catalog #resultados .card { min-width:0; overflow:hidden; display:flex; flex-direction:column; border:1px solid #514936; background:linear-gradient(145deg,#202221,#090a0a); box-shadow:none; }
+.music-catalog #resultados .card:hover { border-color:#b7a98b; transform:translateY(-3px); }
+.music-catalog #resultados .card img { width:100%; aspect-ratio:1/1; object-fit:contain; padding:12px; border-bottom:1px solid var(--line); background:#080909; }
+.music-catalog #resultados .card-body { display:flex; flex:1; min-height:205px; flex-direction:column; padding:14px; }
+.music-catalog #resultados .card h3 { margin:0 0 8px; color:#b7a98b; font:10px var(--mono); letter-spacing:.08em; line-height:1.5; text-transform:uppercase; }
+.music-catalog #resultados .card p { margin:0 0 6px; color:#a9a18f; font-size:12px; line-height:1.55; overflow-wrap:anywhere; }
+.music-catalog #resultados .card p strong { color:var(--paper); font-size:14px; }
+.music-catalog #resultados .precio-container { margin:10px 0 13px; }
+.music-catalog #resultados .precio,
+.music-catalog #resultados .precio-bonificado { display:inline-block; padding:6px 9px; border:1px solid #62553e; background:#191814; color:var(--paper); font:700 16px var(--display); box-shadow:none; }
+.music-catalog #resultados .btn-whatsapp { display:block; width:100%; margin-top:auto; padding:11px 8px; border:1px solid #62553e; background:transparent; color:var(--paper); font:9px var(--mono); letter-spacing:.07em; text-align:center; text-transform:uppercase; }
+.music-catalog #resultados .btn-whatsapp:hover { border-color:var(--rust); background:#211612; }
+.music-catalog #resultados .sin-resultados { grid-column:1/-1; padding:40px 20px; border:1px dashed var(--line); color:#a9a18f; text-align:center; }
+@media(max-width:1100px) { .music-catalog #resultados { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+@media(max-width:900px) { .music-heading { display:block; } .music-heading>p { margin:18px 0 0; } .music-catalog #resultados { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media(max-width:640px) {
+  .music-catalog { padding:80px 22px; }
+  .music-search-panel { padding:17px; }
+  .music-search-meta,.music-results-label { flex-direction:column; gap:8px; }
+  .music-catalog #resultados { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+  .music-catalog #resultados .card-body { min-height:190px; padding:11px; }
+  .music-catalog #resultados .card p { font-size:11px; }
+}
+@media(max-width:360px) { .music-catalog #resultados { grid-template-columns:1fr; } }
+</style>
 </head>
-<body class="music-page" data-catalogo="musica">
-  <div class="grain" aria-hidden="true"></div>
-  <header class="site-header">
-    <a class="wordmark" href="index.html" aria-label="Leviatán, inicio">
-      <span class="wordmark-mark">L</span>
-      <span><b>LEVIATÁN</b><small>DISCOS · CÓMICS · LIBROS</small></span>
-    </a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">MENÚ ＋</button>
-    <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
-      <a href="musica.html" aria-current="page">Música</a>
-      <a href="comics.html">Cómics</a>
-      <a href="libros.html">Libros</a>
-      <a href="figuras.html">Objetos</a>
-      <a href="index.html#legado">El legado</a>
-      <a href="contacto.html" class="nav-contact">Contacto ↗</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="catalog-section" id="catalogo" aria-labelledby="catalog-title">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow"><span class="eyebrow-line"></span> LEVIATÁN / MÚSICA</p>
-          <h1 id="catalog-title">LA BATEA.</h1>
-        </div>
-        <p>Buscá discos por artista, álbum o sello. Consultá cada pieza directamente por WhatsApp.</p>
+<body data-catalogo="musica">
+<div class="grain" aria-hidden="true"></div>
+<header class="site-header">
+  <a class="wordmark" href="index.html" aria-label="Leviatán, inicio">
+    <span class="wordmark-mark">L</span>
+    <span><b>LEVIATÁN</b><small>DISCOS · CÓMICS · LIBROS</small></span>
+  </a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">MENÚ <span>＋</span></button>
+  <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+    <a href="musica.html" aria-current="page">Música</a>
+    <a href="comics.html">Cómics</a>
+    <a href="libros.html">Libros</a>
+    <a href="figuras.html">Objetos</a>
+    <a href="index.html#legado">El legado</a>
+    <a href="index.html#como-comprar">Cómo comprar</a>
+    <a href="index.html#comanda">Mi pedido</a>
+    <a href="contacto.html" class="nav-contact">Contacto <span>↗</span></a>
+  </nav>
+</header>
+<main>
+  <section class="music-catalog" id="catalogo" aria-labelledby="music-title">
+    <div class="music-heading">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-line"></span> 01 / LA BATEA · MÚSICA</p>
+        <h1 id="music-title">DISCOS <em>QUE IMPORTAN.</em></h1>
       </div>
-      <div class="search-panel">
-        <div class="search-meta"><span>01 / BUSCAR EN EL CATÁLOGO</span><span>ARTISTA · ÁLBUM · SELLO</span></div>
-        <label class="music-search" for="buscador">
-          <span class="music-search__icon" aria-hidden="true">⌕</span>
-          <input id="buscador" type="search" placeholder="Buscar artista, álbum o sello..." autocomplete="off" aria-label="Buscar discos por artista, álbum o sello">
-        </label>
-      </div>
-      <div class="results-heading"><span>CATÁLOGO DE MÚSICA</span><span>CONSULTAS POR WHATSAPP</span></div>
-      <div id="resultados" class="resultados" aria-live="polite"></div>
-      <p class="catalog-note">Los datos de títulos, sellos, precios, estado y disponibilidad provienen del catálogo de Leviatán. Antes de coordinar el pago y el envío, confirmamos cada pieza.</p>
-    </section>
-  </main>
-  <footer class="footer">
-    <div class="footer-inner">
-      <a class="footer-brand" href="index.html">LEVIATÁN<span>®</span></a>
-      <div class="footer-motto">EL LEGADO NO SE HEREDA.<br>SE CONQUISTA.</div>
-      <a class="backtop" href="#music-title">VOLVER ARRIBA ↑</a>
+      <p>Buscá por artista, álbum o sello. Cada disco tiene su historia; consultá disponibilidad directamente por WhatsApp.</p>
     </div>
-  </footer>
-
-  <script>
-    const menuButton = document.querySelector('.menu-toggle');
-    const menu = document.querySelector('.main-nav');
-    menuButton.addEventListener('click', () => {
-      const open = menuButton.getAttribute('aria-expanded') === 'true';
-      menuButton.setAttribute('aria-expanded', String(!open));
-      menu.classList.toggle('is-open', !open);
-    });
-    menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-      menu.classList.remove('is-open');
-      menuButton.setAttribute('aria-expanded', 'false');
-    }));
-  </script>
-  <script src="js/catalogo.js"></script>
+    <div class="music-search-panel">
+      <div class="music-search-meta"><span>BUSCAR EN EL CATÁLOGO</span><span>ARTISTA · ÁLBUM · SELLO</span></div>
+      <label class="music-search" for="buscador">
+        <span class="music-search-icon" aria-hidden="true">⌕</span>
+        <input id="buscador" type="search" placeholder="Buscar artista, álbum o sello..." autocomplete="off" aria-label="Buscar discos por artista, álbum o sello">
+      </label>
+    </div>
+    <div class="music-results-label"><span>CATÁLOGO DE MÚSICA</span><span>CONSULTAS POR WHATSAPP</span></div>
+    <div id="resultados" aria-live="polite"></div>
+  </section>
+</main>
+<footer class="site-footer">
+  <a class="footer-brand" href="index.html">LEVIATÁN<span>®</span></a>
+  <div class="footer-motto">EL LEGADO NO SE HEREDA.<br><em>SE CONQUISTA.</em></div>
+  <div class="footer-meta"><span>GENERAL CABRERA · CÓRDOBA</span><span>FEDERICO GASTÓN SPRATT</span><span>© LEVIATÁN</span></div>
+</footer>
+<script>
+const toggle=document.querySelector('.menu-toggle');
+const nav=document.querySelector('.main-nav');
+toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));nav.classList.toggle('is-open',!open)});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false')}));
+</script>
+<script src="js/catalogo.js"></script>
 </body>
 </html>
