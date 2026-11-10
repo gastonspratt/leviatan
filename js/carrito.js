@@ -123,8 +123,12 @@
     Papa.parse(SHEET_CD, {
       download: true, header: true, skipEmptyLines: true,
       complete: r => {
-        const items = (r.data || []).filter(x => (x.Artista || "").trim() && (x.Album || "").trim() && precioNum(x.Precio));
-        for (let i = items.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [items[i], items[j]] = [items[j], items[i]]; }
+     const items = (r.data || []).filter(x =>
+  (x.Artista || "").trim() &&
+  (x.Album || "").trim() &&
+  precioNum(x.Precio) &&
+  String(x.Estado || "").trim().toLowerCase() === "en stock"
+);
         caja.innerHTML = items.slice(0, 8).map(x => {
           const p = precioNum(x.Precio);
           const clave = claveDe(x.Artista, x.Album);
