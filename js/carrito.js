@@ -46,10 +46,26 @@
 
   const claveDe = (artista, album) => (artista + "___" + album).toLowerCase().trim();
 
-  function agregar(item) {
+ function normalizarEstado(estado) {
+    return String(estado ?? "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim()
+        .toLowerCase();
+}
+
+function disponible(estado) {
+    return normalizarEstado(estado) === "en stock";
+}
+
+function agregar(item) {
+    if (!disponible(item.estado)) return;
     if (pedido.some(p => p.clave === item.clave)) return;
-    pedido.push(item); guardar(); pintar();
-  }
+
+    pedido.push(item);
+    guardar();
+    pintar();
+}
   function quitar(clave) { pedido = pedido.filter(p => p.clave !== clave); guardar(); pintar(); }
 
   /* --- Comanda --- */
@@ -59,7 +75,9 @@
     const totalEl = document.getElementById("comanda-total");
     const enviar = document.getElementById("comanda-enviar");
     const badge = document.getElementById("carrito-badge");
-    if (!caja) return;
+    if (caja) {
+    // Aquí permanece el código actual que dibuja la comanda.
+}
 
     if (badge) {
       badge.classList.toggle("visible", pedido.length > 0);
