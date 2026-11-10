@@ -419,6 +419,12 @@ document.addEventListener(
             document.getElementById("resultados");
 
         let colaPendiente = [];
+        if (!document.getElementById("leviatan-local-card-style")) {
+            const st = document.createElement("style");
+            st.id = "leviatan-local-card-style";
+            st.textContent = ".precio-local-slot{margin-top:5px;min-height:0}.beneficio-local-aviso{display:block;color:#c58a65;font:10px/1.5 'DM Mono',monospace}";
+            document.head.appendChild(st);
+        }
 
         function normalizar(texto) {
             return (texto || "")
@@ -438,6 +444,31 @@ document.addEventListener(
 
             return copia.slice(0, cantidad);
         }
+
+        function actualizarBeneficioLocal() {
+            const activo = localStorage.getItem("leviatan_cabrera_local_v1") === "true";
+            document.querySelectorAll(".card[data-card]").forEach(card => {
+                const slot = card.querySelector(".precio-local-slot");
+                if (!slot) return;
+                const clave = card.dataset.card;
+                const item = catalogo.find(x => (x.Tipo === "COMIC" ? claveComic(x) : claveItem(x.Artista, x.Album)) === clave);
+                if (!activo || !item) {
+                    slot.innerHTML = "";
+                    return;
+                }
+                const precio = item.Tipo === "COMIC"
+                    ? obtenerPrecioComic(item).final
+                    : parsearPrecio(item.Precio);
+                if (precio === null || precio === undefined || !Number.isFinite(Number(precio))) {
+                    slot.innerHTML = '<small class="beneficio-local-aviso">15% adicional y envío gratis en General Cabrera</small>';
+                    return;
+                }
+                const finalLocal = Number(precio) * 0.85;
+                slot.innerHTML = `<small class="beneficio-local-aviso">General Cabrera: ${escapeHtml(formatearPrecio(finalLocal))} · 15% adicional + envío gratis</small>`;
+            });
+        }
+
+        document.addEventListener("leviatan:local-change", actualizarBeneficioLocal);
 
         function mostrarResultados(lista) {
             resultados.innerHTML = "";
@@ -509,6 +540,8 @@ document.addEventListener(
                         <h3>${escapeHtml(subtitulo)}</h3>
                         <p><strong>${escapeHtml(titulo)}</strong></p>
                         <p>${escapeHtml(editorialOSello)}</p>
+                        ${esComic && (item.Guion || item.Guionista || item["Guión"]) ? `<p><strong>Guion:</strong> ${escapeHtml(item.Guion || item.Guionista || item["Guión"])}</p>` : ""}
+                        ${esComic && (item.Arte || item.Dibujante || item.Dibujo) ? `<p><strong>Arte:</strong> ${escapeHtml(item.Arte || item.Dibujante || item.Dibujo)}</p>` : ""}
                         <p>${escapeHtml(item.Origen || "")}</p>
                         ${
                             anio
@@ -517,18 +550,24 @@ document.addEventListener(
                         }
                         <p>${escapeHtml(item.Estado || "")}</p>
                         <div class="precio-slot">${renderizarPrecio(item)}</div>
+                        <div class="precio-local-slot" aria-live="polite"></div>
 
-${!esComic ? `
 <button
     type="button"
     class="btn-agregar-catalogo"
     data-agregar="${escapeAttribute(clave)}"
+    data-tipo="${esComic ? "COMIC" : "CD"}"
     data-artista="${escapeAttribute(item.Artista || "")}"
     data-album="${escapeAttribute(item.Album || "")}"
+    data-titulo="${escapeAttribute(item["Título"] || "")}"
+    data-serie="${escapeAttribute(item.Serie || "")}"
+    data-numero="${escapeAttribute(item["Número"] || "")}"
+    data-editorial="${escapeAttribute(item.Editorial || "")}"
     data-estado="${escapeAttribute(item.Estado || "")}"
-    data-precio="${parsearPrecio(item.Precio) || 0}"
+    data-precio="${parsearPrecio(esComic ? obtenerPrecioComic(item).final : item.Precio) || 0}"
 >AGREGAR A LA COMANDA</button>
-` : ""}
+
+
 
 <a
     class="btn-whatsapp"
@@ -554,6 +593,7 @@ ${!esComic ? `
                 }
             });
 
+            actualizarBeneficioLocal();
             procesarColaPortadas();
         }
 
@@ -582,6 +622,10 @@ ${!esComic ? `
 
                                 if (slot) slot.innerHTML = renderizarPrecio(item);
                                 if (wsp) wsp.href = armarLinkWhatsApp(item);
+                                card.querySelectorAll("[data-agregar]").forEach(btn => {
+                                    btn.dataset.precio = String(obtenerPrecioComic(item).final || 0);
+                                });
+                                actualizarBeneficioLocal();
                             });
                     }
                 } else {
@@ -628,6 +672,8 @@ ${!esComic ? `
                 "Título": serie || franquicia,
                 Serie: serie ? franquicia : "",
                 SerieOriginal: serie,
+                Guion: item.Guion || item.Guionista || item["Guión"] || item["Guionista principal"] || "",
+                Arte: item.Arte || item.Dibujante || item.Dibujo || item["Artista gráfico"] || "",
                 "Código universal": item.ISBN || "",
                 // La portada puede estar en "Imagen", en "Referencia" o en las
                 // columnas sin título del final del Sheet: se toma la primera URL
@@ -738,6 +784,14 @@ ${!esComic ? `
                                     item.Serie,
                                     item["Número"],
                                     item.Editorial,
+                                    item.Guion,
+                                    item.Guionista,
+                                    item["Guión"],
+                                    item.Arte,
+                                    item.Dibujante,
+                                    item.Dibujo,
+                                    item["Guionista principal"],
+                                    item["Artista gráfico"],
                                     item.Origen,
                                     item["Código universal"],
                                     item["Año de lanzamiento"]
