@@ -132,7 +132,7 @@ function obtenerConfigAdmin() {
     try {
         return JSON.parse(
             localStorage.getItem("leviatan_config_v1") ||
-            '{"porcentaje":0,"mostrarTachado":true}'
+            '{"porcentaje":0,"Tachado":true}'
         );
     } catch {
         return { porcentaje: 0, mostrarTachado: true };
@@ -696,7 +696,7 @@ document.addEventListener(
                     console.log("Cómics cargados:", catalogoComics.length);
                     console.log("Catálogo total:", catalogo.length);
 
-                    mostrarResultados(obtenerDestacados());
+                   mostrarResultados(obtenerDestacados(document.body.dataset.catalogo === "musica" ? 10 : 12));
                 }
             );
 
@@ -708,7 +708,7 @@ document.addEventListener(
                     normalizar(buscador.value);
 
                 if (texto === "") {
-                    mostrarResultados(obtenerDestacados());
+                mostrarResultados(obtenerDestacados(document.body.dataset.catalogo === "musica" ? 10 : 12));
                     return;
                 }
 
