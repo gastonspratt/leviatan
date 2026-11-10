@@ -517,8 +517,21 @@ document.addEventListener(
                         }
                         <p>${escapeHtml(item.Estado || "")}</p>
                         <div class="precio-slot">${renderizarPrecio(item)}</div>
-                        <a
-                            class="btn-whatsapp"
+
+${!esComic ? `
+<button
+    type="button"
+    class="btn-agregar-catalogo"
+    data-agregar="${escapeAttribute(clave)}"
+    data-artista="${escapeAttribute(item.Artista || "")}"
+    data-album="${escapeAttribute(item.Album || "")}"
+    data-estado="${escapeAttribute(item.Estado || "")}"
+    data-precio="${parsearPrecio(item.Precio) || 0}"
+>AGREGAR A LA COMANDA</button>
+` : ""}
+
+<a
+    class="btn-whatsapp"
                             href="${escapeAttribute(armarLinkWhatsApp(item))}"
                             target="_blank"
                             rel="noopener"
