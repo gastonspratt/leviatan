@@ -1,129 +1,31 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11110f">
-  <meta name="description" content="Leviatán. Discos, cómics, libros y objetos de colección. El legado no se hereda: se conquista.">
-  <title>Leviatán — El legado sigue vivo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#11110f">
+<meta name="description" content="Leviatán. Discos, cómics, libros y objetos de colección. El legado no se hereda: se conquista.">
+<title>Leviatán — El legado sigue vivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.home-commerce,.how-to{padding:85px max(6vw,calc((100vw - 1240px)/2));background:#11110f;color:#e8e1cf}.how-to{background:#0c0c0b}.home-commerce .eyebrow,.how-to .eyebrow{color:#b58a68}.home-commerce h2,.how-to h2{margin:12px 0 18px;font:700 clamp(2.6rem,5vw,4.8rem)/.95 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase}.home-commerce h2 em,.how-to h2 em{color:#b64e36;font-style:normal}.commerce-intro{max-width:680px;color:#c2b9a7;line-height:1.75}.commerce-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.8fr);gap:25px;margin-top:30px;align-items:start}.featured-panel,.order-panel,.how-card{border:1px solid rgba(218,205,174,.22);background:rgba(255,255,255,.025);padding:21px;min-width:0}.panel-kicker{color:#a88c69;font:.68rem 'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase}#destacados{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}.mini{display:grid;grid-template-columns:82px minmax(0,1fr);gap:12px;padding:10px;border:1px solid rgba(218,205,174,.13);background:#171613;min-width:0}.mini__img{width:82px;aspect-ratio:1;object-fit:cover;background:#090909}.mini__cuerpo{display:flex;flex-direction:column;align-items:flex-start;min-width:0}.mini__artista{color:#b9a88b;font:.62rem 'DM Mono',monospace}.mini__album{margin-top:4px;color:#eee5d2;font-weight:800;font-size:.83rem;line-height:1.3}.mini__datos{margin-top:5px;color:#928a7d;font-size:.68rem}.mini__precio{margin-top:auto;padding-top:8px;color:#e8dfca;font-weight:800}.btn-agregar{margin-top:8px;padding:8px 10px;border:1px solid #8b604b;background:#3a211a;color:#f0dfc8;font:.65rem 'DM Mono',monospace}.btn-agregar:disabled{opacity:.55}.order-panel{position:sticky;top:100px}.order-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid rgba(218,205,174,.18)}.order-head h3{font:700 1.5rem 'Barlow Condensed',Impact,sans-serif}.carrito-badge{display:none;padding:5px 8px;border:1px solid #8b604b;color:#e8dfca;font:.63rem 'DM Mono',monospace}.carrito-badge.visible{display:inline-flex;gap:5px}#comanda-lineas{min-height:65px;padding:14px 0}.comanda__vacia,.order-note{color:#958d80;font-size:.75rem;line-height:1.6}.comanda__linea{display:grid;grid-template-columns:minmax(0,1fr) auto 25px;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(218,205,174,.1);font-size:.74rem;color:#d8cfbd}.comanda__linea strong{color:#eee5d2}.comanda__linea .monto{white-space:nowrap}.comanda__quitar{border:0;background:none;color:#bd6049}.order-summary{display:flex;justify-content:space-between;padding:13px 0;border-top:1px solid rgba(218,205,174,.18);font:.7rem 'DM Mono',monospace;color:#c2b9a7}.order-summary strong{color:#eee5d2;font-size:.95rem}.order-actions,.how-links{display:flex;flex-wrap:wrap;gap:9px}.order-actions a,.order-actions button{padding:10px 12px;border:1px solid #8b604b;background:#3a211a;color:#f0dfc8;font:.64rem 'DM Mono',monospace;text-decoration:none}.order-actions a.off{opacity:.4;pointer-events:none}.order-actions button{background:transparent;border-color:rgba(218,205,174,.2)}.order-note{margin-top:12px}.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:25px}.how-card span{color:#b64e36;font:.7rem 'DM Mono',monospace}.how-card h3{margin:10px 0 7px;font:700 1.55rem 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase}.how-card p{color:#bdb3a1;font-size:.82rem;line-height:1.7}.how-links{margin-top:22px}.how-links a{color:#e8dfca;border-bottom:1px solid #8b604b;padding-bottom:5px;font:.7rem 'DM Mono',monospace;text-decoration:none}
+@media(max-width:850px){.commerce-grid{grid-template-columns:1fr}.order-panel{position:static}}@media(max-width:600px){.home-commerce,.how-to{padding:60px 18px}#destacados,.how-grid{grid-template-columns:1fr}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
-<body>
-  <div class="grain" aria-hidden="true"></div>
-  <header class="site-header">
-    <a class="wordmark" href="#inicio" aria-label="Leviatán, inicio">
-      <span class="wordmark-mark">L</span>
-      <span><b>LEVIATÁN</b><small>DISCOS · CÓMICS · LIBROS</small></span>
-    </a>
-    <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">MENÚ <span>＋</span></button>
-    <nav id="main-nav" class="main-nav">
-      <a href="#musica">Música</a><a href="#comics">Cómics</a><a href="#libros">Libros</a>
-      <a href="#legado">El legado</a><a href="#contacto" class="nav-contact">Contacto <span>↗</span></a>
-    </nav>
-  </header>
-
-  <main id="inicio">
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="eyebrow-line"></span> UNA BATEA. MUCHAS VIDAS.</p>
-        <h1>EL LEGADO<br>NO SE <em>HEREDA.</em><br><span>SE CONQUISTA.</span></h1>
-        <p class="hero-lede">Discos que sobrevivieron a mil escuchas. Historietas que pasaron de mano en mano. Libros que todavía tienen algo que decir.</p>
-        <div class="hero-actions">
-          <a class="button button-solid" href="#seleccion">REVOLVER LA BATEA <span>↓</span></a>
-          <a class="text-link" href="#legado">Conocé nuestra historia <span>↗</span></a>
-        </div>
-      </div>
-      <div class="hero-art">
-        <div class="art-frame"><img src="img/emblema-leviatan.png" alt="Emblema de Leviatán: criatura marina biomecánica, espada y arcoíris retro"></div>
-        <div class="art-caption"><span>ARCHIVO LEVIATÁN / 001</span><span>EL LEGADO SIGUE EN MOVIMIENTO</span></div>
-      </div>
-      <div class="hero-bottomline"><span>GENERAL CABRERA · CÓRDOBA</span><span>SELECCIÓN INDEPENDIENTE</span><span>ENVÍOS A TODO EL PAÍS</span></div>
-    </section>
-
-    <section class="manifesto" id="legado">
-      <div class="section-index">01 / MEMORIA</div>
-      <div class="manifesto-main">
-        <p class="eyebrow">DE RAINBOW Y EXCALIBUR A LEVIATÁN</p>
-        <h2>LAS HISTORIAS<br>NO TERMINAN.<br><em>CAMBIAN DE MANOS.</em></h2>
-      </div>
-      <div class="manifesto-text">
-        <p>Antes de Leviatán estuvieron Rainbow y Excalibur. Las ferias del Parque Rivadavia y Parque Centenario. Sábados, domingos y vacaciones enteras entre discos viejos, viñetas de colores, música pesada y buenas historias.</p>
-        <p>Hoy estamos en General Cabrera, Córdoba, y a lo largo de todo el país. Promoviendo la cultura, resistiendo al sistema que nos quiere convertir a todos por igual y llevando el Legado de los cómics y el Metal a las próximas generaciones.</p>
-        <p class="signature">Federico Gastón Spratt <span>— Leviatán</span></p>
-      </div>
-    </section>
-
-    <section class="categories" id="seleccion">
-      <div class="section-heading">
-        <div><p class="eyebrow">02 / LA BATEA</p><h2>HAY QUE <em>REVOLVER.</em></h2></div>
-        <p>No es un catálogo infinito. Es una selección que se descubre pieza por pieza.</p>
-      </div>
-      <div class="category-grid">
-        <a class="category-card metal" id="musica" href="#contacto">
-          <span class="card-number">01</span><span class="card-symbol">♫</span>
-          <span class="card-bottom"><b>MÚSICA</b><small>HEAVY METAL · HARD ROCK · CD</small><i>↗</i></span>
-        </a>
-        <a class="category-card comics" id="comics" href="#contacto">
-          <span class="card-number">02</span><span class="card-symbol">✳</span>
-          <span class="card-bottom"><b>CÓMICS</b><small>HISTORIETA · NOVELA GRÁFICA</small><i>↗</i></span>
-        </a>
-        <a class="category-card books" id="libros" href="#contacto">
-          <span class="card-number">03</span><span class="card-symbol">▤</span>
-          <span class="card-bottom"><b>LIBROS</b><small>NARRATIVA · AUTORES ELEGIDOS</small><i>↗</i></span>
-        </a>
-        <a class="category-card objects" id="objetos" href="#contacto">
-          <span class="card-number">04</span><span class="card-symbol">◇</span>
-          <span class="card-bottom"><b>OBJETOS</b><small>COLECCIONISMO · PIEZAS SINGULARES</small><i>↗</i></span>
-        </a>
-      </div>
-    </section>
-
-    <section class="selection">
-      <div class="section-heading">
-        <div><p class="eyebrow">03 / HALLAZGOS</p><h2>UNA PIEZA.<br><em>UNA HISTORIA.</em></h2></div>
-        <p>El espacio para mostrar novedades y hallazgos reales del inventario.</p>
-      </div>
-      <div class="selection-note"><span class="stamp">BATEA<br>ABIERTA</span><div><b>ACÁ VAN LOS PRODUCTOS REALES</b><p>Este prototipo no inventa stock ni precios. Las fichas se conectarán al catálogo existente cuando integremos el diseño.</p></div><span class="note-arrow">↓</span></div>
-    </section>
-
-    <section class="principles">
-      <div class="principle-image"><img src="img/emblema-leviatan.png" alt="" loading="lazy"></div>
-      <div class="principle-copy">
-        <p class="eyebrow">04 / NUESTRO CRITERIO</p>
-        <h2>LO QUE VES<br>ES LO QUE <em>HAY.</em></h2>
-        <p>Cada pieza se revisa y se describe por su estado real. Si tiene marcas, se informa. Si es una edición original, también. Sin fotos de stock ni descripciones copiadas.</p>
-        <p>Los discos y los tomos son ejemplares únicos: primero confirmamos disponibilidad y estado; después coordinamos el pago y el envío.</p>
-      </div>
-    </section>
-
-    <section class="closing" id="contacto">
-      <p class="eyebrow">05 / EL VIAJE CONTINÚA</p>
-      <h2>EL LEGADO<br><em>SIGUE VIVO.</em></h2>
-      <p>Encontrá esa pieza que estabas buscando. O esa que todavía no sabías que existía.</p>
-      <a class="button button-solid" href="https://www.instagram.com/tiendaleviatan/" target="_blank" rel="noopener">CONTACTAR A LEVIATÁN <span>↗</span></a>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <a class="footer-brand" href="#inicio">LEVIATÁN<span>®</span></a>
-    <div class="footer-motto">EL LEGADO NO SE HEREDA.<br><em>SE CONQUISTA.</em></div>
-    <div class="footer-meta"><span>GENERAL CABRERA · CÓRDOBA</span><span>FEDERICO GASTÓN SPRATT</span><span>© LEVIATÁN</span></div>
-  </footer>
-  <script>
-    const toggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.main-nav');
-    toggle.addEventListener('click', () => {
-      const open = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!open));
-      nav.classList.toggle('is-open', !open);
-    });
-    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      nav.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }));
-  </script>
-</body>
-</html>
+<body><div class="grain" aria-hidden="true"></div>
+<header class="site-header"><a class="wordmark" href="#inicio" aria-label="Leviatán, inicio"><span class="wordmark-mark">L</span><span><b>LEVIATÁN</b><small>DISCOS · CÓMICS · LIBROS</small></span></a>
+<button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">MENÚ <span>＋</span></button><nav id="main-nav" class="main-nav"><a href="musica.html">Música</a><a href="comics.html">Cómics</a><a href="libros.html">Libros</a><a href="#legado">El legado</a><a href="#como-comprar">Cómo comprar</a><a href="#comanda">Mi pedido</a><a href="contacto.html" class="nav-contact">Contacto <span>↗</span></a></nav></header>
+<main id="inicio">
+<section class="hero"><div class="hero-copy"><p class="eyebrow"><span class="eyebrow-line"></span> UNA BATEA. MUCHAS VIDAS.</p><h1>EL LEGADO<br>NO SE <em>HEREDA.</em><br><span>SE CONQUISTA.</span></h1><p class="hero-lede">Discos que sobrevivieron a mil escuchas. Historietas que pasaron de mano en mano. Libros que todavía tienen algo que decir.</p><div class="hero-actions"><a class="button button-solid" href="#seleccion">REVOLVER LA BATEA <span>↓</span></a><a class="text-link" href="#legado">Conocé nuestra historia <span>↗</span></a></div></div><div class="hero-art"><div class="art-frame"><img src="img/emblema-leviatan.png" alt="Emblema de Leviatán: criatura marina biomecánica, espada y arcoíris retro"></div><div class="art-caption"><span>ARCHIVO LEVIATÁN / 001</span><span>EL LEGADO SIGUE EN MOVIMIENTO</span></div></div><div class="hero-bottomline"><span>GENERAL CABRERA · CÓRDOBA</span><span>SELECCIÓN INDEPENDIENTE</span><span>ENVÍOS A TODO EL PAÍS</span></div></section>
+<section class="manifesto" id="legado"><div class="section-index">01 / MEMORIA</div><div class="manifesto-main"><p class="eyebrow">DE RAINBOW Y EXCALIBUR A LEVIATÁN</p><h2>LAS HISTORIAS<br>NO TERMINAN.<br><em>CAMBIAN DE MANOS.</em></h2></div><div class="manifesto-text"><p>Antes de Leviatán estuvieron Rainbow y Excalibur. Las ferias del Parque Rivadavia y Parque Centenario. Sábados, domingos y vacaciones enteras entre discos viejos, viñetas de colores, música pesada y buenas historias.</p><p>Hoy estamos en General Cabrera, Córdoba, y a lo largo de todo el país. Promoviendo la cultura, resistiendo al sistema que nos quiere convertir a todos por igual y llevando el Legado de los cómics y el Metal a las próximas generaciones.</p><p class="signature">Federico Gastón Spratt <span>— Leviatán</span></p></div></section>
+<section class="categories" id="seleccion"><div class="section-heading"><div><p class="eyebrow">02 / LA BATEA</p><h2>HAY QUE <em>REVOLVER.</em></h2></div><p>No es un catálogo infinito. Es una selección que se descubre pieza por pieza.</p></div><div class="category-grid"><a class="category-card metal" href="musica.html"><span class="card-number">01</span><span class="card-symbol">♫</span><span class="card-bottom"><b>MÚSICA</b><small>HEAVY METAL · HARD ROCK · CD</small><i>↗</i></span></a><a class="category-card comics" href="comics.html"><span class="card-number">02</span><span class="card-symbol">✳</span><span class="card-bottom"><b>CÓMICS</b><small>HISTORIETA · NOVELA GRÁFICA</small><i>↗</i></span></a><a class="category-card books" href="libros.html"><span class="card-number">03</span><span class="card-symbol">▤</span><span class="card-bottom"><b>LIBROS</b><small>NARRATIVA · AUTORES ELEGIDOS</small><i>↗</i></span></a><a class="category-card objects" href="figuras.html"><span class="card-number">04</span><span class="card-symbol">◇</span><span class="card-bottom"><b>OBJETOS</b><small>COLECCIONISMO · PIEZAS SINGULARES</small><i>↗</i></span></a></div></section>
+<section class="home-commerce" id="comanda"><p class="eyebrow">03 / LA COMANDA</p><h2>ARMÁ TU <em>PEDIDO.</em></h2><p class="commerce-intro">Elegí discos de la selección, agregalos a tu comanda y enviá el pedido por WhatsApp. La reserva no implica pago: primero confirmamos disponibilidad y estado.</p><div class="commerce-grid"><div class="featured-panel"><div class="panel-kicker">HALLAZGOS DE LA BATEA · DISCOS</div><div id="destacados" aria-live="polite"><p class="order-note">Cargando selección de discos…</p></div><p class="order-note">Para explorar el catálogo completo, usá los accesos de Música y Cómics.</p><div class="how-links"><a href="musica.html">VER TODOS LOS DISCOS ↗</a><a href="comics.html">EXPLORAR CÓMICS ↗</a></div></div><aside class="order-panel" aria-labelledby="order-title"><div class="order-head"><h3 id="order-title">TU PEDIDO</h3><span id="carrito-badge" class="carrito-badge"><b>0</b> EN COMANDA</span></div><div id="comanda-cuenta" class="panel-kicker">0 ÍTEMS</div><div id="comanda-lineas"><div class="comanda__vacia">Todavía no agregaste nada.</div></div><div class="order-summary"><span>TOTAL DEL PEDIDO</span><strong id="comanda-total">$ 0</strong></div><div class="order-actions"><a id="comanda-enviar" class="off" href="#" target="_blank" rel="noopener">ENVIAR POR WHATSAPP ↗</a><button id="comanda-vaciar" type="button">VACIAR</button></div><p class="order-note">El carrito guarda tu selección en este navegador. No realiza cobros ni confirma stock automáticamente.</p></aside></div></section>
+<section class="how-to" id="como-comprar"><p class="eyebrow">04 / CÓMO SE COMPRA</p><h2>TRES PASOS. <em>SIN VUELTAS.</em></h2><p class="commerce-intro">El sistema reserva y consulta; el pago se coordina después de confirmar que cada pieza esté disponible y en el estado informado.</p><div class="how-grid"><article class="how-card"><span>01 / ENCONTRÁS</span><h3>Buscás</h3><p>Explorás el catálogo de música o cómics. Podés buscar por banda, álbum, título, serie, editorial o ISBN. Cada ficha muestra la información disponible.</p></article><article class="how-card"><span>02 / AGREGÁS</span><h3>Armás la comanda</h3><p>En los discos de la selección de portada, tocás «Agregar». Los productos se guardan en tu navegador y podés quitarlos o vaciar el pedido.</p></article><article class="how-card"><span>03 / CERRÁS</span><h3>Enviás el pedido</h3><p>Mandás la comanda por WhatsApp. Leviatán confirma stock y estado; después coordinan el pago y el envío.</p></article></div><div class="how-links"><a href="nosotros.html">CONOCÉ MÁS SOBRE LEVIATÁN ↗</a><a href="contacto.html">CONTACTO ↗</a></div></section>
+<section class="principles"><div class="principle-image"><img src="img/emblema-leviatan.png" alt="" loading="lazy"></div><div class="principle-copy"><p class="eyebrow">05 / NUESTRO CRITERIO</p><h2>LO QUE VES<br>ES LO QUE <em>HAY.</em></h2><p>Cada pieza se revisa y se describe por su estado real. Si tiene marcas, se informa. Si es una edición original, también. Sin fotos de stock ni descripciones copiadas.</p><p>Los discos y los tomos son ejemplares únicos: primero confirmamos disponibilidad y estado; después coordinamos el pago y el envío.</p></div></section>
+<section class="closing" id="contacto"><p class="eyebrow">06 / EL VIAJE CONTINÚA</p><h2>EL LEGADO<br><em>SIGUE VIVO.</em></h2><p>Encontrá esa pieza que estabas buscando. O esa que todavía no sabías que existía.</p><a class="button button-solid" href="https://www.instagram.com/tiendaleviatan/" target="_blank" rel="noopener">CONTACTAR A LEVIATÁN <span>↗</span></a></section>
+</main>
+<footer class="site-footer"><a class="footer-brand" href="#inicio">LEVIATÁN<span>®</span></a><div class="footer-motto">EL LEGADO NO SE HEREDA.<br><em>SE CONQUISTA.</em></div><div class="footer-meta"><span>GENERAL CABRERA · CÓRDOBA</span><span>FEDERICO GASTÓN SPRATT</span><span>© LEVIATÁN</span></div></footer>
+<script>const toggle=document.querySelector('.menu-toggle');const nav=document.querySelector('.main-nav');toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));nav.classList.toggle('is-open',!open)});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false')}));</script>
+<script src="js/carrito.js"></script>
+</body></html>
