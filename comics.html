@@ -2,102 +2,102 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cómics | Historietas y novelas gráficas — Leviatán</title>
-  <meta name="description" content="Explorá el catálogo de cómics, historietas y novelas gráficas de Leviatán Coleccionables. Buscá por título, serie, editorial o ISBN.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080909">
+  <title>Cómics — Leviatán</title>
+  <meta name="description" content="Explorá el catálogo de cómics, historietas y novelas gráficas de Leviatán. Buscá por título, serie, editorial o ISBN.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://tiendaleviatan.com/comics.html">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Leviatán Coleccionables">
-  <meta property="og:title" content="Cómics | Historietas y novelas gráficas — Leviatán">
-  <meta property="og:description" content="Cómics, historietas y novelas gráficas para coleccionistas.">
+  <meta property="og:site_name" content="Leviatán">
+  <meta property="og:title" content="Cómics — Leviatán">
+  <meta property="og:description" content="Historietas y novelas gráficas para descubrir y coleccionar.">
   <meta property="og:url" content="https://tiendaleviatan.com/comics.html">
-  <meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
+  <meta property="og:image" content="https://tiendaleviatan.com/img/emblema-leviatan.png">
   <link rel="icon" href="img/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilos.css">
-  <link rel="stylesheet" href="css/internas.css">
-  <link rel="stylesheet" href="css/catalogos-acuaticos.css?v=20261103">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <title>Cómics — Leviatán</title>
+<style>
+.comics-catalog{width:100%;max-width:1600px;margin:0 auto;padding:72px 7vw 110px}
+.comics-heading{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:34px}
+.comics-heading .eyebrow{margin-bottom:18px}
+.comics-heading h1{margin:0;color:var(--paper);font:800 clamp(48px,6vw,76px)/.88 var(--display);letter-spacing:-.015em;text-transform:uppercase}
+.comics-heading h1 em{color:var(--rust);font-style:normal}
+.comics-heading>p{max-width:360px;margin:0 4vw 5px 20px;color:#a9a18f;font-size:12px;line-height:1.8}
+.comics-search-panel{margin:0 0 24px;padding:22px 24px 24px;border:1px solid var(--line);background:#111211}
+.comics-search-meta{display:flex;justify-content:space-between;gap:15px;margin-bottom:14px;color:#a79d88;font:8px var(--mono);letter-spacing:.13em}
+.comics-search{display:flex;align-items:center;gap:13px;width:100%;min-height:56px;padding:0 16px;border:1px solid rgba(216,210,194,.2);background:#080909}
+.comics-search:focus-within{border-color:#b7a98b}
+.comics-search-icon{color:var(--rust);font-size:24px;line-height:1}
+#buscador{width:100%;min-width:0;padding:14px 0;border:0;outline:0;background:transparent;color:var(--paper);font:500 14px var(--body)}
+#buscador::placeholder{color:#827d72}
+.comics-results-label{display:flex;justify-content:space-between;gap:15px;margin:0 0 17px;padding-bottom:12px;border-bottom:1px solid var(--line);color:#a79d88;font:8px var(--mono);letter-spacing:.13em}
+.comics-catalog #resultados{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:stretch}
+.comics-catalog #resultados .card{min-width:0;overflow:hidden;display:flex;flex-direction:column;border:1px solid #514936;background:linear-gradient(145deg,#202221,#090a0a);box-shadow:none}
+.comics-catalog #resultados .card:hover{border-color:#b7a98b;transform:translateY(-3px)}
+.comics-catalog #resultados .card>img{width:100%;aspect-ratio:2/3;object-fit:contain;padding:12px;border-bottom:1px solid var(--line);background:#080909}
+.comics-catalog #resultados .card-body{display:flex;flex:1;min-height:220px;flex-direction:column;padding:14px}
+.comics-catalog #resultados .card h3{margin:0 0 8px;color:#b7a98b;font:10px var(--mono);letter-spacing:.08em;line-height:1.5;text-transform:uppercase}
+.comics-catalog #resultados .card p{margin:0 0 6px;color:#a9a18f;font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+.comics-catalog #resultados .card p strong{color:var(--paper);font-size:14px}
+.comics-catalog #resultados .precio-slot{margin:10px 0 13px}
+.comics-catalog #resultados .precio,.comics-catalog #resultados .precio-bonificado{display:inline-block;padding:6px 9px;border:1px solid #62553e;background:#191814;color:var(--paper);font:700 16px var(--display);box-shadow:none}
+.comics-catalog #resultados .btn-agregar-catalogo{display:block;width:100%;margin:0 0 9px;padding:11px 8px;border:1px solid #62553e;background:#211d16;color:var(--paper);font:9px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .2s,border-color .2s}
+.comics-catalog #resultados .btn-agregar-catalogo:hover:not(:disabled){border-color:var(--rust);background:#2b1b15}
+.comics-catalog #resultados .btn-agregar-catalogo:disabled{cursor:default;opacity:.55}
+.comics-catalog #resultados .btn-whatsapp{display:block;width:100%;margin-top:auto;padding:11px 8px;border:1px solid #62553e;background:transparent;color:var(--paper);font:9px var(--mono);letter-spacing:.07em;text-align:center;text-transform:uppercase}
+.comics-catalog #resultados .btn-whatsapp:hover{border-color:var(--rust);background:#211612}
+.comics-catalog #resultados .sin-resultados{grid-column:1/-1;padding:40px 20px;border:1px dashed var(--line);color:#a9a18f;text-align:center}
+@media(max-width:1100px){.comics-catalog #resultados{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:900px){.comics-heading{display:block}.comics-heading>p{margin:18px 0 0}.comics-catalog #resultados{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.comics-catalog{padding:80px 22px}.comics-search-panel{padding:17px}.comics-search-meta,.comics-results-label{flex-direction:column;gap:8px}.comics-catalog #resultados{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.comics-catalog #resultados .card-body{min-height:205px;padding:11px}.comics-catalog #resultados .card p{font-size:11px}}
+@media(max-width:360px){.comics-catalog #resultados{grid-template-columns:1fr}}
+</style>
 </head>
-<body class="catalog-page comics-page" data-catalogo="comics">
-  <header>
-    <a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio">
-      <span class="logo__name">LEVIATÁN</span>
-      <span class="logo__descriptor">COLECCIONABLES</span>
-    </a>
-    <nav aria-label="Navegación principal">
-      <a href="index.html">Inicio</a>
-      <a href="musica.html">Música</a>
-      <a href="comics.html" aria-current="page">Cómics</a>
-      <a href="libros.html">Libros</a>
-      <a href="figuras.html">Figuras</a>
-      <a href="noticias.html">Noticias</a>
-      <a href="agenda.html">Agenda</a>
-      <a href="nosotros.html">Nosotros</a>
-      <a href="contacto.html">Contacto</a>
-    </nav>
-  </header>
-
-  <main class="catalog-main">
-    <section class="catalog-hero" aria-labelledby="comics-title">
-      <div class="catalog-hero__content">
-        <span class="catalog-eyebrow"><span class="catalog-eyebrow__dot" aria-hidden="true"></span> LEVIATÁN / CÓMICS</span>
-        <h1 id="comics-title">HISTORIAS<br><em>EN VIÑETAS.</em></h1>
-        <p>Historietas, cómics y novelas gráficas para descubrir, leer y coleccionar. Explorá el catálogo y consultá por disponibilidad.</p>
-        <a class="catalog-hero__cta" href="#catalogo">EXPLORAR CÓMICS <span aria-hidden="true">↓</span></a>
-      </div>
-      <div class="catalog-hero__side" aria-hidden="true">
-        <span class="catalog-hero__side-word">CÓMICS</span>
-        <span class="catalog-hero__side-line"></span>
-        <span class="catalog-hero__side-small">HISTORIETA · GRÁFICA · COLECCIÓN</span>
-      </div>
-      <div class="catalog-hero__bottomline" aria-hidden="true">
-        <span>HISTORIETAS</span><span class="catalog-hero__bottomline-mark">✳</span>
-        <span>NOVELAS GRÁFICAS</span><span class="catalog-hero__bottomline-mark">✳</span>
-        <span>COLECCIONISMO</span>
-      </div>
-    </section>
-
-    <section class="catalog-section" id="catalogo" aria-labelledby="catalog-title">
-      <div class="catalog-wrap">
-        <div class="catalog-section-heading">
-          <div>
-            <span class="catalog-kicker">La biblioteca ilustrada</span>
-            <h2 id="catalog-title">ENCONTRÁ TU PRÓXIMA HISTORIA</h2>
-          </div>
-          <p>Buscá por título, serie, editorial o ISBN. Cada ficha reúne los datos disponibles y un acceso directo para consultar por WhatsApp.</p>
-        </div>
-        <div class="catalog-search-panel">
-          <div class="catalog-search-panel__meta">
-            <span>01 / BÚSQUEDA EN EL CATÁLOGO</span>
-            <span>TÍTULO · SERIE · EDITORIAL · ISBN</span>
-          </div>
-          <label class="catalog-search" for="buscador">
-            <span class="catalog-search__icon" aria-hidden="true">⌕</span>
-            <input id="buscador" type="search" placeholder="Buscar cómic, serie, editorial o ISBN..." autocomplete="off" aria-label="Buscar cómics">
-          </label>
-        </div>
-        <div class="catalog-results-heading" aria-hidden="true">
-          <span>SELECCIÓN DEL CATÁLOGO</span>
-          <span>CONSULTAS POR WHATSAPP</span>
-        </div>
-        <div id="resultados" class="resultados" aria-live="polite"></div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <h2>LEVIATÁN COLECCIONABLES</h2>
-      <p class="slogan">Música • Cómics • Libros para coleccionistas.</p>
-      <a class="catalog-backtop" href="#comics-title">VOLVER ARRIBA ↑</a>
+<body data-catalogo="comics">
+<div class="grain" aria-hidden="true"></div>
+<header class="site-header">
+  <a class="wordmark" href="index.html" aria-label="Leviatán, inicio">
+    <span class="wordmark-mark">L</span><span><b>LEVIATÁN</b><small>DISCOS · CÓMICS · LIBROS</small></span>
+  </a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">MENÚ <span>＋</span></button>
+  <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+    <a href="musica.html">Música</a><a href="comics.html" aria-current="page">Cómics</a>
+    <a href="libros.html">Libros</a><a href="figuras.html">Objetos</a>
+    <a href="index.html#legado">El legado</a><a href="index.html#como-comprar">Cómo comprar</a>
+    <a href="index.html#comanda">Mi pedido</a><a href="contacto.html" class="nav-contact">Contacto <span>↗</span></a>
+  </nav>
+</header>
+<main>
+  <section class="comics-catalog" id="catalogo" aria-labelledby="comics-title">
+    <div class="comics-heading">
+      <div><p class="eyebrow"><span class="eyebrow-line"></span> 02 / LA BIBLIOTECA · CÓMICS</p><h1 id="comics-title">HISTORIAS <em>EN VIÑETAS.</em></h1></div>
+      <p>Historietas, cómics y novelas gráficas para descubrir, leer y coleccionar. Buscá por título, serie, editorial o ISBN.</p>
     </div>
-  </footer>
-
-  <script src="js/catalogo.js"></script>
-  <script src="js/precios-ovni.js"></script>
+    <div class="comics-search-panel">
+      <div class="comics-search-meta"><span>BUSCAR EN EL CATÁLOGO</span><span>TÍTULO · SERIE · EDITORIAL · ISBN</span></div>
+      <label class="comics-search" for="buscador"><span class="comics-search-icon" aria-hidden="true">⌕</span><input id="buscador" type="search" placeholder="Buscar cómic, serie, editorial o ISBN..." autocomplete="off" aria-label="Buscar cómics"></label>
+    </div>
+    <div class="comics-results-label"><span>CATÁLOGO DE CÓMICS</span><span>COMANDA · CONSULTAS POR WHATSAPP</span></div>
+    <div id="resultados" aria-live="polite"></div>
+  </section>
+</main>
+<footer class="site-footer">
+  <a class="footer-brand" href="index.html">LEVIATÁN<span>®</span></a>
+  <div class="footer-motto">EL LEGADO NO SE HEREDA.<br><em>SE CONQUISTA.</em></div>
+  <div class="footer-meta"><span>GENERAL CABRERA · CÓRDOBA</span><span>FEDERICO GASTÓN SPRATT</span><span>© LEVIATÁN</span></div>
+</footer>
+<script>
+const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.main-nav');
+toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));nav.classList.toggle('is-open',!open)});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false')}));
+</script>
+<script src="js/catalogo.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/comics-comanda.js"></script>
 </body>
 </html>
