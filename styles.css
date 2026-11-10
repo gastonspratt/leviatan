@@ -30,3 +30,28 @@ a{color:inherit;text-decoration:none}.site-header{height:82px;padding:0 5.5vw;di
 .selection-note{background:#121312;border-color:#514b3e}
 .principle-image{background:#080909}
 .closing{background:radial-gradient(ellipse at center,#211d18 0%,#080909 68%)}
+
+.music-catalog #resultados .btn-agregar-catalogo {
+  display:block;
+  width:100%;
+  margin:0 0 9px;
+  padding:11px 8px;
+  border:1px solid #62553e;
+  background:#211d16;
+  color:var(--paper);
+  font:9px var(--mono);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:background .2s,border-color .2s;
+}
+
+.music-catalog #resultados .btn-agregar-catalogo:hover:not(:disabled) {
+  border-color:var(--rust);
+  background:#2b1b15;
+}
+
+.music-catalog #resultados .btn-agregar-catalogo:disabled {
+  cursor:default;
+  opacity:.55;
+}
