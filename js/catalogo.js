@@ -653,20 +653,32 @@ document.addEventListener(
             const franquicia = (item.Franquicia || "").trim();
             const serie = (item.Serie || "").trim();
 
-            // Los encabezados de la planilla pueden variar (Arte, Dibujo,
-            // Dibujante, Dibujantes, Ilustración, Lápices, etc.).
-            const valorColumna = (fila, patron) => {
+            // Normaliza encabezados variables de créditos de cómics.
+            const normalizarEncabezado = texto => String(texto || "")
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .replace(/[^a-z0-9]/g, "");
+
+            const buscarColumna = (fila, expresion) => {
                 const clave = Object.keys(fila).find(nombre =>
-                    patron.test(String(nombre || "").normalize("NFD")
-                        .replace(/[\\u0300-\\u036f]/g, "").toLowerCase().trim())
+                    expresion.test(normalizarEncabezado(nombre))
                 );
                 return clave ? String(fila[clave] || "").trim() : "";
             };
+
             const guion = item.Guion || item.Guionista || item["Guión"] ||
-                item["Guionistas"] || valorColumna(item, /guion|guionista|script/);
+                item["Guionistas"] ||
+                buscarColumna(item, /guion|guionista|script|writer|escrit/);
+
+            // La planilla puede llamar al crédito artístico de distintas formas.
+            // Se incluyen encabezados frecuentes en ediciones nacionales e importadas.
             const arte = item.Arte || item.Dibujante || item.Dibujantes ||
-                item.Dibujo || item.Ilustrador || item.Ilustracion ||
-                item.Lapices || item.Lapiz || valorColumna(item, /arte|dibuj|ilustr|lapiz|lápiz|pencil/);
+                item.Dibujo || item.Dibujos || item.Ilustrador ||
+                item.Ilustradora || item.Ilustracion || item.Artista ||
+                item.Artistas || item.Penciller || item.Penciler ||
+                item.Inker || item.Lapices || item.Lapiz ||
+                buscarColumna(item, /arte|dibuj|ilustr|lapiz|pencil|penciller|penciler|inker|artist|artistico|artistica/);
 
             return {
                 ...item,
