@@ -13,14 +13,36 @@
   const plata = n => new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(n);
   const esc = t => String(t ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 
-  function precioNum(v) {
-    let t = String(v ?? "").replace(/[^0-9,.-]/g, "");
-    if (!t) return null;
-    if (/^-?\d{1,3}[.,]\d{3}$/.test(t)) t = t.replace(/[.,]/g, "");
-    else if (t.includes(",")) t = t.replace(/\./g, "").replace(",", ".");
-    const n = Number(t);
-    return Number.isFinite(n) && n > 0 ? n : null;
+ function precioNum(v) {
+  let t = String(v ?? "").trim().replace(/[^0-9,.-]/g, "");
+  if (!t) return null;
+
+  const coma = t.lastIndexOf(",");
+  const punto = t.lastIndexOf(".");
+
+  if (coma !== -1 && punto !== -1) {
+    // El último separador es el decimal.
+    if (coma > punto) {
+      t = t.replace(/\./g, "").replace(",", ".");
+    } else {
+      t = t.replace(/,/g, "");
+    }
+  } else if (coma !== -1 || punto !== -1) {
+    const sep = coma !== -1 ? "," : ".";
+    const partes = t.split(sep);
+
+    if (partes.length === 2 && partes[1].length === 3) {
+      // Separador de miles.
+      t = partes.join("");
+    } else {
+      // Separador decimal.
+      t = t.replace(sep, ".");
+    }
   }
+
+  const n = Number(t);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
 
   const claveDe = (artista, album) => (artista + "___" + album).toLowerCase().trim();
 
