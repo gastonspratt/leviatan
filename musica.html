@@ -21,8 +21,6 @@
 <title>Música — Leviatán</title>
 <link rel="stylesheet" href="styles.css">
 <style>
-/* La página usa la misma hoja, paleta, tipografía y ancho que index.html.
-   Estos estilos solo resuelven la búsqueda y la grilla del catálogo. */
 .music-catalog { width:100%; max-width:1600px; margin:0 auto; padding:72px 7vw 110px; }
 .music-heading { display:flex; justify-content:space-between; align-items:end; gap:30px; margin-bottom:34px; }
 .music-heading .eyebrow { margin-bottom:18px; }
@@ -48,6 +46,14 @@
 .music-catalog #resultados .precio-container { margin:10px 0 13px; }
 .music-catalog #resultados .precio,
 .music-catalog #resultados .precio-bonificado { display:inline-block; padding:6px 9px; border:1px solid #62553e; background:#191814; color:var(--paper); font:700 16px var(--display); box-shadow:none; }
+.music-catalog #resultados .btn-agregar-catalogo {
+  display:block; width:100%; margin:0 0 9px; padding:11px 8px;
+  border:1px solid #62553e; background:#211d16; color:var(--paper);
+  font:9px var(--mono); letter-spacing:.06em; text-transform:uppercase;
+  cursor:pointer; transition:background .2s,border-color .2s;
+}
+.music-catalog #resultados .btn-agregar-catalogo:hover:not(:disabled) { border-color:var(--rust); background:#2b1b15; }
+.music-catalog #resultados .btn-agregar-catalogo:disabled { cursor:default; opacity:.55; }
 .music-catalog #resultados .btn-whatsapp { display:block; width:100%; margin-top:auto; padding:11px 8px; border:1px solid #62553e; background:transparent; color:var(--paper); font:9px var(--mono); letter-spacing:.07em; text-align:center; text-transform:uppercase; }
 .music-catalog #resultados .btn-whatsapp:hover { border-color:var(--rust); background:#211612; }
 .music-catalog #resultados .sin-resultados { grid-column:1/-1; padding:40px 20px; border:1px dashed var(--line); color:#a9a18f; text-align:center; }
@@ -116,7 +122,5 @@ nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classLi
 </script>
 <script src="js/catalogo.js"></script>
 <script src="js/carrito.js"></script>
-</body>
-</html>
 </body>
 </html>
