@@ -419,12 +419,6 @@ document.addEventListener(
             document.getElementById("resultados");
 
         let colaPendiente = [];
-        if (!document.getElementById("leviatan-local-card-style")) {
-            const st = document.createElement("style");
-            st.id = "leviatan-local-card-style";
-            st.textContent = ".precio-local-slot{margin-top:5px;min-height:0}.beneficio-local-aviso{display:block;color:#c58a65;font:10px/1.5 'DM Mono',monospace}";
-            document.head.appendChild(st);
-        }
 
         function normalizar(texto) {
             return (texto || "")
@@ -445,30 +439,25 @@ document.addEventListener(
             return copia.slice(0, cantidad);
         }
 
-        function actualizarBeneficioLocal() {
+        function actualizarPreciosLocales() {
             const activo = localStorage.getItem("leviatan_cabrera_local_v1") === "true";
             document.querySelectorAll(".card[data-card]").forEach(card => {
-                const slot = card.querySelector(".precio-local-slot");
-                if (!slot) return;
                 const clave = card.dataset.card;
                 const item = catalogo.find(x => (x.Tipo === "COMIC" ? claveComic(x) : claveItem(x.Artista, x.Album)) === clave);
-                if (!activo || !item) {
-                    slot.innerHTML = "";
+                const slot = card.querySelector(".beneficio-local-slot");
+                if (!slot) return;
+                const base = item ? (item.Tipo === "COMIC" ? obtenerPrecioComic(item).final : parsearPrecio(item.Precio)) : null;
+                if (!activo) { slot.innerHTML = ""; return; }
+                if (base === null || base === undefined || !Number.isFinite(Number(base))) {
+                    slot.innerHTML = '<span class="beneficio-local-aviso">15% adicional y envío gratis en General Cabrera</span>';
                     return;
                 }
-                const precio = item.Tipo === "COMIC"
-                    ? obtenerPrecioComic(item).final
-                    : parsearPrecio(item.Precio);
-                if (precio === null || precio === undefined || !Number.isFinite(Number(precio))) {
-                    slot.innerHTML = '<small class="beneficio-local-aviso">15% adicional y envío gratis en General Cabrera</small>';
-                    return;
-                }
-                const finalLocal = Number(precio) * 0.85;
-                slot.innerHTML = `<small class="beneficio-local-aviso">General Cabrera: ${escapeHtml(formatearPrecio(finalLocal))} · 15% adicional + envío gratis</small>`;
+                const local = Number(base) * 0.85;
+                slot.innerHTML = `<span class="beneficio-local-aviso">General Cabrera: ${escapeHtml(formatearPrecio(local))} · 15% adicional + envío gratis</span>`;
             });
         }
 
-        document.addEventListener("leviatan:local-change", actualizarBeneficioLocal);
+        document.addEventListener("leviatan:local-change", actualizarPreciosLocales);
 
         function mostrarResultados(lista) {
             resultados.innerHTML = "";
@@ -540,8 +529,8 @@ document.addEventListener(
                         <h3>${escapeHtml(subtitulo)}</h3>
                         <p><strong>${escapeHtml(titulo)}</strong></p>
                         <p>${escapeHtml(editorialOSello)}</p>
-                        ${esComic && (item.Guion || item.Guionista || item["Guión"]) ? `<p><strong>Guion:</strong> ${escapeHtml(item.Guion || item.Guionista || item["Guión"])}</p>` : ""}
-                        ${esComic && (item.Arte || item.Dibujante || item.Dibujo) ? `<p><strong>Arte:</strong> ${escapeHtml(item.Arte || item.Dibujante || item.Dibujo)}</p>` : ""}
+                        ${esComic && item.Guion ? `<p><strong>Guion:</strong> ${escapeHtml(item.Guion)}</p>` : ""}
+                        ${esComic && item.Arte ? `<p><strong>Arte:</strong> ${escapeHtml(item.Arte)}</p>` : ""}
                         <p>${escapeHtml(item.Origen || "")}</p>
                         ${
                             anio
@@ -550,7 +539,7 @@ document.addEventListener(
                         }
                         <p>${escapeHtml(item.Estado || "")}</p>
                         <div class="precio-slot">${renderizarPrecio(item)}</div>
-                        <div class="precio-local-slot" aria-live="polite"></div>
+                        <div class="beneficio-local-slot" data-local-precio="${escapeAttribute(clave)}"></div>
 
 <button
     type="button"
@@ -566,8 +555,6 @@ document.addEventListener(
     data-estado="${escapeAttribute(item.Estado || "")}"
     data-precio="${parsearPrecio(esComic ? obtenerPrecioComic(item).final : item.Precio) || 0}"
 >AGREGAR A LA COMANDA</button>
-
-
 
 <a
     class="btn-whatsapp"
@@ -593,7 +580,7 @@ document.addEventListener(
                 }
             });
 
-            actualizarBeneficioLocal();
+            actualizarPreciosLocales();
             procesarColaPortadas();
         }
 
@@ -621,11 +608,10 @@ document.addEventListener(
                                 const wsp = card.querySelector(".btn-whatsapp");
 
                                 if (slot) slot.innerHTML = renderizarPrecio(item);
+                                const boton = card.querySelector("[data-agregar]");
+                                if (boton) boton.dataset.precio = String(obtenerPrecioComic(item).final || 0);
                                 if (wsp) wsp.href = armarLinkWhatsApp(item);
-                                card.querySelectorAll("[data-agregar]").forEach(btn => {
-                                    btn.dataset.precio = String(obtenerPrecioComic(item).final || 0);
-                                });
-                                actualizarBeneficioLocal();
+                                document.dispatchEvent(new Event("leviatan:local-change"));
                             });
                     }
                 } else {
@@ -672,8 +658,8 @@ document.addEventListener(
                 "Título": serie || franquicia,
                 Serie: serie ? franquicia : "",
                 SerieOriginal: serie,
-                Guion: item.Guion || item.Guionista || item["Guión"] || item["Guionista principal"] || "",
-                Arte: item.Arte || item.Dibujante || item.Dibujo || item["Artista gráfico"] || "",
+                Guion: item.Guion || item.Guionista || item["Guión"] || item["Guionistas"] || "",
+                Arte: item.Arte || item.Dibujante || item.Dibujo || item["Dibujantes"] || "",
                 "Código universal": item.ISBN || "",
                 // La portada puede estar en "Imagen", en "Referencia" o en las
                 // columnas sin título del final del Sheet: se toma la primera URL
@@ -785,13 +771,7 @@ document.addEventListener(
                                     item["Número"],
                                     item.Editorial,
                                     item.Guion,
-                                    item.Guionista,
-                                    item["Guión"],
                                     item.Arte,
-                                    item.Dibujante,
-                                    item.Dibujo,
-                                    item["Guionista principal"],
-                                    item["Artista gráfico"],
                                     item.Origen,
                                     item["Código universal"],
                                     item["Año de lanzamiento"]
