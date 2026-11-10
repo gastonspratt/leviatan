@@ -13,60 +13,51 @@
   const plata = n => new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(n);
   const esc = t => String(t ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 
- function precioNum(v) {
-  let t = String(v ?? "").trim().replace(/[^0-9,.-]/g, "");
-  if (!t) return null;
-
-  const coma = t.lastIndexOf(",");
-  const punto = t.lastIndexOf(".");
-
-  if (coma !== -1 && punto !== -1) {
-    // El último separador es el decimal.
-    if (coma > punto) {
-      t = t.replace(/\./g, "").replace(",", ".");
-    } else {
-      t = t.replace(/,/g, "");
+  function precioNum(v) {
+    let t = String(v ?? "").trim().replace(/[^0-9,.-]/g, "");
+    if (!t) return null;
+    const coma = t.lastIndexOf(",");
+    const punto = t.lastIndexOf(".");
+    if (coma !== -1 && punto !== -1) {
+      if (coma > punto) t = t.replace(/\./g, "").replace(",", ".");
+      else t = t.replace(/,/g, "");
+    } else if (coma !== -1 || punto !== -1) {
+      const sep = coma !== -1 ? "," : ".";
+      const partes = t.split(sep);
+      if (partes.length === 2 && partes[1].length === 3) t = partes.join("");
+      else t = t.replace(sep, ".");
     }
-  } else if (coma !== -1 || punto !== -1) {
-    const sep = coma !== -1 ? "," : ".";
-    const partes = t.split(sep);
-
-    if (partes.length === 2 && partes[1].length === 3) {
-      // Separador de miles.
-      t = partes.join("");
-    } else {
-      // Separador decimal.
-      t = t.replace(sep, ".");
-    }
+    const n = Number(t);
+    return Number.isFinite(n) && n > 0 ? n : null;
   }
-
-  const n = Number(t);
-  return Number.isFinite(n) && n > 0 ? n : null;
-}
 
   const claveDe = (artista, album) => (artista + "___" + album).toLowerCase().trim();
 
- function normalizarEstado(estado) {
+  function normalizarEstado(estado) {
     return String(estado ?? "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim()
-        .toLowerCase();
-}
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim()
+      .toLowerCase();
+  }
 
-function disponible(estado) {
+  function disponible(estado) {
     return normalizarEstado(estado) === "en stock";
-}
+  }
 
-function agregar(item) {
+  function agregar(item) {
     if (!disponible(item.estado)) return;
     if (pedido.some(p => p.clave === item.clave)) return;
-
     pedido.push(item);
     guardar();
     pintar();
-}
-  function quitar(clave) { pedido = pedido.filter(p => p.clave !== clave); guardar(); pintar(); }
+  }
+
+  function quitar(clave) {
+    pedido = pedido.filter(p => p.clave !== clave);
+    guardar();
+    pintar();
+  }
 
   /* --- Comanda --- */
   function pintar() {
@@ -75,33 +66,39 @@ function agregar(item) {
     const totalEl = document.getElementById("comanda-total");
     const enviar = document.getElementById("comanda-enviar");
     const badge = document.getElementById("carrito-badge");
+
+    // La página Música no contiene el panel de comanda.
+    // Solo se dibuja cuando el contenedor existe; el resto se actualiza igual.
     if (caja) {
-    // Aquí permanece el código actual que dibuja la comanda.
-}
+      if (!pedido.length) {
+        caja.innerHTML = '<div class="comanda__vacia">Todavía no agregaste nada.</div>';
+      } else {
+        caja.innerHTML = pedido.map(p =>
+          `<div class="comanda__linea"><span><strong>${esc(p.artista)}</strong> — ${esc(p.album)}</span>
+           <span class="monto">${plata(p.precio)}</span>
+           <button class="comanda__quitar" data-quitar="${esc(p.clave)}" aria-label="Quitar ${esc(p.artista)}">✕</button></div>`
+        ).join("");
+      }
+    }
 
     if (badge) {
       badge.classList.toggle("visible", pedido.length > 0);
       const n = badge.querySelector("b");
       if (n) n.textContent = pedido.length;
     }
-    if (cuenta) cuenta.textContent = pedido.length + (pedido.length === 1 ? " ÍTEM" : " ÍTEMS");
 
-    if (!pedido.length) {
-      caja.innerHTML = '<div class="comanda__vacia">Todavía no agregaste nada.</div>';
-    } else {
-      caja.innerHTML = pedido.map(p =>
-        `<div class="comanda__linea"><span><strong>${esc(p.artista)}</strong> — ${esc(p.album)}</span>
-         <span class="monto">${plata(p.precio)}</span>
-         <button class="comanda__quitar" data-quitar="${esc(p.clave)}" aria-label="Quitar ${esc(p.artista)}">✕</button></div>`
-      ).join("");
+    if (cuenta) {
+      cuenta.textContent = pedido.length + (pedido.length === 1 ? " ÍTEM" : " ÍTEMS");
     }
 
-    const total = pedido.reduce((a, p) => a + p.precio, 0);
+    const total = pedido.reduce((a, p) => a + (Number(p.precio) || 0), 0);
     if (totalEl) totalEl.textContent = plata(total);
 
     if (enviar) {
-      if (!pedido.length) { enviar.classList.add("off"); enviar.removeAttribute("href"); }
-      else {
+      if (!pedido.length) {
+        enviar.classList.add("off");
+        enviar.removeAttribute("href");
+      } else {
         enviar.classList.remove("off");
         const texto = "Hola, quiero reservar este pedido de Leviatán:\n\n"
           + pedido.map((p, i) => `${i + 1}. ${p.artista} — ${p.album}${p.estado ? " (" + p.estado + ")" : ""} — ${plata(p.precio)}`).join("\n")
@@ -110,16 +107,25 @@ function agregar(item) {
       }
     }
 
+    // Actualiza los botones en portada y catálogo de Música.
     document.querySelectorAll("[data-agregar]").forEach(b => {
       const dentro = pedido.some(p => p.clave === b.dataset.agregar);
-      b.disabled = dentro;
-      b.textContent = dentro ? "EN LA COMANDA" : "AGREGAR";
+      const agotado = !disponible(b.dataset.estado);
+      b.disabled = dentro || agotado;
+      b.textContent = dentro
+        ? "EN LA COMANDA"
+        : agotado
+          ? "AGOTADO"
+          : b.classList.contains("btn-agregar-catalogo")
+            ? "AGREGAR A LA COMANDA"
+            : "AGREGAR";
     });
   }
 
   document.addEventListener("click", e => {
     const add = e.target.closest("[data-agregar]");
     if (add) {
+      if (!disponible(add.dataset.estado)) return;
       agregar({
         clave: add.dataset.agregar,
         artista: add.dataset.artista || "",
@@ -128,25 +134,34 @@ function agregar(item) {
         precio: Number(add.dataset.precio) || 0
       });
     }
+
     const q = e.target.closest("[data-quitar]");
     if (q) quitar(q.dataset.quitar);
   });
 
-  document.getElementById("comanda-vaciar")?.addEventListener("click", () => { pedido = []; guardar(); pintar(); });
+  document.getElementById("comanda-vaciar")?.addEventListener("click", () => {
+    pedido = [];
+    guardar();
+    pintar();
+  });
 
   /* --- Destacados de la portada --- */
   async function destacados() {
     const caja = document.getElementById("destacados");
     if (!caja || !window.Papa) return;
+
     Papa.parse(SHEET_CD, {
-      download: true, header: true, skipEmptyLines: true,
+      download: true,
+      header: true,
+      skipEmptyLines: true,
       complete: r => {
-     const items = (r.data || []).filter(x =>
-  (x.Artista || "").trim() &&
-  (x.Album || "").trim() &&
-  precioNum(x.Precio) &&
-  String(x.Estado || "").trim().toLowerCase() === "en stock"
-);
+        const items = (r.data || []).filter(x =>
+          (x.Artista || "").trim() &&
+          (x.Album || "").trim() &&
+          precioNum(x.Precio) &&
+          disponible(x.Estado)
+        );
+
         caja.innerHTML = items.slice(0, 8).map(x => {
           const p = precioNum(x.Precio);
           const clave = claveDe(x.Artista, x.Album);
@@ -166,5 +181,8 @@ function agregar(item) {
     });
   }
 
-  document.addEventListener("DOMContentLoaded", () => { pintar(); destacados(); });
+  document.addEventListener("DOMContentLoaded", () => {
+    pintar();
+    destacados();
+  });
 })();
