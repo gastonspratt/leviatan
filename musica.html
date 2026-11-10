@@ -57,10 +57,10 @@
     .art-frame img { display:block; width:100%; aspect-ratio:1/1; object-fit:cover; }
     .art-caption { display:flex; justify-content:space-between; gap:12px; margin-top:17px; color:#8f8067; font: .55rem var(--mono); letter-spacing:.1em; }
     .hero-bottomline { position:absolute; bottom:0; left:7vw; right:7vw; display:flex; justify-content:space-between; gap:12px; padding:15px 0; border-top:1px solid var(--line); color:#9c8d74; font: .57rem var(--mono); letter-spacing:.12em; }
-    .catalog-section { padding:82px max(6vw,calc((100vw - 1240px)/2)) 100px; background:radial-gradient(ellipse at 15% 0%,rgba(182,78,54,.06),transparent 34%),#0c0c0b; }
-    .section-heading { display:flex; align-items:end; justify-content:space-between; gap:35px; margin-bottom:35px; }
-    .section-heading h2 { margin:10px 0 0; font:800 clamp(2.8rem,5vw,4.8rem)/.9 var(--display); text-transform:uppercase; }
-    .section-heading h2 em { color:var(--rust); font-style:normal; }
+    .catalog-section { min-height:calc(100vh - 170px); padding:64px max(6vw,calc((100vw - 1240px)/2)) 88px; background:radial-gradient(ellipse at 15% 0%,rgba(182,78,54,.06),transparent 34%),#0c0c0b; }
+    .section-heading { display:flex; align-items:end; justify-content:space-between; gap:35px; margin-bottom:30px; }
+    .section-heading h1 { margin:10px 0 0; font:900 clamp(3.8rem,7vw,6rem)/.88 var(--display); letter-spacing:-.02em; text-transform:uppercase; }
+    .section-heading h1 { color:var(--paper); }
     .section-heading>p { max-width:430px; margin:0 0 4px; color:var(--paper-dim); font-size:.85rem; line-height:1.75; }
     .search-panel { margin-bottom:27px; padding:20px 22px 22px; border:1px solid var(--line); border-top:2px solid var(--rust-dark); background:linear-gradient(115deg,rgba(182,78,54,.07),transparent 55%),#151411; }
     .search-meta { display:flex; justify-content:space-between; gap:14px; margin-bottom:14px; color:#ad9a7b; font: .62rem var(--mono); letter-spacing:.13em; }
@@ -70,11 +70,11 @@
     #buscador { width:100%; min-width:0; padding:13px 0; border:0; outline:0; background:transparent; color:var(--paper); font:500 .95rem var(--body); }
     #buscador::placeholder { color:#81796d; }
     .results-heading { display:flex; justify-content:space-between; gap:15px; margin:0 0 17px; padding-bottom:12px; border-bottom:1px solid var(--line); color:#a89d89; font: .62rem var(--mono); letter-spacing:.14em; }
-    .resultados { display:grid; grid-template-columns:repeat(auto-fill,minmax(218px,1fr)); gap:17px; width:100%; }
+    .resultados { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:17px; width:100%; align-items:stretch; }
     .card { min-width:0; overflow:hidden; border:1px solid var(--line); background:linear-gradient(145deg,rgba(182,78,54,.045),transparent 58%),#171613; box-shadow:0 12px 30px rgba(0,0,0,.25); transition:transform .2s,border-color .2s; }
     .card::before { content:""; display:block; height:2px; background:linear-gradient(90deg,#54271e,var(--rust),#54271e); }
     .card:hover { transform:translateY(-4px); border-color:rgba(182,78,54,.6); }
-    .card img { display:block; width:100%; aspect-ratio:1/1; object-fit:contain; padding:13px; border-bottom:1px solid var(--line); background:radial-gradient(circle,rgba(255,255,255,.06),transparent 65%),#090909; }
+    .card img { display:block; width:100%; aspect-ratio:1/1; object-fit:contain; padding:13px; border-bottom:1px solid var(--line); background:#090909; }
     .card-body { display:flex; min-height:230px; flex-direction:column; padding:17px 17px 18px; }
     .card h3 { margin:0 0 9px; color:#b69b7b; font: .65rem var(--mono); letter-spacing:.1em; line-height:1.5; text-transform:uppercase; }
     .card p { margin:0 0 6px; color:#a79f91; font-size:.79rem; line-height:1.55; overflow-wrap:anywhere; }
@@ -90,7 +90,9 @@
     .footer-brand span { color:var(--rust); }
     .footer-motto { color:#a99c85; font: .65rem var(--mono); line-height:1.8; text-align:center; letter-spacing:.1em; }
     .backtop { color:#b69b7b; font: .62rem var(--mono); text-decoration:none; }
+    @media(max-width:1100px) { .resultados { grid-template-columns:repeat(4,minmax(0,1fr)); } }
     @media(max-width:850px) {
+      .resultados { grid-template-columns:repeat(3,minmax(0,1fr)); }
       .site-header { min-height:76px; }
       .menu-toggle { display:block; }
       .main-nav { display:none; position:absolute; top:100%; left:0; right:0; padding:18px 6vw 22px; flex-direction:column; align-items:stretch; gap:18px; border-bottom:1px solid var(--line); background:#10100f; }
@@ -98,13 +100,11 @@
       .main-nav .nav-contact { text-align:center; }
       .hero { grid-template-columns:1fr; padding-top:62px; gap:45px; }
       .hero-art { justify-self:start; max-width:390px; }
-      .section-heading { align-items:flex-start; flex-direction:column; }
+      .section-heading { align-items:flex-start; flex-direction:column; gap:12px; }
+      .section-heading h1 { font-size:clamp(3.4rem,15vw,5rem); }
     }
     @media(max-width:600px) {
-      .hero { padding:55px 22px 78px; }
-      .hero h1 { font-size:clamp(3.7rem,16vw,5.7rem); }
-      .hero-bottomline { left:22px; right:22px; font-size:.48rem; }
-      .hero-bottomline span:nth-child(2) { display:none; }
+      .catalog-section { padding:48px 20px 65px; }
       .catalog-section { padding:60px 20px 70px; }
       .search-panel { padding:16px; }
       .search-meta,.results-heading { flex-direction:column; gap:7px; }
@@ -141,41 +141,26 @@
   </header>
 
   <main>
-    <section class="hero" aria-labelledby="music-title">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="eyebrow-line"></span> LEVIATÁN / MÚSICA</p>
-        <h1 id="music-title">DISCOS QUE<br><em>HACEN HISTORIA.</em></h1>
-        <p>CDs originales para coleccionistas. Música que dejó huella, ediciones que merecen seguir girando y discos que todavía tienen algo que decir.</p>
-        <div class="hero-actions">
-          <a class="button" href="#catalogo">EXPLORAR LA BATEA <span>↓</span></a>
-          <a class="text-link" href="index.html#legado">Conocé el legado de Leviatán ↗</a>
-        </div>
-      </div>
-      <div class="hero-art">
-        <div class="art-frame"><img src="img/emblema-leviatan.png" alt="Emblema de Leviatán: criatura biomecánica, espada y arcoíris retro"></div>
-        <div class="art-caption"><span>ARCHIVO LEVIATÁN / MÚSICA</span><span>DISCOS CON HISTORIA</span></div>
-      </div>
-      <div class="hero-bottomline"><span>CDS ORIGINALES</span><span>GENERAL CABRERA · CÓRDOBA</span><span>ENVÍOS A TODO EL PAÍS</span></div>
-    </section>
-
     <section class="catalog-section" id="catalogo" aria-labelledby="catalog-title">
       <div class="section-heading">
-        <div><p class="eyebrow">01 / LA BATEA</p><h2 id="catalog-title">BUSCÁ TU PRÓXIMO <em>DISCO.</em></h2></div>
-        <p>Encontrá un álbum por artista, título o sello. Cada ficha conserva los datos del catálogo y permite consultar directamente por WhatsApp.</p>
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line"></span> LEVIATÁN / MÚSICA</p>
+          <h1 id="catalog-title">LA BATEA.</h1>
+        </div>
+        <p>Buscá discos por artista, álbum o sello. Consultá cada pieza directamente por WhatsApp.</p>
       </div>
       <div class="search-panel">
-        <div class="search-meta"><span>02 / BÚSQUEDA EN EL CATÁLOGO</span><span>ARTISTA · ÁLBUM · SELLO</span></div>
+        <div class="search-meta"><span>01 / BUSCAR EN EL CATÁLOGO</span><span>ARTISTA · ÁLBUM · SELLO</span></div>
         <label class="music-search" for="buscador">
           <span class="music-search__icon" aria-hidden="true">⌕</span>
           <input id="buscador" type="search" placeholder="Buscar artista, álbum o sello..." autocomplete="off" aria-label="Buscar discos por artista, álbum o sello">
         </label>
       </div>
-      <div class="results-heading"><span>SELECCIÓN DEL CATÁLOGO</span><span>CONSULTAS POR WHATSAPP</span></div>
+      <div class="results-heading"><span>CATÁLOGO DE MÚSICA</span><span>CONSULTAS POR WHATSAPP</span></div>
       <div id="resultados" class="resultados" aria-live="polite"></div>
       <p class="catalog-note">Los datos de títulos, sellos, precios, estado y disponibilidad provienen del catálogo de Leviatán. Antes de coordinar el pago y el envío, confirmamos cada pieza.</p>
     </section>
   </main>
-
   <footer class="footer">
     <div class="footer-inner">
       <a class="footer-brand" href="index.html">LEVIATÁN<span>®</span></a>
