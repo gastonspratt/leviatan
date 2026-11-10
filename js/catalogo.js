@@ -653,13 +653,28 @@ document.addEventListener(
             const franquicia = (item.Franquicia || "").trim();
             const serie = (item.Serie || "").trim();
 
+            // Los encabezados de la planilla pueden variar (Arte, Dibujo,
+            // Dibujante, Dibujantes, Ilustración, Lápices, etc.).
+            const valorColumna = (fila, patron) => {
+                const clave = Object.keys(fila).find(nombre =>
+                    patron.test(String(nombre || "").normalize("NFD")
+                        .replace(/[\\u0300-\\u036f]/g, "").toLowerCase().trim())
+                );
+                return clave ? String(fila[clave] || "").trim() : "";
+            };
+            const guion = item.Guion || item.Guionista || item["Guión"] ||
+                item["Guionistas"] || valorColumna(item, /guion|guionista|script/);
+            const arte = item.Arte || item.Dibujante || item.Dibujantes ||
+                item.Dibujo || item.Ilustrador || item.Ilustracion ||
+                item.Lapices || item.Lapiz || valorColumna(item, /arte|dibuj|ilustr|lapiz|lápiz|pencil/);
+
             return {
                 ...item,
                 "Título": serie || franquicia,
                 Serie: serie ? franquicia : "",
                 SerieOriginal: serie,
-                Guion: item.Guion || item.Guionista || item["Guión"] || item["Guionistas"] || "",
-                Arte: item.Arte || item.Dibujante || item.Dibujo || item["Dibujantes"] || "",
+                Guion: guion,
+                Arte: arte,
                 "Código universal": item.ISBN || "",
                 // La portada puede estar en "Imagen", en "Referencia" o en las
                 // columnas sin título del final del Sheet: se toma la primera URL
