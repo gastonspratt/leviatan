@@ -27,8 +27,13 @@
  #leviatan-local-benefit strong{color:#d5b98a}
  #leviatan-local-benefit small{color:#9d9380;font:9px 'DM Mono',monospace}
  `;document.head.appendChild(s);document.head.appendChild(extra);
- const panel=document.querySelector(".comics-search-panel,.music-search-panel");
- if(panel&&!document.getElementById("leviatan-local-benefit")){
+const panel = document.querySelector(".comics-search-panel");
+
+if (
+    document.body.dataset.catalogo === "comics" &&
+    panel &&
+    !document.getElementById("leviatan-local-benefit")
+) {
    const local=document.createElement("label");local.id="leviatan-local-benefit";
    local.innerHTML='<input type="checkbox" id="leviatan-local-check"><span><strong>SOY DE GENERAL CABRERA</strong><br><small>15% adicional sobre el precio final + envío gratis</small></span>';
    panel.insertAdjacentElement("afterend",local);
