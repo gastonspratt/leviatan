@@ -1,183 +1,200 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Libros | Literatura y lecturas — Leviatán Coleccionables</title>
-  <meta name="description" content="Explorá el catálogo de libros de Leviatán Coleccionables. Buscá títulos y autores, consultá precios y disponibilidad por WhatsApp.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://tiendaleviatan.com/libros.html">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Leviatán Coleccionables">
-  <meta property="og:title" content="Libros | Literatura y lecturas — Leviatán">
-  <meta property="og:description" content="Literatura, clásicos y lecturas para descubrir en Leviatán Coleccionables.">
-  <meta property="og:url" content="https://tiendaleviatan.com/libros.html">
-  <meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
-  <link rel="icon" href="img/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilos.css">
-  <link rel="stylesheet" href="css/internas.css">
-  <link rel="stylesheet" href="css/catalogos-acuaticos.css?v=20261102">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080909">
+<meta name="description" content="Catálogo de libros de Leviatán. Buscá por título o autor y consultá disponibilidad.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tiendaleviatan.com/libros.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Leviatán">
+<meta property="og:title" content="Libros — Leviatán">
+<meta property="og:description" content="Literatura, clásicos y voces contemporáneas para descubrir en Leviatán.">
+<meta property="og:url" content="https://tiendaleviatan.com/libros.html">
+<meta property="og:image" content="https://tiendaleviatan.com/img/emblema-leviatan.png">
+<link rel="icon" href="img/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Libros — Leviatán</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.books-catalog{width:100%;max-width:1600px;margin:0 auto;padding:72px 7vw 110px}
+.books-heading{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:34px}
+.books-heading .eyebrow{margin-bottom:18px}
+.books-heading h1{margin:0;color:var(--paper);font:800 clamp(48px,6vw,76px)/.88 var(--display);letter-spacing:-.015em;text-transform:uppercase}
+.books-heading h1 em{color:var(--rust);font-style:normal}
+.books-heading>p{max-width:340px;margin:0 4vw 5px 20px;color:#a9a18f;font-size:12px;line-height:1.8}
+.books-search-panel{margin:0 0 24px;padding:22px 24px 24px;border:1px solid var(--line);background:#111211}
+.books-search-meta{display:flex;justify-content:space-between;gap:15px;margin-bottom:14px;color:#a79d88;font:8px var(--mono);letter-spacing:.13em}
+.books-controls{display:flex;align-items:stretch;gap:12px}
+.books-search{display:flex;flex:1;align-items:center;gap:13px;width:100%;min-width:0;min-height:56px;padding:0 16px;border:1px solid rgba(216,210,194,.2);background:#080909}
+.books-search:focus-within{border-color:#b7a98b}
+.books-search-icon{color:var(--rust);font-size:24px;line-height:1}
+#buscador{width:100%;min-width:0;padding:14px 0;border:0;outline:0;background:transparent;color:var(--paper);font:500 14px var(--body)}
+#buscador::placeholder{color:#827d72}
+#filtro-precio{min-width:165px;padding:0 13px;border:1px solid rgba(216,210,194,.2);border-radius:0;background:#080909;color:#a9a18f;font:10px var(--mono);letter-spacing:.04em}
+.books-results-label{display:flex;justify-content:space-between;gap:15px;margin:0 0 17px;padding-bottom:12px;border-bottom:1px solid var(--line);color:#a79d88;font:8px var(--mono);letter-spacing:.13em}
+.books-catalog #resultados{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:stretch}
+.books-catalog #resultados .card{min-width:0;overflow:hidden;display:flex;flex-direction:column;border:1px solid #514936;background:linear-gradient(145deg,#202221,#090a0a);box-shadow:none}
+.books-catalog #resultados .card:hover{border-color:#b7a98b;transform:translateY(-3px)}
+.book-cover{position:relative;display:flex;aspect-ratio:3/4;flex-direction:column;justify-content:space-between;overflow:hidden;padding:16px;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 50% 35%,#39362e 0,#171815 48%,#080909 100%)}
+.book-cover:before{position:absolute;inset:9px;border:1px solid rgba(183,169,139,.28);content:"";pointer-events:none}
+.book-cover__mark,.book-cover__title,.book-cover__author{position:relative;z-index:1}
+.book-cover__mark{color:#b7a98b;font:8px var(--mono);letter-spacing:.16em}
+.book-cover__title{margin:auto 0;color:#e8dfca;font:700 clamp(17px,1.7vw,25px)/.98 var(--display);letter-spacing:.015em;text-transform:uppercase;overflow-wrap:anywhere}
+.book-cover__author{margin-top:14px;color:#b7a98b;font:9px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.books-catalog #resultados .card-body{display:flex;flex:1;min-height:205px;flex-direction:column;padding:14px}
+.books-catalog #resultados .card h3{margin:0 0 8px;color:#b7a98b;font:10px var(--mono);letter-spacing:.08em;line-height:1.5;text-transform:uppercase}
+.books-catalog #resultados .card p{margin:0 0 6px;color:#a9a18f;font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+.books-catalog #resultados .card p strong{color:var(--paper);font-size:14px}
+.books-catalog #resultados .precio-slot{min-height:38px;display:flex;align-items:flex-start;margin:8px 0 4px}
+.books-catalog #resultados .precio{display:inline-block;padding:6px 9px;border:1px solid #62553e;background:#191814;color:var(--paper);font:700 16px var(--display)}
+.books-catalog #resultados .beneficio-local-slot{min-height:0;margin:0 0 8px}
+.books-catalog #resultados .beneficio-local-aviso{display:block;color:#c58a65;font:9px/1.5 var(--mono)}
+.books-catalog #resultados .btn-agregar-catalogo{display:block;width:100%;margin:0 0 9px;padding:11px 8px;border:1px solid #62553e;background:#211d16;color:var(--paper);font:9px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .2s,border-color .2s}
+.books-catalog #resultados .btn-agregar-catalogo:hover:not(:disabled){border-color:var(--rust);background:#2b1b15}
+.books-catalog #resultados .btn-agregar-catalogo:disabled{cursor:default;opacity:.55}
+.books-catalog #resultados .btn-whatsapp{display:block;width:100%;margin-top:auto;padding:11px 8px;border:1px solid #62553e;background:transparent;color:var(--paper);font:9px var(--mono);letter-spacing:.07em;text-align:center;text-transform:uppercase}
+.books-catalog #resultados .btn-whatsapp:hover{border-color:var(--rust);background:#211612}
+.books-catalog #resultados .sin-resultados{grid-column:1/-1;padding:40px 20px;border:1px dashed var(--line);color:#a9a18f;text-align:center}
+@media(max-width:1100px){.books-catalog #resultados{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:900px){.books-heading{display:block}.books-heading>p{margin:18px 0 0}.books-catalog #resultados{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.books-catalog{padding:80px 22px}.books-search-panel{padding:17px}.books-search-meta,.books-results-label{flex-direction:column;gap:8px}.books-controls{flex-direction:column}.books-catalog #resultados{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.books-catalog #resultados .card-body{min-height:190px;padding:11px}.books-catalog #resultados .card p{font-size:11px}#filtro-precio{min-height:44px}}
+@media(max-width:360px){.books-catalog #resultados{grid-template-columns:1fr}}
+</style>
 </head>
-<body class="catalog-page books-page">
-  <header>
-    <a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio">
-      <span class="logo__name">LEVIATÁN</span>
-      <span class="logo__descriptor">COLECCIONABLES</span>
-    </a>
-    <nav aria-label="Navegación principal">
-      <a href="index.html">Inicio</a>
-      <a href="musica.html">Música</a>
-      <a href="comics.html">Cómics</a>
-      <a href="libros.html" aria-current="page">Libros</a>
-      <a href="figuras.html">Figuras</a>
-      <a href="noticias.html">Noticias</a>
-      <a href="agenda.html">Agenda</a>
-      <a href="nosotros.html">Nosotros</a>
-      <a href="contacto.html">Contacto</a>
-    </nav>
-  </header>
-
-  <main class="catalog-main">
-    <section class="catalog-hero" aria-labelledby="books-title">
-      <div class="catalog-hero__content">
-        <span class="catalog-eyebrow"><span class="catalog-eyebrow__dot" aria-hidden="true"></span> LEVIATÁN / LIBROS</span>
-        <h1 id="books-title">LECTURAS<br><em>PARA QUEDARSE.</em></h1>
-        <p>Literatura, clásicos y voces contemporáneas. Explorá los títulos disponibles y consultanos por ejemplares y precios.</p>
-        <a class="catalog-hero__cta" href="#catalogo">EXPLORAR LIBROS <span aria-hidden="true">↓</span></a>
-      </div>
-      <div class="catalog-hero__side" aria-hidden="true">
-        <span class="catalog-hero__side-word">LECTURAS</span>
-        <span class="catalog-hero__side-line"></span>
-        <span class="catalog-hero__side-small">LITERATURA · IDEAS · COLECCIÓN</span>
-      </div>
-      <div class="catalog-hero__bottomline" aria-hidden="true">
-        <span>LITERATURA</span><span class="catalog-hero__bottomline-mark">✳</span>
-        <span>CLÁSICOS Y CONTEMPORÁNEOS</span><span class="catalog-hero__bottomline-mark">✳</span>
-        <span>LIBROS PARA DESCUBRIR</span>
-      </div>
-    </section>
-
-    <section class="catalog-section" id="catalogo" aria-labelledby="books-catalog-title">
-      <div class="catalog-wrap">
-        <div class="catalog-section-heading">
-          <div>
-            <span class="catalog-kicker">La biblioteca de Leviatán</span>
-            <h2 id="books-catalog-title">BUSCÁ TU PRÓXIMA LECTURA</h2>
-          </div>
-          <p>Encontrá títulos por nombre o autor. Consultá por WhatsApp para confirmar disponibilidad antes de realizar tu compra.</p>
-        </div>
-        <div class="catalog-search-panel">
-          <div class="catalog-search-panel__meta">
-            <span>01 / EXPLORAR LIBROS</span>
-            <span>TÍTULO · AUTOR · PRECIO</span>
-          </div>
-          <div class="catalog-book-controls">
-            <label class="catalog-search" for="buscar-libro">
-              <span class="catalog-search__icon" aria-hidden="true">⌕</span>
-              <input id="buscar-libro" type="search" placeholder="Buscar por título o autor…" autocomplete="off">
-            </label>
-            <select id="filtro-precio" aria-label="Filtrar por precio">
-              <option value="todos">Todos los precios</option>
-              <option value="10000">Hasta $10.000</option>
-              <option value="20000">$20.000</option>
-            </select>
-          </div>
-        </div>
-        <p id="libros-total" class="libros-total" aria-live="polite"></p>
-        <div id="libros-grid" class="libros-grid"></div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <h2>LEVIATÁN COLECCIONABLES</h2>
-      <p class="slogan">Música • Cómics • Libros para coleccionistas.</p>
-      <a class="catalog-backtop" href="#books-title">VOLVER ARRIBA ↑</a>
+<body data-catalogo="libros">
+<div class="grain" aria-hidden="true"></div>
+<header class="site-header">
+  <a class="wordmark" href="index.html" aria-label="Leviatán, inicio"><span class="wordmark-mark">L</span><span><b>LEVIATÁN</b><small>DISCOS · CÓMICS · LIBROS</small></span></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">MENÚ <span>＋</span></button>
+  <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+    <a href="musica.html">Música</a><a href="comics.html">Cómics</a><a href="libros.html" aria-current="page">Libros</a><a href="figuras.html">Objetos</a>
+    <a href="index.html#legado">El legado</a><a href="index.html#como-comprar">Cómo comprar</a><a href="index.html#comanda">Mi pedido</a><a href="contacto.html" class="nav-contact">Contacto <span>↗</span></a>
+  </nav>
+</header>
+<main>
+  <section class="books-catalog" id="catalogo" aria-labelledby="books-title">
+    <div class="books-heading">
+      <div><p class="eyebrow"><span class="eyebrow-line"></span> 03 / LA BIBLIOTECA · LIBROS</p><h1 id="books-title">LECTURAS <em>QUE PERDURAN.</em></h1></div>
+      <p>Buscá por título o autor. Cada libro tiene su mundo; consultá disponibilidad directamente por WhatsApp.</p>
     </div>
-  </footer>
+    <div class="books-search-panel">
+      <div class="books-search-meta"><span>BUSCAR EN EL CATÁLOGO</span><span>TÍTULO · AUTOR</span></div>
+      <div class="books-controls">
+        <label class="books-search" for="buscador"><span class="books-search-icon" aria-hidden="true">⌕</span><input id="buscador" type="search" placeholder="Buscar por título o autor..." autocomplete="off" aria-label="Buscar libros por título o autor"></label>
+        <select id="filtro-precio" aria-label="Filtrar por precio"><option value="todos">TODOS LOS PRECIOS</option><option value="10000">HASTA $10.000</option><option value="20000">$20.000</option></select>
+      </div>
+    </div>
+    <div class="books-results-label"><span id="libros-total">CATÁLOGO DE LIBROS</span><span>CONSULTAS POR WHATSAPP</span></div>
+    <div id="resultados" aria-live="polite"></div>
+  </section>
+</main>
+<footer class="site-footer"><a class="footer-brand" href="index.html">LEVIATÁN<span>®</span></a><div class="footer-motto">EL LEGADO NO SE HEREDA.<br><em>SE CONQUISTA.</em></div><div class="footer-meta"><span>GENERAL CABRERA · CÓRDOBA</span><span>FEDERICO GASTÓN SPRATT</span><span>© LEVIATÁN</span></div></footer>
+<script>
+const toggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.main-nav');
+toggle.addEventListener('click', () => {
+  const open = toggle.getAttribute('aria-expanded') === 'true';
+  toggle.setAttribute('aria-expanded', String(!open));
+  nav.classList.toggle('is-open', !open);
+});
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  nav.classList.remove('is-open');
+  toggle.setAttribute('aria-expanded', 'false');
+}));
 
-  <script>
-    const WHATSAPP_NUMERO = "5493584283858";
-    const libros = [
-      {"titulo":"Enojate hermana","autor":"Malena Pichot","precio":10000},
-      {"titulo":"Miseria","autor":"Dolores Reyes","precio":20000},
-      {"titulo":"Voces del feminismo rebelde","autor":"","precio":10000},
-      {"titulo":"Un cementerio perfecto","autor":"Federico Falco","precio":10000},
-      {"titulo":"Las cosas que perdimos en el fuego","autor":"Mariana Enriquez","precio":10000},
-      {"titulo":"La vegetariana","autor":"Han Kang","precio":20000},
-      {"titulo":"Cadáver exquisito","autor":"Agustina Bazterrica","precio":20000},
-      {"titulo":"Veganismo: Práctica de Justicia e Igualdad","autor":"","precio":10000},
-      {"titulo":"El cuento de la criada","autor":"Margaret Atwood","precio":20000},
-      {"titulo":"Sustancia","autor":"Nina Ferrari","precio":10000},
-      {"titulo":"Feminismo y arte","autor":"Andrea Giunta","precio":10000},
-      {"titulo":"Las malas","autor":"Camila Sosa Villalda","precio":20000},
-      {"titulo":"Cometierra","autor":"Dolores Reyes","precio":20000},
-      {"titulo":"La rebelión de las disidencias","autor":"","precio":10000},
-      {"titulo":"Visceral","autor":"María Fernanda Ampuero","precio":20000},
-      {"titulo":"Toda la vida es ahora","autor":"Emiliano Pinsón","precio":10000},
-      {"titulo":"Anarquismo en movimiento","autor":"Tomás Ibáñez","precio":10000},
-      {"titulo":"Cuentos","autor":"Edgar Allan Poe","precio":10000},
-      {"titulo":"Historia de la filosofía","autor":"Arthur Schopenhauer","precio":10000},
-      {"titulo":"Factotum","autor":"Charles Bukowski","precio":10000},
-      {"titulo":"El capitán salió a comer...","autor":"Charles Bukowski","precio":10000},
-      {"titulo":"La trilogía de Nueva York","autor":"Paul Auster","precio":10000},
-      {"titulo":"La naranja mecánica","autor":"Anthony Burgess","precio":10000},
-      {"titulo":"1888 - 1935","autor":"Fernando Pessoa","precio":10000},
-      {"titulo":"Las mil y una noches","autor":"Selección","precio":10000},
-      {"titulo":"Odisea","autor":"Homero","precio":10000},
-      {"titulo":"Historias fantásticas","autor":"Stephen King","precio":10000},
-      {"titulo":"Cuentos de Eva Luna","autor":"Isabel Allende","precio":10000},
-      {"titulo":"Carcoma","autor":"Layla Martinez","precio":20000}
-    ];
+const libros = [
+  {titulo:"Enojate hermana",autor:"Malena Pichot",precio:10000},
+  {titulo:"Miseria",autor:"Dolores Reyes",precio:20000},
+  {titulo:"Voces del feminismo rebelde",autor:"",precio:10000},
+  {titulo:"Un cementerio perfecto",autor:"Federico Falco",precio:10000},
+  {titulo:"Las cosas que perdimos en el fuego",autor:"Mariana Enriquez",precio:10000},
+  {titulo:"La vegetariana",autor:"Han Kang",precio:20000},
+  {titulo:"Cadáver exquisito",autor:"Agustina Bazterrica",precio:20000},
+  {titulo:"Veganismo: Práctica de Justicia e Igualdad",autor:"",precio:10000},
+  {titulo:"El cuento de la criada",autor:"Margaret Atwood",precio:20000},
+  {titulo:"Sustancia",autor:"Nina Ferrari",precio:10000},
+  {titulo:"Feminismo y arte",autor:"Andrea Giunta",precio:10000},
+  {titulo:"Las malas",autor:"Camila Sosa Villalda",precio:20000},
+  {titulo:"Cometierra",autor:"Dolores Reyes",precio:20000},
+  {titulo:"La rebelión de las disidencias",autor:"",precio:10000},
+  {titulo:"Visceral",autor:"María Fernanda Ampuero",precio:20000},
+  {titulo:"Toda la vida es ahora",autor:"Emiliano Pinsón",precio:10000},
+  {titulo:"Anarquismo en movimiento",autor:"Tomás Ibáñez",precio:10000},
+  {titulo:"Cuentos",autor:"Edgar Allan Poe",precio:10000},
+  {titulo:"Historia de la filosofía",autor:"Arthur Schopenhauer",precio:10000},
+  {titulo:"Factotum",autor:"Charles Bukowski",precio:10000},
+  {titulo:"El capitán salió a comer...",autor:"Charles Bukowski",precio:10000},
+  {titulo:"La trilogía de Nueva York",autor:"Paul Auster",precio:10000},
+  {titulo:"La naranja mecánica",autor:"Anthony Burgess",precio:10000},
+  {titulo:"1888 - 1935",autor:"Fernando Pessoa",precio:10000},
+  {titulo:"Las mil y una noches",autor:"Selección",precio:10000},
+  {titulo:"Odisea",autor:"Homero",precio:10000},
+  {titulo:"Historias fantásticas",autor:"Stephen King",precio:10000},
+  {titulo:"Cuentos de Eva Luna",autor:"Isabel Allende",precio:10000},
+  {titulo:"Carcoma",autor:"Layla Martinez",precio:20000}
+];
 
-    const grid = document.getElementById("libros-grid");
-    const buscar = document.getElementById("buscar-libro");
-    const filtro = document.getElementById("filtro-precio");
-    const total = document.getElementById("libros-total");
-    const pesos = valor => new Intl.NumberFormat("es-AR", {style:"currency", currency:"ARS", maximumFractionDigits:0}).format(valor);
+const grid = document.getElementById('resultados');
+const buscar = document.getElementById('buscador');
+const filtro = document.getElementById('filtro-precio');
+const total = document.getElementById('libros-total');
+const WHATSAPP_NUMERO = '5493584283858';
+const LOCAL_KEY = 'leviatan_cabrera_local_v1';
+const pesos = valor => new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(Number(valor)||0);
+const normalizar = valor => String(valor||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const escapar = valor => String(valor??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+const claveLibro = (libro,index) => `libro_${index}_${normalizar(libro.titulo+'_'+libro.autor).replace(/[^a-z0-9]+/g,'_')}`;
 
-    function normalizar(valor) {
-      return (valor || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-    }
-    function escapar(valor) {
-      return (valor || "").toString().replace(/[&<>\"]/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;"}[c]));
-    }
-    function renderizar() {
-      const consulta = normalizar(buscar.value.trim());
-      const precio = filtro.value;
-      const lista = libros.filter(libro => {
-        const coincide = normalizar(libro.titulo + " " + libro.autor).includes(consulta);
-        const precioOK = precio === "todos" || (precio === "10000" ? libro.precio <= 10000 : libro.precio === 20000);
-        return coincide && precioOK;
-      });
+function actualizarPreciosLocales(){
+  const activo = localStorage.getItem(LOCAL_KEY) === 'true';
+  document.querySelectorAll('.books-catalog #resultados .card[data-precio]').forEach(card => {
+    const slot = card.querySelector('.beneficio-local-slot');
+    if(!slot) return;
+    if(!activo){slot.innerHTML='';return;}
+    const precio = Number(card.dataset.precio);
+    const bonificado = precio * 0.85;
+    slot.innerHTML = `<span class="beneficio-local-aviso">General Cabrera: ${escapar(pesos(bonificado))} · 15% adicional + envío gratis</span>`;
+  });
+}
+document.addEventListener('leviatan:local-change',actualizarPreciosLocales);
 
-      total.textContent = `${lista.length} ${lista.length === 1 ? "libro encontrado" : "libros encontrados"}`;
-      if (!lista.length) {
-        grid.innerHTML = '<div class="libros-vacio">No se encontraron libros con esa búsqueda.</div>';
-        return;
-      }
-      grid.innerHTML = lista.map(libro => {
-        const titulo = escapar(libro.titulo);
-        const autor = escapar(libro.autor || "Autor no indicado");
-        const mensaje = encodeURIComponent(`Hola! Quisiera consultar por este libro: ${libro.titulo}${libro.autor ? " — " + libro.autor : ""}\nPrecio publicado: ${pesos(libro.precio)}. ¿Está disponible?`);
-        return `<article class="libro-card">
-          <div class="libro-portada" role="img" aria-label="Portada no disponible para ${titulo}"><span>${titulo}</span></div>
-          <div class="libro-info">
-            <h3>${titulo}</h3>
-            <p class="libro-autor">${autor}</p>
-            <p class="libro-precio">${pesos(libro.precio)}</p>
-            <a class="libro-whatsapp" href="https://wa.me/${WHATSAPP_NUMERO}?text=${mensaje}" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
-          </div>
-        </article>`;
-      }).join("");
-    }
-    buscar.addEventListener("input", renderizar);
-    filtro.addEventListener("change", renderizar);
-    renderizar();
-  </script>
+function renderizar(){
+  const consulta = normalizar(buscar.value.trim());
+  const precio = filtro.value;
+  const lista = libros.map((libro,index)=>({...libro,index})).filter(libro=>{
+    const coincide = normalizar(libro.titulo+' '+libro.autor).includes(consulta);
+    const precioOK = precio==='todos' || (precio==='10000' ? libro.precio<=10000 : libro.precio===20000);
+    return coincide && precioOK;
+  });
+  total.textContent = `${lista.length} ${lista.length===1?'LIBRO ENCONTRADO':'LIBROS ENCONTRADOS'}`;
+  if(!lista.length){grid.innerHTML='<div class="sin-resultados">No se encontraron libros con esa búsqueda.</div>';return;}
+  grid.innerHTML = lista.map(libro=>{
+    const titulo = escapar(libro.titulo);
+    const autor = escapar(libro.autor || 'Autor no indicado');
+    const clave = claveLibro(libro,libro.index);
+    const mensaje = encodeURIComponent(`Hola! Quisiera consultar por este libro: ${libro.titulo}${libro.autor?' — '+libro.autor:''}\nPrecio publicado: ${pesos(libro.precio)}. ¿Está disponible?`);
+    return `<article class="card" data-card="${escapar(clave)}" data-precio="${libro.precio}">
+      <div class="book-cover" role="img" aria-label="Portada gráfica de referencia para ${titulo}"><span class="book-cover__mark">LEVIATÁN / BIBLIOTECA</span><strong class="book-cover__title">${titulo}</strong><span class="book-cover__author">${autor}</span></div>
+      <div class="card-body">
+        <h3>${autor}</h3>
+        <p><strong>${titulo}</strong></p>
+        <div class="precio-slot"><span class="precio">${pesos(libro.precio)}</span></div>
+        <div class="beneficio-local-slot" data-local-precio="${escapar(clave)}"></div>
+        <button type="button" class="btn-agregar-catalogo" data-agregar="${escapar(clave)}" data-tipo="LIBRO" data-titulo="${titulo}" data-autor="${autor==='Autor no indicado'?'':autor}" data-precio="${libro.precio}" data-estado="">AGREGAR A LA COMANDA</button>
+        <a class="btn-whatsapp" href="https://wa.me/${WHATSAPP_NUMERO}?text=${mensaje}" target="_blank" rel="noopener noreferrer">CONSULTAR POR WHATSAPP</a>
+      </div>
+    </article>`;
+  }).join('');
+  actualizarPreciosLocales();
+}
+buscar.addEventListener('input',renderizar);
+filtro.addEventListener('change',renderizar);
+renderizar();
+</script>
+<script src="js/carrito.js"></script>
 </body>
 </html>
