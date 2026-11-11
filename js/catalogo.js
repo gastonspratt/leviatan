@@ -112,7 +112,6 @@ function limpiarISBN(valor) {
         .trim();
 }
 
-
 function escapeHtml(valor) {
     return (valor || "")
         .toString()
@@ -154,7 +153,6 @@ function parsearPrecio(valor) {
             texto = texto.replace(/,/g, "");
         }
     } else if (/^-?\d{1,3}[.,]\d{3}$/.test(texto)) {
-        // "20,000" o "20.000" = veinte mil (separador de miles)
         texto = texto.replace(/[.,]/g, "");
     } else if (texto.includes(",")) {
         texto = texto.replace(/\./g, "").replace(",", ".");
@@ -361,7 +359,6 @@ async function buscarPortada(artista, album) {
 
 const CACHE_COMIC_NEGATIVO_MS = 6 * 60 * 60 * 1000;
 
-// Pide al Worker la portada y el precio de OVNI Press para un cómic
 async function buscarDatosComic(item) {
     const clave = claveComic(item);
     const guardado = cachePortadasComics[clave];
@@ -441,18 +438,44 @@ document.addEventListener(
 
         function actualizarPreciosLocales() {
             const activo = localStorage.getItem("leviatan_cabrera_local_v1") === "true";
+
             document.querySelectorAll(".card[data-card]").forEach(card => {
                 const clave = card.dataset.card;
-                const item = catalogo.find(x => (x.Tipo === "COMIC" ? claveComic(x) : claveItem(x.Artista, x.Album)) === clave);
+
+                const item = catalogo.find(x =>
+                    (x.Tipo === "COMIC"
+                        ? claveComic(x)
+                        : claveItem(x.Artista, x.Album)) === clave
+                );
+
                 const slot = card.querySelector(".beneficio-local-slot");
+
                 if (!slot) return;
-                const base = item ? (item.Tipo === "COMIC" ? obtenerPrecioComic(item).final : parsearPrecio(item.Precio)) : null;
-                if (!activo) { slot.innerHTML = ""; return; }
-                if (base === null || base === undefined || !Number.isFinite(Number(base))) {
+
+                // La promoción de General Cabrera no corresponde al catálogo de Música.
+                if (!item || item.Tipo !== "COMIC") {
+                    slot.innerHTML = "";
+                    return;
+                }
+
+                if (!activo) {
+                    slot.innerHTML = "";
+                    return;
+                }
+
+                const base = obtenerPrecioComic(item).final;
+
+                if (
+                    base === null ||
+                    base === undefined ||
+                    !Number.isFinite(Number(base))
+                ) {
                     slot.innerHTML = '<span class="beneficio-local-aviso">15% adicional y envío gratis en General Cabrera</span>';
                     return;
                 }
+
                 const local = Number(base) * 0.85;
+
                 slot.innerHTML = `<span class="beneficio-local-aviso">General Cabrera: ${escapeHtml(formatearPrecio(local))} · 15% adicional + envío gratis</span>`;
             });
         }
@@ -597,7 +620,6 @@ document.addEventListener(
                         url = datos.cover;
                     }
 
-                    // Precio de OVNI Press cuando el Sheet no tiene uno
                     if (datos.precio && parsearPrecio(item.Precio) === null) {
                         item.Precio = String(datos.precio);
 
@@ -608,9 +630,17 @@ document.addEventListener(
                                 const wsp = card.querySelector(".btn-whatsapp");
 
                                 if (slot) slot.innerHTML = renderizarPrecio(item);
+
                                 const boton = card.querySelector("[data-agregar]");
-                                if (boton) boton.dataset.precio = String(obtenerPrecioComic(item).final || 0);
+
+                                if (boton) {
+                                    boton.dataset.precio = String(
+                                        obtenerPrecioComic(item).final || 0
+                                    );
+                                }
+
                                 if (wsp) wsp.href = armarLinkWhatsApp(item);
+
                                 document.dispatchEvent(new Event("leviatan:local-change"));
                             });
                     }
@@ -646,14 +676,10 @@ document.addEventListener(
             }
         }
 
-        // Adapta la pestaña Cómics (ISBN, Franquicia, Serie) a los nombres
-        // que usa el resto del código. Ojo: "Serie" pasa a guardar la
-        // franquicia, que es lo que se muestra arriba del título en la card.
         function normalizarComic(item) {
             const franquicia = (item.Franquicia || "").trim();
             const serie = (item.Serie || "").trim();
 
-            // Normaliza encabezados variables de créditos de cómics.
             const normalizarEncabezado = texto => String(texto || "")
                 .normalize("NFD")
                 .replace(/[\u0300-\u036f]/g, "")
@@ -664,6 +690,7 @@ document.addEventListener(
                 const clave = Object.keys(fila).find(nombre =>
                     expresion.test(normalizarEncabezado(nombre))
                 );
+
                 return clave ? String(fila[clave] || "").trim() : "";
             };
 
@@ -671,8 +698,6 @@ document.addEventListener(
                 item["Guionistas"] ||
                 buscarColumna(item, /guion|guionista|script|writer|escrit/);
 
-            // La planilla puede llamar al crédito artístico de distintas formas.
-            // Se incluyen encabezados frecuentes en ediciones nacionales e importadas.
             const arte = item.Arte || item.Dibujante || item.Dibujantes ||
                 item.Dibujo || item.Dibujos || item.Ilustrador ||
                 item.Ilustradora || item.Ilustracion || item.Artista ||
@@ -688,8 +713,6 @@ document.addEventListener(
                 Guion: guion,
                 Arte: arte,
                 "Código universal": item.ISBN || "",
-                // La portada puede estar en "Imagen", en "Referencia" o en las
-                // columnas sin título del final del Sheet: se toma la primera URL
                 Imagen: [item.Imagen, ...Object.values(item)]
                     .map(v => (v || "").toString().trim())
                     .find(v => /^https?:\/\//i.test(v)) || item.Imagen || ""
@@ -712,6 +735,7 @@ document.addEventListener(
                                         resultado.data
                                             .map(item => {
                                                 const fila = { ...item, Tipo: tipo };
+
                                                 return tipo === "COMIC"
                                                     ? normalizarComic(fila)
                                                     : fila;
@@ -755,7 +779,6 @@ document.addEventListener(
                                 (item["Título"] || "").trim()
                         );
 
-                    // Cada página elige qué muestra con <body data-catalogo="...">
                     const pagina =
                         document.body.dataset.catalogo || "todo";
 
@@ -768,7 +791,11 @@ document.addEventListener(
                     console.log("Cómics cargados:", catalogoComics.length);
                     console.log("Catálogo total:", catalogo.length);
 
-                   mostrarResultados(obtenerDestacados(document.body.dataset.catalogo === "musica" ? 10 : 12));
+                    mostrarResultados(
+                        obtenerDestacados(
+                            document.body.dataset.catalogo === "musica" ? 10 : 12
+                        )
+                    );
                 }
             );
 
@@ -780,7 +807,12 @@ document.addEventListener(
                     normalizar(buscador.value);
 
                 if (texto === "") {
-                mostrarResultados(obtenerDestacados(document.body.dataset.catalogo === "musica" ? 10 : 12));
+                    mostrarResultados(
+                        obtenerDestacados(
+                            document.body.dataset.catalogo === "musica" ? 10 : 12
+                        )
+                    );
+
                     return;
                 }
 
