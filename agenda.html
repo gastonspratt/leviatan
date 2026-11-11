@@ -5,9 +5,9 @@
   <title>Agenda Rock y Metal en Argentina | Leviatán Coleccionables</title>
   <meta name="description" content="Agenda de recitales y festivales de rock y metal en Argentina. Fechas nacionales e internacionales de heavy, power, thrash, metal extremo y más.">
   <meta name="robots" content="index, follow"><link rel="canonical" href="https://tiendaleviatan.com/agenda.html">
-  <meta property="og:type" content="website"><meta property="og:site_name" content="Leviatán Coleccionables"><meta property="og:title" content="Agenda Rock y Metal en Argentina | Leviatán"><meta property="og:description" content="Recitales, giras y festivales de heavy, power, thrash y metal en Argentina."><meta property="og:url" content="https://tiendaleviatan.com/agenda.html"><meta property="og:image" content="https://tiendaleviatan.com/img/fondo.png">
-  <link rel="icon" href="img/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilos.css"><link rel="stylesheet" href="css/internas.css"><link rel="stylesheet" href="css/agenda.css"><link rel="stylesheet" href="css/paginas-editoriales.css?v=8">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="Leviatán Coleccionables"><meta property="og:title" content="Agenda Rock y Metal en Argentina | Leviatán"><meta property="og:description" content="Recitales, giras y festivales de heavy, power, thrash y metal en Argentina."><meta property="og:url" content="https://tiendaleviatan.com/agenda.html"><meta property="og:image" content="https://tiendaleviatan.com/img/emblema-leviatan.png">
+  <link rel="icon" href="img/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="css/agenda.css"><link rel="stylesheet" href="css/paginas-editoriales.css?v=8">
   <style id="leviatan-aquatic-theme">/* Leviatán — identidad acuática: negro, acero, plata, azul petróleo y cian. */
 :root {
   --rojo: #23515a;
@@ -171,8 +171,24 @@ nav a:hover { border-color: rgba(117,170,176,.25); background: rgba(28,55,59,.42
 </style>
 </head>
 <body>
-<header><a class="logo logo--text" href="index.html" aria-label="Leviatán Coleccionables - Inicio"><span class="logo__name">LEVIATÁN</span><span class="logo__descriptor">COLECCIONABLES</span></a>
-<nav aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="musica.html">Música</a><a href="comics.html">Cómics</a><a href="libros.html">Libros</a><a href="figuras.html">Figuras</a><a href="noticias.html">Noticias</a><a href="agenda.html" aria-current="page">Agenda</a><a href="nosotros.html">Nosotros</a><a href="contacto.html">Contacto</a></nav></header>
+<div class="grain" aria-hidden="true"></div>
+<header class="site-header">
+  <a class="wordmark" href="index.html" aria-label="Leviatán, inicio">
+    <span class="wordmark-mark">L</span>
+    <span><b>LEVIATÁN</b><small>DISCOS · CÓMICS · LIBROS</small></span>
+  </a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">MENÚ <span>＋</span></button>
+  <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+    <a href="musica.html">Música</a>
+    <a href="comics.html">Cómics</a>
+    <a href="libros.html">Libros</a>
+    <a href="figuras.html">Objetos</a>
+    <a href="agenda.html" aria-current="page">Agenda</a>
+    <a href="index.html#como-comprar">Cómo comprar</a>
+    <a href="index.html#comanda">Mi pedido</a>
+    <a href="contacto.html" class="nav-contact">Contacto <span>↗</span></a>
+  </nav>
+</header>
 <main class="agenda-main">
   <section class="agenda-hero" aria-labelledby="agenda-title"><div class="agenda-hero__texture" aria-hidden="true"></div><div class="agenda-hero__content"><span class="agenda-eyebrow"><span class="agenda-eyebrow__dot"></span> Leviatán presenta · Argentina 2026 / 2027</span><h1 id="agenda-title">EL METAL<br><em>NO ESPERA.</em></h1><p>La agenda para salir a buscar riffs, distorsión y potencia. Recitales, giras y festivales de la escena nacional e internacional.</p><a class="agenda-hero__cta" href="#fechas">EXPLORAR FECHAS <span aria-hidden="true">↓</span></a></div><div class="agenda-hero__side" aria-hidden="true"><span class="agenda-hero__side-word">LOUD</span><span class="agenda-hero__side-line"></span><span class="agenda-hero__side-small">ROCK · HEAVY · POWER · THRASH · METAL</span></div><div class="agenda-hero__bottomline"><span>SONIDO INTERNACIONAL</span><span class="agenda-hero__bottomline-mark">✳</span><span>ORGULLO NACIONAL</span><span class="agenda-hero__bottomline-mark">✳</span><span>ESCENA EN VIVO</span></div></section>
   <section class="agenda-wrap agenda-next" aria-labelledby="proximo-title"><div class="agenda-section-heading"><div><span class="agenda-kicker">La próxima descarga</span><h2 id="proximo-title">PRÓXIMO SHOW</h2></div><span class="agenda-live-label"><span></span> EN AGENDA</span></div><div id="next-event" class="agenda-next__card"><p class="agenda-loading">Cargando próxima fecha…</p></div></section>
@@ -182,6 +198,29 @@ nav a:hover { border-color: rgba(117,170,176,.25); background: rgba(28,55,59,.42
   </section>
   <section class="agenda-note" aria-label="Información importante"><div class="agenda-note__symbol" aria-hidden="true">!</div><div><h2>ANTES DE SALIR</h2><p>Las fechas, salas, horarios y condiciones de venta pueden cambiar. Confirmá siempre la información y la disponibilidad de entradas en el sitio del artista, la sala, la productora o la ticketera oficial antes de viajar.</p></div></section>
 </main>
-<footer class="footer"><div class="footer-content"><h2>LEVIATÁN COLECCIONABLES</h2><p class="slogan">Historias, música y cultura para coleccionar.</p><a href="#agenda-title" class="agenda-backtop">VOLVER ARRIBA ↑</a></div></footer>
+<footer class="site-footer footer">
+  <a class="footer-brand" href="index.html">LEVIATÁN<span>®</span></a>
+  <div class="footer-motto">EL LEGADO NO SE HEREDA.<br><em>SE CONQUISTA.</em></div>
+  <div class="footer-meta">
+    <span>GENERAL CABRERA · CÓRDOBA</span>
+    <span>FEDERICO GASTÓN SPRATT</span>
+    <span>© LEVIATÁN</span>
+  </div>
+</footer>
+<script>
+const toggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.main-nav');
+
+toggle.addEventListener('click', () => {
+  const open = toggle.getAttribute('aria-expanded') === 'true';
+  toggle.setAttribute('aria-expanded', String(!open));
+  nav.classList.toggle('is-open', !open);
+});
+
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  nav.classList.remove('is-open');
+  toggle.setAttribute('aria-expanded', 'false');
+}));
+</script>
 <script src="js/agenda.js" defer></script>
 </body></html>
