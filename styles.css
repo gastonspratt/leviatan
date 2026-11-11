@@ -55,3 +55,22 @@ a{color:inherit;text-decoration:none}.site-header{height:82px;padding:0 5.5vw;di
   cursor:default;
   opacity:.55;
 }
+
+
+/* PROMOCIÓN GENERAL CABRERA — CATÁLOGO DE MÚSICA */
+
+.music-catalog #resultados .beneficio-local-slot {
+  display: block;
+  width: 100%;
+  margin: 5px 0 10px;
+}
+
+.music-catalog #resultados .beneficio-local-aviso {
+  display: block;
+  color: #d8c5a2;
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
