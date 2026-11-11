@@ -20,6 +20,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <title>Música — Leviatán</title>
 <link rel="stylesheet" href="styles.css">
+
 <style>
 .music-catalog { width:100%; max-width:1600px; margin:0 auto; padding:72px 7vw 110px; }
 .music-heading { display:flex; justify-content:space-between; align-items:end; gap:30px; margin-bottom:34px; }
@@ -46,6 +47,12 @@
 .music-catalog #resultados .precio-container { margin:10px 0 13px; }
 .music-catalog #resultados .precio,
 .music-catalog #resultados .precio-bonificado { display:inline-block; padding:6px 9px; border:1px solid #62553e; background:#191814; color:var(--paper); font:700 16px var(--display); box-shadow:none; }
+
+/* La promoción local de General Cabrera no se muestra en Música. */
+.music-catalog #resultados .beneficio-local-slot {
+    display: none !important;
+}
+
 .music-catalog #resultados .btn-agregar-catalogo {
   display:block; width:100%; margin:0 0 9px; padding:11px 8px;
   border:1px solid #62553e; background:#211d16; color:var(--paper);
@@ -57,8 +64,15 @@
 .music-catalog #resultados .btn-whatsapp { display:block; width:100%; margin-top:auto; padding:11px 8px; border:1px solid #62553e; background:transparent; color:var(--paper); font:9px var(--mono); letter-spacing:.07em; text-align:center; text-transform:uppercase; }
 .music-catalog #resultados .btn-whatsapp:hover { border-color:var(--rust); background:#211612; }
 .music-catalog #resultados .sin-resultados { grid-column:1/-1; padding:40px 20px; border:1px dashed var(--line); color:#a9a18f; text-align:center; }
-@media(max-width:1100px) { .music-catalog #resultados { grid-template-columns:repeat(4,minmax(0,1fr)); } }
-@media(max-width:900px) { .music-heading { display:block; } .music-heading>p { margin:18px 0 0; } .music-catalog #resultados { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+
+@media(max-width:1100px) {
+  .music-catalog #resultados { grid-template-columns:repeat(4,minmax(0,1fr)); }
+}
+@media(max-width:900px) {
+  .music-heading { display:block; }
+  .music-heading>p { margin:18px 0 0; }
+  .music-catalog #resultados { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
 @media(max-width:640px) {
   .music-catalog { padding:80px 22px; }
   .music-search-panel { padding:17px; }
@@ -67,17 +81,23 @@
   .music-catalog #resultados .card-body { min-height:190px; padding:11px; }
   .music-catalog #resultados .card p { font-size:11px; }
 }
-@media(max-width:360px) { .music-catalog #resultados { grid-template-columns:1fr; } }
+@media(max-width:360px) {
+  .music-catalog #resultados { grid-template-columns:1fr; }
+}
 </style>
 </head>
+
 <body data-catalogo="musica">
 <div class="grain" aria-hidden="true"></div>
+
 <header class="site-header">
   <a class="wordmark" href="index.html" aria-label="Leviatán, inicio">
     <span class="wordmark-mark">L</span>
     <span><b>LEVIATÁN</b><small>DISCOS · CÓMICS · LIBROS</small></span>
   </a>
+
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">MENÚ <span>＋</span></button>
+
   <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
     <a href="musica.html" aria-current="page">Música</a>
     <a href="comics.html">Cómics</a>
@@ -89,8 +109,10 @@
     <a href="contacto.html" class="nav-contact">Contacto <span>↗</span></a>
   </nav>
 </header>
+
 <main>
   <section class="music-catalog" id="catalogo" aria-labelledby="music-title">
+
     <div class="music-heading">
       <div>
         <p class="eyebrow"><span class="eyebrow-line"></span> 01 / LA BATEA · MÚSICA</p>
@@ -98,29 +120,56 @@
       </div>
       <p>Buscá por artista, álbum o sello. Cada disco tiene su historia; consultá disponibilidad directamente por WhatsApp.</p>
     </div>
+
     <div class="music-search-panel">
-      <div class="music-search-meta"><span>BUSCAR EN EL CATÁLOGO</span><span>ARTISTA · ÁLBUM · SELLO</span></div>
+      <div class="music-search-meta">
+        <span>BUSCAR EN EL CATÁLOGO</span>
+        <span>ARTISTA · ÁLBUM · SELLO</span>
+      </div>
+
       <label class="music-search" for="buscador">
         <span class="music-search-icon" aria-hidden="true">⌕</span>
         <input id="buscador" type="search" placeholder="Buscar artista, álbum o sello..." autocomplete="off" aria-label="Buscar discos por artista, álbum o sello">
       </label>
     </div>
-    <div class="music-results-label"><span>CATÁLOGO DE MÚSICA</span><span>CONSULTAS POR WHATSAPP</span></div>
+
+    <div class="music-results-label">
+      <span>CATÁLOGO DE MÚSICA</span>
+      <span>CONSULTAS POR WHATSAPP</span>
+    </div>
+
     <div id="resultados" aria-live="polite"></div>
   </section>
 </main>
+
 <footer class="site-footer">
   <a class="footer-brand" href="index.html">LEVIATÁN<span>®</span></a>
   <div class="footer-motto">EL LEGADO NO SE HEREDA.<br><em>SE CONQUISTA.</em></div>
-  <div class="footer-meta"><span>GENERAL CABRERA · CÓRDOBA</span><span>FEDERICO GASTÓN SPRATT</span><span>© LEVIATÁN</span></div>
+  <div class="footer-meta">
+    <span>GENERAL CABRERA · CÓRDOBA</span>
+    <span>FEDERICO GASTÓN SPRATT</span>
+    <span>© LEVIATÁN</span>
+  </div>
 </footer>
+
 <script>
-const toggle=document.querySelector('.menu-toggle');
-const nav=document.querySelector('.main-nav');
-toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));nav.classList.toggle('is-open',!open)});
-nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false')}));
+const toggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.main-nav');
+
+toggle.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    nav.classList.toggle('is-open', !open);
+});
+
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+}));
 </script>
+
 <script src="js/catalogo.js"></script>
 <script src="js/carrito.js"></script>
+
 </body>
 </html>
