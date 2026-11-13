@@ -45,6 +45,11 @@
 .book-cover__mark{color:#b7a98b;font:8px var(--mono);letter-spacing:.16em}
 .book-cover__title{margin:auto 0;color:#e8dfca;font:700 clamp(17px,1.7vw,25px)/.98 var(--display);letter-spacing:.015em;text-transform:uppercase;overflow-wrap:anywhere}
 .book-cover__author{margin-top:14px;color:#b7a98b;font:9px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.book-cover--image{padding:0;background:#080909}
+.book-cover--image:before{display:none}
+.book-cover--image .book-cover__mark,.book-cover--image .book-cover__title,.book-cover--image .book-cover__author{display:none}
+.book-cover__image{position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:contain}
+.precio-consultar{font-size:10px!important;letter-spacing:.04em}
 .books-catalog #resultados .card-body{display:flex;flex:1;min-height:205px;flex-direction:column;padding:14px}
 .books-catalog #resultados .card h3{margin:0 0 8px;color:#b7a98b;font:10px var(--mono);letter-spacing:.08em;line-height:1.5;text-transform:uppercase}
 .books-catalog #resultados .card p{margin:0 0 6px;color:#a9a18f;font-size:12px;line-height:1.55;overflow-wrap:anywhere}
@@ -72,7 +77,7 @@
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">MENÚ <span>＋</span></button>
   <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
     <a href="musica.html">Música</a><a href="comics.html">Cómics</a><a href="libros.html" aria-current="page">Libros</a><a href="figuras.html">Objetos</a>
-    <a href="agenda.html">Agenda</a><a href="index.html#como-comprar">Cómo comprar</a><a href="index.html#comanda">Mi pedido</a><a href="contacto.html" class="nav-contact">Contacto <span>↗</span></a>
+    <a href="agenda.html">Agenda</a><a href="noticias.html">Noticias</a><a href="index.html#comanda">Mi pedido</a><a href="contacto.html" class="nav-contact">Contacto <span>↗</span></a>
   </nav>
 </header>
 <main>
@@ -135,7 +140,12 @@ const libros = [
   {titulo:"Odisea",autor:"Homero",precio:10000},
   {titulo:"Historias fantásticas",autor:"Stephen King",precio:10000},
   {titulo:"Cuentos de Eva Luna",autor:"Isabel Allende",precio:10000},
-  {titulo:"Carcoma",autor:"Layla Martinez",precio:20000}
+  {titulo:"Carcoma",autor:"Layla Martinez",precio:20000},
+  {titulo:"Cumbres borrascosas",autor:"Emily Brontë",precio:null,imagen:"img/libros/bronte-cumbres-borrascosas.webp"},
+  {titulo:"Catedral",autor:"Raymond Carver",precio:null,imagen:"img/libros/carver-catedral.webp"},
+  {titulo:"De qué hablamos cuando hablamos de amor",autor:"Raymond Carver",precio:null,imagen:"img/libros/carver-de-que-hablamos.webp"},
+  {titulo:"Si me necesitas, llámame",autor:"Raymond Carver",precio:null,imagen:"img/libros/carver-si-me-necesitas.webp"},
+  {titulo:"Primer amor, últimos ritos",autor:"Ian McEwan",precio:null,imagen:"img/libros/mcewan-primer-amor.webp"}
 ];
 
 const grid = document.getElementById('resultados');
@@ -155,6 +165,7 @@ function actualizarPreciosLocales(){
     const slot = card.querySelector('.beneficio-local-slot');
     if(!slot) return;
     if(!activo){slot.innerHTML='';return;}
+    if(card.dataset.precio === ''){slot.innerHTML='<span class="beneficio-local-aviso">15% adicional + envío gratis · precio a confirmar</span>';return;}
     const precio = Number(card.dataset.precio);
     const bonificado = precio * 0.85;
     slot.innerHTML = `<span class="beneficio-local-aviso">General Cabrera: ${escapar(pesos(bonificado))} · 15% adicional + envío gratis</span>`;
@@ -167,7 +178,7 @@ function renderizar(){
   const precio = filtro.value;
   const lista = libros.map((libro,index)=>({...libro,index})).filter(libro=>{
     const coincide = normalizar(libro.titulo+' '+libro.autor).includes(consulta);
-    const precioOK = precio==='todos' || (precio==='10000' ? libro.precio<=10000 : libro.precio===20000);
+    const precioOK = precio==='todos' || (libro.precio != null && (precio==='10000' ? libro.precio<=10000 : libro.precio===20000));
     return coincide && precioOK;
   });
   total.textContent = `${lista.length} ${lista.length===1?'LIBRO ENCONTRADO':'LIBROS ENCONTRADOS'}`;
@@ -176,15 +187,19 @@ function renderizar(){
     const titulo = escapar(libro.titulo);
     const autor = escapar(libro.autor || 'Autor no indicado');
     const clave = claveLibro(libro,libro.index);
-    const mensaje = encodeURIComponent(`Hola! Quisiera consultar por este libro: ${libro.titulo}${libro.autor?' — '+libro.autor:''}\nPrecio publicado: ${pesos(libro.precio)}. ¿Está disponible?`);
-    return `<article class="card" data-card="${escapar(clave)}" data-precio="${libro.precio}">
-      <div class="book-cover" role="img" aria-label="Portada gráfica de referencia para ${titulo}"><span class="book-cover__mark">LEVIATÁN / BIBLIOTECA</span><strong class="book-cover__title">${titulo}</strong><span class="book-cover__author">${autor}</span></div>
+    const precioMensaje = libro.precio == null ? 'Precio a consultar' : `Precio publicado: ${pesos(libro.precio)}`;
+    const mensaje = encodeURIComponent(`Hola! Quisiera consultar por este libro: ${libro.titulo}${libro.autor?' — '+libro.autor:''}\n${precioMensaje}. ¿Está disponible?`);
+    return `<article class="card" data-card="${escapar(clave)}" data-precio="${libro.precio ?? ''}">
+      <div class="book-cover ${libro.imagen ? "book-cover--image" : ""}" role="img" aria-label="Portada de ${titulo}">
+        ${libro.imagen ? `<img class="book-cover__image" src="${escapar(libro.imagen)}" alt="Portada de ${titulo}" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.remove('book-cover--image')">` : ""}
+        <span class="book-cover__mark">LEVIATÁN / BIBLIOTECA</span><strong class="book-cover__title">${titulo}</strong><span class="book-cover__author">${autor}</span>
+      </div>
       <div class="card-body">
         <h3>${autor}</h3>
         <p><strong>${titulo}</strong></p>
-        <div class="precio-slot"><span class="precio">${pesos(libro.precio)}</span></div>
+        <div class="precio-slot"><span class="precio ${libro.precio == null ? 'precio-consultar' : ''}">${libro.precio == null ? 'CONSULTAR PRECIO' : pesos(libro.precio)}</span></div>
         <div class="beneficio-local-slot" data-local-precio="${escapar(clave)}"></div>
-        <button type="button" class="btn-agregar-catalogo" data-agregar="${escapar(clave)}" data-tipo="LIBRO" data-titulo="${titulo}" data-autor="${autor==='Autor no indicado'?'':autor}" data-precio="${libro.precio}" data-estado="">AGREGAR A LA COMANDA</button>
+        ${libro.precio == null ? '<p class="precio-consultar">PRECIO A CONFIRMAR</p>' : `<button type="button" class="btn-agregar-catalogo" data-agregar="${escapar(clave)}" data-tipo="LIBRO" data-titulo="${titulo}" data-autor="${autor==='Autor no indicado'?'':autor}" data-precio="${libro.precio}" data-estado="">AGREGAR A LA COMANDA</button>`}
         <a class="btn-whatsapp" href="https://wa.me/${WHATSAPP_NUMERO}?text=${mensaje}" target="_blank" rel="noopener noreferrer">CONSULTAR POR WHATSAPP</a>
       </div>
     </article>`;
