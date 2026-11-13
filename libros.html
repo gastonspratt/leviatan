@@ -19,6 +19,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <title>Libros — Leviatán</title>
 <link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <style>
 .books-catalog{width:100%;max-width:1600px;margin:0 auto;padding:72px 7vw 110px}
 .books-heading{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:34px}
@@ -49,7 +50,17 @@
 .book-cover--image:before{display:none}
 .book-cover--image .book-cover__mark,.book-cover--image .book-cover__title,.book-cover--image .book-cover__author{display:none}
 .book-cover__image{position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:contain}
-.precio-consultar{font-size:10px!important;letter-spacing:.04em}
+.book-cover__image[hidden]{display:none}
+.book-cover__image-fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;padding:20px;color:#a9a18f;font:10px var(--mono);text-align:center}
+.book-cover--image.image-error .book-cover__image-fallback{display:flex}
+.book-data{display:grid;gap:6px;margin:10px 0 4px;padding-top:9px;border-top:1px solid rgba(216,210,194,.12)}
+.book-data__row{display:grid;grid-template-columns:minmax(72px,.8fr) minmax(0,1.5fr);gap:8px;font-size:10px;line-height:1.45;overflow-wrap:anywhere}
+.book-data__label{color:#b7a98b;font:8px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.book-data__value{color:#aaa394}
+.book-cover--loading{background:radial-gradient(ellipse at 50% 35%,#39362e 0,#171815 48%,#080909 100%)}
+.precio-consultar{font-size:11px!important;letter-spacing:.08em}
+.books-loading,.books-error{grid-column:1/-1;padding:34px 20px;border:1px dashed var(--line);color:#a9a18f;text-align:center;font:11px var(--mono);line-height:1.8}
+
 .books-catalog #resultados .card-body{display:flex;flex:1;min-height:205px;flex-direction:column;padding:14px}
 .books-catalog #resultados .card h3{margin:0 0 8px;color:#b7a98b;font:10px var(--mono);letter-spacing:.08em;line-height:1.5;text-transform:uppercase}
 .books-catalog #resultados .card p{margin:0 0 6px;color:#a9a18f;font-size:12px;line-height:1.55;overflow-wrap:anywhere}
@@ -111,104 +122,241 @@ nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   toggle.setAttribute('aria-expanded', 'false');
 }));
 
-const libros = [
-  {titulo:"Enojate hermana",autor:"Malena Pichot",precio:10000},
-  {titulo:"Miseria",autor:"Dolores Reyes",precio:20000},
-  {titulo:"Voces del feminismo rebelde",autor:"",precio:10000},
-  {titulo:"Un cementerio perfecto",autor:"Federico Falco",precio:10000},
-  {titulo:"Las cosas que perdimos en el fuego",autor:"Mariana Enriquez",precio:10000},
-  {titulo:"La vegetariana",autor:"Han Kang",precio:20000},
-  {titulo:"Cadáver exquisito",autor:"Agustina Bazterrica",precio:20000},
-  {titulo:"Veganismo: Práctica de Justicia e Igualdad",autor:"",precio:10000},
-  {titulo:"El cuento de la criada",autor:"Margaret Atwood",precio:20000},
-  {titulo:"Sustancia",autor:"Nina Ferrari",precio:10000},
-  {titulo:"Feminismo y arte",autor:"Andrea Giunta",precio:10000},
-  {titulo:"Las malas",autor:"Camila Sosa Villalda",precio:20000},
-  {titulo:"Cometierra",autor:"Dolores Reyes",precio:20000},
-  {titulo:"La rebelión de las disidencias",autor:"",precio:10000},
-  {titulo:"Visceral",autor:"María Fernanda Ampuero",precio:20000},
-  {titulo:"Toda la vida es ahora",autor:"Emiliano Pinsón",precio:10000},
-  {titulo:"Anarquismo en movimiento",autor:"Tomás Ibáñez",precio:10000},
-  {titulo:"Cuentos",autor:"Edgar Allan Poe",precio:10000},
-  {titulo:"Historia de la filosofía",autor:"Arthur Schopenhauer",precio:10000},
-  {titulo:"Factotum",autor:"Charles Bukowski",precio:10000},
-  {titulo:"El capitán salió a comer...",autor:"Charles Bukowski",precio:10000},
-  {titulo:"La trilogía de Nueva York",autor:"Paul Auster",precio:10000},
-  {titulo:"La naranja mecánica",autor:"Anthony Burgess",precio:10000},
-  {titulo:"1888 - 1935",autor:"Fernando Pessoa",precio:10000},
-  {titulo:"Las mil y una noches",autor:"Selección",precio:10000},
-  {titulo:"Odisea",autor:"Homero",precio:10000},
-  {titulo:"Historias fantásticas",autor:"Stephen King",precio:10000},
-  {titulo:"Cuentos de Eva Luna",autor:"Isabel Allende",precio:10000},
-  {titulo:"Carcoma",autor:"Layla Martinez",precio:20000},
-  {titulo:"Cumbres borrascosas",autor:"Emily Brontë",precio:null,imagen:"img/libros/bronte-cumbres-borrascosas.webp"},
-  {titulo:"Catedral",autor:"Raymond Carver",precio:null,imagen:"img/libros/carver-catedral.webp"},
-  {titulo:"De qué hablamos cuando hablamos de amor",autor:"Raymond Carver",precio:null,imagen:"img/libros/carver-de-que-hablamos.webp"},
-  {titulo:"Si me necesitas, llámame",autor:"Raymond Carver",precio:null,imagen:"img/libros/carver-si-me-necesitas.webp"},
-  {titulo:"Primer amor, últimos ritos",autor:"Ian McEwan",precio:null,imagen:"img/libros/mcewan-primer-amor.webp"}
-];
+const URL_LIBROS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR_LPxA_j_r4zr2_LJAlf03uqkXrW2uj1dZE-diFxU8TD0ta0uh5_CFFoZdmbPVdCAJfg6dOfyjWVgt/pub?gid=198644870&single=true&output=csv';
+const WHATSAPP_NUMERO = '5493584283858';
+const LOCAL_KEY = 'leviatan_cabrera_local_v1';
+let libros = [];
+let columnasLibro = {titulo:null, autor:null, precio:null, estado:null, imagen:null};
+let seleccionInicial = [];
+let librosConPortada = [];
 
 const grid = document.getElementById('resultados');
 const buscar = document.getElementById('buscador');
 const filtro = document.getElementById('filtro-precio');
 const total = document.getElementById('libros-total');
-const WHATSAPP_NUMERO = '5493584283858';
-const LOCAL_KEY = 'leviatan_cabrera_local_v1';
 const pesos = valor => new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(Number(valor)||0);
-const normalizar = valor => String(valor||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const normalizar = valor => String(valor??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const normalizarClave = valor => normalizar(valor).replace(/[^a-z0-9]/g,'');
 const escapar = valor => String(valor??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-const claveLibro = (libro,index) => `libro_${index}_${normalizar(libro.titulo+'_'+libro.autor).replace(/[^a-z0-9]+/g,'_')}`;
+const claveLibro = libro => `libro_${normalizarClave(libro.titulo+'_'+libro.autor)}`;
+
+function parsearPrecio(valor){
+  if(valor===null || valor===undefined || String(valor).trim()==='') return null;
+  let texto=String(valor).trim().replace(/[^0-9,.-]/g,'');
+  if(!texto) return null;
+  if(texto.includes(',') && texto.includes('.')){
+    texto=texto.lastIndexOf(',')>texto.lastIndexOf('.') ? texto.replace(/\./g,'').replace(',','.') : texto.replace(/,/g,'');
+  }else if(/^-?\d{1,3}[.,]\d{3}$/.test(texto)){
+    texto=texto.replace(/[.,]/g,'');
+  }else if(texto.includes(',')){
+    texto=texto.replace(/\./g,'').replace(',','.');
+  }else if((texto.match(/\./g)||[]).length>1){
+    texto=texto.replace(/\./g,'');
+  }
+  const numero=Number(texto);
+  return Number.isFinite(numero) && numero>0 ? numero : null;
+}
+
+function buscarColumna(encabezados, alternativas, expresion){
+  const normalizados=encabezados.map(nombre=>({nombre,clave:normalizarClave(nombre)}));
+  for(const alternativa of alternativas){
+    const clave=normalizarClave(alternativa);
+    const exacta=normalizados.find(x=>x.clave===clave);
+    if(exacta) return exacta.nombre;
+  }
+  if(expresion){
+    const aproximada=normalizados.find(x=>expresion.test(x.clave));
+    if(aproximada) return aproximada.nombre;
+  }
+  return null;
+}
+
+function valorColumna(fila, columna){
+  return columna ? String(fila[columna]??'').trim() : '';
+}
+
+function detectarColumnas(encabezados){
+  columnasLibro={
+    titulo:buscarColumna(encabezados,['Título','Titulo','Título del libro','Nombre del libro','Libro','Nombre','Obra','Producto'],/(titulo|libro|obra|producto|nombre)/),
+    autor:buscarColumna(encabezados,['Autor','Autora','Autor/a','Escritor','Escritora','Autor del libro'],/(autor|escritor)/),
+    precio:buscarColumna(encabezados,['Precio','Precio de venta','Precio venta','Precio final','Importe','Valor'],/(precio|importe|valor)/),
+    estado:buscarColumna(encabezados,['Estado','Disponibilidad','Stock','Situación','Situacion'],/(estado|disponibilidad|stock|situacion)/),
+    imagen:buscarColumna(encabezados,['Imagen','Portada','Foto','URL imagen','Imagen URL','Foto URL'],/(imagen|portada|foto|urlimagen|urlportada)/)
+  };
+}
+
+const PORTADAS_LOCALES = [
+  {archivo:'img/libros/bronte-cumbres-borrascosas.webp',match:/cumbresborrascosas|emilybronte/},
+  {archivo:'img/libros/carver-catedral.webp',match:/^catedral|carver.*catedral/},
+  {archivo:'img/libros/carver-de-que-hablamos.webp',match:/dequehablamos|hablamosdeamor/},
+  {archivo:'img/libros/carver-si-me-necesitas.webp',match:/simenecesitas|llamame.*carver/},
+  {archivo:'img/libros/mcewan-primer-amor.webp',match:/primeramorultimosritos|ianmcewan/},
+  // Estos cuatro nombres corresponden a archivos que se están incorporando a img/libros/.
+  {archivo:'img/libros/chejov-cuentos-imprescindibles.webp',match:/chejov.*cuentosimprescindibles|cuentosimprescindibles.*chejov/},
+  {archivo:'img/libros/cuentos-cabrera.webp',match:/cuentoscabrera|cabrera.*cuentos/},
+  {archivo:'img/libros/pinson-toda-la-vida.webp',match:/todalavidaesahora|emilianopinson/},
+  {archivo:'img/libros/fox-no-hay-mejor.webp',match:/nohaymejor|fox/}
+];
+
+function obtenerPortada(libro){
+  const imagenHoja=String(libro.imagen||'').trim();
+  const imagenNormalizada=normalizarClave(imagenHoja);
+  const imagenEsMarcador=!imagenHoja || ['sinportada','sinimagen','sindatos','na','n/a','-'].includes(imagenNormalizada);
+  if(!imagenEsMarcador){
+    if(/^https?:\/\//i.test(imagenHoja)) return imagenHoja;
+    if(imagenHoja.startsWith('img/')) return imagenHoja;
+    if(imagenHoja.startsWith('libros/')) return `img/${imagenHoja}`;
+    return `img/libros/${imagenHoja}`;
+  }
+  const firma=normalizarClave(`${libro.titulo} ${libro.autor}`);
+  const encontrada=PORTADAS_LOCALES.find(item=>item.match.test(firma));
+  return encontrada ? encontrada.archivo : '';
+}
+
+function normalizarLibro(fila, indice){
+  const titulo=valorColumna(fila,columnasLibro.titulo);
+  if(!titulo) return null;
+  const autor=valorColumna(fila,columnasLibro.autor);
+  const precio=parsearPrecio(valorColumna(fila,columnasLibro.precio));
+  const estado=valorColumna(fila,columnasLibro.estado);
+  const imagen=valorColumna(fila,columnasLibro.imagen);
+  const campos=Object.entries(fila)
+    .map(([nombre,valor])=>({nombre:String(nombre).trim(),valor:String(valor??'').trim()}))
+    .filter(campo=>campo.nombre && campo.valor);
+  return {titulo,autor,precio,estado,imagen,campos,indice,filaOriginal:fila};
+}
+
+function mezclar(lista){
+  const copia=[...lista];
+  for(let i=copia.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copia[i],copia[j]]=[copia[j],copia[i]];}
+  return copia;
+}
+
+
+function validarPortadas(lista){
+  return Promise.all(lista.map(libro=>new Promise(resolve=>{
+    const url=obtenerPortada(libro);
+    if(!url){resolve(null);return;}
+    const imagen=new Image();
+    imagen.onload=()=>{libro.portada=url;resolve(libro);};
+    imagen.onerror=()=>resolve(null);
+    imagen.src=url;
+  }))).then(resultados=>resultados.filter(Boolean));
+}
+
+function actualizarFiltroPrecios(){
+  const seleccionActual=filtro.value;
+  const precios=[...new Set(librosConPortada.map(libro=>libro.precio).filter(precio=>precio!==null))].sort((a,b)=>a-b);
+  filtro.innerHTML='<option value="todos">TODOS LOS PRECIOS</option>'+precios.map(precio=>`<option value="${precio}">${escapar(pesos(precio))}</option>`).join('');
+  if(precios.includes(Number(seleccionActual))) filtro.value=seleccionActual;
+}
 
 function actualizarPreciosLocales(){
-  const activo = localStorage.getItem(LOCAL_KEY) === 'true';
-  document.querySelectorAll('.books-catalog #resultados .card[data-precio]').forEach(card => {
-    const slot = card.querySelector('.beneficio-local-slot');
+  const activo=localStorage.getItem(LOCAL_KEY)==='true';
+  document.querySelectorAll('.books-catalog #resultados .card[data-precio]').forEach(card=>{
+    const slot=card.querySelector('.beneficio-local-slot');
     if(!slot) return;
     if(!activo){slot.innerHTML='';return;}
-    if(card.dataset.precio === ''){slot.innerHTML='<span class="beneficio-local-aviso">15% adicional + envío gratis · precio a confirmar</span>';return;}
-    const precio = Number(card.dataset.precio);
-    const bonificado = precio * 0.85;
-    slot.innerHTML = `<span class="beneficio-local-aviso">General Cabrera: ${escapar(pesos(bonificado))} · 15% adicional + envío gratis</span>`;
+    if(card.dataset.precio===''){
+      slot.innerHTML='<span class="beneficio-local-aviso">15% adicional + envío gratis · precio a confirmar</span>';
+      return;
+    }
+    const bonificado=Number(card.dataset.precio)*0.85;
+    slot.innerHTML=`<span class="beneficio-local-aviso">General Cabrera: ${escapar(pesos(bonificado))} · 15% adicional + envío gratis</span>`;
   });
 }
 document.addEventListener('leviatan:local-change',actualizarPreciosLocales);
 
 function renderizar(){
-  const consulta = normalizar(buscar.value.trim());
-  const precio = filtro.value;
-  const lista = libros.map((libro,index)=>({...libro,index})).filter(libro=>{
-    const coincide = normalizar(libro.titulo+' '+libro.autor).includes(consulta);
-    const precioOK = precio==='todos' || (libro.precio != null && (precio==='10000' ? libro.precio<=10000 : libro.precio===20000));
-    return coincide && precioOK;
-  });
-  total.textContent = `${lista.length} ${lista.length===1?'LIBRO ENCONTRADO':'LIBROS ENCONTRADOS'}`;
-  if(!lista.length){grid.innerHTML='<div class="sin-resultados">No se encontraron libros con esa búsqueda.</div>';return;}
-  grid.innerHTML = lista.map(libro=>{
-    const titulo = escapar(libro.titulo);
-    const autor = escapar(libro.autor || 'Autor no indicado');
-    const clave = claveLibro(libro,libro.index);
-    const precioMensaje = libro.precio == null ? 'Precio a consultar' : `Precio publicado: ${pesos(libro.precio)}`;
-    const mensaje = encodeURIComponent(`Hola! Quisiera consultar por este libro: ${libro.titulo}${libro.autor?' — '+libro.autor:''}\n${precioMensaje}. ¿Está disponible?`);
-    return `<article class="card" data-card="${escapar(clave)}" data-precio="${libro.precio ?? ''}">
-      <div class="book-cover ${libro.imagen ? "book-cover--image" : ""}" role="img" aria-label="Portada de ${titulo}">
-        ${libro.imagen ? `<img class="book-cover__image" src="${escapar(libro.imagen)}" alt="Portada de ${titulo}" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.remove('book-cover--image')">` : ""}
-        <span class="book-cover__mark">LEVIATÁN / BIBLIOTECA</span><strong class="book-cover__title">${titulo}</strong><span class="book-cover__author">${autor}</span>
+  const consulta=normalizarClave(buscar.value.trim());
+  const filtroPrecio=filtro.value;
+  let lista;
+  if(!consulta && filtroPrecio==='todos'){
+    lista=seleccionInicial;
+  }else{
+    lista=librosConPortada.filter(libro=>{
+      const busqueda=normalizarClave(libro.campos.map(campo=>`${campo.nombre} ${campo.valor}`).join(' '));
+      const coincide=busqueda.includes(consulta);
+      const precioOK=filtroPrecio==='todos' || (libro.precio!==null && Number(filtroPrecio)===libro.precio);
+      return coincide && precioOK;
+    });
+  }
+  total.textContent=consulta || filtroPrecio!=='todos'
+    ? `${lista.length} ${lista.length===1?'LIBRO ENCONTRADO CON PORTADA':'LIBROS ENCONTRADOS CON PORTADA'}`
+    : '5 LIBROS DESTACADOS · SELECCIÓN ALEATORIA';
+  if(!lista.length){grid.innerHTML='<div class="sin-resultados">No se encontraron libros con portada para esa búsqueda.</div>';return;}
+  grid.innerHTML=lista.map(libro=>{
+    const titulo=escapar(libro.titulo);
+    const autor=escapar(libro.autor||'Autor no indicado');
+    const clave=claveLibro(libro);
+    const precioAtributo=libro.precio===null?'':String(libro.precio);
+    const precioTexto=libro.precio===null?'CONSULTAR PRECIO':pesos(libro.precio);
+    const precioMensaje=libro.precio===null?'Precio a confirmar':pesos(libro.precio);
+    const mensaje=encodeURIComponent(`Hola! Quisiera consultar por este libro: ${libro.titulo}${libro.autor?' — '+libro.autor:''}\n${precioMensaje}. ¿Está disponible?`);
+    const portada=escapar(libro.portada || obtenerPortada(libro));
+    const datos=libro.campos.map(campo=>`<div class="book-data__row"><span class="book-data__label">${escapar(campo.nombre)}</span><span class="book-data__value">${escapar(campo.valor)}</span></div>`).join('');
+    const sinPrecio=libro.precio===null;
+    const estado=libro.estado||'';
+    return `<article class="card" data-card="${escapar(clave)}" data-precio="${precioAtributo}">
+      <div class="book-cover book-cover--image" role="img" aria-label="Portada de ${titulo}">
+        <img class="book-cover__image" src="${portada}" alt="Portada de ${titulo}" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('image-error')">
+        <span class="book-cover__image-fallback">PORTADA NO DISPONIBLE</span>
       </div>
       <div class="card-body">
         <h3>${autor}</h3>
         <p><strong>${titulo}</strong></p>
-        <div class="precio-slot"><span class="precio ${libro.precio == null ? 'precio-consultar' : ''}">${libro.precio == null ? 'CONSULTAR PRECIO' : pesos(libro.precio)}</span></div>
+        <div class="precio-slot"><span class="precio ${sinPrecio?'precio-consultar':''}">${precioTexto}</span></div>
         <div class="beneficio-local-slot" data-local-precio="${escapar(clave)}"></div>
-        ${libro.precio == null ? '<p class="precio-consultar">PRECIO A CONFIRMAR</p>' : `<button type="button" class="btn-agregar-catalogo" data-agregar="${escapar(clave)}" data-tipo="LIBRO" data-titulo="${titulo}" data-autor="${autor==='Autor no indicado'?'':autor}" data-precio="${libro.precio}" data-estado="">AGREGAR A LA COMANDA</button>`}
+        <div class="book-data">${datos}</div>
+        <button type="button" class="btn-agregar-catalogo" data-agregar="${escapar(clave)}" data-tipo="LIBRO" data-titulo="${titulo}" data-autor="${autor==='Autor no indicado'?'':autor}" data-precio="${precioAtributo}" data-estado="${escapar(estado)}" ${sinPrecio?'disabled title="Precio pendiente de confirmar"':''}>${sinPrecio?'PRECIO A CONFIRMAR':'AGREGAR A LA COMANDA'}</button>
         <a class="btn-whatsapp" href="https://wa.me/${WHATSAPP_NUMERO}?text=${mensaje}" target="_blank" rel="noopener noreferrer">CONSULTAR POR WHATSAPP</a>
       </div>
     </article>`;
   }).join('');
   actualizarPreciosLocales();
 }
+
+function cargarCatalogo(){
+  if(!window.Papa){grid.innerHTML='<div class="books-error">No se pudo iniciar el lector de la planilla. Recargá la página.</div>';return;}
+  total.textContent='CARGANDO CATÁLOGO DESDE GOOGLE SHEETS';
+  grid.innerHTML='<div class="books-loading">LEYENDO LA BIBLIOTECA DE LEVIATÁN…</div>';
+  Papa.parse(URL_LIBROS,{
+    download:true,
+    header:true,
+    skipEmptyLines:true,
+    transformHeader:header=>String(header||'').trim(),
+    complete:resultado=>{
+      const filas=(resultado.data||[]).filter(fila=>fila && Object.values(fila).some(valor=>String(valor??'').trim()));
+      if(!filas.length){grid.innerHTML='<div class="books-error">La pestaña de libros no devolvió registros. Revisá que esté publicada para la web.</div>';total.textContent='CATÁLOGO NO DISPONIBLE';return;}
+      detectarColumnas(Object.keys(filas[0]));
+      if(!columnasLibro.titulo){
+        grid.innerHTML='<div class="books-error">No pude identificar la columna del título en la pestaña de libros. Los encabezados originales se conservaron, pero hace falta ajustar el nombre del campo.</div>';
+        total.textContent='REVISAR ENCABEZADO DE TÍTULO';
+        console.error('Columnas recibidas en la hoja de libros:',Object.keys(filas[0]));
+        return;
+      }
+      libros=filas.map(normalizarLibro).filter(Boolean);
+      validarPortadas(libros).then(conPortada=>{
+        librosConPortada=conPortada;
+        seleccionInicial=mezclar(librosConPortada).slice(0,5);
+        actualizarFiltroPrecios();
+        console.log('Libros leídos desde Google Sheets:',libros.length);
+        console.log('Libros con portada verificada:',librosConPortada.length);
+        console.log('Columnas originales:',Object.keys(filas[0]));
+        renderizar();
+      });
+    },
+    error:error=>{
+      console.error('No se pudo cargar la pestaña de libros:',error);
+      grid.innerHTML='<div class="books-error">No se pudo leer la planilla de Google Sheets. Revisá la publicación CSV y volvé a cargar la página.</div>';
+      total.textContent='ERROR AL CARGAR EL CATÁLOGO';
+    }
+  });
+}
+
 buscar.addEventListener('input',renderizar);
 filtro.addEventListener('change',renderizar);
-renderizar();
+cargarCatalogo();
 </script>
 <script src="js/carrito.js"></script>
 </body>
