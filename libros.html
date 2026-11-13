@@ -53,6 +53,8 @@
 .book-cover__image[hidden]{display:none}
 .book-cover__image-fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;padding:20px;color:#a9a18f;font:10px var(--mono);text-align:center}
 .book-cover--image.image-error .book-cover__image-fallback{display:flex}
+.book-cover--generated{background:radial-gradient(ellipse at 50% 35%,#39362e 0,#171815 48%,#080909 100%)}
+.book-cover__notice{position:relative;z-index:1;margin-top:12px;color:#a79d88;font:7px/1.5 var(--mono);letter-spacing:.08em;text-align:center}
 .book-data{display:grid;gap:6px;margin:10px 0 4px;padding-top:9px;border-top:1px solid rgba(216,210,194,.12)}
 .book-data__row{display:grid;grid-template-columns:minmax(72px,.8fr) minmax(0,1.5fr);gap:8px;font-size:10px;line-height:1.45;overflow-wrap:anywhere}
 .book-data__label{color:#b7a98b;font:8px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase}
@@ -246,7 +248,8 @@ function validarPortadas(lista){
 
 function actualizarFiltroPrecios(){
   const seleccionActual=filtro.value;
-  const precios=[...new Set(librosConPortada.map(libro=>libro.precio).filter(precio=>precio!==null))].sort((a,b)=>a-b);
+  // Los filtros se construyen con TODO el inventario, no solo con los libros que tienen portada.
+  const precios=[...new Set(libros.map(libro=>libro.precio).filter(precio=>precio!==null))].sort((a,b)=>a-b);
   filtro.innerHTML='<option value="todos">TODOS LOS PRECIOS</option>'+precios.map(precio=>`<option value="${precio}">${escapar(pesos(precio))}</option>`).join('');
   if(precios.includes(Number(seleccionActual))) filtro.value=seleccionActual;
 }
@@ -272,19 +275,21 @@ function renderizar(){
   const filtroPrecio=filtro.value;
   let lista;
   if(!consulta && filtroPrecio==='todos'){
+    // La portada se exige únicamente para los cinco destacados de la vista inicial.
     lista=seleccionInicial;
   }else{
-    lista=librosConPortada.filter(libro=>{
+    // La búsqueda y los filtros recorren todas las filas de Google Sheets, tengan portada o no.
+    lista=libros.filter(libro=>{
       const busqueda=normalizarClave(libro.campos.map(campo=>`${campo.nombre} ${campo.valor}`).join(' '));
-      const coincide=busqueda.includes(consulta);
+      const coincide=!consulta || busqueda.includes(consulta);
       const precioOK=filtroPrecio==='todos' || (libro.precio!==null && Number(filtroPrecio)===libro.precio);
       return coincide && precioOK;
     });
   }
   total.textContent=consulta || filtroPrecio!=='todos'
-    ? `${lista.length} ${lista.length===1?'LIBRO ENCONTRADO CON PORTADA':'LIBROS ENCONTRADOS CON PORTADA'}`
+    ? `${lista.length} ${lista.length===1?'LIBRO ENCONTRADO':'LIBROS ENCONTRADOS'}`
     : '5 LIBROS DESTACADOS · SELECCIÓN ALEATORIA';
-  if(!lista.length){grid.innerHTML='<div class="sin-resultados">No se encontraron libros con portada para esa búsqueda.</div>';return;}
+  if(!lista.length){grid.innerHTML='<div class="sin-resultados">No se encontraron libros para esa búsqueda.</div>';return;}
   grid.innerHTML=lista.map(libro=>{
     const titulo=escapar(libro.titulo);
     const autor=escapar(libro.autor||'Autor no indicado');
@@ -293,15 +298,16 @@ function renderizar(){
     const precioTexto=libro.precio===null?'CONSULTAR PRECIO':pesos(libro.precio);
     const precioMensaje=libro.precio===null?'Precio a confirmar':pesos(libro.precio);
     const mensaje=encodeURIComponent(`Hola! Quisiera consultar por este libro: ${libro.titulo}${libro.autor?' — '+libro.autor:''}\n${precioMensaje}. ¿Está disponible?`);
-    const portada=escapar(libro.portada || obtenerPortada(libro));
+    const portadaOriginal=libro.portada || obtenerPortada(libro);
+    const portada=escapar(portadaOriginal);
     const datos=libro.campos.map(campo=>`<div class="book-data__row"><span class="book-data__label">${escapar(campo.nombre)}</span><span class="book-data__value">${escapar(campo.valor)}</span></div>`).join('');
     const sinPrecio=libro.precio===null;
     const estado=libro.estado||'';
+    const visualPortada=portadaOriginal
+      ? `<div class="book-cover book-cover--image" role="img" aria-label="Portada de ${titulo}"><img class="book-cover__image" src="${portada}" alt="Portada de ${titulo}" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('image-error')"><span class="book-cover__image-fallback">PORTADA NO DISPONIBLE</span></div>`
+      : `<div class="book-cover book-cover--generated" role="img" aria-label="Ficha tipográfica de catálogo, sin portada original: ${titulo}"><span class="book-cover__mark">LEVIATÁN / SIN PORTADA</span><strong class="book-cover__title">${titulo}</strong><span class="book-cover__author">${autor}</span><span class="book-cover__notice">FICHA DE CATÁLOGO · NO ES LA TAPA ORIGINAL</span></div>`;
     return `<article class="card" data-card="${escapar(clave)}" data-precio="${precioAtributo}">
-      <div class="book-cover book-cover--image" role="img" aria-label="Portada de ${titulo}">
-        <img class="book-cover__image" src="${portada}" alt="Portada de ${titulo}" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('image-error')">
-        <span class="book-cover__image-fallback">PORTADA NO DISPONIBLE</span>
-      </div>
+      ${visualPortada}
       <div class="card-body">
         <h3>${autor}</h3>
         <p><strong>${titulo}</strong></p>
@@ -342,6 +348,7 @@ function cargarCatalogo(){
         actualizarFiltroPrecios();
         console.log('Libros leídos desde Google Sheets:',libros.length);
         console.log('Libros con portada verificada:',librosConPortada.length);
+        console.log('Libros sin portada visible en búsqueda:',libros.length-librosConPortada.length);
         console.log('Columnas originales:',Object.keys(filas[0]));
         renderizar();
       });
